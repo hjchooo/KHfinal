@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="followMapper">
+	<!-- 팔로우 신청 -->
+	<insert id="insertFollow" parameterType="FollowDTO">
+		insert into follow
+		values(follow_seq.nextval, #{follow_id}, #{follower_id}
+		,
+		1, sysdate)
+	</insert>
+
+	<!-- 언팔로우 -->
+	<delete id="deleteFollow" parameterType="FollowDTO">
+		delete from follow
+		where
+		follow_id = #{follow_id}
+		and follower_id = #{follower_id}
+	</delete>
+
+	<!-- 팔로우 체크 -->
+	<select id="findFollow" parameterType="FollowDTO"
+		resultType="FollowDTO">
+		select *
+		from follow
+		where follow_id=#{follow_id} and
+		follower_id=#{follower_id}
+	</select>
+
+	<!-- 팔로우 DB테크 -->
+	<select id="checkFollow" parameterType="FollowDTO"
+		resultType="FollowDTO">
+		select * from follow
+		where follow_id = #{follow_id}
+		and follower_id = #{follower_id}
+	</select>
+
+</mapper>

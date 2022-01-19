@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="replyMapper">
+		<!-- 댓글 삭제 -->
+		<delete id="deleteReply" parameterType="int">
+			delete from reply 
+				where reply_seq = ${reply_seq}
+		</delete>
+	
+		<!-- 댓글 수정 -->
+		<update id="modifyReply" parameterType="map">
+			update reply set 
+				re_content = #{re_content} 
+			where reply_seq = #{reply_seq}
+		</update>
+	
+		<!-- 댓글 추가 -->
+		<insert id="insertReply" parameterType="ReplyDTO">
+			insert into reply
+				values(reply_seq.nextval, #{re_board_seq}, #{re_content}, #{reply_writer_id}
+					,#{reply_writer_nickname}, sysdate)
+		</insert>
+	
+		<!-- 댓글 전체 조회 -->
+		<select id="selectAll" resultType="ReplyDTO">
+			select * from reply 
+				where re_board_seq = #{re_board_seq}
+		</select>
+		
+		<!-- 댓글 정보 조회 -->
+		<select id="selectById" resultType="ReplyDTO">
+			select * from reply where re_board_seq = #{re_board_seq}
+		</select>
+		
+		<!-- 댓글 총 개수 조회 -->
+		<select id="countAll" resultType="int">
+			select count(*) from reply
+		</select>
+		
+		<!-- 댓글 페이지네이션 -->
+		<select id="getReplyPageList" resultType="ReplyDTO">
+			select * from (select row_number() over(order by re_board_seq desc) 순위, a.* from reply a)
+				where 순위 between #{startRange} and #{endRange}
+		</select> 
+	</mapper>

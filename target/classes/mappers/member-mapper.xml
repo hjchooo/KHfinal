@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberMapper">
+	<!-- 로그인 -->
+	<select id="login" parameterType="map" resultType="int">
+		select
+		count(*) from member where id=#{id} and pw=#{pw}
+	</select>
+
+	<!-- 멤버 정보 id로 가져오기 -->
+	<select id="getMember" resultType="MemberDTO">
+		select * from member where id
+		= #{id}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="MemberDTO">
+		insert into member
+		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate)
+	</insert>
+
+	<!-- ID 중복 확인 -->
+	<select id="verifyID" resultType="int">
+		select count(*) from member
+		where id = #{id}
+	</select>
+
+	<!-- nickname 확인 -->
+	<select id="verifyNickname" resultType="int">
+		select count(*) from member
+		where nickname = #{nickname}
+	</select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- datasource -->
+	<bean id="bds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="username" value="final" />
+		<property name="password" value="final" />
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="initialSize" value="30" />
+	</bean>
+
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="bds" />
+		<property name="configLocation"
+			value="classPath:mybatis-config.xml" />
+		<property name="mapperLocations"
+			value="classpath*:mappers/*.xml" />
+
+	</bean>
+
+	<!-- sqlSession bean 등록 (sqlSession 빈을 생성자 주입) -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- Google mail설정 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" /> <!-- 메이서버 호스트 -->
+		<property name="port" value="587" /> <!-- 메이서버 포트번호 -->
+		<property name="username" value="jp1005guest@gmail.com" /> <!-- 자신의 이메일 아이디 -->
+		<property name="password" value="!@-vulcan0695" /> <!-- 자신의 비밀번호 -->
+		<!-- 보안연결 SSL과 관련된 설정 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.checkserveridentity">true</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

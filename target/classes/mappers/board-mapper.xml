@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boardMapper">
+	<!-- 게시판 리스트 가져오기 -->
+<!-- 	<select id="selectAll" resultType="BoardDTO">
+		select * from board
+	</select>
+ -->
+	<!-- 게시판 상세보기 -->
+	<select id="selectOne" resultType="BoardDTO">
+		select * from board where
+		board_seq = #{board_seq}
+	</select>
+
+	<!-- 게시판 전체 데이터 수 가져오기 -->
+	<select id="countAll" resultType="int">
+		select count(*) from board
+	</select>
+
+	<!-- 게시글 등록 -->
+	<insert id="insertBoard" parameterType="BoardDTO">
+		insert into board
+		values(
+		#{board_seq}, #{title}, #{content},
+		#{writer_id}, #{writer_nickname},
+		#{category}, #{secret}, #{secretPw}, sysdate, 0)
+	</insert>
+
+	<!-- 게시판 시퀀스값 불러오기 -->
+	<select id="selectSeq" resultType="int">
+		select board_seq.nextval from
+		dual
+	</select>
+
+	<!-- 게시판 리스트 가져오기 -->
+	<select id="selectAll" resultType="BoardDTO" parameterType="map">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a) where 순위 between #{startRange}and #{endRange}
+	</select>
+
+	<!-- 게시판 리스트 조건별로 가져오기 -->
+	<select id="selectAllOption" resultType="BoardDTO"
+		parameterType="map">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a) where 순위 between #{startRange}and #{endRange}
+		<trim>
+			<if test="selectOption == 'new'">
+			</if>
+			<if test="selectOption == 'view_count'">
+				order by view_count desc
+			</if>
+			<if test="selectOption == 'like_count'">
+				order by like_count desc
+			</if>
+		</trim>
+	</select>
+
+	<!-- 조회수 +1 -->
+	<update id="updateView_count">
+		update board set view_count = view_count+1 where
+		board_seq = #{board_seq}
+	</update>
+
+	<!-- 게시판 전체 데이터 수 가져오기 -->
+<!-- 	<select id="countAll" resultType="int">
+		select count(*) from board
+	</select> -->
+
+	<!-- 게시판 전체 데이터 수 검색별로 가져오기 -->
+	<select id="countAllOption" resultType="int" parameterType="map">
+		select count(*) from board
+		<trim prefix="where">
+			<if test="select != 'all'">
+				${select} like '%' || #{keyword} || '%'
+			</if>
+			<if test="select == 'all'">
+				(content like '%' || #{keyword} || '%'
+				or title like '%'
+				|| #{keyword} || '%'
+				or writer_nickname like '%' || #{keyword} ||
+				'%')
+			</if>
+		</trim>
+	</select>
+
+	<!-- 게시판 검색 -->
+	<select id="searchBoard" resultType="BoardDTO"
+		parameterType="map">
+		select * from (select row_number() over (order by board_seq desc)
+		순위,a. * from board a) where 순위 between #{startRange} and #{endRange}
+		<trim prefix="and">
+			<if test="select != 'all'">
+				${select} like '%' || #{keyword} || '%'
+			</if>
+
+			<if test="select == 'all'">
+				(content like '%' || #{keyword} || '%'
+				or title like '%'
+				|| #{keyword} || '%'
+				or writer_nickname like '%' || #{keyword} ||
+				'%')
+			</if>
+		</trim>
+	</select>
+
+	<!-- 게시글 신고 -->
+	<insert id="report" parameterType="ReportDTO">
+		insert into report
+		values(report_seq.nextval, #{report_value}, #{report_type},
+		#{report_writer_id},
+		#{reported_person}, #{report_content})
+	</insert>
+
+	<!-- 게시글 삭제 -->
+	<delete id="deleteBySeq">
+		delete from board where board_seq = #{board_seq}
+	</delete>
+
+	<!-- 게시글 수정 -->
+	<update id="modifyBySeq" parameterType="BoardDTO">
+		update board set title =
+		#{title}, content = #{content} where board_seq =
+		#{board_seq}
+	</update>
+
+</mapper>
