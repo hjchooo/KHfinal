@@ -37,8 +37,12 @@ public class ReplyDAO {
 	}
 	
 	// 댓글 전체 조회
-	public List<ReplyDTO> selectAll(int re_board_seq) throws Exception {
-		return session.selectList("replyMapper.selectAll", re_board_seq);
+	public List<ReplyDTO> selectAll(int re_board_seq, int startRange, int endRange) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("re_board_seq", re_board_seq);
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("replyMapper.selectAll", map);
 	}
 	
 	// 댓글 정보 조회
@@ -57,7 +61,7 @@ public class ReplyDAO {
 	}
 	
 	// 댓글 총 개수
-	public int countAll() throws Exception {
-		return session.selectOne("replyMapper.countAll");
+	public int countAll(int re_board_seq) throws Exception {
+		return session.selectOne("replyMapper.countAll", re_board_seq);
 	}
 }

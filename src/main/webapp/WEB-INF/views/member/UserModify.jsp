@@ -18,6 +18,7 @@
 <style type="text/css">
 
 /**/
+
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
@@ -243,6 +244,8 @@ a {
 }
 
 /**/
+
+
 label {
 	font-size: 10px;
 	font-style: italic;
@@ -271,8 +274,8 @@ label {
 			<div class="col-1"></div>
 			<div class="col-2">
 				<p>
-					<a href="${pageContext.request.contextPath}/"> <img
-						class="main_logo_size" src="/resources/images/go_logo_type.png">
+					<a href="${pageContext.request.contextPath}/"> <img class="main_logo_size"
+						src="/resources/images/go_logo_type.png">
 					</a>
 				</p>
 			</div>
@@ -288,12 +291,15 @@ label {
 			</div>
 			<div class="col-3">
 				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-					<span class="navi_text"> 회원가입 </span>
-				</a> &nbsp; &nbsp; <a
-					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
-					class="navi_text"> 로그인 </span>
-				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
-				</span>
+				<span class="navi_text"> 회원가입 </span>
+				</a>
+				&nbsp; &nbsp; 
+				<a href="${pageContext.request.contextPath}/member/toLogin.do">
+				<span class="navi_text"> 로그인 </span> 
+				</a>
+				&nbsp; &nbsp; 
+				<a href="">
+				<span class="navi_text"> 마이페이지 </span>
 				</a>
 			</div>
 
@@ -304,79 +310,43 @@ label {
 	<div class="container-fluid">
 		<hr style="border: solid 2px lightgray">
 	</div>
-
-
+	
+	
 
 	<div class="container w-50">
-		<form action="${pageContext.request.contextPath}/member/joinus.do"
-			id="JoinusForm" method="post">
+		<form action="${pageContext.request.contextPath}/member/toModify.do"
+			id="toModifyForm" method="post">
 
 			<!-- 해당 페이지 타이틀 -->
 			<div class="row mb-5">
 				<div class="col d-flex justify-content-center">
-					<h3>회원가입</h3>
+					<h3>회원정보 수정</h3>
 				</div>
 			</div>
 
 			<!-- ID 영역 -->
 			<div class="row mb-2">
 				<label for="ID">아이디</label>
-				<div class="col-9">
+				<div class="col-12">
 					<input type="text" class="form-control" id="id" name="id"
-						placeholder="" maxlength="20" required="required">
+						placeholder="Your ID" maxlength="20" required="required" value="${dto.id}" readonly>
 				</div>
 
-				<div class="col-3">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyId">ID 중복확인</button>
-				</div>
-
-				<div class="row mb-1">
-					<div class="col" id="res_id"></div>
-				</div>
-			</div>
 
 			<!-- ID 영역 끝 -->
 
-			<!-- PW 영역 -->
-			<div class="row mb-2">
-				<label for="PW">비밀번호</label>
-				<div class="col">
-					<input type="password" class="form-control" id="pw" name="pw"
-						placeholder="" maxlength="20" required="required">
-				</div>
-
-				<div class="row mb-1">
-					<div class="col" id="res_pw"></div>
-				</div>
-			</div>
-
-			<div class="row mb-2">
-				<label for="PW_confirm">비밀번호 재확인</label>
-				<div class="col">
-					<input type="password" class="form-control" id="confirmPw"
-						maxlength="20" required="required">
-				</div>
-
-				<div class="row mb-1">
-					<div class="col" id="res_confirmPw"></div>
-				</div>
-			</div>
-
-			<!-- PW 영역 끝 -->
 
 			<!-- Nickname 영역 -->
 			<div class="row mb-2">
-				<label for="Nickname">닉네임</label>
+				<label for="Nickname">Nickname</label>
 				<div class="col-8">
 					<input type="text" class="form-control" id="nickname"
-						name="nickname" placeholder="" maxlength="20"
-						required="required">
+						name="nickname" placeholder="Your Nickname" maxlength="20" required="required">
 				</div>
 
 				<div class="col-4">
 					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyNickname">닉네임 중복확인</button>
+						id="btnVerifyNickname">verifyNickname</button>
 				</div>
 
 				<div class="row mb-1">
@@ -388,67 +358,51 @@ label {
 
 			<!-- E-mail 영역 -->
 			<div class="row mb-2">
-				<label for="E-mail">이메일</label>
-				<div class="col-8">
-					<input type="email" class="form-control" id="email" name="email"
-						placeholder="이메일" required="required">
+				<label for="E-mail">E-mail</label>
+				<div class="col-12">
+					<input type="email" class="form-control" id="Email"
+						name="email" placeholder="Your E-mail" required="required" value="${dto.email}">
 				</div>
 
-				<div class="col-4 d-flex justify-content-center">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnCertificate_code">인증번호 발송</button>
-				</div>
 			</div>
-
+			
 			<div class="row mb-2">
 				<div class="col" id="res_email"></div>
-			</div>
-
-			<div class="row mb-2">
-				<div class="col-4">
-					<input type="text" class="form-control" id="code_Input"
-						placeholder="인증번호" disabled="disabled" maxlength="6"
-						required="required">
-				</div>
-
-				<div class="col-8" id="Res_Emailvalidation"
-					style="vertical-align: middle;"></div>
 			</div>
 
 			<!-- E-mail 영역 끝 -->
 
 			<!-- Address 영역 -->
 			<div class="row mb-2 justify-content-center">
-				<label for="Address">주소</label>
+				<label for="Address">Address</label>
 				<div class="col-6 d-flex justify-content-end">
 					<input type="text" class="form-control" id="Postcode"
-						name="Postcode" placeholder="(우편번호)">
+						name="Postcode" placeholder="Postcode">
 				</div>
 
 				<div class="col-6 d-flex justify-content-center">
 					<button type="button" class="btn btn-dark w-100"
-						onclick="ExecDaumPostcode()">우편번호 찾기</button>
+						onclick="ExecDaumPostcode()">Find Postcode</button>
 				</div>
 			</div>
 
 			<div class="row mb-2 justify-content-center">
 				<div class="col">
 					<input type="text" class="form-control" id="RoadAddress"
-						name="RoadAddress" placeholder="도로명주소">
+						name="RoadAddress" placeholder="Road Address">
 				</div>
 			</div>
 
 			<div class="row mb-2 justify-content-center">
 				<div class="col">
 					<input type="text" class="form-control" id="DetailAddress"
-						name="DetailAddress" placeholder="상세주소">
+						name="DetailAddress" placeholder="Detail Address">
 				</div>
 			</div>
-
+			
 			<div class="row mb-2 justify-content-center">
 				<div class="col">
-					<input type="text" class="form-control" id="Address" name="Address"
-						style="display: none;" required="required">
+					<input type="text" class="form-control" id="Address" name="Address" style="display: none;" required="required">
 				</div>
 			</div>
 
@@ -457,7 +411,7 @@ label {
 			<!-- 가입, 취소 -->
 			<div class="row justify-content-center">
 				<div class="col-4 d-flex justify-content-end">
-					<button type="button" class="btn btn-success" id="btnSuccess">확인</button>
+					<button type="button" class="btn btn-success" id="btnModify">수정</button>
 				</div>
 
 				<div class="col-4 d-flex justify-content-start">
@@ -493,143 +447,9 @@ label {
 
 	</footer>
 
-
+	
 	<script>
 	<!-- script area -->
-	<!-- 아이디 -->
-	/*__________ID__________*/
-		let id = document.getElementById("id");
-		let btnVerifyID = document.getElementById("btnVerifyId");
-		let ResID = $("#res_id");
-
-		//	regexID (통과하면 true, 실패면 false)
-		function regexID() {
-			const RegexID = /^[a-z0-9]{5,19}$/; //	ID는 영문 소문자, 숫자로 시작하며 6~20자 이내로 (영문 대문자 시작 불가능)
-
-			return RegexID.test(id.value); //	ID의 값을 RegexID 정규식을 통해 통과면 true, 불통과면 false
-		}
-
-		//	ID 입력창을 벗어날 때 regex검사 (Verify 버튼과 겹침)
-		id.onchange = function(e) {
-			if (!regexID()) { //	RegexID에 위배되면 ID 결과창에 아래처럼 출력
-				ResID.html("6~20자의 영문 소문자, 숫자만 사용가능 합니다.");
-				ResID.css({
-					"font-size" : "10px",
-					"color" : "red"
-				});
-
-				id.value = ""; //	입력값 지움
-			}
-		}
-
-		//	중복검사 클릭시 메서드
-		btnVerifyID.onclick = function(e) {
-			if (regexID()) {
-				$.ajax({
-					url : "${pageContext.request.contextPath}/member/VerifyID.do",
-					type : "post",
-					data : {id : id.value}
-				}).done(function(res) { //	res : result
-					console.log(res);
-
-					if (res == "Available") {
-						ResID.html("멋진 아이디네요!");
-						ResID.css({
-							"font-size" : "10px",
-							"color" : "green"
-						});
-						console.log(id.value);
-					} else if (res == "Unavailable") {
-						ResID.html("이미 사용중인 아이디입니다.");
-						ResID.css({
-							"font-size" : "10px",
-							"color" : "red"
-						});
-
-					}
-				}).fail(function(e) {
-					console.log(e);
-				});
-				
-			}
-		}
-		
-
-	<!-- PW -->
-		/*__________PW__________*/
-		let pw = document.getElementById("pw");
-		let ResPW = $("#res_pw");
-		let PWconfirm = document.getElementById("confirmPw");
-		let ResPWconfirm = $("#res_confirmPw");
-
-		//	regexPW (통과 : true, 불통 : false)
-		function regexPW() {
-			const RegexPW = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/; //	PW는 영문 대.소문자, 숫자, 특수문자가 반드시 포함되어야 하고 8~20자 이내로.
-
-			return RegexPW.test(pw.value);
-		}
-
-		//	PW입력창을 떠났을 때 Regex 검사
-		pw.onchange = function(e) {
-			console.log(pw.value);
-
-			if (!regexPW()) { //	RegexPW에 위배시 아래 출력
-				ResPW.html("8~20자의 영문 대.소문자, 숫자, 특수문자를 사용하세요.");
-				ResPW.css({
-					"font-size" : "10px",
-					"color" : "red"
-				});
-
-				pw.value = ""; //	값 지움
-
-			} else if (regexPW()) { //	보안 단계
-				if ((regexPW() == true && pw.value.length >= 8)
-						&& (regexPW() == true && pw.value.length <= 10)) {
-					ResPW.html("보안 : 낮음");
-					ResPW.css({
-						"font-size" : "10px",
-						"color" : "yellow"
-					});
-					
-				} else if ((regexPW() == true && pw.value.length > 11)
-						&& (regexPW() == true && pw.value.length <= 13)) {
-					ResPW.html("보안 : 중간");
-					ResPW.css({
-						"font-size" : "10px",
-						"color" : "gray"
-					});
-					
-				} else if ((regexPW() == true && pw.value.length > 14)
-						&& (regexPW() == true && pw.value.length <= 20)) {
-					ResPW.html("보안 : 강력");
-					ResPW.css({
-						"font-size" : "10px",
-						"color" : "green"
-					});
-					
-				}
-			}
-		}
-
-		//	PW_Confirm 창에 값이 PW창에서 입력한 값과 일치하는지 여부 확인
-		PWconfirm.onchange = function(e) {
-			if (pw.value === PWconfirm.value) { //	엄격한 비교 : 값과 자료형이 둘다 일치하는가
-				ResPWconfirm.html("비밀번호가 일치합니다.");
-				ResPWconfirm.css({
-					"font-size" : "10px",
-					"color" : "green"
-				});
-				
-			} else if (pw.value !== PWconfirm.value) {
-				ResPWconfirm.html("비밀번호가 일치하지 않습니다. <br> 다시 입력하세요.");
-				ResPWconfirm.css({
-					"font-size" : "10px",
-					"color" : "red"
-				});
-
-				PWconfirm.value = "";
-			}
-		}
 
 	<!-- 닉네임 -->
 		/*__________Nickname__________*/
@@ -662,19 +482,19 @@ label {
 				$.ajax({
 					url : "${pageContext.request.contextPath}/member/VerifyNickname.do",
 					type : "post",
-					data : {nickname : nickname.value}
+					data : {nickname : nickname.value}	//	'strNickname'라는 key에 name속성의 값이 strNickname을(= Nickname) value 취급해서 비동기 처리
 				}).done(function(res) { //	res : result
 					console.log(res);
 
 					if (res == "Available") {
-						ResNickname.html("사용 가능한 닉네임입니다.");
+						ResNickname.html("사용 가능한 Nickname 입니다.");
 						ResNickname.css({
 							"font-size" : "10px",
 							"color" : "green"
 						});
 
 					} else if (res == "Unavailable") {
-						ResNickname.html("이미 사용중인 닉네임입니다.");
+						ResNickname.html("사용 불가능한 Nickname 입니다.");
 						ResNickname.css({
 							"font-size" : "10px",
 							"color" : "red"
@@ -688,87 +508,7 @@ label {
 			}
 		}
 		
-		/* Nickname 단점 : abc로 설정한 사람과 Abc로 설정한 사람이 다름 */
-
-	<!-- 이메일 -->
-		/*__________이메일__________*/
-		let email = document.getElementById("email");	//	이메일 입력 input창
-		let btnCertificatecode = document.getElementById("btnCertificate_code");	//	인증번호 발송 버튼
-		let ResEmail = $("#res_email");	//	이메일이 제대로 입력됐는지 확인을 알려주는 결과를 담아줄 변수
-		let codeInput = $("#code_Input");	//	인증번호 입력 input창
-		let code = "";	//	이메일 인증코드 저장을 위한 변수
-		let ResEmailvalidation = $("#Res_Emailvalidation");	//	입력한 인증번호가 맞는지 틀린지 알려주는 결과를 담아줄 변수
-
-		//	E-mail regex (정규식 문구 올바른지 검증 필요)
-		function regexEmail() {
-			const RegexEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-
-			return RegexEmail.test(email.value);
-		}
-
-		//	E-mail 입력창을 벗어났을 때 정규식 검사
-		email.onchange = function(e) {
-			if (!regexEmail()) {
-				ResEmail.html("이메일이 정확하지 않습니다.");
-				ResEmail.css({
-					"font-size" : "10px",
-					"color" : "red"
-				});
-
-			}
-		}
-
-		//	인증번호 발송을 눌렀을때
-		btnCertificatecode.onclick = function(e) {
-			if (regexEmail()) { //	regex를 통과해야 비로소 중복 검사 실행
-				
-				ResEmail.html("인증번호를 보냈습니다");
-				ResEmail.css({
-					"font-size" : "10px",
-					"color" : "green"
-				});
-				
-				$.ajax({
-					url : "${pageContext.request.contextPath}/member/CertificateCode.do", 
-					type : "post", 
-					data : {email : email.value}, 
-					success : function(data) {
-						//	console.log("data : " + data);	//	인증번호 값이 잘 넘어왔나 확인
-						
-						codeInput.attr("disabled", false);	//	disabled를 풀어버림
-						
-						code = data;	//	코드를 담음
-						console.log(code);
-					}
-				}).done(function(data) {
-					//	console.log(data);
-				}).fail(function(e) {
-					console.log(e);
-				});
-
-			}
-		}
-		
-		codeInput.change(function(e) {
-			if (codeInput.val() === code) {
-				ResEmailvalidation.html("인증번호가 일치합니다.");
-				ResEmailvalidation.css({
-					"font-size" : "15px",
-					"color" : "green"
-				});
-				
-				codeInput.attr("disabled", true);
-				
-			} else if (codeInput.val() !== code) {
-				ResEmailvalidation.html("인증번호가 불일치합니다.");
-				ResEmailvalidation.css({
-					"font-size" : "15px",
-					"color" : "red"
-				});
-
-			}
-		});
-		
+		/*Nickname 단점 : abc로 설정한 사람과 Abc로 설정한 사람이 다름 => 해결 가능하다면 하고싶음*/
 
 	<!-- 우편번호 -->
 		/*__________Postcode__________*/
@@ -838,26 +578,18 @@ label {
 
 	<!-- Cancel, Registry -->
 		//	가입 (Registry)를 눌렀을 때 가입
-		document.getElementById("btnSuccess").onclick = function(e) {
-			if (id.value === "" || !regexID()) {
-				alert("아이디를 입력 해주세요.");
-				
-				return;
-			} else if (pw.value === "" || !regexPW()) {
-				alert("비밀번호를 입력 해주세요.");
-				
-				return;
-			} else if (nickname.value === "" || !regexNickname()) {
+		document.getElementById("btnModify").onclick = function(e) {
+			if (nickname.value == "") {
 				alert("닉네임을 입력 해주세요.");
 				
 				return;
-			} else if (email.value === "" || !regexEmail()) {
-				alert("이메일을 입력 해주세요.");
+			} else if (Email.value == "") {
+				alert("E-mail을 입력 해주세요.");
 				
 				return;
 			} else {
 				document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
-				document.getElementById("JoinusForm").submit();
+				document.getElementById("toModifyForm").submit();
 			}
 		}
 	

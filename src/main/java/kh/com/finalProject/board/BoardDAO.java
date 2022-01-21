@@ -30,6 +30,15 @@ public class BoardDAO {
 		return session.selectList("boardMapper.selectAll", map);
 	}
 	
+	// 게시판 인기순으로 보기
+		public List<BoardDTO> orderByPopular(String popular, int startRange, int endRange) throws Exception{
+			HashMap<String, Object> map = new HashMap<>();
+			map.put("popular", popular);
+			map.put("startRange", startRange);
+			map.put("endRange", endRange);
+			return session.selectList("boardMapper.orderByPopular", map);
+		}
+	
 	// 게시판 리스트 조건별로 가져오기
 	public List<BoardDTO> selectAllOption(String selectOption, int startRange, int endRange) throws Exception{
 		HashMap<String, Object> map = new HashMap<>();
@@ -55,10 +64,10 @@ public class BoardDAO {
 	}
 	
 	// 게시판 검색
-	public List<BoardDTO> searchBoard(String select, String keywrod, int startRange, int endRange) throws Exception{
+	public List<BoardDTO> searchBoard(String searchType, String keywrod, int startRange, int endRange) throws Exception{
 		System.out.println("게시판 검색");
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("select", select);
+		map.put("select", searchType);
 		map.put("keyword", keywrod);
 		map.put("startRange", startRange);
 		map.put("endRange", endRange);

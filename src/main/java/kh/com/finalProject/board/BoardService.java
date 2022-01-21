@@ -39,7 +39,15 @@ public class BoardService {
 		}
 		return list;
 	}
-
+	
+	// 게시판 인기순으로 보기
+		public List<BoardDTO> orderByPopular(String popular, int currentPage) throws Exception{
+			int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+			int endRange = currentPage * recordCntPerPage;
+			List<BoardDTO> list = dao.orderByPopular(popular, startRange, endRange);
+			return list;
+		}
+		
 	// 게시판 조건별로 가져오기
 	public List<BoardDTO> selectAllOption(String selectOption, int currentPage) throws Exception {
 		System.out.println("게시판 조건별로 가져오기");
@@ -161,11 +169,11 @@ public class BoardService {
 	}
 
 	// 게시판 검색
-	public List<BoardDTO> searchBoard(String select, String keyword, int currentPage) throws Exception {
+	public List<BoardDTO> searchBoard(String searchType, String keyword, int currentPage) throws Exception {
 		System.out.println("게시판 검색");
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
-		List<BoardDTO> list = dao.searchBoard(select, keyword, startRange, endRange);
+		List<BoardDTO> list = dao.searchBoard(searchType, keyword, startRange, endRange);
 		for (BoardDTO dto : list) {
 			System.out.println("�˻� ���" + dto.toString());
 		}
@@ -173,34 +181,19 @@ public class BoardService {
 	}
 
 	// 게시글 등록
-	public int insertBoard(BoardDTO dto, MultipartFile[] files, String realPath) throws Exception {
+	public int insertBoard(BoardDTO dto) throws Exception {
 		System.out.println("게시글 등록 서비스");
 		int board_seq = dao.selectSeq();
 		System.out.println(board_seq);
 
 		// 1. 게시글 등록
 		dto.setBoard_seq(board_seq); // 게시글에 게시글 번호 셋팅
-		dao.insertBoard(dto);
+		int rs = dao.insertBoard(dto);
 
-		// 2. 파일 테이블에 파일 정보 등록
-		// 경로가 없다면 만들어주는 작업
-		File filePath = new File(realPath);
-		if (!filePath.exists())
-			filePath.mkdir();
-
-		for (MultipartFile file : files) { // 파일 리스트 출력
-			if (!file.isEmpty()) { // 파일이 비어 있지 않다면
-				String ori_name = file.getOriginalFilename();
-
-				// 파일 복사후 저장 UUID : 랜덤 이름 저장
-				String sys_name = UUID.randomUUID() + "_" + ori_name;
-
-				// separator : 윈도우마다 저장 다를때 써주는 메서드
-				file.transferTo(new File(realPath + File.separator + sys_name));
-				fdao.insertFile(new FileDTO(0, board_seq, ori_name, sys_name));
-			}
+		if (rs != -1) {
+			return rs;
 		}
-		return 0;
+		return -1;
 	}
 
 	// 게시글 seq 연동

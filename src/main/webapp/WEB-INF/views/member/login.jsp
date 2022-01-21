@@ -15,7 +15,6 @@
 <title>Log-In</title>
 <style>
 /**/
-
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
@@ -236,9 +235,7 @@ a {
 
 /**/
 
-
 /* 푸터 */
-
 .foot_container {
 	background-color: rgb(187, 248, 255);
 	padding-top: 50px;
@@ -264,8 +261,8 @@ a {
 			<div class="col-1"></div>
 			<div class="col-2">
 				<p>
-					<a href="${pageContext.request.contextPath}/"> <img class="main_logo_size"
-						src="/resources/images/go_logo_type.png">
+					<a href="${pageContext.request.contextPath}/"> <img
+						class="main_logo_size" src="/resources/images/go_logo_type.png">
 					</a>
 				</p>
 			</div>
@@ -281,15 +278,12 @@ a {
 			</div>
 			<div class="col-3">
 				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-				<span class="navi_text"> 회원가입 </span>
-				</a>
-				&nbsp; &nbsp; 
-				<a href="${pageContext.request.contextPath}/member/toLogin.do">
-				<span class="navi_text"> 로그인 </span> 
-				</a>
-				&nbsp; &nbsp; 
-				<a href="">
-				<span class="navi_text"> 마이페이지 </span>
+					<span class="navi_text"> 회원가입 </span>
+				</a> &nbsp; &nbsp; <a
+					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
+					class="navi_text"> 로그인 </span>
+				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
+				</span>
 				</a>
 			</div>
 
@@ -327,10 +321,19 @@ a {
 
 			<div class="row mb-3 justify-content-center">
 				<div class="col-6">
-					<label>
-						<input type="checkbox" class="form-check-input" id="rememberId" name="rememberId">
-						ID 기억하기
+					<label> <input type="checkbox" class="form-check-input"
+						id="rememberId" name="rememberId"> ID 기억하기
 					</label>
+				</div>
+			</div>
+
+			<div class="row mb-3 justify-content-center">
+				<div class="col-4 d-flex justify-content-end">
+					<a href="#" class="link-primary" id="findID">아이디 찾기</a>
+				</div>				
+				/
+				<div class="col-4 d-flex justify-content-start">
+					<a href="#" class="link-info" id="findPW">비밀번호 찾기</a>
 				</div>
 			</div>
 
@@ -346,7 +349,7 @@ a {
 		</form>
 
 		<div class="row mb-1 justify-content-center">
-			<div class="col d-flex justify-content-end">
+			<div class="col d-flex justify-content-start">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-question-circle"
 					viewBox="0 0 16 16">
@@ -357,18 +360,18 @@ a {
 				</svg>
 			</div>
 
-			<div class="col-12 d-flex justify-content-center">
+			<div class="col-6 d-flex justify-content-end">
 				<label for="" style="font-size: 5px;">회원이 아니신가요?</label>
 			</div>
 		</div>
 
-		<div class="row justify-content-center">
+		<div class="row mb-3 justify-content-center">
 			<div class="col-6">
 				<button type="button" class="btn btn-primary w-100" id="btnJoinus">회원가입</button>
 			</div>
 		</div>
 	</div>
-	
+
 	<!--푸터 css에는 foot으로 표기-->
 	<footer>
 		<div class="container-fluid foot_container">
@@ -410,7 +413,7 @@ a {
 				if (rs == "성공") {
 					location.href = "${pageContext.request.contextPath}/";
 				} else if (rs == "실패") {
-					alert("아이디 혹은 비밀번호가 일치 하지않습니다.");
+					alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
 				}
 			}).fail(function(e) {
 			console.log(e);
@@ -462,6 +465,25 @@ a {
 		         
 		    }
 
+		// 아이디 찾기
+		document.getElementById("findID").onclick = function(e) {
+			let url = "${pageContext.request.contextPath}/member/tofindID.do";
+			let name = "아이디 찾기";
+			let option = "width = 500, height = 300, top = 50";
+			
+			window.open(url, name, option);
+		}
+		
+		//	비밀번호 찾기 (이메일을 입력하면 임시비밀번호가 갈 예정)
+		document.getElementById("findPW").onclick = function(e) {
+			let url = "${pageContext.request.contextPath}/member/tofindPW.do";
+			let name = "비밀번호 찾기";
+			let option = "width = 500, height = 300, top = 50";
+			
+			window.open(url, name, option);
+		}
+		
+		    
 		// 뒤로가기
 		document.getElementById("btnBack").onclick = function(e) {
 			location.href = "${pageContext.request.contextPath}/";

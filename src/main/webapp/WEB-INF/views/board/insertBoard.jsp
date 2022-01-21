@@ -2,11 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -16,6 +14,11 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
@@ -23,6 +26,12 @@
 <script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
 <link rel="stylesheet"
 	href="/resources/css/summernote/summernote-lite.css">
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+	});
+</script>
 <title>글쓰기</title>
 <!--  <link href="/resources/css/insertBoard.css" rel="stylesheet"/>   -->
 <style>
@@ -34,6 +43,7 @@
 .insertContainer {
 	width: 800px;
 	margin: auto;
+	margin-top: 50px;
 }
 /* 제목 */
 h1 {
@@ -66,19 +76,19 @@ h1 {
 	border-bottom: 1px solid lightgray;
 }
 
+textarea.autosize {
+	min-height: 50px;
+}
+
 /* ========== 내용 입력 영역 ========== */
 </style>
 </head>
 
 <body>
+	<div id="header"></div>
+
 	<div class="insertContainer">
-		<div class="row">
-			<div class="col-12 d-flex justify-content-center">
-				<h1>여행 커뮤니티</h1>
-			</div>
-			<div class="col-12 d-flex justify-content-center mt-2"
-				style="color: #2d0174">당신의 여행기를 들려주세요</div>
-		</div>
+
 
 		<!-- ==================== 게시글 추가 영역 ==================== -->
 		<form id="insertForm" method="post"
@@ -105,7 +115,7 @@ h1 {
 					</div>
 					<div class="col-10">
 						<label id="secretBox"> <input class="form-check-input"
-							type="checkbox" id="secret" name="secret" value=""> <span>비밀글</span>
+							type="checkbox" id="secret" name="secret"> <span>비밀글</span>
 						</label>
 					</div>
 				</div>
@@ -115,11 +125,11 @@ h1 {
 						<label>작성자</label>
 					</div>
 					<div class="col-5">
-						<input type="text" class="content form-control"
-							id="writer_nickname" name="writer_nickname" value="abc123"
-							style="background-color: transparent;" readonly> <input
-							type="text" class="content form-control" id="writer_id"
-							name="writer_id" value="abc123" hidden>
+						<input type="text" class="content form-control" id="writer_id"
+							name="writer_id" value="${loginSession.id}"
+							style="background-color: transparent;border:none;border-bottom:1px solid lightgray;" readonly> <input
+							type="text" class="content form-control" id="writer_nickname"
+							name="writer_nickname" value="${loginSession.nickname}" hidden>
 					</div>
 				</div>
 				<!-- 비밀번호 -->
@@ -170,6 +180,8 @@ h1 {
 		</form>
 	</div>
 
+	<div id="footer" class="mt-5"></div>
+
 	<script>
 	/*
 		$('#summernote').summernote({
@@ -198,39 +210,39 @@ h1 {
 		*/
 		// 썸머노트 이미지 업로드
 		 $('#summernote').summernote({
-				height: 300,
-				width : 1000,
-				minHeight: null,
-				maxHeight: null,
-				focus: true,
-				lang: "ko-KR",
-				callbacks: {
-					onImageUpload : function(files){
-						for(let file of files){
-							sendFile(file);
-						}
+			height: 500,
+			width : 800,
+			minHeight: null,
+			maxHeight: null,
+			focus: true,
+			lang: "ko-KR",
+			callbacks: {
+				onImageUpload : function(files){
+					for(let file of files){
+						sendFile(file);
 					}
-				} 
-			});
+				}
+			} 
+		});
 			
 		// 썸머노트 이미지 업로드
-			function sendFile(file){
-				var data = new FormData();
-				data.append("file", file);
-				console.log(file);
-				$.ajax({
-					data : data,
-					type : "POST",
-					url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
-					contentType : false,
-					processData : false
-				}).done(function(data){
-					console.log(data);
-					$("#summernote").summernote("insertImage",data.path);
-				}).fail(function(e){
-					console.log(e);
-				});				
-			}
+		function sendFile(file){
+			var data = new FormData();
+			data.append("file", file);
+			console.log(file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
+				contentType : false,
+				processData : false
+			}).done(function(data){
+				console.log(data);
+				$("#summernote").summernote("insertImage",data.path);
+			}).fail(function(e){
+				console.log(e);
+			});				
+		}
 
 		// 서머노트에 text 쓰기
 		$('#summernote').summernote('insertText', "써머노트에 쓸 텍스트");
@@ -254,7 +266,10 @@ h1 {
 			}
 			e.preventDefault();
 		})
-
+		
+		
+		let secret = $("#secret").val("N");
+		
 		// 체크박스 선택시 readonly 해제
 		$(function() {
 			$("#secret").change(function() {
@@ -262,12 +277,17 @@ h1 {
 				let secret = $("#secret");
 				if (rs) {
 					$("#secretPw").prop("readonly", false);
+					secret = "Y";
+					console.log(secret);
 				} else {
 					$("#secretPw").prop("readonly", true);
+					console.log(secret);
 				}
 			});
 		});
-
+		
+		
+		
 		// 게시글 등록 버튼 
 		$("#btnInsert").on(	"click",function() {
 			if ($("#title").val() == "") {

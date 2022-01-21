@@ -1,5 +1,6 @@
 package kh.com.finalProject.member;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -10,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -46,6 +48,37 @@ public class MemberController {
 
 		return "member/joinus";
 	}
+	
+	// 로그아웃
+		@RequestMapping("/toLogout.do")
+		public String toLogout() {
+			session.removeAttribute("loginSession");
+			System.out.println("로그아웃");
+			return "home";
+		}
+		
+		// 마이페이지로 이동
+		@RequestMapping("/toMyPage.do")
+		public String tomyPage(Model model, String id) throws Exception {
+			MemberDTO dto = service.getMember(id);
+			model.addAttribute("dto",dto);
+			return "member/myPage";
+		}
+	
+	// 아이디 찾기 (팝업창 띄움)
+	@RequestMapping("/tofindID.do")
+	public String findID() {
+		
+		return "member/findID";
+	}
+	
+	//	비밀번호 찾기 (팝업창 띄움)
+	@RequestMapping("/tofindPW.do")
+	public String findPW() {
+		
+		return "member/findPW";
+	}
+	
 
 	// 로그인
 	@RequestMapping(value = "/toLogin", produces = "text/html;charset=UTF-8")
@@ -53,14 +86,27 @@ public class MemberController {
 	// text/plain;charset=ISO-8859-1 : 한글 인식이 안되서 따로 매핑값에 추가 해줘야함
 	// -> ajax 로 결과값 보내줄때 한글로 변환후 보내주는 매개변수
 	public String login(String id, String pw) throws Exception {
-		System.out.println(id + " : " + pw);
-		if (service.login(id, pw)) {
-			MemberDTO dto = service.getMember(id);
-			System.out.println("controller dto : " + dto);
-			session.setAttribute("loginSession", dto);
-			return "성공";
+		System.out.println("ID : " + id + "\n" 
+				+ "PW : " + pw);
+		MemberDTO dto = service.getMember(id);
+		if (dto.getId() != null) {
+			String rawPW = pw;
+			String encodePW = dto.getPw();
+			
+			System.out.println("rawPW : " + rawPW + "\n" 
+					+ "encodePW : " + encodePW);
+			
+			if (pwEncoder.matches(rawPW, encodePW)) {
+				session.setAttribute("loginSession", dto);
+				
+				return "성공";
+			} else {
+				
+				return "실패";
+			}
 		} else {
-			return "실패";
+			
+			return "fail";
 		}
 	}
 
@@ -93,8 +139,8 @@ public class MemberController {
 	// 이메일 인증
 	@RequestMapping("/CertificateCode.do")
 	@ResponseBody()
-	public String check(String strEmail) throws Exception {
-		System.out.println("Email : " + strEmail); // 이메일이 잘 넘어왔나 확인
+	public String check(String email) throws Exception {
+		System.out.println("Email : " + email); // 이메일이 잘 넘어왔나 확인
 
 		// 인증번호 난수 생성
 		Random random = new Random();
@@ -104,7 +150,7 @@ public class MemberController {
 		// 이메일 보내기
 		String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
 														// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
-		String strToMail = strEmail; // 수신받을 이메일
+		String strToMail = email; // 수신받을 이메일
 		String strTitle = "Email verification for membership registration"; // 자신이 보낼 이메일 제목
 		String strContent = "Code : " + iCheckNum; // 자신이 보낼 이메일 내용
 
@@ -144,5 +190,52 @@ public class MemberController {
 
 		return "home";
 	}
+	
+	//	아이디 찾기
+	@RequestMapping("/findID.do")
+	@ResponseBody()
+	public List<MemberDTO> findID(String email) throws Exception {
+		System.out.println("email : " + email);
+		
+		return service.findID(email);
+		
+	}
+	
+	// 회원탈퇴
+			@RequestMapping(value = "/delete.do")
+			public String delete(String id) throws Exception {
+				System.out.println(id);
+				service.delete(id);
+				return "/";
+			}
+			// 회원정보 수정 페이지 이동
+			@RequestMapping(value = "/modify.do")
+			public String modify(String id, Model model) throws Exception {
+				// 회원정보를 수정 페이지에 전달
+				MemberDTO dto = service.getMember(id);
+				System.out.println(dto);
+				model.addAttribute("dto", dto);
+				return "member/UserModify";
+			}
+			// 회원정보 수정
+			@RequestMapping(value="/toModify.do")
+			public String toModify(MemberDTO dto) throws Exception {
+				System.out.println("toModify");
+				//수정된 회원정보 update
+				int rs = service.toModify(dto);
+				if(rs != -1) {
+					System.out.println("회원정보가 수정되었습니다.");
+				}
+				return "redirect:myPage.do";
+			}
+			
+			//쪽지 보내기 팝업창 , 회원조회
+			@RequestMapping(value="/note.do")
+			public String note(Model model) throws Exception {
+				System.out.println("note 팝업 controller 도착");
+				List<MemberDTO> list = service.selectAll();
+				model.addAttribute("list", list);
+				return "member/note";
+			}
 
 }
