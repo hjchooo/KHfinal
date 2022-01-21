@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -17,8 +20,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+	});
+</script>
 <title>Go 가자</title>
 <style>
 @import
@@ -342,59 +349,7 @@ a {
 
 <body>
 	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img class="main_logo_size"
-						src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img" src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="sign_up.html"><span class="navi_text"> 회원가입 </span></a>
-				&nbsp; &nbsp; <a href="login.html"><span class="navi_text">
-						로그인 </span> </a>&nbsp; &nbsp; <a href=""><span class="navi_text">
-						마이페이지 </span></a>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-
-	<!-- 메인 메뉴-->
-	<div class="container">
-		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-3">
-				<a href=""></a>
-				<h5 class="navi_category">여행 커뮤니티</h5>
-			</div>
-			<div class="col-2">
-				<a href=""></a>
-				<h5 class="navi_category">홈</h5>
-			</div>
-			<div class="col-3">
-				<a href=""></a>
-				<h5 class="navi_category">여행 정보</h5>
-			</div>
-			<div class="col-2"></div>
-		</div>
-	</div>
+	<div id="header"></div>
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
 	<div class="container-fluid">
@@ -474,15 +429,15 @@ a {
 
 				<!-- 검색 영역 -->
 				<div class="row mt-2">
-					<div class="col-10 d-flex jusitfy-content-center">
-						<select id="select" name="select" class="form-select">
-							<option value="all" selected="selected">전체</option>
-							<option value="content">내용</option>
-							<option value="title">제목</option>
-							<option value="writer_nickname">작성자</option>
+					<div class="col-12 d-flex jusitfy-content-center">
+						<select id="searchType" name="searchType" class="form-select">
+							<option value="all" <c:if test="${searchType eq 'all'}">selected</c:if>>전체</option>
+							<option value="content" <c:if test="${searchType eq 'content'}">selected</c:if>>내용</option>
+							<option value="title" <c:if test="${searchType eq 'title'}">selected</c:if>>제목</option>
+							<option value="writer_nickname" <c:if test="${searchType eq 'writer_nickname'}">selected</c:if>>작성자</option>
 						</select> <input type="text" id="keyword" name="keyword"
 							class="form-control">
-						<button type="button" id="serchBtn" class="btn">검색</button>
+						<button type="button" id="searchBtn" class="btn">검색</button>
 					</div>
 					
 					<div class="col-2 d-flex justify-content-end">
@@ -518,32 +473,34 @@ a {
 	</div>
 
 	<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container margin_top_100">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
-
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<div id="footer" class="mt-5"></div>
 	
 	<!-- 스크립트 영역 -->
 	<script>
+	$("#searchBtn").on("click", function(){
+		let searchType = $("#searchType").val();
+		let keyword = $("#keyword").val();
+		console.log(searchType + " : " + keyword);
+		let url = "${pageContext.request.contextPath}/board/searchProc.do?searchType="+searchType+"&keyword="+keyword+"&currentPage=1";
+		console.log(url);
+		$(location).attr("href", url);
+	})
+	
+	$("#selectOption").on("change", function(){
+		let selectOption = $("#selectOption").val();
+		console.log(selectOption);
+		let url = "${pageContext.request.contextPath}/board/toBoardOption.do?selectOption="+selectOption+"$currentPage=1";
+		console.log(url);
+		$(location).attr("href", url);
+	})
+	
+	$("#orederByNew").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/board/orderByNew.do?currentPage=1&fromNew='fromNew'";
+	})
+	
+	
+	$("#orderByPopular")
+	
 		$("#btnWrite").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/board/toInsertBoard";
 		})

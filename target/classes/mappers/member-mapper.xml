@@ -7,9 +7,9 @@
 	<!-- 로그인 -->
 	<select id="login" parameterType="map" resultType="int">
 		select
-		count(*) from member where id=#{id} and pw=#{pw}
+		count(*) from member where id = #{id} and pw = #{pw}
 	</select>
-
+	
 	<!-- 멤버 정보 id로 가져오기 -->
 	<select id="getMember" resultType="MemberDTO">
 		select * from member where id
@@ -32,5 +32,26 @@
 	<select id="verifyNickname" resultType="int">
 		select count(*) from member
 		where nickname = #{nickname}
+	</select>
+	
+	<!--  -->
+	<select id="findID" resultType="MemberDTO">
+		select id from member where email = #{email}
+	</select>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delete">
+		delete from member where id=#{id}
+	</delete>
+
+	<!-- 회원정보 수정 -->
+	<update id="toModify" parameterType="MemberDTO">
+		update member set nickname=#{nickname}, email=#{email}, address=#{address}
+		where id=#{id}
+	</update>
+
+	<!-- 회원 전체 조회 -->
+	<select id="selectAll" resultType="MemberDTO">
+		select * from member
 	</select>
 </mapper>

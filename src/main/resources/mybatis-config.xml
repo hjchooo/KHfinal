@@ -14,6 +14,7 @@
 		<typeAlias type="kh.com.finalProject.follow.FollowDTO" alias="FollowDTO" />
 		<typeAlias type="kh.com.finalProject.report.ReportDTO" alias="ReportDTO" />
 		<typeAlias type="kh.com.finalProject.member.MemberDTO" alias="MemberDTO" />
+		<typeAlias type="kh.com.finalProject.note.NoteDTO" alias="NoteDTO"/>
 	</typeAliases>
 
 	<!-- <mappers>

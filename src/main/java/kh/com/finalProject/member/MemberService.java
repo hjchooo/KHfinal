@@ -1,5 +1,7 @@
 package kh.com.finalProject.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +56,27 @@ public class MemberService {
 		System.out.println("MemberService 회원가입");
 		return dao.insertMember(dto);
 	}
+	
+	//	아이디 찾기
+	public List<MemberDTO> findID(String email) throws Exception {
+		
+		return dao.findID(email);
+	}
+	
+	// 회원 탈퇴
+		public int delete(String id) throws Exception {
+			return dao.delete(id);
+		}
+
+		// 회원정보 수정
+		public int toModify(MemberDTO dto) throws Exception {
+			System.out.println("toModify");
+			return dao.toModify(dto);
+		}
+
+		// 회원전체 조회
+		public List<MemberDTO> selectAll() throws Exception {
+			System.out.println("note 팝업 service 도착");
+			return dao.selectAll();
+		}
 }

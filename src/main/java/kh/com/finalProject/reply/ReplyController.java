@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyService service;
+	
 
 	public ReplyController() {
 		System.out.println("ReplyController 인스턴스 생성");
@@ -59,10 +62,10 @@ public class ReplyController {
 	// 댓글 출력
 	@RequestMapping("/getReplyList")
 	@ResponseBody
-	public Map<String, Object> getReplyList(int re_board_seq) throws Exception {
+	public Map<String, Object> getReplyList(int re_board_seq, int currentPage) throws Exception {
 		System.out.println("댓글 조회 Controller");
 		Map<String, Object> map = new HashMap<>();
-		List<ReplyDTO> replyList = service.selectAll(re_board_seq);
+		List<ReplyDTO> replyList = service.selectAll(re_board_seq, currentPage);
 		map.put("replyList", replyList);
 		return map;
 	}

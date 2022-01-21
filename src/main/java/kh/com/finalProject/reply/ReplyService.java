@@ -34,8 +34,14 @@ public class ReplyService {
 	}
 
 	// 댓글 전체 조회
-	public List<ReplyDTO> selectAll(int re_board_seq) throws Exception {
-		return dao.selectAll(re_board_seq);
+	public List<ReplyDTO> selectAll(int re_board_seq, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		List<ReplyDTO> list = dao.selectAll(re_board_seq, startRange, endRange);
+		for (ReplyDTO dto : list) {
+			System.out.println(dto.toString());
+		}
+		return list;
 	}
 
 	// 게시판 번호로 댓글 조회
@@ -47,9 +53,9 @@ public class ReplyService {
 	private int recordCntPerPage = 5; // 한페이지에 보여질 갯수
 	private int naviCntPerPage = 5; // 페이지 갯수(1~10, 11~20, 21~30) 10개씩
 
-	public HashMap<String, Object> getPageNavi(int currentPage) throws Exception {
+	public HashMap<String, Object> getPageNavi(int re_board_seq, int currentPage) throws Exception {
 		System.out.println("ReplyService CurrentPage : " + currentPage);
-		int recordTotalCnt = dao.countAll(); // 전체 데이터수
+		int recordTotalCnt = dao.countAll(re_board_seq); // 전체 데이터수
 
 		int pageTotalCnt = 0; // 총 몇페이지가 나올지
 		if (recordTotalCnt % recordCntPerPage > 0) { // 총 데이터수 와 10개의 페이지를 나눈 나머지

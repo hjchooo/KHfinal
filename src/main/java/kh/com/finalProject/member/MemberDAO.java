@@ -1,6 +1,7 @@
 package kh.com.finalProject.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -46,4 +47,26 @@ public class MemberDAO {
 	public int verifyNickname(String nickname) throws Exception {
 		return session.selectOne("memberMapper.verifyNickname", nickname);
 	}
+	
+	//	아이디 찾기
+	public List<MemberDTO> findID(String email) throws Exception {
+		return session.selectList("memberMapper.findID", email);
+	}
+	
+	// 회원탈퇴
+		public int delete(String id) throws Exception {
+			return session.delete("memberMapper.delete", id);
+		}
+
+		// 회원정보 수정
+		public int toModify(MemberDTO dto) throws Exception {
+			System.out.println("toModify");
+			return session.update("memberMapper.toModify", dto);
+		}
+
+		// 회원전체 조회
+		public List<MemberDTO> selectAll() throws Exception {
+			System.out.println("note dao 도착");
+			return session.selectList("memberMapper.selectAll");
+		}
 }

@@ -4,11 +4,13 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boardMapper">
-	<!-- 게시판 리스트 가져오기 -->
-<!-- 	<select id="selectAll" resultType="BoardDTO">
-		select * from board
+	
+	<!-- 게시판 인기순으로 보기 -->
+	<select id="orderByPopular" resultType="BoardDTO" parameterType="map">
+		select * from (select row_number() over (order by view_count desc) 순위,
+		a. * from board a) where 순위 between #{startRange}and #{endRange} order by view_count desc
 	</select>
- -->
+ 
 	<!-- 게시판 상세보기 -->
 	<select id="selectOne" resultType="BoardDTO">
 		select * from board where

@@ -257,6 +257,23 @@ label {
 	font-size: 12px;
 }
 
+/* 신고 아이콘 */
+#report img {
+	width: 30px;
+	height: 30px;
+	margin-top: 5px;
+}
+
+/* 아이디 드롭다운박스 */
+#dropdownMenuLink {
+	margin-bottm: 10px;
+	padding: 0px;
+}
+
+#dropdownMenuLink:hover {
+	background-color: lightgray;
+}
+
 
 /**/
 </style>
@@ -327,7 +344,7 @@ label {
 					href="#" role="button" id="dropdownMenuLink"
 					data-bs-toggle="dropdown" aria-expanded="false">${dto.writer_id}</a>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<li><a class="dropdown-item" href="#">쪽지쓰기</a></li>
+					<li><a class="dropdown-item" href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지쓰기</a></li>
 					<li><a class="dropdown-item" href="#">게시물 보기</a></li>
 					<li><a class="dropdown-item" href="#">팔로우</a></li>
 				</ul>
@@ -380,9 +397,9 @@ label {
 					<textarea id="reply_content" name="re_content" class="form-control"
 						placeholder="댓글을 입력 해주세요"></textarea>
 					<input type="text" id="reply_writer_id" name="reply_writer_id"
-						value="abc123" hidden> <input type="text"
+						value="${loginSession.id}" hidden> <input type="text"
 						id="reply_writer_nickname" name="reply_writer_nickname"
-						value="abc123" hidden>
+						value="${loginSession.nickname}" hidden>
 				</div>
 				<div class="col-12 mt-2 d-flex justify-content-end">
 					<button type="button" id="btnReplyConfirm" class="btn">등록</button>
@@ -561,10 +578,12 @@ label {
 				
 				// 댓글 수정 삭제 버튼
 				// 세션에 담겨 있는 id와 댓글리스트 안의 reply_writer 와 같은 경우 버튼 생성
-				if("abc123" == reply.reply_writer_id) {
+				if("${loginSession.id}" == reply.reply_writer_id) {
 					let btns = "<div class='col-12 d-flex justify-content-end pd-5'>"
 					+ "<button type='button' class='btn btn-modifyReply' value='"+ reply.reply_seq +"' >수정</button>"
 					+ "<button type='button' class='btn btn-deleteReply' value='"+ reply.reply_seq +"' >삭제</button>"
+					+ "<button type='button' class='btn btn-modifyConfirm' value='"+ reply.reply_seq +"' style='display:none;'>확인</button>"
+					+ "<button type='button' class='btn btn-modifyCancel' value='"+ reply.reply_seq +"' style='display:none;'>취소</button>"
 					+ "</div>";
 					
 					// 가장 최근에 만들어진 댓글 옆에 버튼 추가
@@ -575,6 +594,31 @@ label {
 			console.log(e);
 		})
 	}
+	
+	// 댓글 수정 버튼 클릭시
+	$("#replyContainer").on("click", ".btn-modifyReply" , function(e){
+		console.log($(e.target).val());
+		$(".btn-modifyConfirm").css("display", true);
+		$(".btn-modifyCancel").css("display", true);
+		$(".btn-modifyReply").hide();
+		$(".btn-deleteReply").hide();
+		let reply_seq = $(this).val();
+		console.log(reply_seq);
+		$("input[name='" + reply_seq + "']").attr("readonly",false);
+		$("input[name='" + reply_seq + "']").focus();
+	})
+	
+	// 댓글 수정취소 버튼 클릭시
+	$("#replyContainer").on("click", ".btn-modifyCancel" , function(e){
+		console.log($(e.target).val());
+		$(".btn-modifyConfirm").hide();
+		$(".btn-modifyCancel").hide();
+		$(".btn-modifyReply").show();
+		$(".btn-deleteReply").show();
+		let reply_seq = $(this).val();
+		console.log(reply_seq);
+		$("input[name='" + reply_seq + "']").attr("readonly",true);
+	})
 	
 	// 댓글 수정(동적 댓글 생성후 클릭버튼 위임) 
 	$("#replyContainer").on("click", ".btn-modifyReply" , function(e){
@@ -656,6 +700,12 @@ label {
 	// 목록으로 버튼 클릭
 	$("#btnGetList").on("click", function(){
 		location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
+	})
+	
+	// 글삭제 버튼 클릭
+	$("#btnDelete").on("click", function(){
+		let board_seq = "${dto.board_seq}";
+		location.href = "${pageContext.request.contextPath}/board/delete.do?board_seq=" + board_seq;
 	})
 	</script>
 
