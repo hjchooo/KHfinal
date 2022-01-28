@@ -5,33 +5,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
-<script src="/resources/js/summernote/summernote-lite.js"></script>
-<script src="/resources/js/summernote/lang/summernote-ko-KR.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
+
 <link rel="stylesheet"
-	href="/resources/css/summernote/summernote-lite.css">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
+
 <script>
 	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
 	});
 </script>
+
+<!-- 썸머노트 -->
+
 <title>글쓰기</title>
 <!--  <link href="/resources/css/insertBoard.css" rel="stylesheet"/>   -->
 <style>
@@ -80,6 +87,14 @@ textarea.autosize {
 	min-height: 50px;
 }
 
+.row {
+	margin-bottom: 10px;
+}
+
+label {
+	font-weight: bold;
+}
+
 /* ========== 내용 입력 영역 ========== */
 </style>
 </head>
@@ -87,84 +102,76 @@ textarea.autosize {
 <body>
 	<div id="header"></div>
 
+
 	<div class="insertContainer">
-
-
 		<!-- ==================== 게시글 추가 영역 ==================== -->
 		<form id="insertForm" method="post"
-			action="${pageContext.request.contextPath}/board/insertBoard"
-			enctype="multipart/form-data">
-			<div class="row contentContainer">
-				<!-- 제목 -->
-				<div class="row">
-					<div class="col-2">
-						<label>제목</label>
-					</div>
-					<div class="col-10">
-						<div class="row">
-							<div class="col-12">
-								<input type="text" class="form-control" id="title" name="title">
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- 옵션 -->
-				<div class="row mt-3">
-					<div class="col-2">
-						<label>옵션</label>
-					</div>
-					<div class="col-10">
-						<label id="secretBox"> <input class="form-check-input"
-							type="checkbox" id="secret" name="secret"> <span>비밀글</span>
-						</label>
-					</div>
-				</div>
-				<!-- 작성자 -->
-				<div class="row mt-3">
-					<div class="col-2">
-						<label>작성자</label>
-					</div>
-					<div class="col-5">
-						<input type="text" class="content form-control" id="writer_id"
-							name="writer_id" value="${loginSession.id}"
-							style="background-color: transparent;border:none;border-bottom:1px solid lightgray;" readonly> <input
-							type="text" class="content form-control" id="writer_nickname"
-							name="writer_nickname" value="${loginSession.nickname}" hidden>
-					</div>
-				</div>
-				<!-- 비밀번호 -->
-				<div class="row mt-3">
-					<div class="col-2">
-						<label>비밀번호</label>
-					</div>
-					<div class="col-5">
-						<input type="password" class="content form-control" id="secretPw"
-							name="secretPw" value="" readonly>
-					</div>
-				</div>
-				<!-- 카테고리 -->
-				<div class="row mt-3">
-					<div class="col-2">
-						<label>카테고리</label>
-					</div>
-					<div class="col-5">
-						<select id="category" name="category" class="form-select">
-							<option value="자유게시판" selected>자유 게시판</option>
-							<option value="국내여행">국내여행</option>
-							<option value="축제정보">축제정보</option>
-							<option value="공연/전시회">공연/전시회</option>
-						</select>
-					</div>
-				</div>
-				<!-- 내용 -->
-				<!-- 텍스트 Editor 버튼 -->
-				<div class="row mt-3">
-					<div class="col-12">
+			action="${pageContext.request.contextPath}/board/insertBoard">
 
-						<!-- 썸머노트 -->
-						<textarea id="summernote" name="content"></textarea>
 
-					</div>
+			<div class="row">
+				<div class="col-3">
+					<label>제목</label>
+				</div>
+				<div class="col-7">
+					<input type="text" class="form-control" id="title" name="title">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<label>옵션</label>
+				</div>
+				<div class="col-9">
+					<label id="secretBox" style="margin-left: 20px;"> <input
+						class="form-check-input" type="checkbox" id="secret" name="secret"
+						value="N">비밀글
+					</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<label>비밀번호</label>
+				</div>
+				<div class="col-7">
+					<input type="password" class="content form-control" id="secretPw"
+						name="secretPw" placeholder="비밀번호" readonly>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<label>작성자</label>
+				</div>
+				<div class="col-7">
+					<input type="text" class="content form-control" id="writer_id"
+						name="writer_id" value="${loginSession.id}"
+						style="background-color: transparent; border: none; border-bottom: 1px solid lightgray;"
+						readonly> <input type="text" class="content form-control"
+						id="writer_nickname" name="writer_nickname"
+						value="${loginSession.nickname}" hidden>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<label>카테고리</label>
+				</div>
+				<div class="col-9">
+					<select id="category" name="category" class="form-select">
+						<option value="자유게시판" selected>자유 게시판</option>
+						<option value="국내여행">국내여행</option>
+						<option value="축제정보">축제정보</option>
+						<option value="공연/전시회">공연/전시회</option>
+					</select>
+				</div>
+			</div>
+
+			<!-- 내용 -->
+			<!-- 텍스트 Editor 버튼 -->
+			<div class="row mt-3">
+				<div class="col-12">
+
+					<!-- 썸머노트 -->
+					<textarea id="summernote" name="content"></textarea>
+
 				</div>
 			</div>
 
@@ -183,53 +190,28 @@ textarea.autosize {
 	<div id="footer" class="mt-5"></div>
 
 	<script>
-	/*
-		$('#summernote').summernote({
-			height : 300, // 에디터 높이
-			minHeight : null, // 최소 높이
-			maxHeight : null, // 최대 높이
-			focus : true, // 에디터 로딩후 포커스를 맞출지 여부
-			lang : "ko-KR", // 한글 설정
-			placeholder : '최대 2048자까지 쓸 수 있습니다', //placeholder 설정
-			callbacks : { //여기 부분이 이미지를 첨부하는 부분
-				onImageUpload : function(files) {
-					uploadSummernoteImageFile(files[0], this);},
-				onPaste : function(e) {
-					var clipboardData = e.originalEvent.clipboardData;
-					if (clipboardData && clipboardData.items
-							&& clipboardData.items.length) {
-						var item = clipboardData.items[0];
-						if (item.kind === 'file'
-								&& item.type.indexOf('image/') !== -1) {
-							e.preventDefault();
-						}
-					}
+	// 썸머노트 이미지 업로드
+	 $('#summernote').summernote({
+		width : 800,
+		minHeight: null,
+		maxHeight: null,
+		focus: true,
+		lang: "ko-KR",
+		callbacks: {
+			onImageUpload : function(files, editor, welEditable){
+				for(let file of files){
+					console.log(file);
+					sendFile(file,this);
+					console.log("sendFile 함수로 이동");
 				}
 			}
-		});
-		*/
-		// 썸머노트 이미지 업로드
-		 $('#summernote').summernote({
-			height: 500,
-			width : 800,
-			minHeight: null,
-			maxHeight: null,
-			focus: true,
-			lang: "ko-KR",
-			callbacks: {
-				onImageUpload : function(files){
-					for(let file of files){
-						sendFile(file);
-					}
-				}
-			} 
-		});
-			
-		// 썸머노트 이미지 업로드
+		} 
+	});
+	
+	  // 썸머노트 이미지 업로드
 		function sendFile(file){
 			var data = new FormData();
 			data.append("file", file);
-			console.log(file);
 			$.ajax({
 				data : data,
 				type : "POST",
@@ -237,69 +219,53 @@ textarea.autosize {
 				contentType : false,
 				processData : false
 			}).done(function(data){
-				console.log(data);
-				$("#summernote").summernote("insertImage",data.path);
+				// 경로갑 출력
+				$("#summernote").summernote("insertImage", data.path);
 			}).fail(function(e){
 				console.log(e);
 			});				
 		}
-
-		// 서머노트에 text 쓰기
-		$('#summernote').summernote('insertText', "써머노트에 쓸 텍스트");
-		// 서머노트 쓰기 비활성화
-		$('#summernote').summernote('disable');
-		// 서머노트 쓰기 활성화
-		$('#summernote').summernote('enable');
-		// 서머노트 리셋
-		$('#summernote').summernote('reset');
-		// 마지막으로 한 행동 취소 ( 뒤로가기 )
-		$('#summernote').summernote('undo');
-		// 앞으로가기
-		$('#summernote').summernote('redo');
-
-		// 이미지 드래그& 드랍
-		$("div.note-editable").on('drop',function(e) {
-			for (i = 0; i < e.originalEvent.dataTransfer.files.length; i++) {
-				uploadSummernoteImageFile(
-					e.originalEvent.dataTransfer.files[i],
-					$("#summernote")[0]);
-			}
-			e.preventDefault();
-		})
-		
-		
-		let secret = $("#secret").val("N");
-		
+	  
 		// 체크박스 선택시 readonly 해제
 		$(function() {
 			$("#secret").change(function() {
 				let rs = this.checked;
-				let secret = $("#secret");
 				if (rs) {
 					$("#secretPw").prop("readonly", false);
-					secret = "Y";
-					console.log(secret);
-				} else {
+					$("#secret").val("Y");
+					$("#secretPw").focus();
+				} else if (!rs){
+					$("#secret").val("N");
 					$("#secretPw").prop("readonly", true);
-					console.log(secret);
+					$("#secretPw").val("");
 				}
 			});
 		});
 		
-		
-		
 		// 게시글 등록 버튼 
 		$("#btnInsert").on(	"click",function() {
-			if ($("#title").val() == "") {
+			
+			console.log($("#secret").val());
+			if($("#secret").val() == "Y") {
+				console.log($("#secret").val());
+				if($("#secretPw").val() == "") {
+					alert("비밀번호를 입력 해주세요.");
+					$("#secretPw").focus();
+					return;
+				}
+			} else if ($("#title").val() == "") {
 				alert("제목을 입력 해주세요.");
+				$($("#title")).focus();
 				return;
-			} else if ($("#content").val() == "") {
+			} else if ($("#summernote").val() == "") {
 				alert("내용을 입력 해주세요.");
+				$("#summernote").focus();
 				return;
 			}
 			$("#insertForm").submit();
 		});
-
+		
+		
 		// 뒤로가기 버튼 클릭
 		$("#btnBack").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
