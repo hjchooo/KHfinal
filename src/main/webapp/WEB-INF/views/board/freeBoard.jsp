@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -19,6 +13,14 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
 	$(document).ready(function(){
@@ -348,7 +350,6 @@ a {
 </head>
 
 <body>
-	<!--메인 검색 창-->
 	<div id="header"></div>
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
@@ -389,8 +390,8 @@ a {
 						<p class="list_title"># 전체 게시판</p>
 					</div>
 					<div class="col-2">
-						<img class="list_refrash_icon"
-							src="/resources/images/refrash_icon.png">
+						<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1"><img class="list_refrash_icon"
+							src="/resources/images/refrash_icon.png"></a>
 					</div>
 				</div>
 
@@ -417,7 +418,7 @@ a {
 						<div class="col-1 text_center">${dto.board_seq}</div>
 						<div class="col-2 text_center">${dto.category}</div>
 						<div class="col-5 board_name">
-							<a href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+							<a href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
 						</div>
 						<div class="col-1 text_center">${dto.writer_id}</div>
 						<div class="col-2 text_center">${dto.written_date}</div>
@@ -429,15 +430,15 @@ a {
 
 				<!-- 검색 영역 -->
 				<div class="row mt-2">
-					<div class="col-12 d-flex jusitfy-content-center">
-						<select id="searchType" name="searchType" class="form-select">
-							<option value="all" <c:if test="${searchType eq 'all'}">selected</c:if>>전체</option>
-							<option value="content" <c:if test="${searchType eq 'content'}">selected</c:if>>내용</option>
-							<option value="title" <c:if test="${searchType eq 'title'}">selected</c:if>>제목</option>
-							<option value="writer_nickname" <c:if test="${searchType eq 'writer_nickname'}">selected</c:if>>작성자</option>
+					<div class="col-10 d-flex jusitfy-content-center">
+						<select id="select" name="select" class="form-select">
+							<option value="all" selected="selected">전체</option>
+							<option value="content">내용</option>
+							<option value="title">제목</option>
+							<option value="writer_nickname">작성자</option>
 						</select> <input type="text" id="keyword" name="keyword"
 							class="form-control">
-						<button type="button" id="searchBtn" class="btn">검색</button>
+						<button type="button" id="serchBtn" class="btn">검색</button>
 					</div>
 					
 					<div class="col-2 d-flex justify-content-end">
@@ -477,30 +478,6 @@ a {
 	
 	<!-- 스크립트 영역 -->
 	<script>
-	$("#searchBtn").on("click", function(){
-		let searchType = $("#searchType").val();
-		let keyword = $("#keyword").val();
-		console.log(searchType + " : " + keyword);
-		let url = "${pageContext.request.contextPath}/board/searchProc.do?searchType="+searchType+"&keyword="+keyword+"&currentPage=1";
-		console.log(url);
-		$(location).attr("href", url);
-	})
-	
-	$("#selectOption").on("change", function(){
-		let selectOption = $("#selectOption").val();
-		console.log(selectOption);
-		let url = "${pageContext.request.contextPath}/board/toBoardOption.do?selectOption="+selectOption+"$currentPage=1";
-		console.log(url);
-		$(location).attr("href", url);
-	})
-	
-	$("#orederByNew").on("click", function(){
-		location.href = "${pageContext.request.contextPath}/board/orderByNew.do?currentPage=1&fromNew='fromNew'";
-	})
-	
-	
-	$("#orderByPopular")
-	
 		$("#btnWrite").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/board/toInsertBoard";
 		})

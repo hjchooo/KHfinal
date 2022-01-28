@@ -1,5 +1,6 @@
 package kh.com.finalProject.board;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,8 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.google.gson.JsonObject;
 
 import kh.com.finalProject.files.FileDTO;
 import kh.com.finalProject.files.FileService;
@@ -54,9 +56,6 @@ public class BoardController {
 	// 게시글 전체 조회
 	@RequestMapping("/toBoard.do")
 	public String toBoard(@RequestParam("currentPage") int current, Model model, int currentPage) throws Exception {
-		
-		System.out.println("게시판으로!");
-		
 		String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
 		System.out.println("writer_id : " + writer_id);
 		
@@ -69,34 +68,14 @@ public class BoardController {
 		}
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("list", list);
-		return "/board/freeBoard";
+		return "board/freeBoard";
 	}
-	
-	// 게시판 최신순으로 보기
-		@RequestMapping("/orderByNew.do")
-		public String orderByNew() throws Exception{
-			return "redirect:/board/toBoard.do?currentPage=1";
-		}
-		
-		// 게시판 인기순으로 보기
-		@RequestMapping("/orderByPopular.do")
-		public String orderByPopular(Model model, String popular, int currentPage) throws Exception{
-			System.out.println("인기순으로!");
-			System.out.println("popular : " + popular);
-			System.out.println("currentPage : " + currentPage);
-			HashMap<String, Object> naviMap = service.getPageNavi(currentPage);
-			List<BoardDTO> list = service.orderByPopular(popular, currentPage);
-			model.addAttribute("naviMap", naviMap);
-			model.addAttribute("list", list);
-			return "/board/freeBoard";
-		}
-	
+
 	// 게시판 리스트 조건 별로 가져오기
 	@RequestMapping("/toBoardOption.do")
 	public String toBoardOption(Model model, String selectOption, int currentPage) throws Exception {
 		System.out.println("selectOption : " + selectOption);
 		System.out.println("currentPage : " + currentPage);
-		System.out.println("게시판으로!(조건별로)");
 		HashMap<String, Object> naviMap = service.getPageNavi(currentPage);
 		List<BoardDTO> list = service.selectAllOption(selectOption, (int) naviMap.get("currentPage"));
 		for (BoardDTO dto : list) {
@@ -104,7 +83,7 @@ public class BoardController {
 		}
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("list", list);
-		return "/board/boardList";
+		return "board/boardList";
 	}
 
 	// 게시글 상세조회
@@ -112,12 +91,13 @@ public class BoardController {
 	public String detailView(@RequestParam("board_seq") int boardSeq, Model model, int board_seq, String likes_id, String follow_id,
 			int currentPage) throws Exception {
 
+		
 		BoardDTO dto = service.selectOne(board_seq);
 		
 		// 로그인 아이디
 		String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
 		
-		System.out.println("상세보기!");
+		System.out.println("writer_id : " + writer_id);
 		System.out.println("dto : " + dto); // 게시판 상세조회
 		System.out.println("board_seq : " + board_seq);
 		System.out.println("currentPage : " + currentPage); // 댓글 페이지네이션
@@ -138,7 +118,6 @@ public class BoardController {
 			System.out.println(f);
 		}
 		
-		
 		// 좋아요가 되있는지 찾기위해 게시글번호와 회원번호를 보냄.
 		LikesDTO likes = lservice.findLikes(board_seq, writer_id);
 		FollowDTO follow = followService.findFollow(writer_id, dto.getWriter_id());
@@ -152,25 +131,23 @@ public class BoardController {
 		model.addAttribute("follow", follow);
 		model.addAttribute("list", list);
 		model.addAttribute("dto", dto);
-		return "/board/detailView";
+		return "board/detailView";
 	}
 
 	// 게시글 검색
 	@RequestMapping("/searchProc.do")
-	public String searchProc(Model model, String searchType, String keyword, int currentPage) throws Exception {
-		
-		System.out.println("게시판 검색!");
-		System.out.println("select : " + searchType);
+	public String searchProc(Model model, String select, String keyword, int currentPage) throws Exception {
+		System.out.println("select : " + select);
 		System.out.println("keyword : " + keyword);
 		System.out.println("currentPage : " + currentPage);
-		HashMap<String, Object> naviMap = service.getPageNavi2(searchType, keyword, currentPage);
-		List<BoardDTO> list = service.searchBoard(searchType, keyword, (int) naviMap.get("currentPage"));
+		HashMap<String, Object> naviMap = service.getPageNavi2(select, keyword, currentPage);
+		List<BoardDTO> list = service.searchBoard(select, keyword, (int) naviMap.get("currentPage"));
 		for (BoardDTO dto : list) {
 			System.out.println(dto);
 		}
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("list", list);
-		return "/board/freeBoard";
+		return "board/boardList";
 	}
 
 	// 게시글 신고 페이지로 이동
@@ -197,18 +174,34 @@ public class BoardController {
 	// 게시글 등록 페이지로 이동
 	@RequestMapping("/toInsertBoard")
 	public String toInsertBoard() {
+		// 게시글 저장 전에 upload 파일을 리스트에 쌓는 작업
+		ArrayList<JsonObject> list = new ArrayList<>();
+		session.setAttribute("fileList", list);
 		return "board/insertBoard";
 	}
-
+	
 	// 게시글 등록
 	@RequestMapping("/insertBoard")
-	public String insertBoard(BoardDTO dto) throws Exception {
+	public String insertBoard(BoardDTO dto, FileDTO fdto) throws Exception {
 		
-		System.out.println(dto);
+		// 파일 전체 리스트에 이미지 저장
+		ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>)session.getAttribute("fileList"));
+		System.out.println("fileList 길이 : " + fileList.size());
+		for(JsonObject obj : fileList) {
+			System.out.println(obj);
+		}
+		// 비밀글 값 처리
+		if(dto.getSecret() == null) {
+			dto.setSecret("N");
+		} else if (dto.getSecretPw() == null) {
+			dto.setSecretPw(null);
+		} else if (dto.getSecret() == "on") {
+			dto.setSecret("Y");
+		}
 		
-		// 저장 경로 확인하기 -> 경로 sysout 하면 나옴
-		String realPath = session.getServletContext().getRealPath("upload");
-		service.insertBoard(dto);
+		// 게시글 등록후에 session에 있는 파일들 지워줌
+		service.insertBoard(dto, fdto);
+		session.removeAttribute("fileList");
 		return "redirect:/board/toBoard.do?currentPage=1";
 	}
 
@@ -218,16 +211,21 @@ public class BoardController {
 		System.out.println("board_seq : " + board_seq);
 		service.deleteBySeq(board_seq);
 
-		return "board/toBoard.do?currentPage=1";
+		return "redirect:/board/toBoard.do?currentPage=1";
 	}
 
 	// 게시글 수정
 	@RequestMapping("/modify.do")
-	public String modify(RedirectAttributes redirectAttributes, BoardDTO dto) throws Exception {
-		System.out.println("dto : " + dto);
-		service.modifyBySeq(dto);
+	public String modify(RedirectAttributes redirectAttributes, int board_seq, BoardDTO dto, FileDTO fdto) throws Exception {
+		// 게시글 저장 전에 upload 파일을 리스트에 쌓는 작업
+//		ArrayList<JsonObject> list = new ArrayList<>();
+//		session.setAttribute("fileList", list);
+		
+		System.out.println("게시글 수정 BoardDTO : " + dto);
+		
+		service.modifyBySeq(board_seq, dto, fdto);
+//		session.removeAttribute("fileList");
 
-		int board_seq = dto.getBoard_seq();
 		redirectAttributes.addAttribute("board_seq", board_seq);
 		return "redirect:/board/detailView.do";
 	}
