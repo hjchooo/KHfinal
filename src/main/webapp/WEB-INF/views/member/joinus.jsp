@@ -262,6 +262,20 @@ label {
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-size: 12px;
 }
+
+#profileImg {
+	width: 200px;
+	height: 200px;
+	border: 1px solid lightgray;
+	border-radius: 50%;
+	background-image: url("/resources/images/default-profile-img.png");
+	background-size: 100%;
+	cursor: pointer;
+}
+
+#profileUpload {
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -318,6 +332,20 @@ label {
 				</div>
 			</div>
 
+			<!-- 프로필 영역 -->
+			<div class="row mb-2" style="display: none;">
+				<div class="col d-flex justify-content-center">
+					<div id="profileImg"></div>
+				</div>
+			</div>
+			<input type="file" class="form-control" id="profileUpload"
+				name="file" accept="image/*">
+
+			<!-- 프로필 이미지 경로를 담을 곳 -->
+			<input type="text" class="form-control" id="input_profileImgUrl"
+				name="input_profileImgUrl" hidden="" required="required">
+
+
 			<!-- ID 영역 -->
 			<div class="row mb-2">
 				<label for="ID">아이디</label>
@@ -370,8 +398,7 @@ label {
 				<label for="Nickname">닉네임</label>
 				<div class="col-8">
 					<input type="text" class="form-control" id="nickname"
-						name="nickname" placeholder="" maxlength="20"
-						required="required">
+						name="nickname" placeholder="" maxlength="20" required="required">
 				</div>
 
 				<div class="col-4">
@@ -394,9 +421,9 @@ label {
 						placeholder="이메일" required="required">
 				</div>
 
-				<div class="col-4 d-flex justify-content-center">
+				<div class="col-4 d-flex justify-content-start">
 					<button type="button" class="btn btn-warning w-100"
-						id="btnCertificate_code">인증번호 발송</button>
+						id="btnVerifyEmail">이메일 확인</button>
 				</div>
 			</div>
 
@@ -404,17 +431,29 @@ label {
 				<div class="col" id="res_email"></div>
 			</div>
 
-			<div class="row mb-2">
+			<div class="row mb-2" id="certification_area" style="display: none;">
 				<div class="col-4">
 					<input type="text" class="form-control" id="code_Input"
 						placeholder="인증번호" disabled="disabled" maxlength="6"
 						required="required">
 				</div>
 
+				<div class="col-3 d-flex justify-content-end">
+					<button type="button" class="btn btn-warning"
+						id="btnCertificate_code">인증번호 발송</button>
+				</div>
+			</div>
+
+			<div class="row mb-2">
+				<div class="col-4">
+					<input type="text" class="form-control" id="code_Input"
+						placeholder="인증번호" disabled="disabled" maxlength="6"
+						required="required" style="display: none;">
+				</div>
+
 				<div class="col-8" id="Res_Emailvalidation"
 					style="vertical-align: middle;"></div>
 			</div>
-
 			<!-- E-mail 영역 끝 -->
 
 			<!-- Address 영역 -->
@@ -496,6 +535,38 @@ label {
 
 	<script>
 	<!-- script area -->
+			
+	<!-- 프로필 -->
+	/*__________Profile__________*/
+	/*
+	let imgPath = "";
+	
+	$("#profileImg").click(function(e) {
+		$("#profileUpload").click();
+	});
+	
+	$("#profileUpload").change(function(e) {
+		readImg(e.target);
+	});
+	
+	function readImg(input) {
+		if (input.files && input.files[0]) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				$("#profileImg").css({
+					"background-image" : "url('" + e.target.result + "')"
+				});
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+		
+		//	console.log(input.value);
+		imgPath = input.value;
+		console.log(imgPath);
+	}
+	*/
+	
 	<!-- 아이디 -->
 	/*__________ID__________*/
 		let id = document.getElementById("id");
@@ -553,7 +624,6 @@ label {
 				
 			}
 		}
-		
 
 	<!-- PW -->
 		/*__________PW__________*/
@@ -693,6 +763,7 @@ label {
 	<!-- 이메일 -->
 		/*__________이메일__________*/
 		let email = document.getElementById("email");	//	이메일 입력 input창
+		let btnVerifyEmail = document.getElementById("btnVerifyEmail");	//	이메일 확인(중복검사) 버튼
 		let btnCertificatecode = document.getElementById("btnCertificate_code");	//	인증번호 발송 버튼
 		let ResEmail = $("#res_email");	//	이메일이 제대로 입력됐는지 확인을 알려주는 결과를 담아줄 변수
 		let codeInput = $("#code_Input");	//	인증번호 입력 input창
@@ -715,6 +786,43 @@ label {
 					"color" : "red"
 				});
 
+				email.value = "";
+			}
+		}
+		
+		//	이메일 중복검사를 눌렀을때
+		btnVerifyEmail.onclick = function(e) {
+			if (regexEmail()) {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/member/VerifyEmail.do", 
+					type: "post", 
+					data: {email : email.value}
+				}).done(function(res) {
+					console.log(res);
+					
+					if (res == "Available") {
+						ResEmail.html("사용 가능한 이메일입니다.");
+						ResEmail.css({
+							"font-size" : "10px",
+							"color" : "green"
+						});
+						
+						$("#certification_area").fadeIn(1000);
+						
+						//btnCertificatecode.css("visibility", "visible");
+
+					} else if (res == "Unavailable") {
+						ResEmail.html("이미 사용중인 이메일입니다.");
+						ResEmail.css({
+							"font-size" : "10px",
+							"color" : "red"
+						});
+						
+					}
+				}).fail(function(e) {
+					console.log(e);
+				});
+				
 			}
 		}
 
@@ -767,8 +875,7 @@ label {
 				});
 
 			}
-		});
-		
+		});		
 
 	<!-- 우편번호 -->
 		/*__________Postcode__________*/
@@ -836,7 +943,7 @@ label {
 			}).open();
 		}
 
-	<!-- Cancel, Registry -->
+	<!-- 가입, 취소 -->
 		//	가입 (Registry)를 눌렀을 때 가입
 		document.getElementById("btnSuccess").onclick = function(e) {
 			if (id.value === "" || !regexID()) {
@@ -857,6 +964,7 @@ label {
 				return;
 			} else {
 				document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
+				//	document.getElementById("input_profileImgUrl").value = imgPath.value;
 				document.getElementById("JoinusForm").submit();
 			}
 		}
@@ -865,6 +973,7 @@ label {
 		document.getElementById("btnCancel").onclick = function(e) {
 			location.href = "${pageContext.request.contextPath}/";
 		}
+	
 	</script>
 </body>
 </html>

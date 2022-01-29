@@ -34,9 +34,25 @@
 		where nickname = #{nickname}
 	</select>
 	
-	<!--  -->
+	<!-- Email 중복검사 -->
+	<select id="verifyEmail" resultType="int">
+		select count(*) from member
+		where email = #{email}
+	</select>
+	
+	<!-- ID 찾기 -->
 	<select id="findID" resultType="MemberDTO">
 		select id from member where email = #{email}
+	</select>
+	
+	<!-- 아이디 존재여부 -->
+	<select id="existID" resultType="int">
+		select count(*) from member where id=#{id}
+	</select>
+	
+	<!-- 이메일 존재여부 -->
+	<select id="existEmail" resultType="int">
+		select count(*) from member where email=#{email}
 	</select>
 	
 	<!-- 회원탈퇴 -->
