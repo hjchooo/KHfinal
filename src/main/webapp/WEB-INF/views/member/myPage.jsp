@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
+<script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <link
@@ -13,6 +13,12 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");		
+	});
+</script>
 <title>마이페이지</title>
 <style>
 /**/
@@ -236,9 +242,7 @@ a {
 
 /**/
 
-
 /* 푸터 */
-
 .foot_container {
 	background-color: rgb(187, 248, 255);
 	padding-top: 50px;
@@ -263,124 +267,95 @@ a {
 	font-size: 17px;
 	border-right: 1px solid black;
 }
+
 .myPage_category:hover {
-	background : silver;
+	background: silver;
 }
 
-
-
-.userInformation{
-	
-    margin:auto;
-    margin-top : 100px;
-	width : 800px;
-	height : 400px;
-	
+.userInformation {
+	margin: auto;
+	margin-top: 100px;
+	width: 800px;
+	height: 400px;
 }
 
-#user{
-    padding-top: 10px;
-    height: 70%;
-    border: 1px solid black;
-    border-radius: 15px;
-}
-#user > input {
-    margin-top: 10px;
-    border : none;
+#user {
+	padding-top: 10px;
+	height: 70%;
+	border: 1px solid black;
+	border-radius: 15px;
 }
 
-.userBtn{
-    height: 10%;
-    text-align: right;
+#user>input {
+	margin-top: 10px;
+	border: none;
+}
+
+.userBtn {
+	height: 10%;
+	text-align: right;
 }
 /*  */
 </style>
 </head>
 <body>
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img class="main_logo_size"
-						src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
+	<!-- 헤더 -->
+	<div id="header"></div>
+
+	<div>
+		<h4>${dto.nickname}님의 페이지</h4>
+	</div>
+	<div class=" row mypageNavi">
+		<div class="col-3"></div>
+		<div class="col-2 myPage_category">
+			<a href="${pageContext.request.contextPath}/member/myPage.do"> 회원
+				정보 </a>
+		</div>
+		<div class="col-2 myPage_category">
+			<a href="#"> 자기 게시글 조회 </a>
+		</div>
+		<div class="col-2 myPage_category">
+			<a
+				href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.id}&currentPage=1">
+				쪽지 보기 </a>
+		</div>
+		<div class="col-3"></div>
+		<div class=" row userInformation">
+			<h4>${dto.nickname}님의페이지</h4>
 			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-				<span class="navi_text"> 회원가입 </span>
-				</a>
-				&nbsp; &nbsp; 
-				<a href="${pageContext.request.contextPath}/member/toLogin.do">
-				<span class="navi_text"> 로그인 </span> 
-				</a>
-				&nbsp; &nbsp; 
-				<a href="">
-				<span class="navi_text"> 마이페이지 </span>
-				</a>
+				<div>
+
+					<c:if test="${null ne dto.sys_name}">
+						<img
+							src="${pageContext.request.contextPath}/upload/${dto.sys_name}"
+							width="100px" height="100px">
+					</c:if>
+					<c:if test="${null eq dto.sys_name }">
+						<img
+							src="${pageContext.request.contextPath}/resources/images/profile.jpg"
+							width="100px" height="100px">
+					</c:if>
+				</div>
 			</div>
-
-		</div>
-	</div>
-
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-			<div><h4>${dto.nickname} 님의 페이지</h4></div>
-			<div class=" row mypageNavi">
-				<div class="col-3"></div>
-				<div class="col-2 myPage_category">
-					<a href="${pageContext.request.contextPath}/member/myPage.do">
-						회원 정보 </a>
-				</div>
-				<div class="col-2 myPage_category">
-					<a href="#"> 나의 게시글 조회 </a>
-				</div>
-				<div class="col-2 myPage_category">
-					<a
-						href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.id}&currentPage=1">
-						쪽지 보기 </a>
-				</div>
-				<div class="col-3"></div>
-			<div class=" row userInformation">
-				<div class="row">
-				</div>
-				<div class="row">
-                    <div class="col-2">
-                        <p class="center">나의 프로필 이미지</p>
-                        <p class="center"><img class="mypage_profile_img" src="/final_01-16/images/profile_01.png"></p>
-                    </div>
-                    <div id="user" class="col-10">
-					<label>가입일 : </label> <input type="text" value="${dto.signup_date}" readonly><br>
-					<label>이메일 : </label> <input type="text" value="${dto.email}" readonly><br>
-					<label>주소 : </label> <input type="text" value="${dto.address}" size="50"readonly>
-				</div>
-                </div>
-                <div class="userBtn">
-					<button type="button" id="noteBtn" class="btn btn-secondary">쪽지 보내기</button>
-					<button type="button" id="modifyBtn" class="btn btn-warning">나의 정보 수정</button>
-					<button type="button" id="deleteBtn" class="btn btn-danger">회원탈퇴</button>
-				</div>
-				</div>
+			<div id="user">
+				<label>가입일 : </label> <input type="text" value="${dto.signup_date}"
+					readonly><br> <label>이메일 : </label> <input type="text"
+					value="${dto.email}" readonly><br> <label>주소 :
+				</label> <input type="text" value="${dto.address}" size="50" readonly>
+			</div>
+			<div class="userBtn">
+				<button type="button" id="noteBtn" class="btn btn-secondary">쪽지
+					보내기</button>
+				<button type="button" id="modifyBtn" class="btn btn-warning">정보수정</button>
+				<button type="button" id="deleteBtn" class="btn btn-danger">회원탈퇴</button>
 			</div>
 		</div>
 	</div>
-	
+	</div>
+
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
-	
+
 
 	<script>
 	

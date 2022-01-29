@@ -14,6 +14,13 @@
 	crossorigin="anonymous"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");		
+	});
+</script>
 <title>Join-Us</title>
 <style type="text/css">
 
@@ -262,59 +269,66 @@ label {
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-size: 12px;
 }
+
+#profileImg {
+	width: 200px;
+	height: 200px;
+	border: 1px solid lightgray;
+	border-radius: 50%;
+	background-image: url("/resources/images/default-profile-img.png");
+	background-size: 100%;
+	cursor: pointer;
+}
+
+#profileUpload {
+	display: none;
+}
+
+#image_container{
+	border : solid 2px gray;
+	width : 110px;
+	height : 110px;
+}
 </style>
 </head>
 <body>
-	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img
-						class="main_logo_size" src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-					<span class="navi_text"> 회원가입 </span>
-				</a> &nbsp; &nbsp; <a
-					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
-					class="navi_text"> 로그인 </span>
-				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
-				</span>
-				</a>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-
+	<!-- 헤더 -->
+	<div id="header"></div>
 
 
 	<div class="container w-50">
 		<form action="${pageContext.request.contextPath}/member/joinus.do"
-			id="JoinusForm" method="post">
+			id="JoinusForm" method="post" enctype="multipart/form-data">
 
 			<!-- 해당 페이지 타이틀 -->
 			<div class="row mb-5">
 				<div class="col d-flex justify-content-center">
 					<h3>회원가입</h3>
+				</div>
+			</div>
+
+			<!-- 프로필 영역 -->
+			<!-- <div class="row mb-2" style="display: none;">
+				<div class="col d-flex justify-content-center">
+					<div id="profileImg"></div>
+				</div>
+			</div>
+			<input type="file" class="form-control" id="profileUpload"
+				name="file" accept="image/*">
+
+			프로필 이미지 경로를 담을 곳
+			<input type="text" class="form-control" id="input_profileImgUrl"
+				name="input_profileImgUrl" hidden="" required="required"> -->
+				
+			<!-- 프로필 사진 -->
+			<div class="row mb-2">
+				<label>프로필 사진</label>
+				<div class="col-4">
+				<div id="image_container"></div>
+				</div>
+				<div class="col-8">
+					<input type="file" name="file" onchange = "setThumbnail(event);">
+					
 				</div>
 			</div>
 
@@ -370,8 +384,7 @@ label {
 				<label for="Nickname">닉네임</label>
 				<div class="col-8">
 					<input type="text" class="form-control" id="nickname"
-						name="nickname" placeholder="" maxlength="20"
-						required="required">
+						name="nickname" placeholder="" maxlength="20" required="required">
 				</div>
 
 				<div class="col-4">
@@ -394,9 +407,9 @@ label {
 						placeholder="이메일" required="required">
 				</div>
 
-				<div class="col-4 d-flex justify-content-center">
+				<div class="col-4 d-flex justify-content-start">
 					<button type="button" class="btn btn-warning w-100"
-						id="btnCertificate_code">인증번호 발송</button>
+						id="btnVerifyEmail">이메일 확인</button>
 				</div>
 			</div>
 
@@ -404,17 +417,29 @@ label {
 				<div class="col" id="res_email"></div>
 			</div>
 
-			<div class="row mb-2">
+			<div class="row mb-2" id="certification_area" style="display: none;">
 				<div class="col-4">
 					<input type="text" class="form-control" id="code_Input"
 						placeholder="인증번호" disabled="disabled" maxlength="6"
 						required="required">
 				</div>
 
+				<div class="col-3 d-flex justify-content-end">
+					<button type="button" class="btn btn-warning"
+						id="btnCertificate_code">인증번호 발송</button>
+				</div>
+			</div>
+
+			<div class="row mb-2">
+				<div class="col-4">
+					<input type="text" class="form-control" id="code_Input"
+						placeholder="인증번호" disabled="disabled" maxlength="6"
+						required="required" style="display: none;">
+				</div>
+
 				<div class="col-8" id="Res_Emailvalidation"
 					style="vertical-align: middle;"></div>
 			</div>
-
 			<!-- E-mail 영역 끝 -->
 
 			<!-- Address 영역 -->
@@ -468,34 +493,44 @@ label {
 	</div>
 
 	<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
-
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
-			</div>
-		</div>
-
-	</footer>
-
+	<div id="footer"></div>
 
 	<script>
 	<!-- script area -->
+			
+	<!-- 프로필 -->
+	/*__________Profile__________*/
+	/*
+	let imgPath = "";
+	
+	$("#profileImg").click(function(e) {
+		$("#profileUpload").click();
+	});
+	
+	$("#profileUpload").change(function(e) {
+		readImg(e.target);
+	});
+	
+	function readImg(input) {
+		if (input.files && input.files[0]) {
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				$("#profileImg").css({
+					"background-image" : "url('" + e.target.result + "')"
+				});
+			}
+			
+			reader.readAsDataURL(input.files[0]);
+		}
+		
+		//	console.log(input.value);
+		imgPath = input.value;
+		console.log(imgPath);
+	}
+	*/
+	
+	
+	
 	<!-- 아이디 -->
 	/*__________ID__________*/
 		let id = document.getElementById("id");
@@ -553,7 +588,6 @@ label {
 				
 			}
 		}
-		
 
 	<!-- PW -->
 		/*__________PW__________*/
@@ -693,6 +727,7 @@ label {
 	<!-- 이메일 -->
 		/*__________이메일__________*/
 		let email = document.getElementById("email");	//	이메일 입력 input창
+		let btnVerifyEmail = document.getElementById("btnVerifyEmail");	//	이메일 확인(중복검사) 버튼
 		let btnCertificatecode = document.getElementById("btnCertificate_code");	//	인증번호 발송 버튼
 		let ResEmail = $("#res_email");	//	이메일이 제대로 입력됐는지 확인을 알려주는 결과를 담아줄 변수
 		let codeInput = $("#code_Input");	//	인증번호 입력 input창
@@ -715,6 +750,43 @@ label {
 					"color" : "red"
 				});
 
+				email.value = "";
+			}
+		}
+		
+		//	이메일 중복검사를 눌렀을때
+		btnVerifyEmail.onclick = function(e) {
+			if (regexEmail()) {
+				$.ajax({
+					url: "${pageContext.request.contextPath}/member/VerifyEmail.do", 
+					type: "post", 
+					data: {email : email.value}
+				}).done(function(res) {
+					console.log(res);
+					
+					if (res == "Available") {
+						ResEmail.html("사용 가능한 이메일입니다.");
+						ResEmail.css({
+							"font-size" : "10px",
+							"color" : "green"
+						});
+						
+						$("#certification_area").fadeIn(1000);
+						
+						//btnCertificatecode.css("visibility", "visible");
+
+					} else if (res == "Unavailable") {
+						ResEmail.html("이미 사용중인 이메일입니다.");
+						ResEmail.css({
+							"font-size" : "10px",
+							"color" : "red"
+						});
+						
+					}
+				}).fail(function(e) {
+					console.log(e);
+				});
+				
 			}
 		}
 
@@ -767,8 +839,7 @@ label {
 				});
 
 			}
-		});
-		
+		});		
 
 	<!-- 우편번호 -->
 		/*__________Postcode__________*/
@@ -836,7 +907,7 @@ label {
 			}).open();
 		}
 
-	<!-- Cancel, Registry -->
+	<!-- 가입, 취소 -->
 		//	가입 (Registry)를 눌렀을 때 가입
 		document.getElementById("btnSuccess").onclick = function(e) {
 			if (id.value === "" || !regexID()) {
@@ -857,6 +928,7 @@ label {
 				return;
 			} else {
 				document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
+				//	document.getElementById("input_profileImgUrl").value = imgPath.value;
 				document.getElementById("JoinusForm").submit();
 			}
 		}
@@ -865,6 +937,17 @@ label {
 		document.getElementById("btnCancel").onclick = function(e) {
 			location.href = "${pageContext.request.contextPath}/";
 		}
+		
+		// 프로필 사진 미리보기
+		function setThumbnail(event) { 
+			var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+			reader.onload = function(event) { // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
+				let img = "<img src='"+event.target.result+"' width=100 height=100 />"; 
+				$("#image_container").append(img); 
+				}; 
+			reader.readAsDataURL(event.target.files[0]); }
+
+	
 	</script>
 </body>
 </html>

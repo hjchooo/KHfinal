@@ -14,11 +14,16 @@
 	crossorigin="anonymous"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<title>Join-Us</title>
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");		
+	});
+</script>
+<title>회원정보 수정</title>
 <style type="text/css">
 
 /**/
-
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
@@ -244,8 +249,6 @@ a {
 }
 
 /**/
-
-
 label {
 	font-size: 10px;
 	font-style: italic;
@@ -268,50 +271,10 @@ label {
 </style>
 </head>
 <body>
-	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img class="main_logo_size"
-						src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-				<span class="navi_text"> 회원가입 </span>
-				</a>
-				&nbsp; &nbsp; 
-				<a href="${pageContext.request.contextPath}/member/toLogin.do">
-				<span class="navi_text"> 로그인 </span> 
-				</a>
-				&nbsp; &nbsp; 
-				<a href="">
-				<span class="navi_text"> 마이페이지 </span>
-				</a>
-			</div>
 
-		</div>
-	</div>
+	<!-- 헤더 -->
+	<div id="header"></div>
 
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-	
-	
 
 	<div class="container w-50">
 		<form action="${pageContext.request.contextPath}/member/toModify.do"
@@ -329,128 +292,109 @@ label {
 				<label for="ID">아이디</label>
 				<div class="col-12">
 					<input type="text" class="form-control" id="id" name="id"
-						placeholder="Your ID" maxlength="20" required="required" value="${dto.id}" readonly>
+						placeholder="Your ID" maxlength="20" required="required"
+						value="${dto.id}" readonly>
 				</div>
 
 
-			<!-- ID 영역 끝 -->
+				<!-- ID 영역 끝 -->
 
 
-			<!-- Nickname 영역 -->
-			<div class="row mb-2">
-				<label for="Nickname">Nickname</label>
-				<div class="col-8">
-					<input type="text" class="form-control" id="nickname"
-						name="nickname" placeholder="Your Nickname" maxlength="20" required="required">
+				<!-- Nickname 영역 -->
+				<div class="row mb-2">
+					<label for="Nickname">Nickname</label>
+					<div class="col-8">
+						<input type="text" class="form-control" id="nickname"
+							name="nickname" placeholder="Your Nickname" maxlength="20"
+							required="required">
+					</div>
+
+					<div class="col-4">
+						<button type="button" class="btn btn-warning w-100"
+							id="btnVerifyNickname">verifyNickname</button>
+					</div>
+
+					<div class="row mb-1">
+						<div class="col" id="res_nickname"></div>
+					</div>
 				</div>
 
-				<div class="col-4">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyNickname">verifyNickname</button>
+				<!-- Nickname 영역 끝 -->
+
+				<!-- E-mail 영역 -->
+				<div class="row mb-2">
+					<label for="E-mail">E-mail</label>
+					<div class="col-12">
+						<input type="email" class="form-control" id="Email" name="email"
+							placeholder="Your E-mail" required="required"
+							value="${dto.email}">
+					</div>
+
 				</div>
 
-				<div class="row mb-1">
-					<div class="col" id="res_nickname"></div>
-				</div>
-			</div>
-
-			<!-- Nickname 영역 끝 -->
-
-			<!-- E-mail 영역 -->
-			<div class="row mb-2">
-				<label for="E-mail">E-mail</label>
-				<div class="col-12">
-					<input type="email" class="form-control" id="Email"
-						name="email" placeholder="Your E-mail" required="required" value="${dto.email}">
+				<div class="row mb-2">
+					<div class="col" id="res_email"></div>
 				</div>
 
-			</div>
-			
-			<div class="row mb-2">
-				<div class="col" id="res_email"></div>
-			</div>
+				<!-- E-mail 영역 끝 -->
 
-			<!-- E-mail 영역 끝 -->
+				<!-- Address 영역 -->
+				<div class="row mb-2 justify-content-center">
+					<label for="Address">Address</label>
+					<div class="col-6 d-flex justify-content-end">
+						<input type="text" class="form-control" id="Postcode"
+							name="Postcode" placeholder="Postcode">
+					</div>
 
-			<!-- Address 영역 -->
-			<div class="row mb-2 justify-content-center">
-				<label for="Address">Address</label>
-				<div class="col-6 d-flex justify-content-end">
-					<input type="text" class="form-control" id="Postcode"
-						name="Postcode" placeholder="Postcode">
+					<div class="col-6 d-flex justify-content-center">
+						<button type="button" class="btn btn-dark w-100"
+							onclick="ExecDaumPostcode()">Find Postcode</button>
+					</div>
 				</div>
 
-				<div class="col-6 d-flex justify-content-center">
-					<button type="button" class="btn btn-dark w-100"
-						onclick="ExecDaumPostcode()">Find Postcode</button>
-				</div>
-			</div>
-
-			<div class="row mb-2 justify-content-center">
-				<div class="col">
-					<input type="text" class="form-control" id="RoadAddress"
-						name="RoadAddress" placeholder="Road Address">
-				</div>
-			</div>
-
-			<div class="row mb-2 justify-content-center">
-				<div class="col">
-					<input type="text" class="form-control" id="DetailAddress"
-						name="DetailAddress" placeholder="Detail Address">
-				</div>
-			</div>
-			
-			<div class="row mb-2 justify-content-center">
-				<div class="col">
-					<input type="text" class="form-control" id="Address" name="Address" style="display: none;" required="required">
-				</div>
-			</div>
-
-			<!-- Address 영역 끝 -->
-
-			<!-- 가입, 취소 -->
-			<div class="row justify-content-center">
-				<div class="col-4 d-flex justify-content-end">
-					<button type="button" class="btn btn-success" id="btnModify">수정</button>
+				<div class="row mb-2 justify-content-center">
+					<div class="col">
+						<input type="text" class="form-control" id="RoadAddress"
+							name="RoadAddress" placeholder="Road Address">
+					</div>
 				</div>
 
-				<div class="col-4 d-flex justify-content-start">
-					<button type="button" class="btn btn-danger" id="btnCancel">취소</button>
+				<div class="row mb-2 justify-content-center">
+					<div class="col">
+						<input type="text" class="form-control" id="DetailAddress"
+							name="DetailAddress" placeholder="Detail Address">
+					</div>
 				</div>
-			</div>
+
+				<div class="row mb-2 justify-content-center">
+					<div class="col">
+						<input type="text" class="form-control" id="Address"
+							name="Address" style="display: none;" required="required">
+					</div>
+				</div>
+
+				<!-- Address 영역 끝 -->
+
+				<!-- 가입, 취소 -->
+				<div class="row justify-content-center">
+					<div class="col-4 d-flex justify-content-end">
+						<button type="button" class="btn btn-success" id="btnModify">수정</button>
+					</div>
+
+					<div class="col-4 d-flex justify-content-start">
+						<button type="button" class="btn btn-danger" id="btnCancel">취소</button>
+					</div>
+				</div>
 		</form>
 	</div>
 
 	<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
+	<div id="footer"></div>
 
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
 
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
-			</div>
-		</div>
-
-	</footer>
-
-	
 	<script>
 	<!-- script area -->
-
+				
 	<!-- 닉네임 -->
 		/*__________Nickname__________*/
 		let nickname = document.getElementById("nickname");
@@ -597,6 +541,8 @@ label {
 		document.getElementById("btnCancel").onclick = function(e) {
 			location.href = "${pageContext.request.contextPath}/";
 		}
+	
+	
 	</script>
 </body>
 </html>

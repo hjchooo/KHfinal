@@ -14,5 +14,28 @@
 		<select id="selectAll" resultType="FileDTO">
 			select * from files where board_seq = #{board_seq}
 		</select>
-	
+		
+		<!-- 파일 수정 -->
+		<update id="modifyFile" parameterType="FileDTO">
+			update files 
+				set ori_name = #{ori_name},
+				sys_name = #{sys_name}
+			where file_seq = #{file_seq}
+		</update>
+		
+		<!-- 파일 번호 찾기 -->
+		<select id="selectFileSeq" resultType="list">
+			select file_seq from files
+				where board_seq = #{board_seq}
+		</select>
+		
+		<!-- ori_name -->
+		<select id="selectOri_name" resultType="String">
+			select ori_name from files where board_seq = #{board_seq}
+		</select>
+		
+		<!-- sys_name -->
+		<select id="selectSys_name" resultType="String">
+			select sys_name from files where board_seq = #{board_seq}
+		</select>
 	</mapper>
