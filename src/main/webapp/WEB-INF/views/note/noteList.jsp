@@ -309,31 +309,9 @@ label {
 		</div>
 	</div>
 	
-		<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container margin_top_100">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
-
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
-			</div>
-		</div>
-	</footer>
-	
+	<!--푸터 css에는 foot으로 표기-->
+	<div id="footer"></div>
+		
 	<script>
 	
 	$(document).ready(function(){

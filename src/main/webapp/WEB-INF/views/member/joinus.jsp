@@ -14,6 +14,13 @@
 	crossorigin="anonymous"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");		
+	});
+</script>
 <title>Join-Us</title>
 <style type="text/css">
 
@@ -276,54 +283,22 @@ label {
 #profileUpload {
 	display: none;
 }
+
+#image_container{
+	border : solid 2px gray;
+	width : 110px;
+	height : 110px;
+}
 </style>
 </head>
 <body>
-	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img
-						class="main_logo_size" src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-					<span class="navi_text"> 회원가입 </span>
-				</a> &nbsp; &nbsp; <a
-					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
-					class="navi_text"> 로그인 </span>
-				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
-				</span>
-				</a>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-
+	<!-- 헤더 -->
+	<div id="header"></div>
 
 
 	<div class="container w-50">
 		<form action="${pageContext.request.contextPath}/member/joinus.do"
-			id="JoinusForm" method="post">
+			id="JoinusForm" method="post" enctype="multipart/form-data">
 
 			<!-- 해당 페이지 타이틀 -->
 			<div class="row mb-5">
@@ -333,7 +308,7 @@ label {
 			</div>
 
 			<!-- 프로필 영역 -->
-			<div class="row mb-2" style="display: none;">
+			<!-- <div class="row mb-2" style="display: none;">
 				<div class="col d-flex justify-content-center">
 					<div id="profileImg"></div>
 				</div>
@@ -341,10 +316,21 @@ label {
 			<input type="file" class="form-control" id="profileUpload"
 				name="file" accept="image/*">
 
-			<!-- 프로필 이미지 경로를 담을 곳 -->
+			프로필 이미지 경로를 담을 곳
 			<input type="text" class="form-control" id="input_profileImgUrl"
-				name="input_profileImgUrl" hidden="" required="required">
-
+				name="input_profileImgUrl" hidden="" required="required"> -->
+				
+			<!-- 프로필 사진 -->
+			<div class="row mb-2">
+				<label>프로필 사진</label>
+				<div class="col-4">
+				<div id="image_container"></div>
+				</div>
+				<div class="col-8">
+					<input type="file" name="file" onchange = "setThumbnail(event);">
+					
+				</div>
+			</div>
 
 			<!-- ID 영역 -->
 			<div class="row mb-2">
@@ -507,31 +493,7 @@ label {
 	</div>
 
 	<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
-
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
-			</div>
-		</div>
-
-	</footer>
-
+	<div id="footer"></div>
 
 	<script>
 	<!-- script area -->
@@ -566,6 +528,8 @@ label {
 		console.log(imgPath);
 	}
 	*/
+	
+	
 	
 	<!-- 아이디 -->
 	/*__________ID__________*/
@@ -973,6 +937,16 @@ label {
 		document.getElementById("btnCancel").onclick = function(e) {
 			location.href = "${pageContext.request.contextPath}/";
 		}
+		
+		// 프로필 사진 미리보기
+		function setThumbnail(event) { 
+			var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+			reader.onload = function(event) { // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
+				let img = "<img src='"+event.target.result+"' width=100 height=100 />"; 
+				$("#image_container").append(img); 
+				}; 
+			reader.readAsDataURL(event.target.files[0]); }
+
 	
 	</script>
 </body>

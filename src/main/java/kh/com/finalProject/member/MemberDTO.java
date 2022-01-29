@@ -10,13 +10,15 @@ public class MemberDTO {
 	private String email;
 	private String address;
 	private Date signup_date;
+	private String ori_name;
+	private String sys_name;
 	
 	public MemberDTO()
 	{
 		//	default constructor
 	}
 
-	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date) {
+	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date, String ori_name, String sys_name) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -24,6 +26,8 @@ public class MemberDTO {
 		this.email = email;
 		this.address = address;
 		this.signup_date = signup_date;
+		this.ori_name = ori_name;
+		this.sys_name = sys_name;
 	}
 
 	public String getId() {
@@ -72,6 +76,22 @@ public class MemberDTO {
 
 	public void setSignup_date(Date signup_date) {
 		this.signup_date = signup_date;
+	}
+
+	public String getOri_name() {
+		return ori_name;
+	}
+
+	public void setOri_name(String ori_name) {
+		this.ori_name = ori_name;
+	}
+
+	public String getSys_name() {
+		return sys_name;
+	}
+
+	public void setSys_name(String sys_name) {
+		this.sys_name = sys_name;
 	}
 
 	@Override

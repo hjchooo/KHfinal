@@ -84,4 +84,20 @@ public class MemberDAO {
 		System.out.println("note dao 도착");
 		return session.selectList("memberMapper.selectAll");
 	}
+	
+	// 관리자용 회원전체 조회
+			public List<MemberDTO> mSelectAll(int startRange,int endRange) throws Exception {
+				Map<String, Object> map = new HashMap<>();
+				map.put("startRange", startRange);
+				map.put("endRange", endRange);
+				return session.selectList("memberMapper.mSelectAll", map);
+			}
+			
+			//
+			public int countAll() {
+				System.out.println("MemeberDAO count 도착");
+				int rs = session.selectOne("memberMapper.countAll");
+				System.out.println(rs);
+				return rs;
+			}
 }

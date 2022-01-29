@@ -19,7 +19,7 @@
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="MemberDTO">
 		insert into member
-		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate)
+		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate, #{ori_name}, #{sys_name})
 	</insert>
 
 	<!-- ID 중복 확인 -->
@@ -69,5 +69,17 @@
 	<!-- 회원 전체 조회 -->
 	<select id="selectAll" resultType="MemberDTO">
 		select * from member
+	</select>
+	
+	<!-- 회원 전체 수 조회 -->
+	<select id="countAll" resultType="Integer">
+		select count(*) from member
+	</select>
+	
+	<!-- 관리자용 회원 전체 조회 -->
+	<select id="mSelectAll" parameterType="map"
+		resultType="MemberDTO">
+		select * from (select row_number() over (order by id desc) 순위,
+		a. * from member a) where 순위 between #{startRange}and #{endRange}
 	</select>
 </mapper>
