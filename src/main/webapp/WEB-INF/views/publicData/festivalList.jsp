@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
-<title>Go 가자</title>
+<title>Insert title here</title>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
@@ -360,7 +360,6 @@ A:hover {
 }
 </style>
 </head>
-
 <body>
 	<!--메인 검색 창-->
 	<div class="container">
@@ -433,36 +432,21 @@ A:hover {
 		${naviMap.get('currentPage')}
 		<div class="row board_category_color margin_top_30">
 			<div class="col-2 board_category"></div>
-			<div class="col-1 board_category" id="seoul">
+			<div class="col-2 board_category" id="seoul">
 				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=서울&currentPage=1">서울</a>
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=서울&currentPage=1">봄</a>
 			</div>
-			<div class="col-1 board_category" id="gyeonggi">
+			<div class="col-2 board_category" id="gyeonggi">
 				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=경기&currentPage=1">경기도</a>
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=경기&currentPage=1">여름</a>
 			</div>
-			<div class="col-1 board_category" id="gangwon">
+			<div class="col-2 board_category" id="gangwon">
 				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=강원&currentPage=1">강원도</a>
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=강원&currentPage=1">가을</a>
 			</div>
-			<div class="col-1 board_category" id="chungcheong">
+			<div class="col-2 board_category" id="chungcheong">
 				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=충청&currentPage=1">충청도</a>
-			</div>
-			<div class="col-1 board_category" id="jeolla">
-				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=전라&currentPage=1">전라도</a>
-			</div>
-			<div class="col-1 board_category" id="gyeongsang">
-				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=경상&currentPage=1">경상도</a>
-			</div>
-			<div class="col-1 board_category" id="jeju">
-				<a
-					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=제주&currentPage=1">제주도</a>
-			</div>
-			<div class="col-1 board_category">
-				<img id="korea-flag" src="/resources/images/korea-flag.png">
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=충청&currentPage=1">겨울</a>
 			</div>
 			<div class="col-2 "></div>
 		</div>
@@ -500,9 +484,9 @@ A:hover {
 					<div class="col-2 margin_top_10"></div>
 					<div class="col-4 margin_top_10">
 						<span class="list_sort_button"><a
-							href="${pageContext.request.contextPath}/publicdata/modifiedtimeList.do">최신순(수정일)</a></span>
+							href="${pageContext.request.contextPath}/publicdata/modifiedtimeFestivalList.do">최신순(수정일)</a></span>
 						<span>|</span> <span class="list_sort_button"><a
-							href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=1">인기순</a></span>
+							href="${pageContext.request.contextPath}/publicdata/readcountFestivalList.do?currentPage=1">인기순</a></span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 				</div>
@@ -528,7 +512,7 @@ A:hover {
 							<tr>
 								<td><img class="thumbnail" src="${dataDTO.firstimage2}"></td>
 								<td><a
-									href="${pageContext.request.contextPath}/publicdata/detailView.do?contentid=${dataDTO.contentid}">${dataDTO.title}</a></td>
+									href="${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid=${dataDTO.contentid}">${dataDTO.title}</a></td>
 								<td>${dataDTO.addr1}</td>
 								<td>${dataDTO.readcount}</td>
 								<td>${dataDTO.modifiedtime}</td>
@@ -536,73 +520,52 @@ A:hover {
 						</c:forEach>
 					</tbody>
 				</table>
-				<c:set var="option" value="${option}" />
-				<c:if test="${option eq 'all' }">
+				<c:set var="all" value="${option}" />
+				<c:if test="${all eq 'all'}">
 					<div class="row">
 						<nav class="col" aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+										href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
 								</c:if>
 								<!--startNavi ->endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${i}">${i}</a></li>
+										href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+										href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
 								</c:if>
 							</ul>
 						</nav>
 					</div>
 				</c:if>
-				<c:set var="option" value="${option}" />
-				<c:if test="${option eq 'readcount'}">
+				<c:set var="readcount" value="${option}" />
+				<c:if test="${readcount eq 'readcount'}">
 					<div class="row">
 						<nav class="col" aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+										href="${pageContext.request.contextPath}/publicdata/readcountFestivalList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
 								</c:if>
 								<!--startNavi ->endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${i}">${i}</a></li>
+										href="${pageContext.request.contextPath}/publicdata/readcountFestivalList.do?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+										href="${pageContext.request.contextPath}/publicdata/readcountFestivalList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
 								</c:if>
 							</ul>
 						</nav>
 					</div>
 				</c:if>
-
-				<%-- <div class="row">
-					<nav class="col" aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							<c:if test="${naviMap.get('needPrev') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
-							</c:if>
-							<!--startNavi ->endNavi  -->
-							<c:forEach var="i" begin="${naviMap.get('startNavi')}"
-								end="${naviMap.get('endNavi')}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${naviMap.get('needNext') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
-							</c:if>
-						</ul>
-					</nav>
-				</div> --%>
 			</div>
 		</div>
 
@@ -631,10 +594,5 @@ A:hover {
 				</div>
 			</div>
 		</footer>
-
-		<script>
-		
-	</script>
 </body>
-
 </html>

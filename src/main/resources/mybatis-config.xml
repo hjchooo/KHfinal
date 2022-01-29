@@ -6,6 +6,9 @@
 <configuration>
 	<!-- 기존에는 settings -null값 / 별칭 설정 / mapper클래스 등록 / DB설정 스르핑에서는 settings 
 		-null값 / 별칭 설정 까지만 -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
 	<typeAliases>
 		<typeAlias type="kh.com.finalProject.board.BoardDTO" alias="BoardDTO" />
 		<typeAlias type="kh.com.finalProject.files.FileDTO" alias="FileDTO" />
@@ -15,6 +18,9 @@
 		<typeAlias type="kh.com.finalProject.report.ReportDTO" alias="ReportDTO" />
 		<typeAlias type="kh.com.finalProject.member.MemberDTO" alias="MemberDTO" />
 		<typeAlias type="kh.com.finalProject.note.NoteDTO" alias="NoteDTO"/>
+		<typeAlias type="kh.com.finalProject.publicdata.DataDTO" alias="DataDTO"/>
+		<typeAlias type="kh.com.finalProject.publicdata.FestivalDTO" alias="FestivalDTO"/>
+		<typeAlias type="kh.com.finalProject.publicdata.LeportsDTO" alias="LeportsDTO"/>
 	</typeAliases>
 
 	<!-- <mappers>
