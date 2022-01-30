@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dataMapper">
+	<!-- 전국 관광지 가져오기 -->
+	<select id="selectAll" resultType="DataDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위, 
+		a. * from data a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 전국 관광지 데이터 수 가져오기 -->
+	<select id="countAll" resultType="int">
+		select count(*) from data
+	</select>
+	
+	<!-- 관광지 상세보기 -->
+	<select id="selectOne" resultType="DataDTO">
+		select * from data where contentid = ${contentid}
+	</select>
+	
+	<!-- 관광지 리스트(지역별로) -->
+	<select id="selectAllArea" resultType="DataDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위, 
+		a. * from data a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 관광지 리스트(지역별로) 데이터 수 가져오기 -->
+	<select id="countAllArea" resultType="int">
+		select count(*) from data where addr1 like '%' || #{addr1} || '%' 
+	</select>
+	
+	<!-- 관광지 리스트 인기순 -->
+	<select id="readcountList" resultType="DataDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위,
+		a. * from data a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 관광지 리스트(지역별로) 인기순 -->
+	<select id="readcountAreaList" resultType="DataDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위, 
+		a. * from data a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 축제 데이터 수 가져오기 -->
+	<select id="countAllFestival" resultType="int">
+		select count(*) from festivaldata
+	</select>
+	
+	<!-- 축제 리스트 가져오기 -->
+	<select id="selectAllFestival" resultType="FestivalDTO" parameterType="map">
+		select contentid, addr1, addr2, firstimage, firstimage2, eventenddate, eventstartdate, modifiedtime, readcount, title, tel, content 
+		from (select row_number() over (order by modifiedtime desc) 순위, 
+		a. * from festivaldata a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 축제 상세보기 -->
+	<select id="selectOneFestival" resultType="FestivalDTO">
+		select * from festivaldata where contentid = #{contentid}
+	</select>
+	
+	<!-- 축제 리스트 인기순 -->
+	<select id="readcountFestivalList" resultType="FestivalDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위,
+		a. * from festivaldata a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 레포츠 리스트 가져오기 -->
+	<select id="selectAllLeports" resultType="LeportsDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위,
+		a. * from leportsdata a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 레포츠 데이터 수 가져오기 -->
+	<select id="countAllLeports" resultType="int">
+		select count(*) from leportsdata
+	</select>
+	
+	<!-- 레포츠 상세보기 -->
+	<select id="selectOneLeports" resultType="LeportsDTO">
+		select * from leportsdata where contentid = #{contentid}
+	</select>
+	
+	<!-- 레포츠 리스트 가져오기(지역별로) -->
+	<select id="selectAllLeportsArea" resultType="LeportsDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위, 
+		a. * from leportsdata a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 레포츠 데이터 수 가져오기(지역별로) -->
+	<select id="countAllLeportsArea" resultType="int">
+		select count(*) from leportsdata where addr1 like '%' || #{addr1} || '%' 
+	</select>
+	
+	<!-- 레포츠 리스트 인기순 -->
+	<select id="readcountLeportsList" resultType="LeportsDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위,
+		a. * from leportsdata a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 레포츠 리스트(지역별로) 인기순 -->
+	<select id="readcountAreaLeportsList" resultType="LeportsDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위,
+		a. * from leportsdata a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 관광지 공공데이터 저장 -->
+	<insert id="saveData" parameterType="DataDTO">
+		insert into data values(#{contentid}, #{addr1}, #{addr2}, #{firstimage},
+		#{firstimage2}, #{mapx}, #{mapy}, to_date(#{modifiedtime}, 'yyyymmddhh24miss'), #{readcount},
+		#{title}, #{content})
+	</insert>
+	
+	<!-- 축제 공공데이터 저장 -->
+	<insert id="festival" parameterType="FestivalDTO">
+		insert into festivaldata values(#{contentid}, #{addr1}, #{addr2}, #{firstimage},
+		#{firstimage2}, to_date(#{eventenddate}, 'yyyymmdd'), to_date(#{eventstartdate}, 'yyyymmdd'), 
+		to_date(#{modifiedtime}, 'yyyymmddhh24miss'), #{readcount}, #{title}, #{tel}, #{content})
+	</insert>
+	
+	<!-- 레포츠 공공데이터 저장 -->
+	<insert id="leports" parameterType="LeportsDTO">
+		insert into leportsdata values(#{contentid}, #{addr1}, #{addr2}, #{firstimage},
+		#{firstimage2}, #{mapx}, #{mapy}, to_date(#{modifiedtime}, 'yyyymmddhh24miss'), #{readcount}, 
+		#{title}, #{content})
+	</insert>
+</mapper>

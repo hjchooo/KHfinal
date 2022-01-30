@@ -235,9 +235,8 @@ a {
 				</a>
 			</div>
 			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/publicdata/toDetailList">
-					<h5 class="navi_category">여행 정보</h5>
-				</a>
+				<a href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">
+					<h5 class="navi_category" id="bigData">여행 정보</h5></a>
 			</div>
 			<div class="col-2"></div>
 		</div>
