@@ -95,14 +95,11 @@ public class MemberController {
 
 			if (pwEncoder.matches(rawPW, encodePW)) {
 				session.setAttribute("loginSession", dto);
-
 				return "성공";
 			} else {
-
 				return "실패";
 			}
 		} else {
-
 			return "fail";
 		}
 	}

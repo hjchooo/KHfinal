@@ -4,258 +4,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-	crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$("#header").load("/resources/header/header.jsp");
-		$("#footer").load("/resources/footer/footer.jsp");		
+		$("#footer").load("/resources/footer/footer.jsp");
 	});
 </script>
 <title>마이페이지</title>
 <style>
-/**/
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
-	;
-
+/* 마이페이지 컨테이너 */
+*{
+	box-sizing: border-box;
+}
 a {
 	text-decoration: none;
-}
-
-.line_check {
-	border: 1px solid black;
-}
-
-.font_nanum {
-	font-family: 'Nanum Gothic', sans-serif,;
-}
-
-.nomal_font {
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.p_center {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.p_right {
-	text-align: right;
-	margin: 0px;
-	margin-right: 0px;
-	padding: 0px;
-	padding-right: 0px;
-}
-
-.p_left {
-	text-align: left;
-	margin: 0px;
-	margin-left: 0px;
-	padding: 0px;
-	margin-left: 0px;
-}
-
-.margin_top_100 {
-	margin-top: 100px;
-}
-
-.margin_top_50 {
-	margin-top: 50px;
-}
-
-.margin_top_30 {
-	margin-top: 30px;
-}
-
-.margin_top_20 {
-	margin-top: 20px;
-}
-
-.margin_top_10 {
-	margin-top: 10px;
-}
-
-.margin_top_5 {
-	margin-top: 5px;
-}
-
-.margin_bottom_100 {
-	margin-bottom: 100px;
-}
-
-.margin_bottom_50 {
-	margin-bottom: 50px;
-}
-
-.margin_bottom_30 {
-	margin-bottom: 30px;
-}
-
-.margin_bottom_20 {
-	margin-bottom: 20px;
-}
-
-.margin_bottom_10 {
-	margin-bottom: 10px;
-}
-
-.margin_bottom_5 {
-	margin-bottom: 5px;
-}
-
-.main_logo_size {
-	width: 120px;
-}
-
-.search_space {
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
-
-.search_icon_img {
-	width: 30px;
-}
-
-.main_search_bar {
-	background-color: rgb(245, 245, 245);
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_text {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_category {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(70, 70, 70);
-	font-size: 25px;
-	font-weight: 700;
-}
-
-.com_go_comunity_box {
-	width: 150px;
-	height: 150px;
-	border-radius: 10px;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 22px;
-	text-align: center;
-	color: white;
-	background: linear-gradient(135deg, rgb(118, 240, 253),
-		rgb(112, 144, 212));
-	border: 0px;
-}
-
-.com_go_boxtext {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.go_explan_space {
-	margin-top: 80px;
-}
-
-.go_explan_img {
-	width: 100px;
-}
-
-.explan_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.margin100px {
-	margin-top: 100px;
-}
-
-.best_margin_top_50 {
-	margin-top: 50px;
-	padding-top: 20px;
-	background-color: rgb(187, 248, 255);
-}
-
-.best_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 14px;
-	color: rgb(93, 126, 196);
-}
-
-.best_margin_top_bottom_20 {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.best_title_img {
-	width: 30px;
-}
-
-.best_card_border {
-	border-radius: 10px;
-}
-
-.best_image_border {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-}
-
-.best_title_back {
-	height: 50px;
-}
-
-.best_p_card_linehight {
-	line-height: 3;
-}
-
-.card_font {
 	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
 }
-
-/**/
-
-/* 푸터 */
-.foot_container {
-	background-color: rgb(187, 248, 255);
-	padding-top: 50px;
-}
-
-.foot_logo_img {
-	width: 50px;
-}
-
-.foot_text {
-	color: rgb(124, 124, 124);
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-size: 12px;
+.myPageContainer {
+	width: 800px;
+	margin: auto;
 }
 
 .myPage_category {
@@ -302,8 +81,12 @@ a {
 	<!-- 헤더 -->
 	<div id="header"></div>
 
-	<div>
-		<h4>${dto.nickname}님의 페이지</h4>
+	<div class="myPageContainer">
+		<div class="row">
+			<div class="col-12 d-flex justify-content-center">
+				<h4>${dto.nickname}님의페이지</h4>
+			</div>
+		</div>
 	</div>
 	<div class=" row mypageNavi">
 		<div class="col-3"></div>
@@ -358,28 +141,28 @@ a {
 
 
 	<script>
-	
-		document.getElementById("modifyBtn").onclick = function(){
-			location.href="${pageContext.request.contextPath}/member/modify.do?id=${loginSession.id}";
+		document.getElementById("modifyBtn").onclick = function() {
+			location.href = "${pageContext.request.contextPath}/member/modify.do?id=${loginSession.id}";
 		}
-	
-		document.getElementById("deleteBtn").onclick = function(){
+
+		document.getElementById("deleteBtn").onclick = function() {
 			let rs = confirm("정말 삭제하시겠습니까?");
 			console.log(rs);
-			if(rs){
-				location.href = "${pageContext.request.contextPath}/member/delete.do?id=${loginSession.id}";	
+			if (rs) {
+				location.href = "${pageContext.request.contextPath}/member/delete.do?id=${loginSession.id}";
 			}
 		}
-		
-		document.getElementById("noteBtn").onclick = function(){
-			window.open("${pageContext.request.contextPath}/member/note.do", "note", "width=500, height=300");
+
+		document.getElementById("noteBtn").onclick = function() {
+			window.open("${pageContext.request.contextPath}/member/note.do",
+					"note", "width=500, height=300");
 		}
-		
-		document.getElementById("noteListBtn").onclick = function(){
+
+		document.getElementById("noteListBtn").onclick = function() {
 			location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
 		}
-		
-		document.getElementById("reportBtn").onclick = function(){
+
+		document.getElementById("reportBtn").onclick = function() {
 			location.href = "${pageContext.request.contextPath}/board/myboard.do=reply_writer_idre=${loginSession.id}";
 		}
 	</script>

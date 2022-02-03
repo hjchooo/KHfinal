@@ -21,8 +21,6 @@ public class MemberService {
 
 	// 로그인
 	public boolean login(String id, String pw) throws Exception {
-		System.out.println("service id : " + id);
-		System.out.println("service pw : " + pw);
 		if (dao.login(id, pw) == 1) {
 			return true;
 		} else {

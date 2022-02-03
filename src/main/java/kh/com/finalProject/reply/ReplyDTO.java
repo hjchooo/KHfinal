@@ -1,6 +1,7 @@
 package kh.com.finalProject.reply;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class ReplyDTO {
 	private int reply_seq;
@@ -8,7 +9,7 @@ public class ReplyDTO {
 	private String re_content;
 	private String reply_writer_id;
 	private String reply_writer_nickname;
-	private Date reply_written_date;
+	private String reply_written_date;
 
 	public ReplyDTO() {
 		System.out.println("ReplyDTO 인스턴스 생성");
@@ -22,7 +23,7 @@ public class ReplyDTO {
 		this.re_content = re_content;
 		this.reply_writer_id = reply_writer_id;
 		this.reply_writer_nickname = reply_writer_nickname;
-		this.reply_written_date = reply_written_date;
+		this.reply_written_date = toStringFormat(reply_written_date);
 	}
 
 	public int getReply_seq() {
@@ -65,14 +66,19 @@ public class ReplyDTO {
 		this.reply_writer_nickname = reply_writer_nickname;
 	}
 
-	public Date getReply_written_date() {
+	public String getReply_written_date() {
 		return reply_written_date;
 	}
 
-	public void setReply_written_date(Date reply_written_date) {
+	public void setReply_written_date(String reply_written_date) {
 		this.reply_written_date = reply_written_date;
 	}
 
+	public String toStringFormat(Date reply_written_date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return sdf.format(reply_written_date);
+	}
+	
 	@Override
 	public String toString() {
 		return "ReplyDTO [reply_seq=" + reply_seq + ", re_board_seq=" + re_board_seq + ", re_content=" + re_content

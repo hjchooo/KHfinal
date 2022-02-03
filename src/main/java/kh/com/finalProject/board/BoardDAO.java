@@ -2,6 +2,7 @@ package kh.com.finalProject.board;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,4 +101,17 @@ public class BoardDAO {
 	public int modifyBySeq(BoardDTO dto) throws Exception{
 		return session.update("boardMapper.modifyBySeq", dto); 
 	}
+	
+	// 자유게시판 게시글 갯수
+	public int freeBoardCount() throws Exception {
+		return session.selectOne("boardMapper.freeBoardCount");
+	}
+	
+	// 비밀글 비밀번호 찾기
+	public int secretBoard(String secretPw, int board_seq) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("secretPw", secretPw);
+		map.put("board_seq", board_seq);
+		return session.selectOne("boardMapper.secretBoard", map);
+	} 
 }

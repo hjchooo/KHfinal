@@ -38,10 +38,10 @@ public class BoardService {
 	public List<BoardDTO> selectAll(int currentPage) throws Exception {
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
+		
+		// 자유게시판 전체 조회
 		List<BoardDTO> list = dao.selectAll(startRange, endRange);
-		for (BoardDTO dto : list) {
-			System.out.println(dto.toString());
-		}
+
 		return list;
 	}
 
@@ -169,14 +169,13 @@ public class BoardService {
 
 	// 게시글 등록
 	public int insertBoard(BoardDTO dto, FileDTO fdto) throws Exception {
-		System.out.println("BoardService 게시글 등록 도착");
 		int board_seq = dao.selectSeq();
-		System.out.println("게시글 등록(boardService) : " + board_seq);
 
 		// 게시글 등록
 		dto.setBoard_seq(board_seq); // 게시글에 게시글 번호 셋팅
 		int rs = dao.insertBoard(dto);
-
+		System.out.println("dto.getTitle : " + dto.getTitle());
+		
 		// 파일 등록
 		ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
 
@@ -231,23 +230,21 @@ public class BoardService {
 		System.out.println("게시글 수정(boardService) : " + board_seq);
 
 		fdto.setBoard_seq(board_seq);
-	
+
 		// 파일 등록
 		ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
-		
+
 		// board_seq 로 ori_name 검색
 		List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
-		
+
 		// board_seq 로 sys_name 검색
 		List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
-		
-		
+
 		System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
 		System.out.println("파일 번호 출력 : " + fdto.getFile_seq());
 		System.out.println("board_seq : " + fdto.getBoard_seq());
 		System.out.println("file_seq : " + fdto.getFile_seq());
-		
-		
+
 		if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
 			for (String mdOri : modifyOri_name) {
 				fdto.setOri_name(mdOri);
@@ -274,11 +271,22 @@ public class BoardService {
 				fdto.setSys_name(obj.get("sys_name").getAsString());
 				System.out.println("fdto.setSys_name : " + fdto.getSys_name());
 				fdao.modifyFile(fdto);
-				
-				
 			}
 		}
 		return 0;
 	}
 
+	// 자유게시판 게시글 갯수
+	public int freeBoardCount() throws Exception {
+		return dao.freeBoardCount();
+	}
+	
+	// 비밀글 비밀번호 찾기
+	public boolean secretBoard(String secretPw, int board_seq) throws Exception {
+		if (dao.secretBoard(secretPw, board_seq) == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

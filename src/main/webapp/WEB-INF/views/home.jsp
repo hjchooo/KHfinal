@@ -1536,6 +1536,8 @@ a {
 			console.log(areaCode);
 			location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
 		})
+
+
 			
 	</script>
 </body>
