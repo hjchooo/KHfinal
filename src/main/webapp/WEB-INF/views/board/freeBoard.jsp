@@ -23,7 +23,7 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
 	});
@@ -36,6 +36,13 @@
 
 a {
 	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
 }
 
 .line_check {
@@ -343,8 +350,24 @@ a {
 	width: 200px;
 }
 
+/* 비밀글 관련 영역 */
 #select {
 	width: 80px;
+}
+
+#secretImg {
+	margin-bottom: 6px;
+}
+
+/* 전체 버튼 */
+.btn {
+	background-color: #f9f9f9;
+	color: gray
+}
+
+.btn:hover {
+	background-color: gray;
+	color: white;
 }
 </style>
 </head>
@@ -390,7 +413,9 @@ a {
 						<p class="list_title"># 전체 게시판</p>
 					</div>
 					<div class="col-2">
-						<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1"><img class="list_refrash_icon"
+						<a
+							href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1"><img
+							class="list_refrash_icon"
 							src="/resources/images/refrash_icon.png"></a>
 					</div>
 				</div>
@@ -399,7 +424,7 @@ a {
 
 				<div class="row">
 					<div class="col-6 margin_top_10">
-						<span class="list_count1">총</span><span class="list_count2">16</span><span
+						<span class="list_count1">총</span><span class="list_count2">${freeBoardCount}</span><span
 							class="list_count1">건</span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
@@ -412,13 +437,22 @@ a {
 				<!-- 상단 타이틀 끝-->
 				<div class="row list_line2"></div>
 
-				<!-- 리스트 시작-->
+				<!-- 게시글 전체 리스트 -->
 				<c:forEach items="${list}" var="dto">
 					<div class="row margin_top_20">
-						<div class="col-1 text_center">${dto.board_seq}</div>
+						<div class="col-1 text_center" id="freeBoard_seq">${dto.board_seq}</div>
 						<div class="col-2 text_center">${dto.category}</div>
 						<div class="col-5 board_name">
-							<a href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+							<c:choose>
+								<c:when test="${dto.secret eq 'Y'}">
+									<a class="inputPw" id="secretBoard" style="color:gray;font-size:15px;" value="1">
+									<img id="secretImg" src="/resources/images/lock.svg">
+									비밀로 작성된 글 입니다.</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="col-1 text_center">${dto.writer_id}</div>
 						<div class="col-2 text_center">${dto.written_date}</div>
@@ -432,15 +466,15 @@ a {
 				<div class="row mt-2">
 					<div class="col-10 d-flex jusitfy-content-center">
 						<select id="select" name="select" class="form-select">
-							<option value="all" selected="selected">전체</option>
+							<option value="all" selected="selected" >전체</option>
 							<option value="content">내용</option>
 							<option value="title">제목</option>
 							<option value="writer_nickname">작성자</option>
 						</select> <input type="text" id="keyword" name="keyword"
-							class="form-control">
-						<button type="button" id="serchBtn" class="btn">검색</button>
+							class="form-control" style="margin-left:10px;">
+						<button type="button" id="serchBtn" class="btn" style="margin-left:10px;">검색</button>
 					</div>
-					
+
 					<div class="col-2 d-flex justify-content-end">
 						<button type="button" class="btn" id="btnWrite">글쓰기</button>
 					</div>
@@ -475,11 +509,53 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer" class="mt-5"></div>
-	
+
 	<!-- 스크립트 영역 -->
 	<script>
-		$("#btnWrite").on("click", function(){
+		// 게시글 등록 버튼
+		$("#btnWrite").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/board/toInsertBoard";
+		})
+		
+		// 검색 버튼
+		$("#searchBtn").on("click",	function() {
+			let searchType = $("#searchType").val();
+			let keyword = $("#keyword").val();
+			console.log(searchType + " : " + keyword);
+			let url = "${pageContext.request.contextPath}/board/searchProc.do?searchType="
+					+ searchType
+					+ "&keyword="
+					+ keyword
+					+ "&currentPage=1";
+			console.log(url);
+			$(location).attr("href", url);
+		})
+		
+		// option
+		$("#selectOption").on("change",	function() {
+			let selectOption = $("#selectOption").val();
+			console.log(selectOption);
+			let url = "${pageContext.request.contextPath}/board/toBoardOption.do?selectOption="
+					+ selectOption + "$currentPage=1";
+			console.log(url);
+			$(location).attr("href", url);
+		})
+		
+		// 비밀글 팝업창
+		$("#secretBoard").on("click", function(e){
+			console.log("e.target : ", $(e.target));
+			let board_seq = $("#freeBoard_seq").text();
+			console.log("board_seq : ", board_seq);
+			let width = '350';
+			let height = '350';
+			let left = Math.ceil(( window.screen.width - width )/2);
+			let top = Math.ceil(( window.screen.height - height )/2); 
+			
+			let url = "${pageContext.request.contextPath}/board/toBoardSecret?board_seq=" + board_seq;
+			let name = "비밀글";
+			let option = "width=" + width + ", height=" + height
+				+ ", left=" + left + ", top=" + top;
+			window.open(url, name, option);
 		})
 	</script>
 </body>

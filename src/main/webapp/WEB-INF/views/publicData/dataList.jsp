@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,7 +16,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <title>Go 가자</title>
 <style>
 @import
@@ -317,11 +319,49 @@ a {
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-size: 12px;
 }
+
+.thumbnail {
+	height: 113px;
+	width: 150px;
+}
+
+#korea-flag {
+	height: 100%;
+	width: 100%;
+}
+
+/*추가할지말지...*/
+A:link {
+	text-decoration: none;
+	color: black;
+}
+
+A:visited {
+	text-decoration: none;
+	color: black;
+}
+
+A:active {
+	text-decoration: none;
+	color: black;
+}
+
+A:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.table {
+	vertical-align: middle;
+}
+
+#theadTr {
+	
+}
 </style>
 </head>
 
 <body>
-
 	<!--메인 검색 창-->
 	<div class="container">
 		<div class="row search_space">
@@ -367,16 +407,20 @@ a {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-				<h5 class="navi_category">여행 커뮤니티</h5></a>
+				<a
+					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+					<h5 class="navi_category">여행 커뮤니티</h5>
+				</a>
 			</div>
 			<div class="col-2">
 				<a href="${pageContext.request.contextPath}/">
-				<h5 class="navi_category">홈</h5></a>
+					<h5 class="navi_category">홈</h5>
+				</a>
 			</div>
 			<div class="col-3">
 				<a href="${pageContext.request.contextPath}/publicdata/toDetailList">
-					<h5 class="navi_category">여행 정보</h5></a>
+					<h5 class="navi_category">여행 정보</h5>
+				</a>
 			</div>
 			<div class="col-2"></div>
 		</div>
@@ -386,14 +430,41 @@ a {
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
 	<div class="container-fluid">
+		${naviMap.get('currentPage')}
 		<div class="row board_category_color margin_top_30">
-			<div class="col-1 board_category"></div>
-			<div class="col-2 board_category">서울</div>
-			<div class="col-2 board_category">경기도</div>
-			<div class="col-2 board_category">전라도</div>
-			<div class="col-2 board_category">경상도</div>
-			<div class="col-2 board_category">충청도</div>
-			<div class="col-1 "></div>
+			<div class="col-2 board_category"></div>
+			<div class="col-1 board_category" id="seoul">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=서울&currentPage=1">서울</a>
+			</div>
+			<div class="col-1 board_category" id="gyeonggi">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=경기&currentPage=1">경기도</a>
+			</div>
+			<div class="col-1 board_category" id="gangwon">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=강원&currentPage=1">강원도</a>
+			</div>
+			<div class="col-1 board_category" id="chungcheong">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=충청&currentPage=1">충청도</a>
+			</div>
+			<div class="col-1 board_category" id="jeolla">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=전라&currentPage=1">전라도</a>
+			</div>
+			<div class="col-1 board_category" id="gyeongsang">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=경상&currentPage=1">경상도</a>
+			</div>
+			<div class="col-1 board_category" id="jeju">
+				<a
+					href="${pageContext.request.contextPath}/publicdata/areaDataList.do?addr1=제주&currentPage=1">제주도</a>
+			</div>
+			<div class="col-1 board_category">
+				<img id="korea-flag" src="/resources/images/korea-flag.png">
+			</div>
+			<div class="col-2 "></div>
 		</div>
 	</div>
 
@@ -411,7 +482,7 @@ a {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># 인기 축제코스</p>
+						<p class="list_title"># ${addr1} 여행코스</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"
@@ -423,340 +494,147 @@ a {
 
 				<div class="row">
 					<div class="col-6 margin_top_10">
-						<span class="list_count1">총</span><span class="list_count2">16</span><span
-							class="list_count1">건</span>
+						<span class="list_count1">총</span><span class="list_count2">
+							${recordTotalCnt1}</span><span class="list_count1">건</span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 					<div class="col-4 margin_top_10">
-						<span class="list_sort_button">최신순</span> <span>|</span> <span
-							class="list_sort_button">인기순</span>
+						<span class="list_sort_button"><a
+							href="${pageContext.request.contextPath}/publicdata/modifiedtimeList.do">최신순(수정일)</a></span>
+						<span>|</span> <span class="list_sort_button"><a
+							href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=1">인기순</a></span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 				</div>
 				<!-- 상단 타이틀 끝-->
 
-
-
-
 				<div class="row list_line2"></div>
 
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_06.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
 				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
 				<div class="row list_line2 margin_top_20"></div>
 
-
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_05.png">
+				<table class="table">
+					<thead>
+						<tr id="theadTr">
+							<th>Thumbnail</th>
+							<th>관광지</th>
+							<th>주소</th>
+							<th>콘텐츠 조회수</th>
+							<th>수정일</th>
+						</tr>
+					</thead>
+					<tbody id="dataBody">
+						<c:forEach items="${list}" var="dataDTO">
+							<tr>
+								<td><img class="thumbnail" src="${dataDTO.firstimage2}"></td>
+								<td><a
+									href="${pageContext.request.contextPath}/publicdata/detailView.do?contentid=${dataDTO.contentid}">${dataDTO.title}</a></td>
+								<td>${dataDTO.addr1}</td>
+								<td>${dataDTO.readcount}</td>
+								<td>${dataDTO.modifiedtime}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<c:set var="option" value="${option}" />
+				<c:if test="${option eq 'all' }">
+					<div class="row">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${naviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+								</c:if>
+								<!--startNavi ->endNavi  -->
+								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+									end="${naviMap.get('endNavi')}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${i}">${i}</a></li>
+								</c:forEach>
+								<c:if test="${naviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+								</c:if>
+							</ul>
+						</nav>
 					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
+				</c:if>
+				<c:set var="option" value="${option}" />
+				<c:if test="${option eq 'readcount'}">
+					<div class="row">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${naviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+								</c:if>
+								<!--startNavi ->endNavi  -->
+								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+									end="${naviMap.get('endNavi')}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${i}">${i}</a></li>
+								</c:forEach>
+								<c:if test="${naviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+								</c:if>
+							</ul>
+						</nav>
 					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
+				</c:if>
 
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_03.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_02.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_01.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_05.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_03.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_02.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_01.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-			</div>
-			<div class="col-2"></div>
-		</div>
-	</div>
-
-
-	<!--푸터 css에는 foot으로 표기-->
-	<footer>
-		<div class="container-fluid foot_container">
-			<div class="row "></div>
-			<div class="row">
-				<div class="col-2">
-					<p class="p_right">
-						<img class="foot_logo_img"
-							src="/resources/images/go_logo_gray.png">
-					</p>
-				</div>
-
-				<div class="col-10">
-					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-					<p class="foot_text">Copyright @ 2021 (주)가자</p>
-				</div>
+				<%-- <div class="row">
+					<nav class="col" aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
+							<c:if test="${naviMap.get('needPrev') eq true}">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+							</c:if>
+							<!--startNavi ->endNavi  -->
+							<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+								end="${naviMap.get('endNavi')}">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${i}">${i}</a></li>
+							</c:forEach>
+							<c:if test="${naviMap.get('needNext') eq true}">
+								<li class="page-item"><a class="page-link"
+									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+							</c:if>
+						</ul>
+					</nav>
+				</div> --%>
 			</div>
 		</div>
 
-	</footer>
 
+		<!--푸터 css에는 foot으로 표기-->
+		<footer>
+			<div class="container-fluid foot_container">
+				<div class="row "></div>
+				<div class="row">
+					<div class="col-2">
+						<p class="p_right">
+							<img class="foot_logo_img"
+								src="/resources/images/go_logo_gray.png">
+						</p>
+					</div>
 
+					<div class="col-10">
+						<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
+							| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
+
+						<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
+							| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
+
+						<p class="foot_text">Copyright @ 2021 (주)가자</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+		
+	</script>
 </body>
 
 </html>

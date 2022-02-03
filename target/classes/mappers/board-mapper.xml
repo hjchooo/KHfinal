@@ -126,5 +126,14 @@
 		where board_seq = #{board_seq}
 	</update>
 	
-
+	<!-- 자유게시판 게시글 갯수 -->
+	<select id="freeBoardCount" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<!-- 비밀글 비밀번호 찾기 -->
+	<select id="secretBoard" parameterType="map" resultType="int">
+		select secretPw from board where board_seq = #{board_seq}
+	</select>
+	
 </mapper>

@@ -33,7 +33,7 @@ label {
 				<label for="이메일" class="form-label">이메일</label>
 				<div class="col-8">
 					<input type="email" class="form-control" id="email" name="email"
-						placeholder="가입시 등록한 구글 메일을 입력해주세요" required="required">
+						placeholder="가입 시 등록한 구글 메일을 입력해주세요" required="required">
 				</div>
 
 				<div class="col-4 d-flex justify-content-center">
@@ -170,12 +170,10 @@ label {
 				
 				list = data;
 				
-				resultID.html("아이디 : ");
+				//	resultID.html("아이디 : ");
 				
-				for (var i = 0; i < list.length; i++) {
-					console.log(list[i].id);
-					
-					resultID.append("<span>" + list[i].id + ", " + "</span>"); 
+				for ( var i in list) {
+					resultID.append("<span> 아이디는 " + list[i].id + "입니다.</span>");	//	마지막에 콤마 삭제 해결해야함 
 				}
 			}).fail(function(e) {
 				console.log(e);

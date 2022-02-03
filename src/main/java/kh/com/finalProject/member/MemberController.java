@@ -48,37 +48,36 @@ public class MemberController {
 
 		return "member/joinus";
 	}
-	
+
 	// 로그아웃
-		@RequestMapping("/toLogout.do")
-		public String toLogout() {
-			session.removeAttribute("loginSession");
-			System.out.println("로그아웃");
-			return "home";
-		}
-		
-		// 마이페이지로 이동
-		@RequestMapping("/toMyPage.do")
-		public String tomyPage(Model model, String id) throws Exception {
-			MemberDTO dto = service.getMember(id);
-			model.addAttribute("dto",dto);
-			return "member/myPage";
-		}
-	
+	@RequestMapping("/toLogout.do")
+	public String toLogout() {
+		session.removeAttribute("loginSession");
+		System.out.println("로그아웃");
+		return "home";
+	}
+
+	// 마이페이지로 이동
+	@RequestMapping("/toMyPage.do")
+	public String tomyPage(Model model, String id) throws Exception {
+		MemberDTO dto = service.getMember(id);
+		model.addAttribute("dto", dto);
+		return "member/myPage";
+	}
+
 	// 아이디 찾기 (팝업창 띄움)
 	@RequestMapping("/tofindID.do")
 	public String findID() {
-		
+
 		return "member/findID";
 	}
-	
-	//	비밀번호 찾기 (팝업창 띄움)
+
+	// 비밀번호 찾기 (팝업창 띄움)
 	@RequestMapping("/tofindPW.do")
 	public String findPW() {
-		
+
 		return "member/findPW";
 	}
-	
 
 	// 로그인
 	@RequestMapping(value = "/toLogin", produces = "text/html;charset=UTF-8")
@@ -86,26 +85,21 @@ public class MemberController {
 	// text/plain;charset=ISO-8859-1 : 한글 인식이 안되서 따로 매핑값에 추가 해줘야함
 	// -> ajax 로 결과값 보내줄때 한글로 변환후 보내주는 매개변수
 	public String login(String id, String pw) throws Exception {
-		System.out.println("ID : " + id + "\n" 
-				+ "PW : " + pw);
+		System.out.println("ID : " + id + "\n" + "PW : " + pw);
 		MemberDTO dto = service.getMember(id);
 		if (dto.getId() != null) {
 			String rawPW = pw;
 			String encodePW = dto.getPw();
-			
-			System.out.println("rawPW : " + rawPW + "\n" 
-					+ "encodePW : " + encodePW);
-			
+
+			System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
+
 			if (pwEncoder.matches(rawPW, encodePW)) {
 				session.setAttribute("loginSession", dto);
-				
 				return "성공";
 			} else {
-				
 				return "실패";
 			}
 		} else {
-			
 			return "fail";
 		}
 	}
@@ -124,6 +118,34 @@ public class MemberController {
 		}
 	}
 
+	// 비밀번호 찾기 시 아이디가 있는지 확인
+	@RequestMapping("/ExistID.do")
+	@ResponseBody()
+	public String ExistID(String id) throws Exception {
+		if (service.existID(id)) {
+
+			return "Exist";
+		} else {
+
+			return "Nope";
+		}
+	}
+
+	// 임시비밀번호 발급받기전 이메일 존재유무 확인
+	@RequestMapping("/ExistEmail.do")
+	@ResponseBody()
+	public String ExistEmail(String email) throws Exception {
+		System.out.println("\n" + "email : " + email);
+
+		if (service.existEmail(email)) {
+
+			return "Exist";
+		} else {
+
+			return "Nope";
+		}
+	}
+
 	// 닉네임 중복 검사
 	@RequestMapping("/VerifyNickname.do")
 	@ResponseBody()
@@ -132,6 +154,21 @@ public class MemberController {
 		if (service.verifyNickname(nickname)) {
 			return "Available";
 		} else {
+			return "Unavailable";
+		}
+	}
+
+	// 이메일 중복검사
+	@RequestMapping("/VerifyEmail.do")
+	@ResponseBody()
+	public String VerifyEmail(String email) throws Exception {
+		System.out.println("Email : " + email);
+
+		if (service.verifyEmail(email)) {
+
+			return "Available";
+		} else {
+
 			return "Unavailable";
 		}
 	}
@@ -174,6 +211,76 @@ public class MemberController {
 		return strNum; // 값 return
 	}
 
+	// 임시비밀번호 발급
+	@RequestMapping("/temporaryPW.do")
+	@ResponseBody()
+	public String randomPW(String email) throws Exception {
+		System.out.println("Email : " + email); // 이메일이 잘 넘어왔나 확인
+
+		String tempPW = TemporaryPW.getRandomPW(10);
+
+		// 이메일 보내기
+		String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
+														// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
+		String strToMail = email; // 수신받을 이메일
+		String strTitle = "요청하신 임시 비밀번호는 다음과 같습니다."; // 자신이 보낼 이메일 제목
+		String strContent = "임시 비밀번호 : " + tempPW; // 자신이 보낼 이메일 내용
+
+		// 이메일 전송을 위한 코드
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(strSetFrom);
+			helper.setTo(strToMail);
+			helper.setSubject(strTitle);
+			helper.setText(strContent, true);
+			mailSender.send(message);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+
+		return tempPW;
+	}
+
+	// 아래 코드로 프로필 사진을 이용해 회원가입 하는 메서드 (미완성이라 주석처리)
+	/*
+	 * @RequestMapping("/joinus.do") public String joinus(MemberDTO dto,
+	 * MultipartFile file) throws Exception { // Map<String,String> commandMap,
+	 * MultipartRequest mreq System.out.println("dto" + dto);
+	 * 
+	 * String rawPW = ""; // 인코딩 전 PW String encodePW = ""; // 인코딩 후 PW
+	 * 
+	 * rawPW = dto.getPw(); // 비밀번호 얻어옴 encodePW = pwEncoder.encode(rawPW); // 비밀번호
+	 * 인코딩 dto.setPw(encodePW); // 인코딩된 비밀번호를 dto객체에 다시 저장
+	 * 
+	 * // 저장경로 String realPath =
+	 * session.getServletContext().getRealPath("profileImgUpload");
+	 * System.out.println("Real Path : " + realPath + "\n");
+	 * 
+	 * File realPathFile = new File(realPath);
+	 * 
+	 * if (!realPathFile.exists()) { // 만약 경로가 존재하지 않으면 realPathFile.mkdir(); // 폴더
+	 * 생성 }
+	 * 
+	 * // 1. ori_name 얻어오기 (클라이언트쪽에서 파일을 올렸을 때의 이름 = 원본 이름) // 2. 서버에 저장할 이름 만들기 //
+	 * (파일이 넘어왔을 때 위 작업 실행) if (!file.isEmpty()) { // 파일이 넘어왔다면 String ori_name =
+	 * file.getOriginalFilename(); // 원본파일명 System.out.println("ori_name : " +
+	 * ori_name + "\n");
+	 * 
+	 * // UUID 범용 고유 식별자 // 파일 업로드 시 중복을 방지하기 위해서 String sys_name =
+	 * UUID.randomUUID() + "_" + ori_name; System.out.println("sys_name : " +
+	 * sys_name + "\n");
+	 * 
+	 * // 지정해준 경로에 실제로 파일을 저장하는 코드 file.transferTo(new File(realPath +
+	 * File.separator + sys_name)); }
+	 * 
+	 * // service.insertMember(dto, file); // 회원가입 실행
+	 * 
+	 * return "home"; }
+	 */
+
 	// 회원가입 요청
 	@RequestMapping("/joinus.do")
 	public String joinus(MemberDTO dto) throws Exception {
@@ -190,52 +297,54 @@ public class MemberController {
 
 		return "home";
 	}
-	
-	//	아이디 찾기
+
+	// 아이디 찾기
 	@RequestMapping("/findID.do")
 	@ResponseBody()
 	public List<MemberDTO> findID(String email) throws Exception {
 		System.out.println("email : " + email);
-		
+
 		return service.findID(email);
-		
+
 	}
-	
+
 	// 회원탈퇴
-			@RequestMapping(value = "/delete.do")
-			public String delete(String id) throws Exception {
-				System.out.println(id);
-				service.delete(id);
-				return "/";
-			}
-			// 회원정보 수정 페이지 이동
-			@RequestMapping(value = "/modify.do")
-			public String modify(String id, Model model) throws Exception {
-				// 회원정보를 수정 페이지에 전달
-				MemberDTO dto = service.getMember(id);
-				System.out.println(dto);
-				model.addAttribute("dto", dto);
-				return "member/UserModify";
-			}
-			// 회원정보 수정
-			@RequestMapping(value="/toModify.do")
-			public String toModify(MemberDTO dto) throws Exception {
-				System.out.println("toModify");
-				//수정된 회원정보 update
-				int rs = service.toModify(dto);
-				if(rs != -1) {
-					System.out.println("회원정보가 수정되었습니다.");
-				}
-				return "redirect:myPage.do";
-			}
-			
-			//쪽지 보내기 팝업창 , 회원조회
-			@RequestMapping(value="/note.do")
-			public String note(Model model) throws Exception {
-				System.out.println("note 팝업 controller 도착");
-				List<MemberDTO> list = service.selectAll();
-				model.addAttribute("list", list);
-				return "member/note";
-			}
+	@RequestMapping(value = "/delete.do")
+	public String delete(String id) throws Exception {
+		System.out.println(id);
+		service.delete(id);
+		return "/";
+	}
+
+	// 회원정보 수정 페이지 이동
+	@RequestMapping(value = "/modify.do")
+	public String modify(String id, Model model) throws Exception {
+		// 회원정보를 수정 페이지에 전달
+		MemberDTO dto = service.getMember(id);
+		System.out.println(dto);
+		model.addAttribute("dto", dto);
+		return "member/UserModify";
+	}
+
+	// 회원정보 수정
+	@RequestMapping(value = "/toModify.do")
+	public String toModify(MemberDTO dto) throws Exception {
+		System.out.println("toModify");
+		// 수정된 회원정보 update
+		int rs = service.toModify(dto);
+		if (rs != -1) {
+			System.out.println("회원정보가 수정되었습니다.");
+		}
+		return "redirect:myPage.do";
+	}
+
+	// 쪽지 보내기 팝업창 , 회원조회
+	@RequestMapping(value = "/note.do")
+	public String note(Model model) throws Exception {
+		System.out.println("note 팝업 controller 도착");
+		List<MemberDTO> list = service.selectAll();
+		model.addAttribute("list", list);
+		return "member/note";
+	}
 
 }
