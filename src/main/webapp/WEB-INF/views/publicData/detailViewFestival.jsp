@@ -591,6 +591,17 @@ a {
 
 			<div class="col-2"></div>
 			<div class="col-8">
+			
+			<div class="row margin_bottom_50 titleAddr10">
+				<div class="col">
+					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+					<span>
+						<a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1">축제</a>
+						 &nbsp;》&nbsp;${dto.title}
+					</span>
+				</div>
+			</div>
 
 			<div class="row margin_bottom_50 titleAddr1">
 				<div class="col">
