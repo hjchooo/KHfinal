@@ -200,7 +200,7 @@ a {
 .best_margin_top_50 {
 	margin-top: 50px;
 	padding-top: 20px;
-	background-color: rgb(187, 248, 255);
+	background-color: #e3effd;
 }
 
 .best_title {
@@ -330,7 +330,7 @@ a {
 }
 
 .other_content {
-	background-color: rgb(241, 241, 241);
+	background-color: #f7f7f7;
 	margin-top: 100px;
 	padding-top: 100px;
 	padding-bottom: 50px;
@@ -375,7 +375,7 @@ a {
 }
 
 .site_info {
-	background-color: rgb(214, 214, 214);
+	background-color: white;
 	padding-top: 20px;
 }
 
@@ -399,9 +399,6 @@ a {
 <body>
 	<!-- 헤더 -->
 	<div id="header"></div>
-
-
-
 
 	<!-- 메인 캐러셀-->
 
@@ -464,7 +461,7 @@ a {
 		<div class="row margin_top_50">
 			<div class="col-2"></div>
 			<div class="col-2">
-				<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+				<a href="${pageContext.request.contextPath}/board/toSelectFreeBoard?category=자유게시판&currentPage=1">
 					<p class="p_center">
 						<button type="button" class="btn com_go_comunity_box" id="boardBtn">
 							자유게시판 <br> 바로가기
@@ -1471,6 +1468,7 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
+	<div>
 		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
 		<input type="text" id="areaCode1" name="areaCode1" placeholder="지역코드" >
 		<input type="text" id="numOfRows1" name="numOfRows1" placeholder="데이터 수">
@@ -1488,28 +1486,29 @@ a {
 	
 	<script>
 		// 
+		let bool = "${bool}";
 		$(document).ready(function(stop){
-			if(bool == false){
+			if(bool){
 				stop.preventDefault();
 				stop.stopPropagation();
 			}else if(bool == true){
-				location.href = "${pageContext.request.contextPath}/getTopList.do"
+				location.href = "${pageContext.request.contextPath}/getTopList.do";
 			}	
 		});
 	
 		// 관광지 리스트로 가기
 		$("#travelBtn").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1"
+			location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1";
 		})
 		
 		// 축제 리스트로 가기
 		$("#festivalBtn").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1"
+			location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1";
 		})
 		
 		// 숙박 리스트로 가기
 		$("#stayBtn").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1"
+			location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1";
 		})
 	
 	
@@ -1537,7 +1536,10 @@ a {
 			location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
 		})
 
-
+		// 국내여행 바로가기
+		$("#travelBtn").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/board/toSelectDomestic?category=국내여행&currentPage=1";
+		})
 			
 	</script>
 </body>

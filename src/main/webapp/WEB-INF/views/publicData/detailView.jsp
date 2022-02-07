@@ -17,6 +17,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function() {
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+	});
+</script>
 <title>상세보기</title>
 <style>
 @import
@@ -529,167 +535,80 @@ a {
 	font-size: 12px;
 }
 
-.titleAddr1{
+.titleAddr1 {
 	text-align: center;
 }
 
-#addr1{
+#addr1 {
 	font-weight: lighter;
 }
 </style>
 </head>
 <body>
-	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img
-						class="main_logo_size" src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-					<span class="navi_text"> 회원가입 </span>
-				</a> &nbsp; &nbsp; <a
-					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
-					class="navi_text"> 로그인 </span>
-				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
-				</span>
-				</a>
-			</div>
+	<div id="header"></div>
 
+	<div class="row margin_bottom_50 titleAddr1">
+		<div class="col">
+			<h1>${dto.title}</h1>
+			<span id="addr1">${dto.addr1}</span>
 		</div>
 	</div>
 
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
+	<!-- 상세정보 제목-->
+	<div class="row">
+		<div class="col">
+			<p class="list_title"># 상세 정보</p>
+		</div>
 	</div>
-
-	<!-- 헤더 끝 -->
-
-	<div class="container">
-		<div class="row margin_top_50">
-
-
-			<div class="col-2"></div>
-			<div class="col-8">
-
-			<div class="row margin_bottom_50 titleAddr1">
-				<div class="col">
-					<h1>${dto.title}</h1>
-					<span id="addr1">${dto.addr1}</span>
-				</div>
-			</div>
-
-				<!-- 상세정보 제목-->
-				<div class="row">
-					<div class="col">
-						<p class="list_title"># 상세 정보</p>
-					</div>
-				</div>
-				<!-- 상세정보 제목 끝-->
+	<!-- 상세정보 제목 끝-->
 
 
 
-				<!--구분선-->
-				<div class="row list_line1"></div>
+	<!--구분선-->
+	<div class="row list_line1"></div>
 
 
 
-				<!-- 상세정보 내용-->
-				<div class="row margin_top_30">
+	<!-- 상세정보 내용-->
+	<div class="row margin_top_30">
 
-					<div class="col">
-						<span class="detail_info_text_justify">${dto.content}</span>
-					</div>
+		<div class="col">
+			<span class="detail_info_text_justify">${dto.content}</span>
+		</div>
 
-				</div>
-				<!-- 상세정보 내용 끝-->
-
-
-
-				<!--상세정보 사진-->
-				<div class="row margin_top_20">
-
-					<div class="col">
-						<img class="detail_info_img" src="${dto.firstimage}">
-					</div>
-
-				</div>
-				<!--상세정보 사진 끝-->
+	</div>
+	<!-- 상세정보 내용 끝-->
 
 
 
-				<!-- 상세정보 주소 시작-->
-				<div class="row margin_top_20">
+	<!--상세정보 사진-->
+	<div class="row margin_top_20">
 
-					<div class="col-6">
-						<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
-						<!--실제 주소 들어가는 부분-->
-						<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
-					</div>
-					<div class="col-6">
-						<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp;
-						<span class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
-					</div>
+		<div class="col">
+			<img class="detail_info_img" src="${dto.firstimage}">
+		</div>
 
-				</div>
-				<!-- 상세정보 주소 끝-->
+	</div>
+	<!--상세정보 사진 끝-->
 
 
 
-				<!--풋터와의 간격-->
-				<div class="row margin_top_100"></div>
+	<!-- 상세정보 주소 시작-->
+	<div class="row margin_top_20">
 
-			</div>
-			<div class="col-2"></div>
+		<div class="col-6">
+			<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
+			<!--실제 주소 들어가는 부분-->
+			<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+		</div>
+		<div class="col-6">
+			<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp; <span
+				class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
+		</div>
 
+	</div>
+	<!-- 상세정보 주소 끝-->
 
-
-
-
-
-
-
-
-
-
-			<footer>
-				<div class="container-fluid foot_container margin_top_100">
-					<div class="row "></div>
-					<div class="row">
-						<div class="col-2">
-							<p class="p_right">
-								<img class="foot_logo_img"
-									src="/resources/images/go_logo_gray.png">
-							</p>
-						</div>
-
-						<div class="col-10">
-							<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 :
-								권혁진 | 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-							<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127,
-								128호(방이동) | 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-							<p class="foot_text">Copyright @ 2021 (주)가자</p>
-						</div>
-					</div>
-				</div>
-			</footer>
+	<div id="footer"></div>
 </body>
 </html>

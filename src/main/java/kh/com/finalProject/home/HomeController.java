@@ -21,7 +21,7 @@ public class HomeController {
 	}
 	
 	// Top 리스트 가져오기
-	@RequestMapping("getTopList.do")
+	@RequestMapping("/getTopList.do")
 	public String getTopList(Model model) throws Exception{
 		System.out.println("Top 리스트 가져오기");
 		List<DataDTO> dataList = service.getDataList(); 
