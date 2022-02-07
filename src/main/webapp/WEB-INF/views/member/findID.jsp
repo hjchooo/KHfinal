@@ -14,18 +14,46 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <title>아이디 찾기</title>
-<style type="text/css">
+<style>
 label {
 	font-size: 10px;
 }
+/* 아이디찾기 아이콘 */
+#findIdIcon {
+	width: 25px;
+	height: 25px;
+}
+
+
+/* 전체 버튼 */
+.btn {
+	background-color: #f9f9f9;
+	color: gray
+}
+.btn:hover {
+	background-color: gray;
+	color: white;
+}
+#btnConfirm {
+	background-color: #0d6efd;
+	color: white;
+}
+
+
 </style>
 </head>
 <body>
 	<div class="container">
 		<form action="" method="post">
-			<div class="row mb-3 justify-content-center">
-				<div class="col d-flex justify-content-center">
-					<h4>아이디 찾기</h4>
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center mt-3">
+					<img id="findIdIcon" src="/resources/images/patch-question.svg"><h4>&nbsp;아이디 찾기</h4>
+				</div>
+			</div>
+			
+			<div class="row container-fluid p-0 m-0">
+				<div class="col-12 p-0">
+					<hr style="border: 1px solid gray">
 				</div>
 			</div>
 
@@ -33,11 +61,11 @@ label {
 				<label for="이메일" class="form-label">이메일</label>
 				<div class="col-8">
 					<input type="email" class="form-control" id="email" name="email"
-						placeholder="가입 시 등록한 구글 메일을 입력해주세요" required="required">
+						placeholder="가입 시 등록한 메일을 입력해주세요." required="required">
 				</div>
 
 				<div class="col-4 d-flex justify-content-center">
-					<button type="button" class="btn btn-dark w-100"
+					<button type="button" class="btn w-100"
 						id="btnCertificate_code">인증번호 발송</button>
 				</div>
 			</div>
@@ -47,19 +75,20 @@ label {
 			</div>
 
 			<div class="row mb-3">
-				<div class="col-4">
+				<div class="col-8">
 					<input type="text" class="form-control" id="inputCode"
-						placeholder="인증번호" disabled="disabled" maxlength="6"
+						placeholder="인증번호를 입력 해주세요." disabled="disabled" maxlength="6"
 						required="required">
 				</div>
-
-				<div class="col-4" id="res_emailvalidation"
-					style="vertical-align: middle;"></div>
-
+				
 				<div class="col-4">
-					<button type="button" class="btn btn-success" id="btnFindID"
+					<button type="button" class="btn w-100" id="btnFindID"
 						style="visibility: hidden;">아이디 찾기</button>
 				</div>
+
+				<div class="col-12 mt-1" id="res_emailvalidation"
+					style="vertical-align: middle;"></div>
+
 			</div>
 
 			<div class="row mb-3">
@@ -67,9 +96,12 @@ label {
 			</div>
 
 			<div class="row justify-content-center">
-				<div class="col-4 d-flex justify-content-center">
-					<button type="button" class="btn btn-success" id="btnConfirm"
+				<div class="col-6 d-flex justify-content-end">
+					<button type="button" class="btn" id="btnConfirm"
 						disabled="disabled">확인</button>
+				</div>
+				<div class="col-6 d-flex justify-content-start">
+					<button type="button" class="btn" id="btnCancel">닫기</button>
 				</div>
 			</div>
 		</form>
@@ -173,7 +205,8 @@ label {
 				//	resultID.html("아이디 : ");
 				
 				for ( var i in list) {
-					resultID.append("<span> 아이디는 " + list[i].id + "입니다.</span>");	//	마지막에 콤마 삭제 해결해야함 
+					resultID.append(
+						"<div style='font-size:13px;margin-bottom:5px'> 아이디는 " + list[i].id + " 입니다. </div>");	//	마지막에 콤마 삭제 해결해야함 
 				}
 			}).fail(function(e) {
 				console.log(e);
@@ -185,6 +218,11 @@ label {
 		//	확인버튼을 눌렀을 때
 		document.getElementById("btnConfirm").onclick = function(e) {
 			window.close();	//	팝업창 닫음
+		}
+		
+		// 취소버튼 클릭
+		document.getElementById("btnCancel").onclick = function() {
+			self.close();
 		}
 	</script>
 </body>

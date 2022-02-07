@@ -11,8 +11,13 @@
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
 
-a {
+.homeGuide {
 	text-decoration: none;
+	color: white;
+}
+.homeGuide:hover {
+	text-decoration: none;
+	color: white;
 }
 
 .line_check {
@@ -164,8 +169,8 @@ a {
 					<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
 						| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
 
-					<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-						| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
+					<p class="foot_text"><a class="homeGuide" href= "${pageContext.request.contextPath}/board/toHomeGuide">찾아오는길 : 서울특별시 강남구 테헤란로 14길 6 남도빌딩 2F, 3F, 4F, 5F, 6F
+						| 대표번호 : 1544-9970 | Fax : 02-562-2378</a></p>
 
 					<p class="foot_text">Copyright @ 2022 (주)가자</p>
 				</div>

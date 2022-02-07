@@ -10,7 +10,6 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
-
 a {
 	text-decoration: none;
 }
@@ -313,7 +312,7 @@ a {
 	
 	<!-- 쪽지 알람 -->
 	<script>
-	document.getElementById("managerBtn").onclick = function(){
+	/*document.getElementById("managerBtn").onclick = function(){
 		location.href="${pageContext.request.contextPath}/manager/main.do";
 	}
 
@@ -333,7 +332,7 @@ a {
 					});
 				}, 3000);
 		}
-
+		*/
 	</script>
 	
 	<!-- 챗봇 부분 -->

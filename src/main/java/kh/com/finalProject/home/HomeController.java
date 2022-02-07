@@ -27,11 +27,18 @@ public class HomeController {
 		return "home";
 	}
 	
+<<<<<<< HEAD
+	// Top 리스트 가져오기
+	@RequestMapping("/getTopList.do")
+	public String getTopList(Model model) throws Exception{
+		System.out.println("Top 리스트 가져오기");
+=======
 	// Top 관광지 리스트
 	@RequestMapping(value="/getTopDataList.do", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public List<DataDTO> getTopDataList() throws Exception{
 		System.out.println("Top 관광지 리스트 가져오기");
+>>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 		List<DataDTO> dataList = service.getDataList(); 
 			
 		if(dataList != null) {

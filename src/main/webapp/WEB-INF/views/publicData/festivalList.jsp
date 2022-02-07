@@ -19,6 +19,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function() {
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+	});
+</script>
 <title>Insert title here</title>
 <style>
 @import
@@ -361,70 +367,7 @@ A:hover {
 </style>
 </head>
 <body>
-	<!--메인 검색 창-->
-	<div class="container">
-		<div class="row search_space">
-			<div class="col-1"></div>
-			<div class="col-2">
-				<p>
-					<a href="${pageContext.request.contextPath}/"> <img
-						class="main_logo_size" src="/resources/images/go_logo_type.png">
-					</a>
-				</p>
-			</div>
-			<div class="col-5">
-				<input type="text" class="form-control main_search_bar"
-					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
-			</div>
-			<div class="col-1">
-				<p class="p_left">
-					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-					<span class="navi_text"> 회원가입 </span>
-				</a> &nbsp; &nbsp; <a
-					href="${pageContext.request.contextPath}/member/toLogin.do"> <span
-					class="navi_text"> 로그인 </span>
-				</a> &nbsp; &nbsp; <a href=""> <span class="navi_text"> 마이페이지
-				</span>
-				</a>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- 검색창 아래 라인 -->
-	<div class="container-fluid">
-		<hr style="border: solid 2px lightgray">
-	</div>
-
-	<!-- 메인 메뉴-->
-	<div class="container">
-		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-3">
-				<a
-					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-					<h5 class="navi_category">여행 커뮤니티</h5>
-				</a>
-			</div>
-			<div class="col-2">
-				<a href="${pageContext.request.contextPath}/">
-					<h5 class="navi_category">홈</h5>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/publicdata/toDetailList">
-					<h5 class="navi_category">여행 정보</h5>
-				</a>
-			</div>
-			<div class="col-2"></div>
-		</div>
-	</div>
-
+	<div id="header"></div>
 
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
@@ -569,30 +512,6 @@ A:hover {
 			</div>
 		</div>
 
-
-		<!--푸터 css에는 foot으로 표기-->
-		<footer>
-			<div class="container-fluid foot_container">
-				<div class="row "></div>
-				<div class="row">
-					<div class="col-2">
-						<p class="p_right">
-							<img class="foot_logo_img"
-								src="/resources/images/go_logo_gray.png">
-						</p>
-					</div>
-
-					<div class="col-10">
-						<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 : 권혁진
-							| 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-						<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127, 128호(방이동)
-							| 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-						<p class="foot_text">Copyright @ 2021 (주)가자</p>
-					</div>
-				</div>
-			</div>
-		</footer>
+		<div id="footer"></div>
 </body>
 </html>

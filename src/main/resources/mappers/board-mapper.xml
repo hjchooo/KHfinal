@@ -35,10 +35,15 @@
 		dual
 	</select>
 
-	<!-- 게시판 리스트 가져오기 -->
+	<!-- 전체 게시판 리스트 가져오기 -->
 	<select id="selectAll" resultType="BoardDTO" parameterType="map">
 		select * from (select row_number() over (order by board_seq desc) 순위,
 		a. * from board a) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 전체 게시판 게시글 갯수 -->
+	<select id="selectAllBoardCount" resultType="int">
+		select count(*) from board
 	</select>
 
 	<!-- 게시판 리스트 조건별로 가져오기 -->
@@ -70,18 +75,17 @@
 	</select> -->
 
 	<!-- 게시판 전체 데이터 수 검색별로 가져오기 -->
+	<!-- prefix: 첫문자 sufix: 마지막 문자 -->
 	<select id="countAllOption" resultType="int" parameterType="map">
 		select count(*) from board
-		<trim prefix="where">
+		<trim prefix="where"> 
 			<if test="select != 'all'">
 				${select} like '%' || #{keyword} || '%'
 			</if>
 			<if test="select == 'all'">
-				(content like '%' || #{keyword} || '%'
-				or title like '%'
-				|| #{keyword} || '%'
-				or writer_nickname like '%' || #{keyword} ||
-				'%')
+				(content like'%'||#{keyword}||'%'
+				or title like'%'||#{keyword}||'%'
+				or writer_id like'%'||#{keyword}||'%')
 			</if>
 		</trim>
 	</select>
@@ -90,8 +94,8 @@
 	<select id="searchBoard" resultType="BoardDTO"
 		parameterType="map">
 		select * from (select row_number() over (order by board_seq desc)
-		순위,a. * from board a) where 순위 between #{startRange} and #{endRange}
-		<trim prefix="and">
+		순위,a. * from board a
+		<trim prefix="where">
 			<if test="select != 'all'">
 				${select} like '%' || #{keyword} || '%'
 			</if>
@@ -100,10 +104,11 @@
 				(content like '%' || #{keyword} || '%'
 				or title like '%'
 				|| #{keyword} || '%'
-				or writer_nickname like '%' || #{keyword} ||
+				or writer_id like '%' || #{keyword} ||
 				'%')
 			</if>
 		</trim>
+		)where 순위 between #{startRange} and #{endRange} 
 	</select>
 
 	<!-- 게시글 신고 -->
@@ -126,14 +131,58 @@
 		where board_seq = #{board_seq}
 	</update>
 	
-	<!-- 자유게시판 게시글 갯수 -->
-	<select id="freeBoardCount" resultType="int">
-		select count(*) from board
-	</select>
-	
 	<!-- 비밀글 비밀번호 찾기 -->
 	<select id="secretBoard" parameterType="map" resultType="int">
-		select secretPw from board where board_seq = #{board_seq}
+		select count(*) from board where board_seq = #{board_seq} and secretPw = #{secretPw}
+	</select>
+	
+	<!-- content 가져오기 -->
+	<select id="selectContent" resultType="String">
+		select content from board where board_seq = #{board_seq}
+	</select>
+	
+	<!-- 자유게시판 리스트 불러오기 -->
+	<select id="selectFreeBoard" parameterType="map" resultType="BoardDTO">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 자유게시판 게시글 갯수 -->
+	<select id="countFreeBoard" resultType="int">
+		select count(*) from board where category = #{category}
+	</select>
+	
+	<!-- 국내여행으로 리스트 불러오기 -->
+	<select id="selectDomestic" parameterType="map" resultType="BoardDTO">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 국내여행 게시글 갯수 -->
+	<select id="countDomestic" resultType="int">
+		select count(*) from board where category = #{category}
+	</select>
+	
+	<!-- 축제정보로 리스트 불러오기 -->
+	<select id="selectFestival" parameterType="map" resultType="BoardDTO">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 축제정보 게시글 갯수 -->
+	<select id="countFestival" resultType="int">
+		select count(*) from board where category = #{category}
+	</select>
+	
+	<!-- 레포츠로 리스트 불러오기 -->
+	<select id="selectReports" parameterType="map" resultType="BoardDTO">
+		select * from (select row_number() over (order by board_seq desc) 순위,
+		a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 레포츠 게시글 갯수 -->
+	<select id="countReports" resultType="int">
+		select count(*) from board where category = #{category}
 	</select>
 	
 </mapper>

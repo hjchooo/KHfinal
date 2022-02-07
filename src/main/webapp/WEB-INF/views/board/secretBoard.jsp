@@ -55,7 +55,6 @@
 </head>
 
 <body>
-	${dto.board_seq}
 	<div class="secretContainer">
 		<div class="row">
 			<div class="col-12 d-flex justify-content-center">
@@ -97,18 +96,19 @@
 			pwConfirm();
 		});
 
-		// 엔터키 
+		/* 엔터키 
 		function enterkey() {
 			if (window.event.keyCode == 13) {
 				pwConfirm();
 			}
 		}
+		*/
 
 		// 비밀번호 확인 함수
 		function pwConfirm() {
 			let data = $("#secretPassword").serialize(); // 댓글 form 안의 데이터 직렬화
-			let board_seq = Number("${dto.board_seq}");
-			console.log(data);
+			let board_seq = "${board_seq}";
+			let re_board_seq = "${board_seq}";
 			$.ajax({
 				type : "post",
 				url : "${pageContext.request.contextPath}/board/secretBoard?board_seq="
@@ -119,8 +119,8 @@
 				function(rs) {
 					console.log("rs : " + rs);
 					if (rs == "성공") {
-						location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
-								+ board_seq;
+						window.opener.location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
+								+ board_seq + "&re_board_seq=" + re_board_seq + "&currentPage=1";
 						window.close();
 					} else if (rs == "실패") {
 						alert("비밀번호를 다시 입력 해주세요.");

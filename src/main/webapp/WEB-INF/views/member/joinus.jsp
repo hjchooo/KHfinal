@@ -144,7 +144,8 @@ label {
 					<div id="image_container"></div>
 				</div>
 				<div class="col-8">
-					<input type="file" class="form-control form-control-sm" name="file" onchange="setThumbnail(event);">
+					<input type="file" class="form-control form-control-sm" name="file"
+						onchange="setThumbnail(event);">
 				</div>
 			</div>
 
@@ -337,7 +338,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 	<script>
 	<!-- script area -->
-							
+									
 	<!-- 프로필 -->
 	/*__________Profile__________*/
 	/*
@@ -800,6 +801,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
                 );
             });
         });
+	
 	
 	
 	
