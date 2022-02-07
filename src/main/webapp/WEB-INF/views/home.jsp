@@ -464,9 +464,9 @@ a {
 		<div class="row margin_top_50">
 			<div class="col-2"></div>
 			<div class="col-2">
-				<a href="board.html">
+				<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
 					<p class="p_center">
-						<button type="button" class="btn com_go_comunity_box">
+						<button type="button" class="btn com_go_comunity_box" id="boardBtn">
 							자유게시판 <br> 바로가기
 						</button>
 					</p>
@@ -475,7 +475,7 @@ a {
 			<div class="col-2">
 				<a href=""></a>
 				<p class="p_center">
-					<button type="button" class="btn com_go_comunity_box">
+					<button type="button" id="travelBtn" class="btn com_go_comunity_box">
 						국내여행 <br> 바로가기
 					</button>
 				</p>
@@ -483,7 +483,7 @@ a {
 			<div class="col-2">
 				<a href=""></a>
 				<p class="p_center">
-					<button type="button" class="btn com_go_comunity_box">
+					<button type="button" id="festivalBtn" class="btn com_go_comunity_box">
 						축제정보 <br> 바로가기
 					</button>
 				</p>
@@ -491,8 +491,8 @@ a {
 			<div class="col-2">
 				<a href=""></a>
 				<p class="p_center">
-					<button type="button" class="btn com_go_comunity_box">
-						공연/전시회 <br> 바로가기
+					<button type="button" id="stayBtn" class="btn com_go_comunity_box">
+						레포츠 <br> 바로가기
 					</button>
 				</p>
 			</div>
@@ -754,7 +754,7 @@ a {
 
 				<div class="row">
 					<div class="col-6 margin_top_10">
-						<span class="list_count1">총</span><span class="list_count2">16</span><span
+						<span class="list_count1">총</span><span class="list_count2"></span><span
 							class="list_count1">건</span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
@@ -765,14 +765,44 @@ a {
 					<div class="col-2 margin_top_10"></div>
 				</div>
 				<!-- 상단 타이틀 끝-->
+				
+				
+				
+				<c:forEach items="${dataList}" var="data">
+				<div class="row list_line2"></div>
 
+				<!-- 리스트 시작-->
+				<div class="row margin_top_20">
+					<div class="col-3">
+						<img class="list_left_photo"
+							src="${data.firstimage2}">
+					</div>
+					<div class="col-8">
+						<div class="row">
+							<h4 class="list_sub_title">${data.title}</h4>
+						</div>
+						<div class="row">
+							<span class="list_sub_location">${data.addr1}</span>
+						</div>
+						<div class="row margin_top_5">
+							<span class="list_sub_teag">${data.addr2}</span>
+						</div>
+						<div class="row margin_top_5">
+							<span class="list_sub_teag">${data.modifiedtime}</span>
+						</div>
+					</div>
+					<div class="col-1"></div>
+				</div>
+				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
+				<div class="row list_line2 margin_top_20"></div>
+				</c:forEach>
 
 
 
 				<div class="row list_line2"></div>
 
 				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
+				<!-- <div class="row margin_top_20">
 					<div class="col-3">
 						<img class="list_left_photo"
 							src="/resources/images/best_photo_06.png">
@@ -798,13 +828,13 @@ a {
 					</div>
 					<div class="col-1"></div>
 				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
+				여기까지가 한 묶음 다음은 라인 시작
 				<div class="row list_line2 margin_top_20"></div>
 
 
 
 
-				<!-- 리스트 시작-->
+				리스트 시작
 				<div class="row margin_top_20">
 					<div class="col-3">
 						<img class="list_left_photo"
@@ -831,11 +861,11 @@ a {
 					</div>
 					<div class="col-1"></div>
 				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
+				여기까지가 한 묶음 다음은 라인 시작
 				<div class="row list_line2 margin_top_20"></div>
 
 
-				<!-- 리스트 시작-->
+				리스트 시작
 				<div class="row margin_top_20">
 					<div class="col-3">
 						<img class="list_left_photo"
@@ -862,13 +892,13 @@ a {
 					</div>
 					<div class="col-1"></div>
 				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
+				여기까지가 한 묶음 다음은 라인 시작
+				<div class="row list_line2 margin_top_20"></div> -->
 
 
 
 				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
+				<!-- <div class="row margin_top_20">
 					<div class="col-3">
 						<img class="list_left_photo"
 							src="/resources/images/best_photo_02.png">
@@ -894,12 +924,12 @@ a {
 					</div>
 					<div class="col-1"></div>
 				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
+				여기까지가 한 묶음 다음은 라인 시작
+				<div class="row list_line2 margin_top_20"></div> -->
 
 
 				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
+				<!-- <div class="row margin_top_20">
 					<div class="col-3">
 						<img class="list_left_photo"
 							src="/resources/images/best_photo_01.png">
@@ -925,8 +955,8 @@ a {
 					</div>
 					<div class="col-1"></div>
 				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
+				여기까지가 한 묶음 다음은 라인 시작
+				<div class="row list_line2 margin_top_20"></div> -->
 
 			</div>
 			<div class="col list_right_margin">
@@ -1441,5 +1471,72 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
+		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
+		<input type="text" id="areaCode1" name="areaCode1" placeholder="지역코드" >
+		<input type="text" id="numOfRows1" name="numOfRows1" placeholder="데이터 수">
+		<button type="button" id="tourist">관광지</button>
+	</div>
+	<div>
+		<button type="button" id="festival" name="festival">축제</button>
+	</div>
+	<div>
+		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
+		<input type="text" id="areaCode" name="areaCode" placeholder="지역코드" >
+		<input type="text" id="numOfRows" name="numOfRows" placeholder="데이터 수">
+		<button type="button" id="leports">레포츠</button>
+	</div>
+	
+	<script>
+		// 
+		$(document).ready(function(stop){
+			if(bool == false){
+				stop.preventDefault();
+				stop.stopPropagation();
+			}else if(bool == true){
+				location.href = "${pageContext.request.contextPath}/getTopList.do"
+			}	
+		});
+	
+		// 관광지 리스트로 가기
+		$("#travelBtn").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1"
+		})
+		
+		// 축제 리스트로 가기
+		$("#festivalBtn").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1"
+		})
+		
+		// 숙박 리스트로 가기
+		$("#stayBtn").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1"
+		})
+	
+	
+	
+		// 관광지 공공데이터 저장
+		$("#tourist").on("click", function(){
+			let numOfRows1 = $("#numOfRows1").val()
+			let areaCode1 = $("#areaCode1").val()
+			console.log(numOfRows);
+			console.log(areaCode);
+			location.href = "${pageContext.request.contextPath}/publicdata/saveData.do?numOfRows1="+numOfRows1+"&areaCode1="+areaCode1;
+		})
+		
+		// 축제 공공데이터 저장
+		$("#festival").on("click", function(){
+			location.href = "${pageContext.request.contextPath}/publicdata/saveFestival.do";
+		})
+		
+		// 레포츠 공공데이터 저장
+		$("#leports").on("click", function(){
+			let numOfRows = $("#numOfRows").val()
+			let areaCode = $("#areaCode").val()
+			console.log(numOfRows);
+			console.log(areaCode);
+			location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
+		})
+			
+	</script>
 </body>
 </html>
