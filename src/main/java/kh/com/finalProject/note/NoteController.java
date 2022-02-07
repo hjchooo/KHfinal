@@ -22,6 +22,7 @@ public class NoteController {
 	@ResponseBody()
 	public String note(NoteDTO dto) throws Exception {
 		System.out.println("noteController 도착");
+		
 		int rs = service.insert(dto);
 		if (rs != 0) {
 			return "success";

@@ -53,21 +53,23 @@ public class BoardController {
 		System.out.println("BoardController 인스턴스 생성");
 	}
 
-	// 게시글 전체 조회
+	// 자유게시판 조회
 	@RequestMapping("/toBoard.do")
 	public String toBoard(@RequestParam("currentPage") int current, Model model, int currentPage) throws Exception {
+		// 게시글 작성자 세팅
 		String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
-		System.out.println("writer_id : " + writer_id);
 		
-		System.out.println(current);
-		System.out.println("currentPage : " + currentPage);
+		// 자유게시판 게시글 총 갯수
+		int freeBoardCount = service.freeBoardCount();
+		
+		// 자유게시판 페이지네이션
 		HashMap<String, Object> naviMap = service.getPageNavi(currentPage);
 		List<BoardDTO> list = service.selectAll(currentPage);
-		for (BoardDTO dto : list) {
-			System.out.println(dto);
-		}
+
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("list", list);
+		model.addAttribute("freeBoardCount", freeBoardCount);
+		
 		return "board/freeBoard";
 	}
 
@@ -88,29 +90,22 @@ public class BoardController {
 
 	// 게시글 상세조회
 	@RequestMapping("/detailView.do")
-	public String detailView(@RequestParam("board_seq") int boardSeq, Model model, int board_seq, String likes_id, String follow_id,
+	public String detailView(int re_board_seq, int board_seq, Model model, String likes_id, String follow_id,
 			int currentPage) throws Exception {
 
-		
 		BoardDTO dto = service.selectOne(board_seq);
 		
 		// 로그인 아이디
 		String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
 		
-		System.out.println("writer_id : " + writer_id);
 		System.out.println("dto : " + dto); // 게시판 상세조회
-		System.out.println("board_seq : " + board_seq);
 		System.out.println("currentPage : " + currentPage); // 댓글 페이지네이션
-
-		// 댓글, 페이지네이션 영역
-		// 댓글 리스트(게시판 번호로)
-		// List<ReplyDTO> rList = rservice.selectAll(board_seq);
-		// System.out.println(rList);
-		// 이전, 다음 버튼
-		HashMap<String, Object> naviMap = rservice.getPageNavi(board_seq, currentPage);
-		// 페이지네이션
+		
+		// 댓글 이전, 다음 버튼
+		HashMap<String, Object> naviMap = rservice.getPageNavi(re_board_seq, currentPage);
+		// 댓글 페이지네이션
 		List<ReplyDTO> replyPageList = rservice.getReplyPageList((int) naviMap.get("currentPage"));
-
+		
 		// 파일
 		List<FileDTO> list = fservice.selectAll(board_seq); // 파일 리스트
 
@@ -124,7 +119,6 @@ public class BoardController {
 		System.out.println("좋아요 세션 아이디 : " + writer_id);
 		
 		// 찾은 정보를 heart로 담아서 보냄
-		// model.addAttribute("rList", rList);
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("replyPageList", replyPageList);
 		model.addAttribute("likes", likes);
@@ -227,7 +221,35 @@ public class BoardController {
 //		session.removeAttribute("fileList");
 
 		redirectAttributes.addAttribute("board_seq", board_seq);
-		return "redirect:/board/detailView.do";
+		return "redirect:/board/detailView.do?currentPage=1";
+	}
+	
+	// 비밀글 비밀번호 팝업창으로 이동
+	@RequestMapping("/toBoardSecret")
+	public String toBoardSecret(int board_seq) throws Exception {
+		System.out.println("board_seq : " + board_seq);
+		return "board/secretBoard";
+	}
+	
+	// 비밀글 비밀번호 입력
+	@RequestMapping(value = "/secretBoard", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String secretBoard(String secretPw, int board_seq) throws Exception {
+		
+		System.out.println("SecretPw : " + secretPw);
+		System.out.println("board_seq : " + board_seq);
+		
+		
+		
+		BoardDTO dto = service.selectOne(board_seq);
+		
+		
+		service.secretBoard(secretPw, board_seq);
+		if (dto.getSecretPw() == secretPw) {
+			return "성공";
+		} else {
+			return "실패";
+		}
 	}
 
 }

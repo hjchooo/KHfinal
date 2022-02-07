@@ -47,6 +47,11 @@
 }
 
 /* 전체 컨테이너 */
+.wrapper {
+	height: 100%;
+}
+
+/* 전체 컨테이너 */
 .insertContainer {
 	width: 800px;
 	margin: auto;
@@ -95,11 +100,19 @@ label {
 	font-weight: bold;
 }
 
+/* 푸터 */
+#footer {
+	bottom: 0;
+	grid-row-start: 2;
+	grid-row-end: 3;
+}
+
 /* ========== 내용 입력 영역 ========== */
 </style>
 </head>
 
 <body>
+<div class="wrapper">
 	<div id="header"></div>
 
 
@@ -188,7 +201,7 @@ label {
 	</div>
 
 	<div id="footer" class="mt-5"></div>
-
+</div>
 	<script>
 	// 썸머노트 이미지 업로드
 	 $('#summernote').summernote({

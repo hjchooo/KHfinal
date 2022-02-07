@@ -39,144 +39,12 @@
 * {
 	box-sizing: border-box;
 }
-/**/
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
-	;
-
 a {
 	text-decoration: none;
 }
-
-.line_check {
-	border: 1px solid black;
-}
-
-.font_nanum {
-	font-family: 'Nanum Gothic', sans-serif,;
-}
-
-.nomal_font {
-	font-family: 'Nanum Gothic', sans-serif,;
+a:hover {
 	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
 }
-
-.text_center {
-	text-align: center;
-}
-
-.p_center {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.p_right {
-	text-align: right;
-	margin: 0px;
-	margin-right: 0px;
-	padding: 0px;
-	padding-right: 0px;
-}
-
-.p_left {
-	text-align: left;
-	margin: 0px;
-	margin-left: 0px;
-	padding: 0px;
-	margin-left: 0px;
-}
-
-.margin_top_100 {
-	margin-top: 100px;
-}
-
-.margin_top_50 {
-	margin-top: 50px;
-}
-
-.margin_top_30 {
-	margin-top: 30px;
-}
-
-.margin_top_20 {
-	margin-top: 20px;
-}
-
-.margin_top_10 {
-	margin-top: 10px;
-}
-
-.margin_top_5 {
-	margin-top: 5px;
-}
-
-.margin_bottom_100 {
-	margin-bottom: 100px;
-}
-
-.margin_bottom_50 {
-	margin-bottom: 50px;
-}
-
-.margin_bottom_30 {
-	margin-bottom: 30px;
-}
-
-.margin_bottom_20 {
-	margin-bottom: 20px;
-}
-
-.margin_bottom_10 {
-	margin-bottom: 10px;
-}
-
-.margin_bottom_5 {
-	margin-bottom: 5px;
-}
-
-.main_logo_size {
-	width: 120px;
-}
-
-.search_space {
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
-
-.search_icon_img {
-	width: 30px;
-}
-
-.main_search_bar {
-	background-color: rgb(245, 245, 245);
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_text {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_category {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(70, 70, 70);
-	font-size: 25px;
-	font-weight: 700;
-}
-
-/**/
 
 /* 전체 컨테이너 */
 .detailViewContainer {
@@ -304,101 +172,86 @@ label {
 <body>
 	<div id="header"></div>
 
-
 	<div class="detailViewContainer mt-5">
 		<!-- ==================== 게시글 내용 ==================== -->
-		<form id="modifyForm" action="${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}" method="post">
-		<div class="row">
+		<form id="modifyForm"
+			action="${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}"
+			method="post">
+			<div class="row">
 
-			<div class="col-11 d-flex justify-content-start">
-				<h3>
-					<input type="text" id="title" name="title" value="${dto.title}" style="border: none;"
-						readonly>
-				</h3>
-			</div>
-			<c:if test="${ loginSession.id != dto.writer_id }">
-				<div class="col-1 d-flex justify-content-end" id="report">
-					<a href="#" id="reportWhite"><img
-						src="/resources/images/reportIcon.svg"></a>
+				<div class="col-11 d-flex justify-content-start">
+					<h3>
+						<input type="text" id="title" name="title" value="${dto.title}"
+							style="border: none;" readonly>
+					</h3>
 				</div>
-			</c:if>
-		</div>
-		
-		<div class="row" hidden>
-			<input type="text" name="writer_id" value="${dto.writer_id}">
-			<input type="text" name="writer_nickname" value="${dto.writer_nickname}">
-			<input type="text" name="category" value="${dto.category}">
-			<input type="text" name="secret" value="N">
-			<input type="password" name="secretPw" value="">
-		</div>
-		
-		<div class="row d-flex justify-content-center" id="titleBox">
-			<div class="col-2">
-				<label>${dto.category}</label>
-			</div>
-			<div class="col-4">
-				<c:choose>
-					<c:when test="${ loginSession.id != dto.writer_id }">
-						<label>작성자 : </label>
-						<span class="dropdown">
-							<button class="btn btn-secondary dropdown-toggle" type="button"
-								id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
-								${dto.writer_id}</button>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-								<button class="dropdown-item" type="button">족지쓰기</button>
-								<button class="dropdown-item" type="button">게시물 보기</button>
-							</div>
-						</span>
-
-
-					</c:when>
-					<c:when test="${ loginSession.id == dto.writer_id }">
-						<label>작성자 : </label>
-						<a href="${pageContext.request.contextPath}/member/toMyPage.do">${dto.writer_id}</a>
-					</c:when>
-				</c:choose>
 				<c:if test="${ loginSession.id != dto.writer_id }">
-					<a class="text-dark follow" style="text-decoration-line: none;">
-						<img src="/resources/images/followPlusWhite.svg" id="follow">
-					</a>
+					<div class="col-1 d-flex justify-content-end" id="report">
+						<a href="${pageContext.request.contextPath}/board/toReport.do" id="reportWhite"><img
+							src="/resources/images/reportIcon.svg"></a>
+					</div>
 				</c:if>
 			</div>
-			<div class="col-4">
-				<label>작성일 : </label> ${dto.written_date}
+
+			<div class="row" hidden>
+				<input type="text" name="writer_id" value="${dto.writer_id}">
+				<input type="text" name="writer_nickname"
+					value="${dto.writer_nickname}"> <input type="text"
+					name="category" value="${dto.category}"> <input type="text"
+					name="secret" value="N"> <input type="password"
+					name="secretPw" value="">
 			</div>
-			<div class="col-2">
-				<label>조회 : </label> ${dto.view_count}
+
+			<div class="row d-flex justify-content-center" id="titleBox">
+				<div class="col-2">
+					<label>${dto.category}</label>
+				</div>
+				<div class="col-4">
+					<c:choose>
+						<c:when test="${ loginSession.id != dto.writer_id }">
+							<label>작성자 : </label>
+							<span class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
+									${dto.writer_id}</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+									<button class="dropdown-item" type="button" id="sendMessage">족지쓰기</button>
+									<button class="dropdown-item" type="button">게시물 보기</button>
+								</div>
+							</span>
+
+
+						</c:when>
+						<c:when test="${ loginSession.id == dto.writer_id }">
+							<label>작성자 : </label>
+							<a href="${pageContext.request.contextPath}/member/toMyPage.do"
+								style="color: black;">${dto.writer_id}</a>
+						</c:when>
+					</c:choose>
+					<c:if test="${ loginSession.id != dto.writer_id }">
+						<a class="text-dark follow" style="text-decoration-line: none;">
+							<img src="/resources/images/followPlusWhite.svg" id="follow">
+						</a>
+					</c:if>
+				</div>
+				<div class="col-4">
+					<label>작성일 : </label> ${dto.written_date}
+				</div>
+				<div class="col-2">
+					<label>조회 : </label> ${dto.view_count}
+				</div>
 			</div>
-		</div>
 
-		<!-- 내용 -->
-		<!-- <div class="row" id="contentBox">
-			 <div class="col-12">
-				<c:if test="${dto.board_seq == fdto.board_seq}">
-					<c:forEach items="${list}" var="fdto">
-				 	${fdto.getSys_name}
-				</c:forEach>
-				</c:if>
-			</div> 
-			<div class="col-12 d-flex justify-content-center">
-				${dto.content}</div>
-		</div>
-		-->
+			<!-- 게시글 내용 -->
+			<div class="row mt-3" id="summernoteBox">
+				<div class="col-12 d-flex justify-content-center">
+					<!-- <div class="click2edit" id="showBox">${dto.content}</div> -->
 
-
-
-
-		<div class="row mt-3" id="summernoteBox">
-			<div class="col-12 d-flex justify-content-center">
-
-				<!-- 썸머노트 -->
-				<textarea id="summernote" name="content">
-					${dto.content}
-				</textarea>
-
+					<textarea id="summernote" name="content">${dto.content}</textarea>
+				</div>
 			</div>
-		</div>
-	</form>
+
+		</form>
 
 
 		<!-- 좋아요 영역 -->
@@ -447,16 +300,16 @@ label {
 					<ul class="pagination">
 						<c:if test="${naviMap.get('needPrev') eq true}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('startNavi')-1}&board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}">이전</a></li>
 						</c:if>
 						<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 							end="${naviMap.get('endNavi')}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${i}">${i}</a></li>
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${i}&re_board_seq=${dto.board_seq}&board_seq=${dto.board_seq}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${naviMap.get('needNext') eq true}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('endNavi')+1}&board_seq=${dto.board_seq}&&re_board_seq=${dto.board_seq}">다음</a></li>
 						</c:if>
 					</ul>
 				</nav>
@@ -470,26 +323,25 @@ label {
 			</div>
 			<c:if test="${ loginSession.id == dto.writer_id }">
 				<div class="col-8 d-flex justify-content-end">
-					<button type="button" id="btnModify" class="btn">글수정</button>
+					<button type="button" id="btnModify" class="btn" onclick="edit()">글수정</button>
 					<button type="button" id="btnModifyConfirm" class="btn"
-						style="display: none;">확인</button>
+						onclick="save()" style="display: none;">확인</button>
 				</div>
 				<div class="col-2 d-flex justify-content-end">
 					<button type="button" id="btnDelete" class="btn">글삭제</button>
 					<button type="button" id="btnModifyCancel" class="btn"
-						style="display: none;">취소</button>
+						onclick="cancel()" style="display: none;">취소</button>
 				</div>
 			</c:if>
 		</div>
 	</div>
 
-
-
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer" class="mt-5"></div>
 
 	<script>
-	/*ws = new WebSocket("ws://192.168.219.102/reply");
+	/*
+	ws = new WebSocket("ws://192.168.219.102/reply");
 	ws.onopen = function() {
 		console.log("커넥션 오픈");
 
@@ -507,9 +359,27 @@ label {
 		}, 3000); 
 	}*/
 
-	// 메세지 수신
 	
-	// 썸머노트 이미지 업로드
+	let summernote = $("#summernote");	
+	
+	// 수정 버튼 클릭시 썸머노트 활성화
+	var edit = function() {
+		  $(".click2edit").summernote({focus: true});
+	};
+		
+	// 썸머노트 저장 버튼 클릭시 저장
+	var save = function() {
+	  var markup = $(".click2edit").summernote('code');
+	  $(".click2edit").summernote('destroy');
+	};
+	
+	// 수정 취소시 썸머노트 비활성화
+	let cancel = function() {
+		$(".click2edit").summernote("destroy");
+		
+	}
+	
+	//썸머노트 이미지 업로드
 	 $('#summernote').summernote({
 		width : 800,
 		minHeight: null,
@@ -526,7 +396,6 @@ label {
 			}
 		} 
 	});
-	
 	  // 썸머노트 이미지 업로드
 		function sendFile(file){
 			var data = new FormData();
@@ -544,16 +413,6 @@ label {
 				console.log(e);
 			});				
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	// 팔로우 기능
 	$(document).ready(function (e) {
@@ -589,8 +448,6 @@ label {
 	    });
         });
     });
-	
-	
 	
 	// 좋아요 기능 영역
 	$(document).ready(function () {
@@ -628,14 +485,20 @@ label {
         });
     });
 	
-	
 	// 댓글 출력
-	// $("#replyContainer")
 	$(document).ready(function(){
 		getReplyList();
 	})
 	function getReplyList(){
-		let re_board_seq = "${dto.board_seq}";
+		var re_board_seq = "${dto.board_seq}";
+		console.log(typeof(re_board_seq));
+		
+		var board_seq = "${dto.board_seq}";
+		console.log(typeof(board_seq));
+		
+		let currentPage = "${currentPage}";
+		console.log(currentPage);
+	
 		$.ajax({
 			url: "${pageContext.request.contextPath}/reply/getReplyList?re_board_seq=" + re_board_seq + "&currentPage=${naviMap.get('currentPage')}"
 			, type : "get"
@@ -644,8 +507,8 @@ label {
 			let replyList = data.replyList;
 			$("#replyContainer").empty();
 			for(let reply of replyList) {
-				let replyBox = "<div class='row mt-3 p-2' style='background-color:#f9f9f9; border-radius:5px;'>"
-				+ "<form id='modifyReplyForm'>"
+				let replyBox = "<div class='row-12 mt-3 p-2' style='background-color:#f9f9f9; border-radius:5px;'>"
+				+ "<form class='modifyReplyForm'>" // id => class 로 바꿨음(에러 시 다시 id로)
 				+ "<div class='col-12'>작성자 : "
 				+ reply.reply_writer_id
 				+ "</div>"
@@ -681,8 +544,10 @@ label {
 	// 댓글 수정 버튼 클릭시
 	$("#replyContainer").on("click", ".btn-modifyReply" , function(e){
 		console.log($(e.target).val());
-		$(".btn-modifyConfirm").css("display", true);
-		$(".btn-modifyCancel").css("display", true);
+		//$(".btn-modifyConfirm").css("display", true);
+		//$(".btn-modifyCancel").css("display", true);
+		$(".btn-modifyConfirm").show();
+		$(".btn-modifyCancel").show();
 		$(".btn-modifyReply").hide();
 		$(".btn-deleteReply").hide();
 		let reply_seq = $(this).val();
@@ -719,7 +584,7 @@ label {
 			, data : re_content
 		}).done(function(rs) {
 			if (rs == "성공") {
-				alert("댓글 수정 성공");
+				alert("댓글 수정이 완료 되었습니다.");
 				getReplyList();
 			} else if (rs == "실패") {
 				alert("댓글 등록에 실패 했습니다.");
@@ -749,8 +614,6 @@ label {
 		})
 		
 	})
-		
-		
 	
 	// 댓글 등록 버튼
 	$("#btnReplyConfirm").on("click",function(e) {
@@ -760,58 +623,66 @@ label {
 		let board_seq = "${dto.board_seq}";
 		console.log(board_seq);
 		
+		let re_board_seq = "${dto.board_seq}";
+		
 		// 댓글 작성자(지금 로그인 한 ID)
-		loginId = "${loginSession.id}";
+		let loginId = "${loginSession.id}";
 		
 		// 게시글 작성자
 		board_writer = "${dto.writer_id}";
 		
-		// 게시글 등록 직렬화
-		let data = $("#replyForm").serialize();
-			$.ajax({
-				url : "${pageContext.request.contextPath}/reply/insertReply?re_board_seq="
-						+ board_seq + "&currentPage=1",
-				type : "post",
-				data : data
-			}).done(function(rs) {
-				// 댓글 작성 성공시
-				if (rs == "성공") {
+		if($("#reply_content").val() == "") {
+			alert("댓글을 입력 해주세요.");
+			return;
+		} else {
+			// 게시글 등록 직렬화
+			let data = $("#replyForm").serialize();
+				$.ajax({
+					url : "${pageContext.request.contextPath}/reply/insertReply?re_board_seq="
+							+ re_board_seq + "&currentPage=1" + "&board_seq=" + board_seq,
+					type : "post",
+					data : data
+				}).done(function(rs) {
+					// 댓글 작성 성공시
+					if (rs == "성공") {
+							
+						console.log("reply.js::socket", ws);
 						
-					console.log("reply.js::socket", ws);
+						if (ws) { // socket이 연결이 되었다면
+							console.log("socket if문 실행");
+							console.log(ws);
+							
+							let replyData = [loginId, board_writer, board_seq];
+							
+							//websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
+							/*let socketMsg = "[로그인 아이디] : " + loginId
+								+ ", [게시글 작성자] : " + board_writer 
+								+ ", [게시글 번호] " + board_seq;
+							*/
+							let socketMsg = replyData;
+							
+							//let socketMsg = "<a href='#'>" + loginId + "</a>" 
+							//+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
+							//		 + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
+							
+							console.debug("sssssssmsg>>", socketMsg);
+							
+							console.log(socketMsg);
+							
+							//socket에 send를 해준다
+							ws.send(socketMsg);
 					
-					if (ws) { // socket이 연결이 되었다면
-						console.log("socket if문 실행");
-						console.log(ws);
-						
-						let replyData = [loginId, board_writer, board_seq];
-						
-						//websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
-						/*let socketMsg = "[로그인 아이디] : " + loginId
-							+ ", [게시글 작성자] : " + board_writer 
-							+ ", [게시글 번호] " + board_seq;
-						*/
-						let socketMsg = replyData;
-						//let socketMsg = "<a href='#'>" + loginId + "</a>" 
-						//+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
-						//		+ board_seq + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
-						
-						console.debug("sssssssmsg>>", socketMsg);
-						
-						console.log(socketMsg);
-						
-						//socket에 send를 해준다
-						ws.send(socketMsg);
-				
-					location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
-						+ board_seq + "&currentPage=1";
+						location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
+							+ board_seq + "&currentPage=1&re_board_seq=" + re_board_seq;
+						}
+					// 댓글 작성 실패시
+					} else if (rs == "실패") {
+						alert("댓글 등록에 실패 했습니다.");
 					}
-				// 댓글 작성 실패시
-				} else if (rs == "실패") {
-					alert("댓글 등록에 실패 했습니다.");
-				}
-			}).fail(function(e) {
-				console.log(e);
-			})
+				}).fail(function(e) {
+					console.log(e);
+				})
+		}
 	})
 	
 	// 목록으로 버튼 클릭
@@ -828,21 +699,6 @@ label {
 			}
 	})
 	
-	// 썸머노트
-	$(document).ready(function () { 
-		console.log("summernote.options : ", $.summernote.options); 
-		// 실행시 언어 설정을 한글로 설정 
-		$.summernote.options.lang = 'ko-KR'; 
-		$.summernote.options.airMode = false; 
-	});
-
-	
-	let s = $("#summernote");
-	
-	let edit = function() {
-		s.summernote({ focus: true });
-	}
-	
 	// 글수정 버튼 클릭
 	$("#btnModify").on("click", function(){
 		$("#btnModifyConfirm").css("display", false);
@@ -850,10 +706,6 @@ label {
 		$("#btnModifyCancel").show();
 		$("#btnModify").hide();
 		$("#btnDelete").hide();
-		s.summernote({ focus: true });
-		//$("#summernoteBox").show();
-		//$("#contentBox").css("display", true);
-		//$("#contentBox").hide();
 		$("#title").attr("readonly", false);
 	})
 	
@@ -864,8 +716,6 @@ label {
 		$("#btnModifyCancel").hide();
 		$("#btnModify").show();
 		$("#btnDelete").show();
-		//$("#summernoteBox").hide();
-		//$("#contentBox").show();
 		$("#title").attr("readonly", true);
 		$("#title").val("${dto.title}");
 	})
@@ -873,14 +723,31 @@ label {
 	// 글수정 확인 버튼 클릭시
 	$("#btnModifyConfirm").on("click", function(){
 		let board_seq = "${dto.board_seq}";
-		//$("#summernoteBox").css("display", true);
-		//$("#summernoteBox").hide();
-		//$("#contentBox").show();
+		let content = $("#content").val();
+		let showBox = $("#showBox");
+		console.log("content : ", showBox.append(summernote));
+		
 		$("#btnModifyConfirm").hide();
 		$("#btnModify").show();
 		$("#btnDelete").show();
 		$("#btnModifyCancel").hide();
+		alert("수정 완료");
 		$("#modifyForm").submit();
+	})
+	
+	// 족지 보내기
+	$("#sendMessage").on("click", function(){
+		let writer_id = "${dto.writer_id}";
+		let width = '500';
+		let height = '300';
+		let left = Math.ceil(( window.screen.width - width )/2);
+		let top = Math.ceil(( window.screen.height - height )/2); 
+		
+		let url = "${pageContext.request.contextPath}/member/note.do?writer_id=" + writer_id;
+		let name = "비밀글";
+		let option = "width=" + width + ", height=" + height
+			+ ", left=" + left + ", top=" + top;
+		window.open(url, name, option);
 	})
 	</script>
 

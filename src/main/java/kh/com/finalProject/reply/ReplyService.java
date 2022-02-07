@@ -45,8 +45,8 @@ public class ReplyService {
 	}
 
 	// 게시판 번호로 댓글 조회
-	public ReplyDTO selectOne(int board_seq) throws Exception {
-		return dao.selectOne(board_seq);
+	public ReplyDTO selectOne(int re_board_seq) throws Exception {
+		return dao.selectOne(re_board_seq);
 	}
 
 	// 댓글 페이징
@@ -98,6 +98,7 @@ public class ReplyService {
 		map.put("needPrev", needPrev);
 		map.put("needNext", needNext);
 		map.put("currentPage", currentPage);
+		map.put("re_board_seq", re_board_seq);
 
 		return map;
 	}
