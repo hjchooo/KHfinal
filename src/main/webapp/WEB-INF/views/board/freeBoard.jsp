@@ -14,16 +14,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+	integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+	integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
 	});
@@ -33,9 +36,20 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
+/* 전체 컨테이너 */
+.wrapper {
+	height: auto;
+	min-height: 100%;
+}
 
 a {
 	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: black;
+	cursor: pointer;
 }
 
 .line_check {
@@ -90,10 +104,6 @@ a {
 
 .margin_top_30 {
 	margin-top: 30px;
-}
-
-.margin_top_20 {
-	margin-top: 20px;
 }
 
 .margin_top_10 {
@@ -167,7 +177,7 @@ a {
 }
 
 .board_category_color {
-	background-color: rgb(235, 235, 235);
+	background-color: #f7f7f7;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -186,6 +196,10 @@ a {
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-weight: 600;
 	font-size: 18px;
+}
+
+.listBox {
+	margin-top: 20px;
 }
 
 .list_title {
@@ -274,213 +288,285 @@ a {
 	margin-right: 20px;
 }
 
-.other_content {
-	background-color: rgb(241, 241, 241);
-	margin-top: 100px;
-	padding-top: 100px;
-	padding-bottom: 50px;
-}
-
-.info_title {
-	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	text-align: center;
-}
-
-.youtube_first {
-	width: 100%;
-}
-
-.news_title {
-	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 20px;
-}
-
-.news_content1 {
-	color: peru;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 600;
-	font-size: 16px;
-}
-
-.news_content2 {
-	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 500;
-	font-size: 16px;
-}
-
-.other_site_box {
-	width: 200px;
-	border: 1px solid lightgrey;
-	border-radius: 5px;
-}
-
-.site_info {
-	background-color: rgb(214, 214, 214);
-	padding-top: 20px;
-}
-
-.foot_container {
-	background-color: rgb(187, 248, 255);
-	padding-top: 50px;
-}
-
-.foot_logo_img {
-	width: 50px;
-}
-
-.foot_text {
-	color: rgb(124, 124, 124);
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-size: 12px;
-}
-
 #keyword {
 	width: 200px;
 }
 
+/* 비밀글 관련 영역 */
 #select {
 	width: 80px;
+}
+
+#secretImg {
+	margin-bottom: 6px;
+}
+
+/* 전체 버튼 */
+.btn {
+	background-color: #f9f9f9;
+	color: gray
+}
+
+.btn:hover {
+	background-color: gray;
+	color: white;
+}
+
+/* 푸터 */
+#footer {
+	bottom: 0px;
+	
 }
 </style>
 </head>
 
 <body>
-	<div id="header"></div>
+	<div class="wrapper">
+		<div id="header"></div>
 
-	<!-- 게시판 메인 메뉴 css에 board로 표기-->
-	<div class="container-fluid">
-		<div class="row board_category_color margin_top_30">
-			<div class="col-1 board_category"></div>
-			<div class="col-2 board_category">
-				<a href="">전체게시판</a>
+		<!-- 게시판 메인 메뉴 css에 board로 표기-->
+		<div class="container-fluid">
+			<div class="row board_category_color margin_top_30">
+				<div class="col-1 board_category"></div>
+				<div class="col-2 board_category">
+					<a
+						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">전체게시판</a>
+				</div>
+				<div class="col-2 board_category">
+					<a onclick="toSelectFreeBoard();">자유게시판</a>
+				</div>
+				<div class="col-2 board_category">
+					<a onclick="toSelectDomestic();">국내여행</a>
+				</div>
+				<div class="col-2 board_category">
+					<a onclick="toSelectFestival();">축제정보</a>
+				</div>
+				<div class="col-2 board_category">
+					<a onclick="toSelectReports();">레포츠</a>
+				</div>
+				<div class="col-1 "></div>
 			</div>
-			<div class="col-2 board_category">
-				<a href="">자유게시판</a>
-			</div>
-			<div class="col-2 board_category">
-				<a href="">국내여행</a>
-			</div>
-			<div class="col-2 board_category">
-				<a href="">축제정보</a>
-			</div>
-			<div class="col-2 board_category">
-				<a href="">공연/전시회</a>
-			</div>
-			<div class="col-1 "></div>
 		</div>
-	</div>
 
-	<!--게시판 시작-->
-	<!-- 인기 여행코스 css에 list로 표기-->
-	<div class="container-fluid">
-		<div class="row margin_top_100">
-
-			<!-- 리스트 시작-->
-			<div class="col-2"></div>
-			<div class="col-8 list_right_margin">
-
-				<!-- 상단 타이틀 시작-->
-				<div class="row">
-					<div class="col-10">
-						<p class="list_title"># 전체 게시판</p>
-					</div>
-					<div class="col-2">
-						<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1"><img class="list_refrash_icon"
-							src="/resources/images/refrash_icon.png"></a>
-					</div>
-				</div>
-
-				<div class="row list_line1"></div>
-
-				<div class="row">
-					<div class="col-6 margin_top_10">
-						<span class="list_count1">총</span><span class="list_count2">16</span><span
-							class="list_count1">건</span>
-					</div>
-					<div class="col-2 margin_top_10"></div>
-					<div class="col-4 margin_top_10">
-						<span class="list_sort_button">최신순</span> <span>|</span> <span
-							class="list_sort_button">인기순</span>
-					</div>
-					<div class="col-2 margin_top_10"></div>
-				</div>
-				<!-- 상단 타이틀 끝-->
-				<div class="row list_line2"></div>
+		<!--게시판 시작-->
+		<!-- 인기 여행코스 css에 list로 표기-->
+		<div class="container-fluid">
+			<div class="row margin_top_100">
 
 				<!-- 리스트 시작-->
-				<c:forEach items="${list}" var="dto">
-					<div class="row margin_top_20">
-						<div class="col-1 text_center">${dto.board_seq}</div>
-						<div class="col-2 text_center">${dto.category}</div>
-						<div class="col-5 board_name">
-							<a href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+				<div class="col-2"></div>
+				<div class="col-8 list_right_margin">
+
+					<!-- 상단 타이틀 시작-->
+					<div class="row">
+						<div class="col-10">
+							<p class="list_title"># 전체 게시판</p>
 						</div>
-						<div class="col-1 text_center">${dto.writer_id}</div>
-						<div class="col-2 text_center">${dto.written_date}</div>
-						<div class="col-1 text_center">${dto.view_count}</div>
+						<div class="col-2">
+							<a
+								href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1"><img
+								class="list_refrash_icon"
+								src="/resources/images/refrash_icon.png"></a>
+						</div>
 					</div>
-				</c:forEach>
 
-				<div class="row list_line2 margin_top_20"></div>
+					<div class="row list_line1"></div>
 
-				<!-- 검색 영역 -->
-				<div class="row mt-2">
-					<div class="col-10 d-flex jusitfy-content-center">
-						<select id="select" name="select" class="form-select">
-							<option value="all" selected="selected">전체</option>
-							<option value="content">내용</option>
-							<option value="title">제목</option>
-							<option value="writer_nickname">작성자</option>
-						</select> <input type="text" id="keyword" name="keyword"
-							class="form-control">
-						<button type="button" id="serchBtn" class="btn">검색</button>
+					<div class="row">
+						<div class="col-6 margin_top_10">
+							<span class="list_count1">총</span><span class="list_count2">${recordTotalCnt}</span><span
+								class="list_count1">건</span>
+						</div>
+						<div class="col-2 margin_top_10"></div>
+						<div class="col-4 margin_top_10">
+							<span class="list_sort_button">최신순</span> <span>|</span> <span
+								class="list_sort_button">인기순</span>
+						</div>
+						<div class="col-2 margin_top_10"></div>
 					</div>
-					
-					<div class="col-2 d-flex justify-content-end">
-						<button type="button" class="btn" id="btnWrite">글쓰기</button>
+					<!-- 상단 타이틀 끝-->
+					<div class="row list_line2"></div>
+					<!-- 게시글 전체 리스트 -->
+
+					<!-- 기존 List -->
+					<c:forEach items="${list}" var="dto">
+
+						<div class="row listBox">
+							<div class="col-1 freeBoard_seq">${dto.board_seq}</div>
+							<div class="col-2 text_center">${dto.category}</div>
+							<div class="col-5 board_name">
+								<c:choose>
+									<c:when test="${dto.secret eq 'Y'}">
+										<a onclick="toSecretBoard(${dto.board_seq});"
+											style="color: gray; font-size: 15px;"> <img
+											id="secretImg" src="/resources/images/lock.svg"> 비밀로
+											작성된 글 입니다.
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a
+											href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+									</c:otherwise>
+								</c:choose>
+							</div>
+							<div class="col-1 text_center">${dto.writer_id}</div>
+							<div class="col-2 text_center">${dto.written_date}</div>
+							<div class="col-1 text_center">${dto.view_count}</div>
+						</div>
+
+					</c:forEach>
+
+
+
+					<div class="row list_line2 margin_top_20"></div>
+
+					<!-- 검색 영역 -->
+					<div class="row mt-2">
+						<div class="col-10 d-flex jusitfy-content-center">
+
+							<!-- 검색 조건 -->
+							<select id="select" name="select" class="form-select">
+								<option value="all" selected="selected">전체</option>
+								<option value="content">내용</option>
+								<option value="title">제목</option>
+								<option value="writer_id">작성자</option>
+							</select>
+
+							<!-- 검색 키워드 -->
+							<input type="text" id="keyword" name="keyword"
+								class="form-control" style="margin-left: 10px;">
+
+							<!-- 검색 버튼 -->
+							<button type="button" id="searchBtn" class="btn"
+								style="margin-left: 10px;">검색</button>
+
+						</div>
+
+						<div class="col-2 d-flex justify-content-end">
+							<button type="button" class="btn" id="btnWrite">글쓰기</button>
+						</div>
 					</div>
+
+					<!-- 리스트 페이지 네이션 -->
+					<div class="row mt-5 mb-5">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${naviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+								</c:if>
+								<!--startNavi, endNavi  -->
+								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+									end="${naviMap.get('endNavi')}">
+									<li class="page-item">
+									<a class="page-link" onclick="pageNation(${i});">${i}</a>
+									</li>
+								</c:forEach>
+								<c:if test="${naviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+
 				</div>
-
-				<!-- 리스트 페이지 네이션 -->
-				<div class="row mt-5">
-					<nav class="col" aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							<c:if test="${naviMap.get('needPrev') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
-							</c:if>
-							<!--startNavi ->endNavi  -->
-							<c:forEach var="i" begin="${naviMap.get('startNavi')}"
-								end="${naviMap.get('endNavi')}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${naviMap.get('needNext') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
-							</c:if>
-						</ul>
-					</nav>
-				</div>
-
+				<div class="col-2"></div>
 			</div>
-			<div class="col-2"></div>
 		</div>
-	</div>
 
-	<!--푸터 css에는 foot으로 표기-->
-	<div id="footer" class="mt-5"></div>
-	
+		<!--푸터 css에는 foot으로 표기-->
+		<footer id="footer"></footer>
+
+	</div>
 	<!-- 스크립트 영역 -->
 	<script>
-		$("#btnWrite").on("click", function(){
+		// 게시글 등록 버튼
+		$("#btnWrite").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/board/toInsertBoard";
 		})
+		
+		let toPageNation = "";
+		
+		function pageNation(no) {
+			//$(location).attr("href", "${pageContext.request.contextPath}/board/toBoard.do?currentPage=" + no);
+			//$(location).attr("href", toPageNation);
+			let pageNo = no;
+			console.log("toPageNation : ", toPageNation , no);
+		}
+		
+		// 자유게시판 리스트 불러오기
+		function toSelectFreeBoard() {
+			let url = "${pageContext.request.contextPath}/board/toSelectFreeBoard?category=자유게시판&currentPage=1";
+			let pageNo = 2;
+			let toPageNation = "${pageContext.request.contextPath}/board/toSelectFreeBoard?currentPage=" + pageNo;
+			//$("a[href='${pageContext.request.contextPath}/board/toBoard.do?currentPage=${i}']").prop("href", pageNation);
+			$(location).attr("href", url);
+		}
+		
+		// 국내여행으로 리스트 불러오기
+		function toSelectDomestic() {
+			let url = "${pageContext.request.contextPath}/board/toSelectDomestic?category=국내여행&currentPage=1";
+			let pageNo = 2;
+			let toPageNation = "${pageContext.request.contextPath}/board/toSelectDomestic?currentPage=" + pageNo;
+			//$("a.page-link").attr("href", pageNation);
+			$(location).attr("href", url);
+			console.log(pageNation);
+		}
+		
+		// 축제정보로 리스트 불러오기
+		function toSelectFestival() {
+			let url = "${pageContext.request.contextPath}/board/toSelectFestival?category=축제정보&currentPage=1";
+			let pageNation = "${pageContext.request.contextPath}/board/toSelectFestival?currentPage=${i}";
+			$("a.page-link").prop("href", "${pageContext.request.contextPath}/board/toSelectFestival?currentPage=${i}");
+			$(location).attr("href", url);
+		}
+		
+		// 레포츠로 리스트 불러오기
+		function toSelectReports() {
+			let url = "${pageContext.request.contextPath}/board/toSelectReports?category=레포츠&currentPage=1";
+			$(location).attr("href", url);
+		}
+		
+		// 검색 버튼
+		$("#searchBtn").on("click",	function(e) {
+			let select = $("#select").val();
+			let keyword = $("#keyword").val();
+			if(keyword != null) {
+			let url = "${pageContext.request.contextPath}/board/searchProc.do?select="
+					+ select
+					+ "&keyword="
+					+ keyword
+					+ "&currentPage=1";
+			$(location).attr("href", url);
+			}
+		})
+		
+		// option
+		$("#selectOption").on("change",	function() {
+			let selectOption = $("#selectOption").val();
+			console.log(selectOption);
+			let url = "${pageContext.request.contextPath}/board/toBoardOption.do?selectOption="
+					+ selectOption + "$currentPage=1";
+			console.log(url);
+			$(location).attr("href", url);
+		})
+		
+		// 비밀글 팝업창
+		function toSecretBoard(no) {
+			let board_seq = no;
+			let width = '350';
+			let height = '350';
+			let left = Math.ceil(( window.screen.width - width )/2);
+			let top = Math.ceil(( window.screen.height - height )/2); 
+			
+			let url = "${pageContext.request.contextPath}/board/toBoardSecret?board_seq=" + board_seq;
+			let name = "비밀글";
+			let option = "width=" + width + ", height=" + height
+				+ ", left=" + left + ", top=" + top;
+			window.open(url, name, option);
+			
+		}
 	</script>
 </body>
 

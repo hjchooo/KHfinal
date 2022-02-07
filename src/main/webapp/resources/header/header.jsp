@@ -10,7 +10,6 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
-
 a {
 	text-decoration: none;
 }
@@ -188,7 +187,7 @@ a {
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
 						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do">
+							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
 							님 </span>
@@ -243,7 +242,7 @@ a {
 	</div>
 
 	<script>
-		ws = new WebSocket("ws://192.168.219.101/reply");
+		ws = new WebSocket("ws://192.168.219.103/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
@@ -318,27 +317,22 @@ a {
 	}
 
 		let loginId = "${loginSession.id}";
-		if (loginId != "") {
-			setInterval(
-					function() {
-						$
-								.ajax(
-										{
-											url : "${pageContext.request.contextPath}/note/noteCount.do?to_id="
-													+ loginId
-
-										}).done(function(data) {
-									if (data == "plus") {
-										alert("쪽지 알림");
-									} else {
-										console.log("조회됨.");
-									}
-								}).fail(function(e) {
-									console.log(e);
-								});
-					}, 3000);
+		if (loginId != "") {setInterval(function() {
+			$.ajax({
+				url : "${pageContext.request.contextPath}/note/noteCount.do?to_id="
+						+ loginId
+					}).done(function(data) {
+						if (data == "plus") {
+							alert("쪽지 알림");
+						} else {
+							console.log("조회됨.");
+						}
+					}).fail(function(e) {
+						console.log(e);
+					});
+				}, 3000);
 		}
-
+		
 	</script>
 <!-- Channel Plugin Scripts -->
 <script>

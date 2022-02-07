@@ -47,6 +47,11 @@
 }
 
 /* 전체 컨테이너 */
+.wrapper {
+	height: 100%;
+}
+
+/* 전체 컨테이너 */
 .insertContainer {
 	width: 800px;
 	margin: auto;
@@ -95,11 +100,19 @@ label {
 	font-weight: bold;
 }
 
+/* 푸터 */
+#footer {
+	bottom: 0;
+	grid-row-start: 2;
+	grid-row-end: 3;
+}
+
 /* ========== 내용 입력 영역 ========== */
 </style>
 </head>
 
 <body>
+<div class="wrapper">
 	<div id="header"></div>
 
 
@@ -159,7 +172,7 @@ label {
 						<option value="자유게시판" selected>자유 게시판</option>
 						<option value="국내여행">국내여행</option>
 						<option value="축제정보">축제정보</option>
-						<option value="공연/전시회">공연/전시회</option>
+						<option value="레포츠">레포츠</option>
 					</select>
 				</div>
 			</div>
@@ -188,7 +201,7 @@ label {
 	</div>
 
 	<div id="footer" class="mt-5"></div>
-
+</div>
 	<script>
 	// 썸머노트 이미지 업로드
 	 $('#summernote').summernote({

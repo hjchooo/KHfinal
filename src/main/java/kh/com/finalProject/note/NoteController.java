@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/note")
 public class NoteController {
-
+	
+	public static int count;
+	
 	@Autowired
 	private NoteService service;
 	
@@ -22,6 +24,7 @@ public class NoteController {
 	@ResponseBody()
 	public String note(NoteDTO dto) throws Exception {
 		System.out.println("noteController 도착");
+		
 		int rs = service.insert(dto);
 		if (rs != 0) {
 			return "success";
@@ -79,4 +82,24 @@ public class NoteController {
 		
 		return "/note/noteReply";
 	}
+	
+	//쪽지 알림
+		@RequestMapping(value ="/noteCount.do")
+		@ResponseBody()
+		public String noteCount(String to_id) throws Exception {
+			
+			if(count == 0) {
+				count = service.noteCount(to_id);
+			}
+			System.out.println("입력 전 count : " + count);
+			int count2 = service.noteCount(to_id);
+			System.out.println("count2 : " + count2);
+			if(count< count2) {
+				count = count2;
+				System.out.println("입력 후 count : " + count);
+				return "plus";
+			} else {
+				return "not plus";
+			}
+		}
 }

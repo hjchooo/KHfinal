@@ -47,9 +47,14 @@ public class ReplyEndPoint {
 		// 지금 접속한 클라이언트의 IP 주소
 		// System.out.println("<========== [OnMessage]onRecevie 도착 : " + message + "
 		// ==========>");
+		String[] reply = replyData.split(",");
+		String board_writer = reply[1];
+		String board_seq = reply[2];
 		System.out.println("<========== [OnMessage]onRecevie 도착 : " + replyData + " ==========>");
 		String loginId = ((MemberDTO) this.session.getAttribute("loginSession")).getId();
-		String replyNotice = loginId + " 님이 댓글을 달았습니다.";
+		String replyNotice = loginId + " 님이 " + "<a href=${pageContext.request.contextPath}/board/detailView.do?board_seq="
+				+ board_seq + "&currentPage=1></a>"
+				+ board_seq + " 번째 게시물에 댓글을 달았습니다.";
 		// String board_writer = "abc122";
 		System.out.println("<========== webSocket loginId : " + loginId + " ==========>");
 		// System.out.println("<========== webSocket message : " + message + "
@@ -57,19 +62,13 @@ public class ReplyEndPoint {
 		// System.out.println("<========== webSocket board_writer : " + board_writer + "
 		// ==========>");
 
-		String[] reply = replyData.split(",");
-		String board_writer = reply[1];
-		String board_seq = reply[2];
 
 		// userID와 message 를 json 을 이용해 하나의 데이터로 합쳐주는 작업
 		JsonObject obj = new JsonObject();
 		// obj.addProperty("loginId", loginId);
 		obj.addProperty("[알림]", replyNotice);
-//		obj.addProperty("reply_seq", reply_seq);
-		obj.addProperty("board_seq", board_seq);
-//		obj.addProperty("re_content", re_content);
-//		obj.addProperty("reply_writer_nickname", reply_writer_nickname);
-		obj.addProperty("board_writer", board_writer);
+		//obj.addProperty("board_seq", board_seq);
+		//obj.addProperty("board_writer", board_writer);
 		// obj.addProperty("message", message);
 
 		// 클라이언트로부터 받은 댓글정보를 DB 저장하는 작업 -> replyService

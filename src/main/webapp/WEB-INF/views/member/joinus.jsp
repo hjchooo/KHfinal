@@ -9,6 +9,10 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
@@ -21,253 +25,33 @@
 		$("#footer").load("/resources/footer/footer.jsp");		
 	});
 </script>
-<title>Join-Us</title>
+<title>회원가입</title>
 <style type="text/css">
 
-/**/
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
-	;
+/* 전체 컨테이너 */
+.joinUsContainer {
+	width: 500px;
+	margin: auto;
+}
 
 a {
 	text-decoration: none;
 }
 
-.line_check {
-	border: 1px solid black;
-}
-
-.font_nanum {
-	font-family: 'Nanum Gothic', sans-serif,;
-}
-
-.nomal_font {
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.p_center {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.p_right {
-	text-align: right;
-	margin: 0px;
-	margin-right: 0px;
-	padding: 0px;
-	padding-right: 0px;
-}
-
-.p_left {
-	text-align: left;
-	margin: 0px;
-	margin-left: 0px;
-	padding: 0px;
-	margin-left: 0px;
-}
-
-.margin_top_100 {
-	margin-top: 100px;
-}
-
-.margin_top_50 {
-	margin-top: 50px;
-}
-
-.margin_top_30 {
-	margin-top: 30px;
-}
-
-.margin_top_20 {
-	margin-top: 20px;
-}
-
-.margin_top_10 {
-	margin-top: 10px;
-}
-
-.margin_top_5 {
-	margin-top: 5px;
-}
-
-.margin_bottom_100 {
-	margin-bottom: 100px;
-}
-
-.margin_bottom_50 {
-	margin-bottom: 50px;
-}
-
-.margin_bottom_30 {
-	margin-bottom: 30px;
-}
-
-.margin_bottom_20 {
-	margin-bottom: 20px;
-}
-
-.margin_bottom_10 {
-	margin-bottom: 10px;
-}
-
-.margin_bottom_5 {
-	margin-bottom: 5px;
-}
-
-.main_logo_size {
-	width: 120px;
-}
-
-.search_space {
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
-
-.search_icon_img {
-	width: 30px;
-}
-
-.main_search_bar {
-	background-color: rgb(245, 245, 245);
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_text {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_category {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(70, 70, 70);
-	font-size: 25px;
-	font-weight: 700;
-}
-
-.com_go_comunity_box {
-	width: 150px;
-	height: 150px;
-	border-radius: 10px;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 22px;
-	text-align: center;
-	color: white;
-	background: linear-gradient(135deg, rgb(118, 240, 253),
-		rgb(112, 144, 212));
-	border: 0px;
-}
-
-.com_go_boxtext {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.go_explan_space {
-	margin-top: 80px;
-}
-
-.go_explan_img {
-	width: 100px;
-}
-
-.explan_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.margin100px {
-	margin-top: 100px;
-}
-
-.best_margin_top_50 {
-	margin-top: 50px;
-	padding-top: 20px;
-	background-color: rgb(187, 248, 255);
-}
-
-.best_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 14px;
-	color: rgb(93, 126, 196);
-}
-
-.best_margin_top_bottom_20 {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.best_title_img {
-	width: 30px;
-}
-
-.best_card_border {
-	border-radius: 10px;
-}
-
-.best_image_border {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-}
-
-.best_title_back {
-	height: 50px;
-}
-
-.best_p_card_linehight {
-	line-height: 3;
-}
-
-.card_font {
-	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.list_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 23px;
-}
-
-/**/
 label {
 	font-size: 10px;
 	font-style: italic;
 }
-/* 푸터 */
-.foot_container {
-	background-color: rgb(187, 248, 255);
-	padding-top: 50px;
+
+/* 버튼 */
+.btn {
+	background-color: #f9f9f9;
+	color: gray
 }
 
-.foot_logo_img {
-	width: 50px;
-}
-
-.foot_text {
-	color: rgb(124, 124, 124);
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-size: 12px;
+.btn:hover {
+	background-color: gray;
+	color: white;
 }
 
 #profileImg {
@@ -275,7 +59,7 @@ label {
 	height: 200px;
 	border: 1px solid lightgray;
 	border-radius: 50%;
-	background-image: url("/resources/images/default-profile-img.png");
+	background-image: url("/resources/images/profile.svg");
 	background-size: 100%;
 	cursor: pointer;
 }
@@ -284,10 +68,43 @@ label {
 	display: none;
 }
 
-#image_container{
-	border : solid 2px gray;
-	width : 110px;
-	height : 110px;
+#image_container {
+	border: 1px solid lightgray;
+	width: 110px;
+	height: 110px;
+	border-radius: 100%;
+}
+
+/* 마케팅 동의 박스 */
+#marketingAgreement {
+	font-size: 11px;
+	width: 96%;
+	margin-left: 12px;
+	padding-left: 8px;
+}
+
+/* 개인정보 수집 동의 박스 */
+#userAgreement {
+	font-size: 11px;
+	width: 96%;
+	margin-left: 12px;
+	padding-left: 8px;
+	text-align: center;
+}
+
+/* 개인 정보 동의 박스 */
+#userAgreement button {
+	background-color: white;
+	border: none;
+	text-decoration: underline;
+}
+
+/* 개인 정보 이용 동의 내용*/
+#agreementInfo {
+	font-size: 9px;
+	resize: none;
+	height: 100px;
+	display: none;
 }
 </style>
 </head>
@@ -296,12 +113,12 @@ label {
 	<div id="header"></div>
 
 
-	<div class="container w-50">
+	<div class="joinUsContainer">
 		<form action="${pageContext.request.contextPath}/member/joinus.do"
 			id="JoinusForm" method="post" enctype="multipart/form-data">
 
 			<!-- 해당 페이지 타이틀 -->
-			<div class="row mb-5">
+			<div class="row mb-5 mt-5">
 				<div class="col d-flex justify-content-center">
 					<h3>회원가입</h3>
 				</div>
@@ -319,30 +136,29 @@ label {
 			프로필 이미지 경로를 담을 곳
 			<input type="text" class="form-control" id="input_profileImgUrl"
 				name="input_profileImgUrl" hidden="" required="required"> -->
-				
+
 			<!-- 프로필 사진 -->
-			<div class="row mb-2">
+			<div class="row mb-3">
 				<label>프로필 사진</label>
-				<div class="col-4">
-				<div id="image_container"></div>
+				<div class="col-4 mt-1">
+					<div id="image_container"></div>
 				</div>
 				<div class="col-8">
-					<input type="file" name="file" onchange = "setThumbnail(event);">
-					
+					<input type="file" class="form-control form-control-sm" name="file"
+						onchange="setThumbnail(event);">
 				</div>
 			</div>
 
 			<!-- ID 영역 -->
 			<div class="row mb-2">
 				<label for="ID">아이디</label>
-				<div class="col-9">
+				<div class="col-8">
 					<input type="text" class="form-control" id="id" name="id"
 						placeholder="" maxlength="20" required="required">
 				</div>
 
-				<div class="col-3">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyId">ID 중복확인</button>
+				<div class="col-4">
+					<button type="button" class="btn w-100" id="btnVerifyId">중복확인</button>
 				</div>
 
 				<div class="row mb-1">
@@ -355,7 +171,7 @@ label {
 			<!-- PW 영역 -->
 			<div class="row mb-2">
 				<label for="PW">비밀번호</label>
-				<div class="col">
+				<div class="col-12">
 					<input type="password" class="form-control" id="pw" name="pw"
 						placeholder="" maxlength="20" required="required">
 				</div>
@@ -367,7 +183,7 @@ label {
 
 			<div class="row mb-2">
 				<label for="PW_confirm">비밀번호 재확인</label>
-				<div class="col">
+				<div class="col-12">
 					<input type="password" class="form-control" id="confirmPw"
 						maxlength="20" required="required">
 				</div>
@@ -388,8 +204,7 @@ label {
 				</div>
 
 				<div class="col-4">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyNickname">닉네임 중복확인</button>
+					<button type="button" class="btn w-100" id="btnVerifyNickname">중복확인</button>
 				</div>
 
 				<div class="row mb-1">
@@ -408,8 +223,8 @@ label {
 				</div>
 
 				<div class="col-4 d-flex justify-content-start">
-					<button type="button" class="btn btn-warning w-100"
-						id="btnVerifyEmail">이메일 확인</button>
+					<button type="button" class="btn w-100" id="btnVerifyEmail">이메일
+						확인</button>
 				</div>
 			</div>
 
@@ -418,27 +233,26 @@ label {
 			</div>
 
 			<div class="row mb-2" id="certification_area" style="display: none;">
-				<div class="col-4">
-					<input type="text" class="form-control" id="code_Input"
+				<div class="col-8">
+					<input type="text" class="form-control code_Input"
 						placeholder="인증번호" disabled="disabled" maxlength="6"
 						required="required">
 				</div>
 
-				<div class="col-3 d-flex justify-content-end">
-					<button type="button" class="btn btn-warning"
-						id="btnCertificate_code">인증번호 발송</button>
+				<div class="col-4 d-flex justify-content-start">
+					<button type="button" class="btn w-100" id="btnCertificate_code">인증번호
+						발송</button>
 				</div>
 			</div>
 
 			<div class="row mb-2">
 				<div class="col-4">
-					<input type="text" class="form-control" id="code_Input"
+					<input type="text" class="form-control code_Input"
 						placeholder="인증번호" disabled="disabled" maxlength="6"
 						required="required" style="display: none;">
 				</div>
 
-				<div class="col-8" id="Res_Emailvalidation"
-					style="vertical-align: middle;"></div>
+				<div class="col-8" id="Res_Emailvalidation"></div>
 			</div>
 			<!-- E-mail 영역 끝 -->
 
@@ -451,7 +265,7 @@ label {
 				</div>
 
 				<div class="col-6 d-flex justify-content-center">
-					<button type="button" class="btn btn-dark w-100"
+					<button type="button" class="btn w-100"
 						onclick="ExecDaumPostcode()">우편번호 찾기</button>
 				</div>
 			</div>
@@ -476,20 +290,47 @@ label {
 						style="display: none;" required="required">
 				</div>
 			</div>
-
-			<!-- Address 영역 끝 -->
-
-			<!-- 가입, 취소 -->
-			<div class="row justify-content-center">
-				<div class="col-4 d-flex justify-content-end">
-					<button type="button" class="btn btn-success" id="btnSuccess">확인</button>
-				</div>
-
-				<div class="col-4 d-flex justify-content-start">
-					<button type="button" class="btn btn-danger" id="btnCancel">취소</button>
-				</div>
-			</div>
 		</form>
+		<!-- Address 영역 끝 -->
+
+		<div class="row">
+			<div class="col-10 form-control mt-2 d-flex justify-content-center"
+				id="marketingAgreement">
+				마케팅/신제품정보 수신동의(SMS/E-MAIL) <input type="radio" id="yes" value="Y"
+					name="agreement">Yes <input type="radio" id="no" value="N"
+					name="agreement">No
+			</div>
+			<div class="col-10 form-control mt-2" id="userAgreement">
+				<button type="button" id="btnUserAgreement">이용약관 개인정보 수집 및
+					이용 동의</button>
+				<input type="checkbox" id="checkAgreement" value="Y">
+			</div>
+			<div class="col-12">
+				<textarea class="form-control mt-2" id="agreementInfo">
+■ 개인정보에 관한 민원서비스
+회사는 고객의 개인정보를 보호하고 개인정보와 관련한 불만을 처리하기 위하여 아래와 같이 관련 부서 및 개인정보보호책임자를 지정하고 있습니다.
+o 개인정보보호담당자 및 책임자
+성명 : Lucky Blue Smith
+소속 : 전산팀
+전화번호 : 02-512-0910
+이메일 : info@205company.com
+o 귀하께서는 회사의 서비스를 이용하시며 발생하는 모든 개인정보보호 관련 민원을 개인정보보호책임자 혹은 담당부서로 신고하실 수 있습니다.
+o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변을 드릴 것입니다." 
+                </textarea>
+			</div>
+		</div>
+
+		<!-- 가입, 취소 -->
+		<div class="row justify-content-center mb-5 mt-3">
+			<div class="col-6 d-flex justify-content-end">
+				<button type="button" class="btn" id="btnSuccess">확인</button>
+			</div>
+
+			<div class="col-6 d-flex justify-content-start">
+				<button type="button" class="btn" id="btnCancel">취소</button>
+			</div>
+		</div>
+
 	</div>
 
 	<!--푸터 css에는 foot으로 표기-->
@@ -497,7 +338,7 @@ label {
 
 	<script>
 	<!-- script area -->
-			
+									
 	<!-- 프로필 -->
 	/*__________Profile__________*/
 	/*
@@ -730,7 +571,7 @@ label {
 		let btnVerifyEmail = document.getElementById("btnVerifyEmail");	//	이메일 확인(중복검사) 버튼
 		let btnCertificatecode = document.getElementById("btnCertificate_code");	//	인증번호 발송 버튼
 		let ResEmail = $("#res_email");	//	이메일이 제대로 입력됐는지 확인을 알려주는 결과를 담아줄 변수
-		let codeInput = $("#code_Input");	//	인증번호 입력 input창
+		let codeInput = $(".code_Input");	//	인증번호 입력 input창
 		let code = "";	//	이메일 인증코드 저장을 위한 변수
 		let ResEmailvalidation = $("#Res_Emailvalidation");	//	입력한 인증번호가 맞는지 틀린지 알려주는 결과를 담아줄 변수
 
@@ -912,21 +753,23 @@ label {
 		document.getElementById("btnSuccess").onclick = function(e) {
 			if (id.value === "" || !regexID()) {
 				alert("아이디를 입력 해주세요.");
-				
 				return;
 			} else if (pw.value === "" || !regexPW()) {
 				alert("비밀번호를 입력 해주세요.");
-				
 				return;
 			} else if (nickname.value === "" || !regexNickname()) {
 				alert("닉네임을 입력 해주세요.");
-				
 				return;
 			} else if (email.value === "" || !regexEmail()) {
 				alert("이메일을 입력 해주세요.");
-				
 				return;
-			} else {
+			} else if ($("#yes:checked").val() !== "Y" && $("#no:checked").val() !== "N") {
+                alert("마케팅 수신 동의를 체크 해주세요.");
+                return;
+            } else if ($("#checkAgreement:checked").val() !== "Y") {
+                alert("개인정보 수집에 동의 해주세요.");
+                return;
+            } else {
 				document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
 				//	document.getElementById("input_profileImgUrl").value = imgPath.value;
 				document.getElementById("JoinusForm").submit();
@@ -942,11 +785,25 @@ label {
 		function setThumbnail(event) { 
 			var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
 			reader.onload = function(event) { // 파일 읽어들이기를 성공했을 때 호출되는 이벤트 핸들러
-				let img = "<img src='"+event.target.result+"' width=100 height=100 />"; 
+				let img = "<img src='"+event.target.result+"' width=110 height=110 />"; 
 				$("#image_container").append(img); 
 				}; 
 			reader.readAsDataURL(event.target.files[0]); }
-
+		
+	    // 개인정보 수집 동의 클릭시 
+        $(document).ready(function () {
+            btnUserAgreement = $("#btnUserAgreement");
+            agreementInfo = $("#agreementInfo");
+            btnUserAgreement.click(function () {
+                agreementInfo.toggle(
+                    function () { agreementInfo.addClass("show") },
+                    function () { agreementInfo.addClass("hide") }
+                );
+            });
+        });
+	
+	
+	
 	
 	</script>
 </body>
