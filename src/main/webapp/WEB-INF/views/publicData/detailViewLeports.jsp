@@ -587,6 +587,17 @@ a {
 
 			<div class="col-2"></div>
 			<div class="col-8">
+			
+			<div class="row margin_bottom_50 titleAddr10">
+				<div class="col">
+					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+					<span>
+						<a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1">레포츠</a>
+						 &nbsp;》&nbsp;${dto.title}
+					</span>
+				</div>
+			</div>
 
 			<div class="row margin_bottom_50 titleAddr1">
 				<div class="col">
@@ -649,7 +660,13 @@ a {
 
 				</div>
 				<!-- 상세정보 주소 끝-->
-
+				
+				
+				<div class="row margin_top_20">
+					<div class="col-6">
+						<div id="map" style="width:850px;height:489.61px;"></div>
+					</div>
+				</div>
 
 
 				<!--풋터와의 간격-->
@@ -691,5 +708,44 @@ a {
 					</div>
 				</div>
 			</footer>
+	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+	<script>
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}),
+			level: 3
+		};
+
+		var map = new kakao.maps.Map(container, options);
+		
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}); 
+
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		
+		// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+		var iwContent = '<div style="padding:5px;">${dto.title} : ${dto.addr1}</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({
+		    content : iwContent,
+		    removable : iwRemoveable
+		});
+
+		// 마커에 클릭이벤트를 등록합니다
+		kakao.maps.event.addListener(marker, 'click', function() {
+		      // 마커 위에 인포윈도우를 표시합니다
+		      infowindow.open(map, marker);  
+		}); 
+		
+	</script>		
 </body>
 </html>

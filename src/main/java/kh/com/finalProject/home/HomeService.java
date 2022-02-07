@@ -22,4 +22,14 @@ public class HomeService {
 	public List<FestivalDTO> getFestivalList() throws Exception{
 		return dao.getFestivalList();
 	}
+	
+	// 최신순 관광지 리스트
+	public List<DataDTO> getModifiedtimeDataList() throws Exception{
+		return dao.getModifiedtimeDataList();
+	}
+	
+	// 최신순 축제 리스트
+	public List<FestivalDTO> getModifiedtimeFestivalList() throws Exception{
+		return dao.getModifiedtimeFestivalList();
+	}
 }
