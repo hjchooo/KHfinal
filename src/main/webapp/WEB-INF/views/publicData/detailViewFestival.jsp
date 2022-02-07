@@ -92,7 +92,27 @@
 		<!-- 상세정보 주소 시작-->
 		<div class="row bottomBox mt-5 mb-5 d-flex justify-content-center">
 			<div class="col-8">
+<<<<<<< HEAD
 				<span class="detail_info_text_bold">• 상세주소</span>&nbsp;&nbsp;&nbsp;${dto.addr1} ${dto.addr2}
+=======
+			
+			<div class="row margin_bottom_50 titleAddr10">
+				<div class="col">
+					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+					<span>
+						<a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1">축제</a>
+						 &nbsp;》&nbsp;${dto.title}
+					</span>
+				</div>
+			</div>
+
+			<div class="row margin_bottom_50 titleAddr1">
+				<div class="col">
+					<h1>${dto.title}</h1>
+					<span id="addr1">${dto.addr1}</span>
+				</div>
+>>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 			</div>
 			<div class="col-4">
 				<span class="detail_info_text_bold">• 전화번호</span>&nbsp;&nbsp;&nbsp;${dto.tel}

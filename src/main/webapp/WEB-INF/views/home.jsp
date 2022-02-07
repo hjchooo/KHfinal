@@ -393,6 +393,13 @@ a {
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-size: 12px;
 }
+
+/* 추가 */
+.topBtn {
+	border: 0px solid white;
+	background-color: rgba(0, 0, 0, 0);
+	color: #white;
+}
 </style>
 </head>
 
@@ -461,9 +468,15 @@ a {
 		<div class="row margin_top_50">
 			<div class="col-2"></div>
 			<div class="col-2">
+<<<<<<< HEAD
 				<a href="${pageContext.request.contextPath}/board/toSelectFreeBoard?category=자유게시판&currentPage=1">
+=======
+				<a
+					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+>>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 					<p class="p_center">
-						<button type="button" class="btn com_go_comunity_box" id="boardBtn">
+						<button type="button" class="btn com_go_comunity_box"
+							id="boardBtn">
 							자유게시판 <br> 바로가기
 						</button>
 					</p>
@@ -472,7 +485,8 @@ a {
 			<div class="col-2">
 				<a href=""></a>
 				<p class="p_center">
-					<button type="button" id="travelBtn" class="btn com_go_comunity_box">
+					<button type="button" id="travelBtn"
+						class="btn com_go_comunity_box">
 						국내여행 <br> 바로가기
 					</button>
 				</p>
@@ -480,7 +494,8 @@ a {
 			<div class="col-2">
 				<a href=""></a>
 				<p class="p_center">
-					<button type="button" id="festivalBtn" class="btn com_go_comunity_box">
+					<button type="button" id="festivalBtn"
+						class="btn com_go_comunity_box">
 						축제정보 <br> 바로가기
 					</button>
 				</p>
@@ -739,7 +754,7 @@ a {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># 인기 여행코스</p>
+						<p class="list_title"># 인기 여행</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"
@@ -752,208 +767,24 @@ a {
 				<div class="row">
 					<div class="col-6 margin_top_10">
 						<span class="list_count1">총</span><span class="list_count2"></span><span
-							class="list_count1">건</span>
+							class="list_count1"> 5건</span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 					<div class="col-4 margin_top_10">
-						<span class="list_sort_button">최신순</span> <span>|</span> <span
-							class="list_sort_button">인기순</span>
+						<span class="list_sort_button"><button type="button"
+								class="btn btn-light topBtn" id="leftReadcountBtn">인기순</button>
+						</span> <span>|</span> <span class="list_sort_button"><button
+								type="button" class="btn btn-light topBtn"
+								id="leftModifiedtimeBtn">최신순</button></span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 				</div>
 				<!-- 상단 타이틀 끝-->
-				
-				
-				
-				<c:forEach items="${dataList}" var="data">
-				<div class="row list_line2"></div>
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="${data.firstimage2}">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">${data.title}</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">${data.addr1}</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">${data.addr2}</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">${data.modifiedtime}</span>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-				</c:forEach>
-
-
 
 				<div class="row list_line2"></div>
 
 				<!-- 리스트 시작-->
-				<!-- <div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_06.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				여기까지가 한 묶음 다음은 라인 시작
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-
-				리스트 시작
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_05.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				여기까지가 한 묶음 다음은 라인 시작
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				리스트 시작
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_03.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				여기까지가 한 묶음 다음은 라인 시작
-				<div class="row list_line2 margin_top_20"></div> -->
-
-
-
-				<!-- 리스트 시작-->
-				<!-- <div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_02.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				여기까지가 한 묶음 다음은 라인 시작
-				<div class="row list_line2 margin_top_20"></div> -->
-
-
-				<!-- 리스트 시작-->
-				<!-- <div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_01.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				여기까지가 한 묶음 다음은 라인 시작
-				<div class="row list_line2 margin_top_20"></div> -->
+				<div class="row" id="leftTop"></div>
 
 			</div>
 			<div class="col list_right_margin">
@@ -961,7 +792,7 @@ a {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># 인기 축제코스</p>
+						<p class="list_title"># 인기 축제</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"
@@ -973,182 +804,26 @@ a {
 
 				<div class="row">
 					<div class="col-6 margin_top_10">
-						<span class="list_count1">총</span><span class="list_count2">16</span><span
-							class="list_count1">건</span>
+						<span class="list_count1">총</span><span class="list_count2"></span><span
+							class="list_count1"> 5건</span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 					<div class="col-4 margin_top_10">
-						<span class="list_sort_button">최신순</span> <span>|</span> <span
-							class="list_sort_button">인기순</span>
+						<span class="list_sort_button"><button type="button"
+								class="btn btn-light topBtn" id="rightReadcountBtn">인기순</button></span>
+						<span>|</span> <span class="list_sort_button"><button
+								type="button" class="btn btn-light topBtn"
+								id="rightModifiedtimeBtn">최신순</button></span>
 					</div>
 					<div class="col-2 margin_top_10"></div>
 				</div>
 				<!-- 상단 타이틀 끝-->
 
-
-
-
 				<div class="row list_line2"></div>
 
 				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_06.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_05.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_03.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_02.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-				<!-- 리스트 시작-->
-				<div class="row margin_top_20">
-					<div class="col-3">
-						<img class="list_left_photo"
-							src="/resources/images/best_photo_01.png">
-					</div>
-					<div class="col-8">
-						<div class="row">
-							<h4 class="list_sub_title">단풍의 명소, 마곡사를 가보셨나요?</h4>
-						</div>
-						<div class="row">
-							<span class="list_sub_location">충남 공주</span>
-						</div>
-						<div class="row margin_top_5">
-							<span class="list_sub_teag">#단풍여행 #당일치기 #1박2일 #사진명소 #데이트코스
-								#산책코스</span>
-						</div>
-						<div class="row margin_top_5">
-							<div class="col">
-								<button type="button" class="list_teag_button">공주산성</button>
-								<button type="button" class="list_teag_button">금강</button>
-								<button type="button" class="list_teag_button">부여</button>
-							</div>
-						</div>
-					</div>
-					<div class="col-1"></div>
-				</div>
-				<!-- 여기까지가 한 묶음 다음은 라인 시작-->
-				<div class="row list_line2 margin_top_20"></div>
-
-
-
+				<div class="row" id="rightTop"></div>
+				
 			</div>
 		</div>
 	</div>
@@ -1468,23 +1143,34 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
+<<<<<<< HEAD
 	<div>
 		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
 		<input type="text" id="areaCode1" name="areaCode1" placeholder="지역코드" >
 		<input type="text" id="numOfRows1" name="numOfRows1" placeholder="데이터 수">
 		<button type="button" id="tourist">관광지</button>
+=======
+	<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
+	<input type="text" id="areaCode1" name="areaCode1" placeholder="지역코드">
+	<input type="text" id="numOfRows1" name="numOfRows1"
+		placeholder="데이터 수">
+	<button type="button" id="tourist">관광지</button>
+>>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 	</div>
 	<div>
 		<button type="button" id="festival" name="festival">축제</button>
 	</div>
 	<div>
-		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
-		<input type="text" id="areaCode" name="areaCode" placeholder="지역코드" >
-		<input type="text" id="numOfRows" name="numOfRows" placeholder="데이터 수">
+		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남
+			39.제주</span> <input type="text" id="areaCode" name="areaCode"
+			placeholder="지역코드"> <input type="text" id="numOfRows"
+			name="numOfRows" placeholder="데이터 수">
 		<button type="button" id="leports">레포츠</button>
 	</div>
-	
+	<div id="test"></div>
+
 	<script>
+<<<<<<< HEAD
 		// 
 		let bool = "${bool}";
 		$(document).ready(function(stop){
@@ -1495,6 +1181,161 @@ a {
 				location.href = "${pageContext.request.contextPath}/getTopList.do";
 			}	
 		});
+=======
+		// 페이지 로딩 시 list 띄워주기
+		$(document).ready(function(stop){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getTopDataList.do"
+			}).done(function(rs){
+				console.log(rs);
+				for(let item of rs){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#leftTop").append(div);
+				}
+			}).fail(function(e){
+				console.log(e);
+			})
+			
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getTopFestivalList.do"
+			}).done(function(sr){
+				console.log(sr);
+				for(let item of sr){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#rightTop").append(div);
+				}	
+			}).fail(function(e){
+				console.log(e);
+			})
+		})
+		
+		// 좌측 top 인기순 버튼
+		$("#leftReadcountBtn").on("click", function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getTopDataList.do"
+			}).done(function(rs){
+				console.log(rs);
+				$("#leftTop div").empty();
+				for(let item of rs){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#leftTop").append(div);
+				}
+			}).fail(function(e){
+				console.log(e);
+			})
+		})
+		
+		// 좌측 top 최신순 버튼
+		$("#leftModifiedtimeBtn").on("click", function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getModifiedtimeDataList.do"
+			}).done(function(rs){
+				console.log(rs);
+				$("#leftTop div").empty();
+				for(let item of rs){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#leftTop").append(div);
+				}
+			}).fail(function(e){
+				console.log(e);
+			})
+		})
+		
+		// 우측 top 인기순 버튼
+		$("#rightReadcountBtn").on("click", function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getTopFestivalList.do"
+			}).done(function(rs){
+				console.log(rs);
+				$("#rightTop div").empty();
+				for(let item of rs){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#rightTop").append(div);
+				}
+			}).fail(function(e){
+				console.log(e);
+			})
+		})
+		
+		// 우측 top 최신순 버튼
+		$("#rightModifiedtimeBtn").on("click", function(){
+			$.ajax({
+				url : "${pageContext.request.contextPath}/getModifiedtimeFestivalList.do"
+			}).done(function(rs){
+				console.log(rs);
+				$("#rightTop div").empty();
+				for(let item of rs){
+					let div = $("<div class='col-12'>");
+					div.append($("<div class='row margin_top_20'>"));
+					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
+					div.append($("<div class='col-8'>"));
+					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
+					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
+					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
+					div.append($("</div>"));
+					div.append($("<div class='col-1'></div>"));
+					div.append($("</div>"))
+					div.append($("<div class='row list_line2 margin_top_20'></div>"));
+					$("#rightTop").append(div);
+				}
+			}).fail(function(e){
+				console.log(e);
+			})
+		})
+		
+		
+		
+>>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 	
 		// 관광지 리스트로 가기
 		$("#travelBtn").on("click", function(){
@@ -1506,7 +1347,7 @@ a {
 			location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1";
 		})
 		
-		// 숙박 리스트로 가기
+		// 레포츠 리스트로 가기
 		$("#stayBtn").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1";
 		})

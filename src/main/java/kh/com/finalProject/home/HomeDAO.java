@@ -23,4 +23,15 @@ public class HomeDAO {
 	public List<FestivalDTO> getFestivalList() throws Exception{
 		return session.selectList("homeMapper.getFestivalList");
 	}
+	
+	// 최신순 관광지 리스트
+	public List<DataDTO> getModifiedtimeDataList() throws Exception{
+		return session.selectList("homeMapper.getModifiedtimeDataList");
+	}
+	
+	// 최신순 축제 리스트
+	public List<FestivalDTO> getModifiedtimeFestivalList() throws Exception{
+		return session.selectList("homeMapper.getModifiedtimeFestivalList");
+	}
+
 }
