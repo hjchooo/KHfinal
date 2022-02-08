@@ -4,13 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.js"
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.6.0.js"
-	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -21,252 +25,32 @@
 	});
 </script>
 <title>회원정보 수정</title>
-<style type="text/css">
+<style>
 
-/**/
-@import
-	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
-	;
-
-a {
-	text-decoration: none;
-}
-
-.line_check {
-	border: 1px solid black;
-}
-
-.font_nanum {
-	font-family: 'Nanum Gothic', sans-serif,;
-}
-
-.nomal_font {
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.p_center {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.p_right {
-	text-align: right;
-	margin: 0px;
-	margin-right: 0px;
-	padding: 0px;
-	padding-right: 0px;
-}
-
-.p_left {
-	text-align: left;
-	margin: 0px;
-	margin-left: 0px;
-	padding: 0px;
-	margin-left: 0px;
-}
-
-.margin_top_100 {
-	margin-top: 100px;
-}
-
-.margin_top_50 {
+/* 전체 컨테이너 */
+.modifyContainer {
+	width: 500px;
+	margin: auto;
 	margin-top: 50px;
 }
 
-.margin_top_30 {
-	margin-top: 30px;
+/* 버튼 */
+/* 버튼 */
+.btn {
+	background-color: #f9f9f9;
+	color: gray
 }
 
-.margin_top_20 {
-	margin-top: 20px;
-}
-
-.margin_top_10 {
-	margin-top: 10px;
-}
-
-.margin_top_5 {
-	margin-top: 5px;
-}
-
-.margin_bottom_100 {
-	margin-bottom: 100px;
-}
-
-.margin_bottom_50 {
-	margin-bottom: 50px;
-}
-
-.margin_bottom_30 {
-	margin-bottom: 30px;
-}
-
-.margin_bottom_20 {
-	margin-bottom: 20px;
-}
-
-.margin_bottom_10 {
-	margin-bottom: 10px;
-}
-
-.margin_bottom_5 {
-	margin-bottom: 5px;
-}
-
-.main_logo_size {
-	width: 120px;
-}
-
-.search_space {
-	margin-top: 20px;
-	margin-bottom: 10px;
-}
-
-.search_icon_img {
-	width: 30px;
-}
-
-.main_search_bar {
-	background-color: rgb(245, 245, 245);
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_text {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(109, 109, 109);
-	font-size: 13px;
-}
-
-.navi_category {
-	text-align: center;
-	font-family: 'Nanum Gothic', sans-serif,;
-	text-decoration: none;
-	color: rgb(70, 70, 70);
-	font-size: 25px;
-	font-weight: 700;
-}
-
-.com_go_comunity_box {
-	width: 150px;
-	height: 150px;
-	border-radius: 10px;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 22px;
-	text-align: center;
+.btn:hover {
+	background-color: gray;
 	color: white;
-	background: linear-gradient(135deg, rgb(118, 240, 253),
-		rgb(112, 144, 212));
-	border: 0px;
 }
 
-.com_go_boxtext {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.go_explan_space {
-	margin-top: 80px;
-}
-
-.go_explan_img {
-	width: 100px;
-}
-
-.explan_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 35px;
-	text-align: center;
-}
-
-.margin100px {
-	margin-top: 100px;
-}
-
-.best_margin_top_50 {
-	margin-top: 50px;
-	padding-top: 20px;
-	background-color: rgb(187, 248, 255);
-}
-
-.best_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 14px;
-	color: rgb(93, 126, 196);
-}
-
-.best_margin_top_bottom_20 {
-	margin-top: 20px;
-	margin-bottom: 20px;
-}
-
-.best_title_img {
-	width: 30px;
-}
-
-.best_card_border {
-	border-radius: 10px;
-}
-
-.best_image_border {
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-}
-
-.best_title_back {
-	height: 50px;
-}
-
-.best_p_card_linehight {
-	line-height: 3;
-}
-
-.card_font {
-	color: black;
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 15px;
-}
-
-.list_title {
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-weight: 700;
-	font-size: 23px;
-}
-
-/**/
-label {
-	font-size: 10px;
-	font-style: italic;
-}
-/* 푸터 */
-.foot_container {
-	background-color: rgb(187, 248, 255);
-	padding-top: 50px;
-}
-
-.foot_logo_img {
-	width: 50px;
-}
-
-.foot_text {
-	color: rgb(124, 124, 124);
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-size: 12px;
+/* 푸터 하단 고정 */
+#footer {
+	bottom: 0;
+	grid-row-start: 2;
+	grid-row-end: 3;
 }
 </style>
 </head>
@@ -276,7 +60,7 @@ label {
 	<div id="header"></div>
 
 
-	<div class="container w-50">
+	<div class="modifyContainer">
 		<form action="${pageContext.request.contextPath}/member/toModify.do"
 			id="toModifyForm" method="post">
 
@@ -295,23 +79,23 @@ label {
 						placeholder="Your ID" maxlength="20" required="required"
 						value="${dto.id}" readonly>
 				</div>
-
+			</div>
 
 				<!-- ID 영역 끝 -->
 
 
 				<!-- Nickname 영역 -->
 				<div class="row mb-2">
-					<label for="Nickname">Nickname</label>
-					<div class="col-8">
+					<label for="Nickname">닉네임</label>
+					<div class="col-9">
 						<input type="text" class="form-control" id="nickname"
 							name="nickname" placeholder="Your Nickname" maxlength="20"
-							required="required">
+							required="required" value="${dto.nickname}">
 					</div>
 
-					<div class="col-4">
-						<button type="button" class="btn btn-warning w-100"
-							id="btnVerifyNickname">verifyNickname</button>
+					<div class="col-3">
+						<button type="button" class="btn w-100"
+							id="btnVerifyNickname">수정</button>
 					</div>
 
 					<div class="row mb-1">
@@ -323,11 +107,11 @@ label {
 
 				<!-- E-mail 영역 -->
 				<div class="row mb-2">
-					<label for="E-mail">E-mail</label>
+					<label for="E-mail">이메일</label>
 					<div class="col-12">
 						<input type="email" class="form-control" id="Email" name="email"
-							placeholder="Your E-mail" required="required"
-							value="${dto.email}">
+							placeholder="Your E-mail" required="required" 
+							value="${dto.email}" readonly>
 					</div>
 
 				</div>
@@ -341,14 +125,14 @@ label {
 				<!-- Address 영역 -->
 				<div class="row mb-2 justify-content-center">
 					<label for="Address">Address</label>
-					<div class="col-6 d-flex justify-content-end">
+					<div class="col-9 d-flex justify-content-end">
 						<input type="text" class="form-control" id="Postcode"
-							name="Postcode" placeholder="Postcode">
+							name="Postcode" placeholder="우편번호">
 					</div>
 
-					<div class="col-6 d-flex justify-content-center">
-						<button type="button" class="btn btn-dark w-100"
-							onclick="ExecDaumPostcode()">Find Postcode</button>
+					<div class="col-3 d-flex justify-content-center">
+						<button type="button" class="btn w-100 p-1" style="font-size:13px;"
+							onclick="ExecDaumPostcode()">우편번호 찾기</button>
 					</div>
 				</div>
 
@@ -376,13 +160,13 @@ label {
 				<!-- Address 영역 끝 -->
 
 				<!-- 가입, 취소 -->
-				<div class="row justify-content-center">
+				<div class="row justify-content-center mb-5">
 					<div class="col-4 d-flex justify-content-end">
-						<button type="button" class="btn btn-success" id="btnModify">수정</button>
+						<button type="button" class="btn" id="btnModify">수정</button>
 					</div>
 
 					<div class="col-4 d-flex justify-content-start">
-						<button type="button" class="btn btn-danger" id="btnCancel">취소</button>
+						<button type="button" class="btn" id="btnCancel">취소</button>
 					</div>
 				</div>
 		</form>

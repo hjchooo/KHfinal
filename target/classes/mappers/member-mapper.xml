@@ -9,7 +9,7 @@
 		select
 		count(*) from member where id = #{id} and pw = #{pw}
 	</select>
-	
+
 	<!-- 멤버 정보 id로 가져오기 -->
 	<select id="getMember" resultType="MemberDTO">
 		select * from member where id
@@ -19,7 +19,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="MemberDTO">
 		insert into member
-		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate, #{ori_name}, #{sys_name})
+		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate,
+		#{ori_name}, #{sys_name})
 	</insert>
 
 	<!-- ID 중복 확인 -->
@@ -30,31 +31,50 @@
 
 	<!-- nickname 확인 -->
 	<select id="verifyNickname" resultType="int">
-		select count(*) from member
+		select count(*) from
+		member
 		where nickname = #{nickname}
 	</select>
-	
+
 	<!-- Email 중복검사 -->
 	<select id="verifyEmail" resultType="int">
 		select count(*) from member
 		where email = #{email}
 	</select>
-	
+
 	<!-- ID 찾기 -->
 	<select id="findID" resultType="MemberDTO">
-		select id from member where email = #{email}
+		select id from member where email
+		= #{email}
 	</select>
-	
+
 	<!-- 아이디 존재여부 -->
 	<select id="existID" resultType="int">
-		select count(*) from member where id=#{id}
+		select count(*) from member
+		where id=#{id}
 	</select>
-	
+
 	<!-- 이메일 존재여부 -->
 	<select id="existEmail" resultType="int">
-		select count(*) from member where email=#{email}
+		select count(*) from member
+		where email=#{email}
 	</select>
-	
+
+	<!-- 아이디에 해당하는 이메일 찾기 -->
+	<select id="matchEmail" resultType="String">
+		select email from member where id=#{id}
+	</select>
+
+	<!-- 임시비밀번호로 덮어씌워버림 -->
+	<update id="resetPW" parameterType="MemberDTO">
+		update member set pw=#{pw} where id=#{id}
+	</update>
+
+	<!-- 무시해도 됨 (확인 차에 해봄) -->
+	<select id="originPW" resultType="String">
+		select pw from member where id=#{id}
+	</select>
+
 	<!-- 회원탈퇴 -->
 	<delete id="delete">
 		delete from member where id=#{id}
@@ -62,7 +82,8 @@
 
 	<!-- 회원정보 수정 -->
 	<update id="toModify" parameterType="MemberDTO">
-		update member set nickname=#{nickname}, email=#{email}, address=#{address}
+		update member set
+		nickname=#{nickname}, email=#{email}, address=#{address}
 		where id=#{id}
 	</update>
 
@@ -70,16 +91,22 @@
 	<select id="selectAll" resultType="MemberDTO">
 		select * from member
 	</select>
-	
+
 	<!-- 회원 전체 수 조회 -->
 	<select id="countAll" resultType="Integer">
 		select count(*) from member
 	</select>
-	
+
 	<!-- 관리자용 회원 전체 조회 -->
 	<select id="mSelectAll" parameterType="map"
 		resultType="MemberDTO">
-		select * from (select row_number() over (order by id desc) 순위,
+		select * from (select row_number() over (order by id desc)
+		순위,
 		a. * from member a) where 순위 between #{startRange}and #{endRange}
+	</select>
+	
+	<!-- 오늘 가입한 회원 조회 -->
+	<select id="dayMember" resultType="MemberDTO">
+		select * from member where to_char(signup_date, 'yyyymmdd')= to_char(sysdate,'yyyymmdd')
 	</select>
 </mapper>

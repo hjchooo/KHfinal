@@ -27,6 +27,7 @@ public class HomeController {
 		return "home";
 	}
 	
+
 	// Top 관광지 리스트
 	@RequestMapping(value="/getTopDataList.do", produces="application/json;charset=utf-8")
 	@ResponseBody

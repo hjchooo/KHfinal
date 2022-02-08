@@ -34,15 +34,20 @@ public class BoardService {
 	private int recordCntPerPage = 10;
 	private int naviCntPerPage = 10;
 
-	// 게시판 전체 조회
+	// 전체 게시판 조회
 	public List<BoardDTO> selectAll(int currentPage) throws Exception {
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
-		
-		// 자유게시판 전체 조회
+
+		// 전체 게시판 조회
 		List<BoardDTO> list = dao.selectAll(startRange, endRange);
 
 		return list;
+	}
+
+	// 전체 게시판 게시글 갯수
+	public int selectAllBoardCount() throws Exception {
+		return dao.selectAllBoardCount();
 	}
 
 	// 게시판 조건별로 가져오기
@@ -56,12 +61,13 @@ public class BoardService {
 
 	// 게시글 상세조회
 	public BoardDTO selectOne(int board_seq) throws Exception {
+		// 조회수 +1
+		dao.updateView_count(board_seq);
 		return dao.selectOne(board_seq);
 	}
 
 	// 게시판 페이징
-	public HashMap<String, Object> getPageNavi(int currentPage) throws Exception {
-		int recordTotalCnt = dao.countAll();
+	public HashMap<String, Object> getPageNavi(int recordTotalCnt, int currentPage) throws Exception {
 
 		int pageTotalCnt = 0;
 		if (recordTotalCnt % recordCntPerPage > 0) {
@@ -104,54 +110,8 @@ public class BoardService {
 		return map;
 	}
 
-	//
-	public HashMap<String, Object> getPageNavi2(String select, String keyword, int currentPage) throws Exception {
-		int recordTotalCnt = dao.countAllOption(select, keyword);
-
-		int pageTotalCnt = 0;
-		if (recordTotalCnt % recordCntPerPage > 0) {
-			pageTotalCnt = (recordTotalCnt / recordCntPerPage) + 1;
-		} else {
-			pageTotalCnt = recordTotalCnt / recordCntPerPage;
-		}
-
-		if (currentPage < 1) {
-			currentPage = 1;
-		} else if (currentPage > pageTotalCnt) {
-			currentPage = pageTotalCnt;
-		}
-
-		int startNavi = ((currentPage - 1) / naviCntPerPage) * naviCntPerPage + 1;
-		int endNavi = startNavi + naviCntPerPage - 1;
-		if (endNavi > pageTotalCnt) {
-			endNavi = pageTotalCnt;
-		}
-
-		boolean needPrev = true;
-		boolean needNext = true;
-		if (startNavi == 1)
-			needPrev = false;
-		if (endNavi == pageTotalCnt)
-			needNext = false;
-
-		System.out.println("startNavi : " + startNavi);
-		System.out.println("endNavi : " + endNavi);
-		System.out.println("needPrev : " + needPrev);
-		System.out.println("needNext : " + needNext);
-
-		HashMap<String, Object> map2 = new HashMap<>();
-		map2.put("startNavi", startNavi);
-		map2.put("endNavi", endNavi);
-		map2.put("needPrev", needPrev);
-		map2.put("needNext", needNext);
-		map2.put("currentPage", currentPage);
-
-		return map2;
-	}
-
 	// 게시글 조회수+1
 	public int updateView_count(int board_seq) throws Exception {
-		System.out.println("���񽺵���");
 		return dao.updateView_count(board_seq);
 	}
 
@@ -161,10 +121,12 @@ public class BoardService {
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
 		List<BoardDTO> list = dao.searchBoard(select, keyword, startRange, endRange);
-		for (BoardDTO dto : list) {
-			System.out.println("�˻� ���" + dto.toString());
-		}
 		return list;
+	}
+
+	// 게시판 검색 후 select, keyword 로 게시글 카운트
+	public int countAllOption(String select, String keyword) throws Exception {
+		return dao.countAllOption(select, keyword);
 	}
 
 	// 게시글 등록
@@ -175,7 +137,7 @@ public class BoardService {
 		dto.setBoard_seq(board_seq); // 게시글에 게시글 번호 셋팅
 		int rs = dao.insertBoard(dto);
 		System.out.println("dto.getTitle : " + dto.getTitle());
-		
+
 		// 파일 등록
 		ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
 
@@ -245,6 +207,7 @@ public class BoardService {
 		System.out.println("board_seq : " + fdto.getBoard_seq());
 		System.out.println("file_seq : " + fdto.getFile_seq());
 
+		// 파일이 null 이라면
 		if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
 			for (String mdOri : modifyOri_name) {
 				fdto.setOri_name(mdOri);
@@ -272,15 +235,13 @@ public class BoardService {
 				System.out.println("fdto.setSys_name : " + fdto.getSys_name());
 				fdao.modifyFile(fdto);
 			}
+		} else if (dto.getContent() == null) {
+			dto.setContent(dao.selectContent(board_seq));
+			System.out.println("dto.getContent : " + dto.getContent());
 		}
 		return 0;
 	}
 
-	// 자유게시판 게시글 갯수
-	public int freeBoardCount() throws Exception {
-		return dao.freeBoardCount();
-	}
-	
 	// 비밀글 비밀번호 찾기
 	public boolean secretBoard(String secretPw, int board_seq) throws Exception {
 		if (dao.secretBoard(secretPw, board_seq) == 1) {
@@ -289,4 +250,65 @@ public class BoardService {
 			return false;
 		}
 	}
+
+	// 자류게시판 리스트 가져오기
+	public List<BoardDTO> selectFreeBoard(String category, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		// 자유게시판 전체 조회
+		List<BoardDTO> list = dao.selectFreeBoard(category, startRange, endRange);
+		return list;
+	}
+
+	// 자유게시판 게시글 갯수
+	public int countFreeBoard(String category) throws Exception {
+		return dao.countFreeBoard(category);
+	}
+
+	// 국내여행 리스트 가져오기
+	public List<BoardDTO> selectDomestic(String category, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		// 국내여행 전체 조회
+		List<BoardDTO> list = dao.selectDomestic(category, startRange, endRange);
+		return list;
+	}
+
+	// 국내여행 게시글 갯수
+	public int countDomestic(String category) throws Exception {
+		return dao.countDomestic(category);
+	}
+
+	// 축제정보 리스트 가져오기
+	public List<BoardDTO> selectFestival(String category, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		// 축제정보 전체 조회
+		List<BoardDTO> list = dao.selectFestival(category, startRange, endRange);
+		return list;
+	}
+
+	// 축제정보 게시글 갯수
+	public int countFestival(String category) throws Exception {
+		return dao.countFestival(category);
+	}
+
+	// 레포츠로 리스트 가져오기
+	public List<BoardDTO> selectReports(String category, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		// 레포츠 전체 조회
+		List<BoardDTO> list = dao.selectReports(category, startRange, endRange);
+		return list;
+	}
+
+	// 레포츠 게시글 갯수
+	public int countReports(String category) throws Exception {
+		return dao.countReports(category);
+	}
+	
+	// 당일 신규 게시글 조회
+		public List<BoardDTO> dayBoard() throws Exception {
+			return dao.dayBoard();
+		}
 }

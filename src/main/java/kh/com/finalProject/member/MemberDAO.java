@@ -58,12 +58,12 @@ public class MemberDAO {
 		return session.selectList("memberMapper.findID", email);
 	}
 
-	//	아이디 존재여부
+	// 아이디 존재여부
 	public int existID(String id) throws Exception {
 		return session.selectOne("memberMapper.existID", id);
 	}
 
-	//	이메일 존재 유무
+	// 이메일 존재 유무
 	public int existEmail(String email) throws Exception {
 		return session.selectOne("memberMapper.existEmail", email);
 	}
@@ -84,20 +84,43 @@ public class MemberDAO {
 		System.out.println("note dao 도착");
 		return session.selectList("memberMapper.selectAll");
 	}
-	
+
 	// 관리자용 회원전체 조회
-			public List<MemberDTO> mSelectAll(int startRange,int endRange) throws Exception {
-				Map<String, Object> map = new HashMap<>();
-				map.put("startRange", startRange);
-				map.put("endRange", endRange);
-				return session.selectList("memberMapper.mSelectAll", map);
-			}
-			
-			//
-			public int countAll() {
-				System.out.println("MemeberDAO count 도착");
-				int rs = session.selectOne("memberMapper.countAll");
-				System.out.println(rs);
-				return rs;
-			}
+	public List<MemberDTO> mSelectAll(int startRange, int endRange) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("memberMapper.mSelectAll", map);
+	}
+
+	//
+	public int countAll() {
+		System.out.println("MemeberDAO count 도착");
+		int rs = session.selectOne("memberMapper.countAll");
+		System.out.println(rs);
+		return rs;
+	}
+	
+	// 오늘 가입한 회원조회
+	public List<MemberDTO> dayMember() throws Exception{
+		return session.selectList("memberMapper.dayMember");
+	}
+
+	/* =================================== 수정 ================================= */
+
+	// 아이디에 해당하는 이메일 찾기
+	public String matchEmail(String id) throws Exception {
+		return session.selectOne("memberMapper.matchEmail", id);
+	}
+
+	// 임시비밀번호로 덮어씌우기
+	public int resetPW(MemberDTO dto) throws Exception {
+		return session.update("memberMapper.resetPW", dto);
+	}
+
+	// 무시해도 됨 (확인 차에 해봄)
+	public String originPW(String id) throws Exception {
+		return session.selectOne("memberMapper.originPW", id);
+	}
+
 }

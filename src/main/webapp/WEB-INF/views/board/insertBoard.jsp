@@ -172,7 +172,7 @@ label {
 						<option value="자유게시판" selected>자유 게시판</option>
 						<option value="국내여행">국내여행</option>
 						<option value="축제정보">축제정보</option>
-						<option value="공연/전시회">공연/전시회</option>
+						<option value="레포츠">레포츠</option>
 					</select>
 				</div>
 			</div>

@@ -39,9 +39,11 @@
 * {
 	box-sizing: border-box;
 }
+
 a {
 	text-decoration: none;
 }
+
 a:hover {
 	text-decoration: none;
 }
@@ -131,22 +133,6 @@ label {
 	color: white;
 }
 
-/**/
-.foot_container {
-	background-color: rgb(187, 248, 255);
-	padding-top: 50px;
-}
-
-.foot_logo_img {
-	width: 50px;
-}
-
-.foot_text {
-	color: rgb(124, 124, 124);
-	font-family: 'Nanum Gothic', sans-serif,;
-	font-size: 12px;
-}
-
 /* 신고 아이콘 */
 #report img {
 	width: 30px;
@@ -166,6 +152,11 @@ label {
 	background-color: lightgray;
 }
 
+/* 좋아요 호버 */
+#likes:hover {
+	cursor: pointer;
+}
+
 /**/
 </style>
 </head>
@@ -175,7 +166,7 @@ label {
 	<div class="detailViewContainer mt-5">
 		<!-- ==================== 게시글 내용 ==================== -->
 		<form id="modifyForm"
-			action="${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}"
+			action='${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}'
 			method="post">
 			<div class="row">
 
@@ -187,8 +178,8 @@ label {
 				</div>
 				<c:if test="${ loginSession.id != dto.writer_id }">
 					<div class="col-1 d-flex justify-content-end" id="report">
-						<a href="${pageContext.request.contextPath}/board/toReport.do" id="reportWhite"><img
-							src="/resources/images/reportIcon.svg"></a>
+						<a href="${pageContext.request.contextPath}/board/toReport.do"
+							id="reportWhite"><img src="/resources/images/reportIcon.svg"></a>
 					</div>
 				</c:if>
 			</div>
@@ -247,7 +238,7 @@ label {
 				<div class="col-12 d-flex justify-content-center">
 					<!-- <div class="click2edit" id="showBox">${dto.content}</div> -->
 
-					<textarea id="summernote" name="content">${dto.content}</textarea>
+					<div id="summernote" class="content">${dto.content}</div>
 				</div>
 			</div>
 
@@ -325,7 +316,7 @@ label {
 				<div class="col-8 d-flex justify-content-end">
 					<button type="button" id="btnModify" class="btn" onclick="edit()">글수정</button>
 					<button type="button" id="btnModifyConfirm" class="btn"
-						onclick="save()" style="display: none;">확인</button>
+						onclick="save()" style="display: none;">완료</button>
 				</div>
 				<div class="col-2 d-flex justify-content-end">
 					<button type="button" id="btnDelete" class="btn">글삭제</button>
@@ -340,62 +331,56 @@ label {
 	<div id="footer" class="mt-5"></div>
 
 	<script>
-	/*
-	ws = new WebSocket("ws://192.168.219.102/reply");
-	ws.onopen = function() {
-		console.log("커넥션 오픈");
-
-	};
-
-	// 메세지 수신(알림)
-	ws.onmessage = function(e) {
-		console.log("ReceiveMessage", e.data + '\n');
-		let socketAlert = $("#socketAlert");
-		socketAlert.html(e.data);
-		socketAlert.css('display', 'block');
-		
-		setTimeout(function() {
-			socketAlert.css('display', 'none');
-		}, 3000); 
-	}*/
-
+	// 섬머노트
+	 $(document).ready(function () {
+         console.log("summernote option : ", $.summernote.options);
+         // 실행시 언어 설정을 한글로 설정 
+         $.summernote.options.lang = 'ko-KR';
+         $.summernote.options.airMode = false;
+	 });
 	
-	let summernote = $("#summernote");	
+	var a = $('#summernote');
 	
-	// 수정 버튼 클릭시 썸머노트 활성화
-	var edit = function() {
-		  $(".click2edit").summernote({focus: true});
-	};
-		
-	// 썸머노트 저장 버튼 클릭시 저장
-	var save = function() {
-	  var markup = $(".click2edit").summernote('code');
-	  $(".click2edit").summernote('destroy');
-	};
-	
-	// 수정 취소시 썸머노트 비활성화
-	let cancel = function() {
-		$(".click2edit").summernote("destroy");
-		
-	}
+     // 수정버튼
+     var edit = function () {
+         a.summernote({ focus: true });
+         //a.summernote('code');
+         modifySummernote();
+     };
+     
+     // 수정 종료
+     var save = function () {
+         var markup = a.summernote('code');
+         a.summernote('destroy');
+     };
+     
+     var cancel = function() {
+    	 var markup = a.summernote('code');
+         a.summernote('destroy');
+    	 
+     }
 	
 	//썸머노트 이미지 업로드
-	 $('#summernote').summernote({
-		width : 800,
-		minHeight: null,
-		maxHeight: null,
-		focus: true,
-		lang: "ko-KR",
-		callbacks: {
-			onImageUpload : function(files, editor, welEditable){
-				for(let file of files){
-					console.log(file);
-					sendFile(file,this);
-					console.log("sendFile 함수로 이동");
+	function modifySummernote() {
+		 $('#summernote').summernote({
+				width : 800,
+				minHeight: null,
+				maxHeight: null,
+				focus: true,
+				lang: "ko-KR",
+				callbacks: {
+					onImageUpload : function(files, editor, welEditable){
+						for(let file of files){
+							console.log(file);
+							sendFile(file,this);
+							console.log("sendFile 함수로 이동");
+					}
 				}
-			}
-		} 
-	});
+			} 
+		});
+	}
+	
+	
 	  // 썸머노트 이미지 업로드
 		function sendFile(file){
 			var data = new FormData();
@@ -413,19 +398,17 @@ label {
 				console.log(e);
 			});				
 		}
-	
+
 	// 팔로우 기능
 	$(document).ready(function (e) {
 				
 	// 팔로우 있는지 확인한 값을 likesVal에 저장
         let followVal = "${follow.follow_count}";
         if(followVal > 0) {
-            console.log(followVal);
             $("#follow").prop("src", "/resources/images/followPlusBlack.svg");
             $(".follow").prop('name', followVal)
         }
         else {
-            console.log(followVal);
             $("#follow").prop("src", "/resources/images/followPlusWhite.svg");
             $(".follow").prop('name', followVal)
         }
@@ -456,12 +439,10 @@ label {
         let likesVal = "${likes.likes_count}";
         // likesVal이 1이면 좋아요가 이미 되있는것이므로 heartBlack.svg를 출력하는 코드
         if(likesVal > 0) {
-            console.log(likesVal);
             $("#likes").prop("src", "/resources/images/heartBlack.svg");
             $(".likes").prop("name", likesVal)
         }
         else {
-            console.log(likesVal);
             $("#likes").prop("src", "/resources/images/heartWhite.svg");
             $(".likes").prop("name", likesVal)
         }
@@ -490,14 +471,9 @@ label {
 		getReplyList();
 	})
 	function getReplyList(){
-		var re_board_seq = "${dto.board_seq}";
-		console.log(typeof(re_board_seq));
-		
-		var board_seq = "${dto.board_seq}";
-		console.log(typeof(board_seq));
-		
+		let re_board_seq = "${dto.board_seq}";
+		let board_seq = "${dto.board_seq}";
 		let currentPage = "${currentPage}";
-		console.log(currentPage);
 	
 		$.ajax({
 			url: "${pageContext.request.contextPath}/reply/getReplyList?re_board_seq=" + re_board_seq + "&currentPage=${naviMap.get('currentPage')}"
@@ -701,6 +677,7 @@ label {
 	
 	// 글수정 버튼 클릭
 	$("#btnModify").on("click", function(){
+		//$("#summernote").summernote.airMode = false;
 		$("#btnModifyConfirm").css("display", false);
 		$("#btnModifyConfirm").show();
 		$("#btnModifyCancel").show();
@@ -723,15 +700,14 @@ label {
 	// 글수정 확인 버튼 클릭시
 	$("#btnModifyConfirm").on("click", function(){
 		let board_seq = "${dto.board_seq}";
-		let content = $("#content").val();
-		let showBox = $("#showBox");
-		console.log("content : ", showBox.append(summernote));
+		let content = '${dto.content}';
 		
 		$("#btnModifyConfirm").hide();
 		$("#btnModify").show();
 		$("#btnDelete").show();
 		$("#btnModifyCancel").hide();
 		alert("수정 완료");
+		
 		$("#modifyForm").submit();
 	})
 	

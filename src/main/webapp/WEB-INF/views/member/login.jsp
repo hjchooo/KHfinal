@@ -246,7 +246,7 @@ a:hover {
 		document.getElementById("findID").onclick = function(e) {
 			let url = "${pageContext.request.contextPath}/member/tofindID.do";
 			let name = "아이디 찾기";
-			let option = "width = 500, height = 300, top = 50";
+			let option = "width = 500, height = 400, top = 50";
 
 			window.open(url, name, option);
 		}
