@@ -728,11 +728,6 @@ a {
 				</div>
 
 				<!-- 베스트 캐러셀 종료-->
-
-
-
-
-
 			</div>
 		</div>
 	</div>
@@ -1161,6 +1156,28 @@ a {
 	<div id="test"></div>
 
 	<script>
+	
+		function makeElements(parentId, item, phone, url){
+			let div = $("<div class='col-12'>");
+			
+			let div2 = $("<div class='row margin_top_20'>");
+			div2.append("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>");
+			div.append(div2);
+			let div3 = $("<div class='col-8'>");
+			div3.append("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/"+url+".do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>")
+			div3.append("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>");
+			if(phone != 'none'){
+				// 핸드폰 넣어주는 작업 
+				div3.append("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.tel+"</span></div></div>");
+			}
+			div3.append("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>");
+			div2.append(div3);
+			div2.append("<div class='col-1'></div>");
+			
+			div.append("<div class='row list_line2 margin_top_20'></div>");
+			$(parentId).append(div);
+		}	
+		
 		// 페이지 로딩 시 list 띄워주기
 		$(document).ready(function(stop){
 			$.ajax({
@@ -1168,18 +1185,7 @@ a {
 			}).done(function(rs){
 				console.log(rs);
 				for(let item of rs){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#leftTop").append(div);
+					makeElements("#leftTop", item, 'none', "detailView");
 				}
 			}).fail(function(e){
 				console.log(e);
@@ -1190,18 +1196,7 @@ a {
 			}).done(function(sr){
 				console.log(sr);
 				for(let item of sr){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#rightTop").append(div);
+					makeElements("#rightTop", item, "number", "toDetailViewFestival");
 				}	
 			}).fail(function(e){
 				console.log(e);
@@ -1216,18 +1211,7 @@ a {
 				console.log(rs);
 				$("#leftTop div").empty();
 				for(let item of rs){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#leftTop").append(div);
+					makeElements("#leftTop", item, 'none', "detailView")
 				}
 			}).fail(function(e){
 				console.log(e);
@@ -1242,18 +1226,7 @@ a {
 				console.log(rs);
 				$("#leftTop div").empty();
 				for(let item of rs){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/detailView.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#leftTop").append(div);
+					makeElements("#leftTop", item, 'none', "detailView")
 				}
 			}).fail(function(e){
 				console.log(e);
@@ -1268,18 +1241,7 @@ a {
 				console.log(rs);
 				$("#rightTop div").empty();
 				for(let item of rs){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#rightTop").append(div);
+					makeElements("#rightTop", item, 'number', "toDetailViewFestivalList")
 				}
 			}).fail(function(e){
 				console.log(e);
@@ -1294,27 +1256,13 @@ a {
 				console.log(rs);
 				$("#rightTop div").empty();
 				for(let item of rs){
-					let div = $("<div class='col-12'>");
-					div.append($("<div class='row margin_top_20'>"));
-					div.append($("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>"));
-					div.append($("<div class='col-8'>"));
-					div.append($("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewFestival.do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>"))
-					div.append($("<div class='row topDataAddr1'><div class='col-12'><span class='list_sub_location'>"+item.addr1+"</span></div></div>"));
-					div.append($("<div class='row topDataTime margin_top_5'><div class='col-12'><span class='list_sub_teag'>"+item.modifiedtime+"</span></div></div>"));
-					div.append($("</div>"));
-					div.append($("<div class='col-1'></div>"));
-					div.append($("</div>"))
-					div.append($("<div class='row list_line2 margin_top_20'></div>"));
-					$("#rightTop").append(div);
+					makeElements("#rightTop", item, 'number', "toDetailViewFestivalList")
 				}
 			}).fail(function(e){
 				console.log(e);
 			})
 		})
 		
-		
-		
-	
 		// 관광지 리스트로 가기
 		$("#travelBtn").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1"
@@ -1329,8 +1277,6 @@ a {
 		$("#stayBtn").on("click", function(){
 			location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1"
 		})
-	
-	
 	
 		// 관광지 공공데이터 저장
 		$("#tourist").on("click", function(){
@@ -1354,9 +1300,7 @@ a {
 			console.log(areaCode);
 			location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
 		})
-
-
-			
+		
 	</script>
 </body>
 </html>
