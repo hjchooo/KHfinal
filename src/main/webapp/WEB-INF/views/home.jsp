@@ -200,7 +200,7 @@ a {
 .best_margin_top_50 {
    margin-top: 50px;
    padding-top: 20px;
-   background-color: rgb(187, 248, 255);
+   background-color: #e3effd;
 }
 
 .best_title {
@@ -330,7 +330,7 @@ a {
 }
 
 .other_content {
-   background-color: rgb(241, 241, 241);
+   background-color: #f7f7f7;
    margin-top: 100px;
    padding-top: 100px;
    padding-bottom: 50px;
@@ -375,7 +375,7 @@ a {
 }
 
 .site_info {
-   background-color: rgb(214, 214, 214);
+   background-color: white;
    padding-top: 20px;
 }
 
