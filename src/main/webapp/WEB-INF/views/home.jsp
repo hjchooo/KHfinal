@@ -1156,14 +1156,14 @@ a {
    <div id="test"></div>
    
    <div>
-		<button type="button" id="managerBtn">관리자</button>
-	</div>
+      <button type="button" id="managerBtn">관리자</button>
+   </div>
 
        <script>
-   		
+         
        document.getElementById("managerBtn").onclick = function(){
-   		location.href="${pageContext.request.contextPath}/manager/main.do";
-   	}
+         location.href="${pageContext.request.contextPath}/manager/main.do";
+      }
        
       function makeElements(parentId, item, phone, url){
          let div = $("<div class='col-12'>");
@@ -1188,7 +1188,7 @@ a {
       }   
       
       // 페이지 로딩 시 list 띄워주기
-      $(document).ready(function(그만){
+      $(document).ready(function{
          $.ajax({
             url : "${pageContext.request.contextPath}/getTopDataList.do"
          }).done(function(rs){
