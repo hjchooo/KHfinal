@@ -271,5 +271,10 @@ public class MemberService {
 
 		return dao.originPW(id);
 	}
+	
+	// 오늘 가입한 회원 조회
+	public List<MemberDTO> dayMember() throws Exception{
+		return dao.dayMember();
+	}
 
 }

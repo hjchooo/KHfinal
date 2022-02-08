@@ -1,7 +1,9 @@
 package kh.com.finalProject.member;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import kh.com.finalProject.visit.VisitService;
 
 @Controller
 @RequestMapping("/member")
@@ -22,6 +27,9 @@ public class MemberController {
 	@Autowired
 	private MemberService service;
 
+	@Autowired
+	private VisitService vService;
+	
 	@Autowired
 	private HttpSession session;
 
@@ -301,7 +309,19 @@ public class MemberController {
 	         System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
 
 	         if (pwEncoder.matches(rawPW, encodePW)) {
-	            session.setAttribute("loginSession", dto);
+	        	 
+	        	// 전체 방문자 수 +1
+	             vService.visitInsert();
+	              
+	             // 오늘 방문자 수
+	             int todayCount = vService.todayCount();
+	              
+	             // 전체 방문자 수
+	             int totalCount = vService.totalCount();
+	        	 
+	        	 session.setAttribute("loginSession", dto);
+	        	 session.setAttribute("totalCount", totalCount); // 전체 방문자 수
+	             session.setAttribute("todayCount", todayCount); // 오늘 방문자 수
 
 	            return "성공";
 	         } else {
@@ -521,17 +541,42 @@ public class MemberController {
 	    * return "home"; }
 	    */
 
-	   // 회원가입 요청
-	   @RequestMapping("/joinus.do")
-	   public String joinus(MemberDTO dto) throws Exception {
-	      System.out.println("\n DTO : " + dto);
+	// 회원가입 요청
+		@RequestMapping("/joinus.do")
+		public String joinus(MultipartFile file, MemberDTO dto) throws Exception {
+			System.out.println("file : " + file);
+			System.out.println("dto : " + dto);
+			
+			String realPath = session.getServletContext().getRealPath("upload");
+			System.out.println(realPath);
+			File realPathFile = new File(realPath);
+			if(!realPathFile.exists()) {
+				realPathFile.mkdir();
+			}
+			
+			if(!file.isEmpty()) {
+				dto.setOri_name(file.getOriginalFilename());
+				
+				dto.setSys_name(UUID.randomUUID() + "_" + dto.getOri_name());
+			
+				
+				file.transferTo(new File(realPath + File.separator + dto.getSys_name()));
+			}else {
+				dto.setOri_name("");
+				dto.setSys_name("");
+			}
 
-	      dto.setPw(encodingPW(dto)); // dto의 pw에 encodePW() 메서드를 통해 얻은 인코딩 된 값을 넣어줌
+			String rawPW = ""; // 인코딩 전 PW
+			String encodePW = ""; // 인코딩 후 PW
 
-	      service.insertMember(dto); // 회원가입 실행
+			rawPW = dto.getPw(); // 비밀번호 얻어옴
+			encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
+			dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
 
-	      return "home";
-	   }
+			service.insertMember(dto); // 회원가입 실행
+
+			return "home";
+		}
 
 	   // PW 인코딩
 	   public String encodingPW(MemberDTO dto) {

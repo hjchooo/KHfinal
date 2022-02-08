@@ -171,4 +171,9 @@ public class BoardDAO {
 		map.put("endRange", endRange);
 		return map;
 	}
+	
+	// 당일 게시글 조회
+		public List<BoardDTO> dayBoard() throws Exception {
+			return session.selectList("boardMapper.dayBoard");
+		}
 }

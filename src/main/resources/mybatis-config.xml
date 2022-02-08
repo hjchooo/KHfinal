@@ -21,6 +21,7 @@
 		<typeAlias type="kh.com.finalProject.publicdata.DataDTO" alias="DataDTO"/>
 		<typeAlias type="kh.com.finalProject.publicdata.FestivalDTO" alias="FestivalDTO"/>
 		<typeAlias type="kh.com.finalProject.publicdata.LeportsDTO" alias="LeportsDTO"/>
+		<typeAlias type="kh.com.finalProject.visit.VisitDTO" alias="VisitDTO"/>
 	</typeAliases>
 
 	<!-- <mappers>

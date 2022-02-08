@@ -306,4 +306,9 @@ public class BoardService {
 	public int countReports(String category) throws Exception {
 		return dao.countReports(category);
 	}
+	
+	// 당일 신규 게시글 조회
+		public List<BoardDTO> dayBoard() throws Exception {
+			return dao.dayBoard();
+		}
 }

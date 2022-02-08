@@ -100,6 +100,11 @@ public class MemberDAO {
 		System.out.println(rs);
 		return rs;
 	}
+	
+	// 오늘 가입한 회원조회
+	public List<MemberDTO> dayMember() throws Exception{
+		return session.selectList("memberMapper.dayMember");
+	}
 
 	/* =================================== 수정 ================================= */
 

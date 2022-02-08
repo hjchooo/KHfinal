@@ -185,4 +185,8 @@
 		select count(*) from board where category = #{category}
 	</select>
 	
+	<!-- 당일 게시글 조회 -->
+	<select id="dayBoard" resultType="BoardDTO">
+		select * from board where to_char(written_date, 'yyyymmdd')= to_char(sysdate,'yyyymmdd')
+	</select>
 </mapper>

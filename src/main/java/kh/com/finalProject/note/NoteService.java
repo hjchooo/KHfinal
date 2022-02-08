@@ -15,6 +15,12 @@ public class NoteService {
 	private int recordCntPerPage = 5; // 한페이지에 보여질 갯수
 	private int naviCntPerPage = 5; // 페이지 갯수(1~10, 11~20, 21~30) 10개씩
 	
+	//쪽지 알림
+		public int noteCount(String to_id) throws Exception {
+			System.out.println("noteCount 도착");
+			return dao.count_to_id(to_id);
+		}
+	
 	//쪽지 보내기, 답장
 	public int insert(NoteDTO dto) throws Exception {
 		System.out.println("NoteService 도착");
