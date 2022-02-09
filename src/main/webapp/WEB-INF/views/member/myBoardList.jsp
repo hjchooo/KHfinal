@@ -20,7 +20,7 @@
             $("#footer").load("/resources/footer/footer.jsp");
         });
     </script>
-<title>쪽지보기페이지</title>
+<title>나의 게시물 확인</title>
 <style>
 * {
 	box-sizing: border-box;
@@ -28,13 +28,25 @@
 
 a {
 	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+a:hover {
+	color: black;
+	cursor: pointer;
 }
 
 /* 전체 컨테이너 */
-.noteContainer {
+.myBoardListContainer {
 	width: 1200px;
 	height: auto;
 	margin: auto;
+}
+
+/* 마이페이지 컨테이너 */
+.myPageContainer {
+	height: 100%;
 }
 
 p {
@@ -322,21 +334,21 @@ ul {
 	<div id="header"></div>
 
 	<!-- 검색창 아래 라인 -->
-	<div class="noteContainer mb-5">
+	<div class="myBoardListContainer mb-5">
 		<div class="row mt-5">
 			<div class="col-12 d-flex justify-content-center">
-				<img id="noteImg" src="/resources/images/letter.svg">
-				<h3 class="mt-1">나의 쪽지함</h3>
+				<img id="noteImg" src="/resources/images/clipboard-check.svg">
+				<h3 class="mt-1">나의 게시글 확인</h3>
 			</div>
 		</div>
 
-		<div class="row mt-5">
+		<div class="row myPageContainer mt-5">
 			<!-- 마이페이지 왼쪽편 -->
 			<div class="col-3 mypage_right_line">
 				<div class="row d-flex justify-content-center mb-3">
 					<div class="col-12" id="profileImgBox">
 						<img class="mypage_profile_img" id="profileImg"
-							src="/final_01-16/images/profile.svg">
+							src="/resources/images/profile.svg">
 					</div>
 				</div>
 				<div class="row">
@@ -365,48 +377,69 @@ ul {
 
 			<div class="col-9 mb-5">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-12 mypage_left_line">
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="col-1"></th>
-									<th class="col-2">보낸 사람</th>
-									<th class="col-4">내용</th>
-									<th class="col-2">보낸 날짜</th>
-									<th class="col-3">선택</th>
+									<th class="col-1">선택</th>
+									<th class="col-1">번호</th>
+									<th class="col-5">제목</th>
+									<th class="col-3">날짜</th>
+									<th class="col-2">조회수</th>
 								</tr>
 							</thead>
-							<tbody class="notebody">
-
+							<tbody class="showBox">
+								<c:forEach items="${list}" var="dto">
+									<tr>
+										<td><input type="checkbox" name="board_seq"
+											class="cls-checkBox" value="${dto.board_seq}"></td>
+										<td>${dto.board_seq}</td>
+										<td><c:choose>
+												<c:when test="${dto.secret eq 'Y'}">
+													<a onclick="toSecretBoard(${dto.board_seq});"
+														style="color: gray; font-size: 15px;"> <img
+														id="secretImg" src="/resources/images/lock.svg"> 비밀로
+														작성된 글 입니다.
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a
+														href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
+												</c:otherwise>
+											</c:choose></td>
+										<td>${dto.written_date}</td>
+										<td>${dto.view_count}</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
+				
 				<div class="row">
-					<div class="col-1" style="margin-left: 6px; padding-top: 0px;">
-						<a onclick="deleteNoteSeq();"><img
-							src="/resources/images/trash3.svg"></a>
+					<div class="col-1" style="margin-left:6px;padding-top:0px;">
+						<a onclick="deleteBoardSeq();"><img src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>
-
-				<div class="row">
+				
+				<div class="row mt-3">
 					<div class="col-12 d-flex justify-content-center">
 						<nav aria-label="Page navigation example">
 							<ul class="pagination">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=${naviMap.get('startNavi')-1}">이전</a>
+										href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=${naviMap.get('startNavi')-1}">이전</a>
 									</li>
 								</c:if>
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=${i}">${i}</a>
+										href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=${i}">${i}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=${naviMap.get('endNavi')+1}">다음</a>
+										href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=${naviMap.get('endNavi')+1}">다음</a>
 									</li>
 								</c:if>
 							</ul>
@@ -424,129 +457,52 @@ ul {
 	<div id="footer"></div>
 
 	<script>
-	let arrCheck = new Array();	
-	
-        $(document).ready(function () {
-            noteList();
-        })
-        
-        // 쪽지 리스트 불러오기
-        function noteList() {
-            let currentPage = "${currentPage}";
+		// 비밀글 팝업창
+		let arrCheck = new Array();
+   	
+   	$("input[name='board_seq']").change(function(e){
+   		console.log($(e.target).val());
+    	console.log($(e.target).is(':checked'));
+    	if($(e.target).is(':checked')){
+    		arrCheck.push($(e.target).val());
+    		console.log(arrCheck);
+    		console.log(typeof(arrCheck));
+    	}else {
+    		for(let i=0; i < arrCheck.length; i++){
+    			if(arrCheck[i] == $(e.target).val()){
+    				arrCheck.splice(i, 1);
+    				i--;
+    			}
+    			
+    			console.log(arrCheck);
+    		}
+    	}
+   	});
+   	
+   	function deleteBoardSeq(){
+   		let rs = confirm("정말 삭제하시겠습니까?");
+        if (rs) {
             $.ajax({
-                url: "${pageContext.request.contextPath}/note/getNoteList.do?to_id=${loginSession.id}&currentPage=" + currentPage
+                url: "${pageContext.request.contextPath}/board/checkDeleteBoard.do"
                 , type: "get"
+                , data : {
+                	arrCheck : arrCheck
+                }
             }).done(function (data) {
-                console.log(data);
-                // 기존 댓글을 비워주는 작업
-                let noteList = data.list;
-                let naviMap = data.naviMap;
-                $(".notebody").empty();
-                if (noteList.length != 0) {
-                	for (let note of noteList) {
-                        let noteBox = "<tr>"
-                        	+ "<td class='col-1'><input type='checkbox' name='noteCheck' class='noteCheckbox' value='"+note.note_seq+"'></td>"
-                        	+ "<td class='col-2'>" + note.from_id + "</td>"
-                            + "<td class='col-4'>" + note.content + "</td>"
-                            + "<td class='col-2'>" + note.note_date + "</td>"
-                            + "<td class='col-3'>"
-                            + "<button type='button' class='deleteBtn' value='" + note.note_seq + "'>삭제</button>"
-                            + "<button type='button' class='replyBtn' value='" + note.from_id + "'>답장</button></td>"
-                            + "</tr>"
-                        // 댓글 동적 요소 추가
-                        $(".notebody").append(noteBox);
-
-                    }
+            	console.log(data);
+                if (data == "success") {
+                    alert("삭제가 완료되었습니다.");
+                    location.href = "${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1";
                 } else {
-                    let noteBox = "<div class='col-12 d-flex justify-content-center mt-3'>데이터가 없습니다.</div>"
-                    $(".notebody").append(noteBox);
-
+                    alert("삭제에 실패하였습니다.");
+                    location.href = "${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1";
                 }
             }).fail(function (e) {
                 console.log(e);
             });
         }
-
-        //<td><input type="checkbox" name="seq_msg"
-		//	class="cls-checkBox" value="${message.seq_msg}"></td>
-        
-        $(document).on("click", ".deleteBtn", function (e) {
-            console.log("a");
-            let note_seq = $(e.target).val();
-            let rs = confirm("정말 삭제하시겠습니까?");
-            if (rs) {
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/note/deleteNote.do?note_seq=" + note_seq
-                    , method: "get"
-                }).done(function (data) {
-                    if (data == "success") {
-                        alert("삭제가 완료되었습니다.");
-                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
-                    } else {
-                        alert("삭제에 실패하였습니다.");
-                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
-                    }
-                }).fail(function (e) {
-                    console.log(e);
-                });
-            }
-        });
-
-        $(document).on("click", ".replyBtn", function (e) {
-            console.log("a");
-            let from_id = "${loginSession.id}";
-            let to_id = $(e.target).val();
-            console.log(from_id + " : " + to_id);
-            window.open("${pageContext.request.contextPath}/note/reply.do?from_id=" + from_id
-                + "&to_id=" + to_id, "note", "width=500, height=300");
-        });
-        
-     // checkbox 클릭 시 배열에 담기/빼기
-        $(document).on("change", "input[name='noteCheck']", function(e){
-        	console.log($(e.target).val());
-        	console.log($(e.target).is(':checked'));
-        	if($(e.target).is(':checked')){
-        		arrCheck.push($(e.target).val());
-        		console.log(arrCheck);
-        		console.log(typeof(arrCheck));
-        	}else {
-        		for(let i=0; i < arrCheck.length; i++){
-        			if(arrCheck[i] == $(e.target).val()){
-        				arrCheck.splice(i, 1);
-        				i--;
-        			}
-        			
-        			console.log(arrCheck);
-        		}
-        	}
-        });
-        
-     // 하단 삭제 버튼 클릭시
-       	function deleteNoteSeq(){
-       		let rs = confirm("정말 삭제하시겠습니까?");
-            if (rs) {
-                $.ajax({
-                    url: "${pageContext.request.contextPath}/note/checkDeleteNote.do"
-                    , type: "get"
-                    , data : {
-                    	arrCheck : arrCheck
-                    }
-                }).done(function (data) {
-                	console.log(data);
-                    if (data == "success") {
-                        alert("삭제가 완료되었습니다.");
-                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
-                    } else {
-                        alert("삭제에 실패하였습니다.");
-                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
-                    }
-                }).fail(function (e) {
-                    console.log(e);
-                });
-            }
-       	};
-
-
+   	};
+			
     </script>
 </body>
 
