@@ -336,7 +336,6 @@ public class BoardController {
          return "member/myBoardList";
       }
       
-      // checkBox 게시글 삭제
       @RequestMapping("/checkDeleteBoard.do")
       @ResponseBody()
       public String checkDeleteBoard(@RequestParam(value="arrCheck[]") List<Integer> arrCheck) throws Exception {

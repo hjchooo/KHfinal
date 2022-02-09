@@ -12,13 +12,15 @@ public class MemberDTO {
 	private Date signup_date;
 	private String ori_name;
 	private String sys_name;
+	private int userType;
 	
 	public MemberDTO()
 	{
 		//	default constructor
 	}
 
-	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date, String ori_name, String sys_name) {
+	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date,
+			String ori_name, String sys_name, int userType) {
 		super();
 		this.id = id;
 		this.pw = pw;
@@ -28,6 +30,7 @@ public class MemberDTO {
 		this.signup_date = signup_date;
 		this.ori_name = ori_name;
 		this.sys_name = sys_name;
+		this.userType = userType;
 	}
 
 	public String getId() {
@@ -94,10 +97,19 @@ public class MemberDTO {
 		this.sys_name = sys_name;
 	}
 
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pw=" + pw + ", nickname=" + nickname + ", email=" + email + ", address="
-				+ address + ", signup_date=" + signup_date + "]";
+				+ address + ", signup_date=" + signup_date + ", ori_name=" + ori_name + ", sys_name=" + sys_name
+				+ ", userType=" + userType + "]";
 	}
 
 }
