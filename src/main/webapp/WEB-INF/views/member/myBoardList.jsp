@@ -418,7 +418,7 @@ ul {
 				
 				<div class="row">
 					<div class="col-1" style="margin-left:6px;padding-top:0px;">
-						<a onclick="deleteFromBoardSeq();"><img src="/resources/images/trash3.svg"></a>
+						<a onclick="deleteBoardSeq();"><img src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>
 				
@@ -458,34 +458,50 @@ ul {
 
 	<script>
 		// 비밀글 팝업창
-		function toSecretBoard(no) {
-			let board_seq = no;
-			let width = '350';
-			let height = '350';
-			let left = Math.ceil(( window.screen.width - width )/2);
-			let top = Math.ceil(( window.screen.height - height )/2); 
-			
-			let url = "${pageContext.request.contextPath}/board/toBoardSecret?board_seq=" + board_seq;
-			let name = "비밀글";
-			let option = "width=" + width + ", height=" + height
-				+ ", left=" + left + ", top=" + top;
-			window.open(url, name, option);
-		}
-		
-		// 체크 박스 클릭시 
-		function deleteFromBoardSeq() {
-			// 체크박스가 선택이 되어있을 때에만 시퀀스 번호 서버 전송
-			//console.log($(".cls-checkBox:checked").length);
-			if ($(".cls-checkBox:checked").length !== 0) {
-				let deleteForm = $("<form id='deleteForm'></form>");
-				deleteForm.attr("method", "post");
-				deleteForm.attr("action", "${pageContext.request.contextPath}/board/deleteFromBoardSeq");
-				deleteForm.append($(".cls-checkBox"));
-				deleteForm.appendTo("body");
-				console.log(deleteForm);
-				deleteForm.submit();
-			}
-		}
+		let arrCheck = new Array();
+   	
+   	$("input[name='board_seq']").change(function(e){
+   		console.log($(e.target).val());
+    	console.log($(e.target).is(':checked'));
+    	if($(e.target).is(':checked')){
+    		arrCheck.push($(e.target).val());
+    		console.log(arrCheck);
+    		console.log(typeof(arrCheck));
+    	}else {
+    		for(let i=0; i < arrCheck.length; i++){
+    			if(arrCheck[i] == $(e.target).val()){
+    				arrCheck.splice(i, 1);
+    				i--;
+    			}
+    			
+    			console.log(arrCheck);
+    		}
+    	}
+   	});
+   	
+   	function deleteBoardSeq(){
+   		let rs = confirm("정말 삭제하시겠습니까?");
+        if (rs) {
+            $.ajax({
+                url: "${pageContext.request.contextPath}/board/checkDeleteBoard.do"
+                , type: "get"
+                , data : {
+                	arrCheck : arrCheck
+                }
+            }).done(function (data) {
+            	console.log(data);
+                if (data == "success") {
+                    alert("삭제가 완료되었습니다.");
+                    location.href = "${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1";
+                } else {
+                    alert("삭제에 실패하였습니다.");
+                    location.href = "${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1";
+                }
+            }).fail(function (e) {
+                console.log(e);
+            });
+        }
+   	};
 			
     </script>
 </body>

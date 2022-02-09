@@ -346,7 +346,7 @@ ul {
 								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/note/select_to_id.do?currentPage=1">쪽지
+								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1">쪽지
 									확인</a></li>
 						</ul>
 					</div>

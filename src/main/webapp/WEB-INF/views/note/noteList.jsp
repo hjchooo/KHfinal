@@ -348,8 +348,12 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							<li class="ulList"><a href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보 수정</a></li>
-							<li class="ulList"><a href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의 게시글 확인</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
+									수정</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
+									게시글 확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/note/select_to_id.do?currentPage=1">쪽지
 									확인</a></li>
@@ -365,16 +369,23 @@ ul {
 						<table class="table">
 							<thead>
 								<tr>
-									<th class="col-3">보낸 사람</th>
-									<th class="col-5">내용</th>
-									<th class="col-3">보낸 날짜</th>
-									<th class="col-1">선택</th>
+									<th class="col-1"></th>
+									<th class="col-2">보낸 사람</th>
+									<th class="col-4">내용</th>
+									<th class="col-2">보낸 날짜</th>
+									<th class="col-3">선택</th>
 								</tr>
 							</thead>
 							<tbody class="notebody">
 
 							</tbody>
 						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-1" style="margin-left: 6px; padding-top: 0px;">
+						<a onclick="deleteNoteSeq();"><img
+							src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>
 
@@ -413,7 +424,8 @@ ul {
 	<div id="footer"></div>
 
 	<script>
-
+	let arrCheck = new Array();	
+	
         $(document).ready(function () {
             noteList();
         })
@@ -431,9 +443,11 @@ ul {
                 let naviMap = data.naviMap;
                 $(".notebody").empty();
                 if (noteList.length != 0) {
-                    for (let note of noteList) {
-                        let noteBox = "<tr><td class='col-2'>" + note.from_id + "</td>"
-                            + "<td class='col-5'>" + note.content + "</td>"
+                	for (let note of noteList) {
+                        let noteBox = "<tr>"
+                        	+ "<td class='col-1'><input type='checkbox' name='noteCheck' class='noteCheckbox' value='"+note.note_seq+"'></td>"
+                        	+ "<td class='col-2'>" + note.from_id + "</td>"
+                            + "<td class='col-4'>" + note.content + "</td>"
                             + "<td class='col-2'>" + note.note_date + "</td>"
                             + "<td class='col-3'>"
                             + "<button type='button' class='deleteBtn' value='" + note.note_seq + "'>삭제</button>"
@@ -486,6 +500,51 @@ ul {
             window.open("${pageContext.request.contextPath}/note/reply.do?from_id=" + from_id
                 + "&to_id=" + to_id, "note", "width=500, height=300");
         });
+        
+     // checkbox 클릭 시 배열에 담기/빼기
+        $(document).on("change", "input[name='noteCheck']", function(e){
+        	console.log($(e.target).val());
+        	console.log($(e.target).is(':checked'));
+        	if($(e.target).is(':checked')){
+        		arrCheck.push($(e.target).val());
+        		console.log(arrCheck);
+        		console.log(typeof(arrCheck));
+        	}else {
+        		for(let i=0; i < arrCheck.length; i++){
+        			if(arrCheck[i] == $(e.target).val()){
+        				arrCheck.splice(i, 1);
+        				i--;
+        			}
+        			
+        			console.log(arrCheck);
+        		}
+        	}
+        });
+        
+     // 하단 삭제 버튼 클릭시
+       	function deleteNoteSeq(){
+       		let rs = confirm("정말 삭제하시겠습니까?");
+            if (rs) {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/note/checkDeleteNote.do"
+                    , type: "get"
+                    , data : {
+                    	arrCheck : arrCheck
+                    }
+                }).done(function (data) {
+                	console.log(data);
+                    if (data == "success") {
+                        alert("삭제가 완료되었습니다.");
+                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
+                    } else {
+                        alert("삭제에 실패하였습니다.");
+                        location.href = "${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=1";
+                    }
+                }).fail(function (e) {
+                    console.log(e);
+                });
+            }
+       	};
 
 
     </script>
