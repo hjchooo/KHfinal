@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kh.com.finalProject.publicdata.DataDTO;
 import kh.com.finalProject.publicdata.FestivalDTO;
+import kh.com.finalProject.publicdata.LeportsDTO;
 
 @Service
 public class HomeService {
@@ -31,5 +32,15 @@ public class HomeService {
 	// 최신순 축제 리스트
 	public List<FestivalDTO> getModifiedtimeFestivalList() throws Exception{
 		return dao.getModifiedtimeFestivalList();
+	}
+	
+	// 캐러셀 레포츠 리스트
+	public List<LeportsDTO> getCarouselLeports() throws Exception{
+		return dao.getCarouselLeports();
+	}
+	
+	// select 지역별 레포츠
+	public List<LeportsDTO> getAreaLeports(String areaType) throws Exception{
+		return dao.getAreaLeports(areaType);
 	}
 }

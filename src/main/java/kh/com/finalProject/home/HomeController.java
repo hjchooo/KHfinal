@@ -9,11 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-
 import kh.com.finalProject.publicdata.DataDTO;
 import kh.com.finalProject.publicdata.FestivalDTO;
+import kh.com.finalProject.publicdata.LeportsDTO;
 
 @Controller
 public class HomeController {
@@ -91,6 +89,41 @@ public class HomeController {
 				System.out.println("festivalDto : " + festivalDto);
 			}
 			return festivalList;
+		}else {
+			return null;
+		}
+	}
+	
+	// 캐러셀 레포츠 리스트
+	@RequestMapping(value="/getCarouselLeports.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<LeportsDTO> getCarouselLeports() throws Exception{
+		System.out.println("캐러셀 레포츠 가져오기");
+		List<LeportsDTO> leportsList = service.getCarouselLeports();
+		
+		if(leportsList != null) {
+			for(LeportsDTO leportsDto : leportsList) {
+				System.out.println("leportsDto : " + leportsDto);
+			}
+			return leportsList;
+		}else {
+			return null;
+		}
+	}
+	
+	// select 지역별 레포츠
+	@RequestMapping(value="/getAreaLeports.do", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<LeportsDTO> getAreaLeports(String areaType) throws Exception{
+		System.out.println("select 지역별 레포츠");
+		System.out.println("areaType : " + areaType);
+		List<LeportsDTO> areaLeports = service.getAreaLeports(areaType);
+		
+		if(areaLeports != null) {
+			for(LeportsDTO leportsDto : areaLeports) {
+				System.out.println("leportsDto : " + leportsDto);
+			}
+			return areaLeports;
 		}else {
 			return null;
 		}
