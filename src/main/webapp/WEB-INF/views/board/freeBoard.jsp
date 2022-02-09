@@ -315,7 +315,6 @@ a:hover {
 /* 푸터 */
 #footer {
 	bottom: 0px;
-	
 }
 </style>
 </head>
@@ -458,9 +457,8 @@ a:hover {
 								<!--startNavi, endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
-									<li class="page-item">
-									<a class="page-link" onclick="pageNation(${i});">${i}</a>
-									</li>
+									<li class="page-item"><a class="page-link"
+										onclick="pageNation(${i});">${i}</a></li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
@@ -486,28 +484,34 @@ a:hover {
 			location.href = "${pageContext.request.contextPath}/board/toInsertBoard";
 		})
 		
-		let toPageNation = "";
+		var toPageNation;
+		var pageNo = "";
 		
-		function pageNation(no) {
-			//$(location).attr("href", "${pageContext.request.contextPath}/board/toBoard.do?currentPage=" + no);
-			//$(location).attr("href", toPageNation);
-			let pageNo = no;
-			console.log("toPageNation : ", toPageNation , no);
-		}
+		//console.log("전역 pageNation : " , toPageNation);
+		console.log("전역 pageNo : ", pageNo);
 		
 		// 자유게시판 리스트 불러오기
 		function toSelectFreeBoard() {
 			let url = "${pageContext.request.contextPath}/board/toSelectFreeBoard?category=자유게시판&currentPage=1";
-			let pageNo = 2;
-			let toPageNation = "${pageContext.request.contextPath}/board/toSelectFreeBoard?currentPage=" + pageNo;
+			toPageNation = "${pageContext.request.contextPath}/board/toSelectFreeBoard?currentPage=" + pageNo;
+			pageNation();
 			//$("a[href='${pageContext.request.contextPath}/board/toBoard.do?currentPage=${i}']").prop("href", pageNation);
-			$(location).attr("href", url);
+			//$(location).attr("href", url);
+		}
+		
+		console.log("함수밖 toPageNation : ", toPageNation);
+		
+		function pageNation(no) {
+			//$(location).attr("href", "${pageContext.request.contextPath}/board/toBoard.do?currentPage=" + no);
+			console.log("no : ", no)
+			pageNo = no;
+			console.log("toPageNation : ", toPageNation, pageNo);
+			//$(location).attr("href", toPageNation);
 		}
 		
 		// 국내여행으로 리스트 불러오기
 		function toSelectDomestic() {
 			let url = "${pageContext.request.contextPath}/board/toSelectDomestic?category=국내여행&currentPage=1";
-			let pageNo = 2;
 			let toPageNation = "${pageContext.request.contextPath}/board/toSelectDomestic?currentPage=" + pageNo;
 			//$("a.page-link").attr("href", pageNation);
 			$(location).attr("href", url);

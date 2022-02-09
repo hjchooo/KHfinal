@@ -10,6 +10,9 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
+footer {
+bottom:0px;
+}
 
 .homeGuide {
 	text-decoration: none;
@@ -155,7 +158,7 @@
 <body>
 	<!--푸터 css에는 foot으로 표기-->
 	<footer>
-		<div class="container-fluid foot_container">
+		<div class="container-fluid foot_container" style="bottom:0px;">
 			<div class="row "></div>
 			<div class="row padding-bottom_30">
 				<div class="col-2"></div>

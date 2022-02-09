@@ -15,17 +15,16 @@ import kh.com.finalProject.publicdata.LeportsDTO;
 
 @Controller
 public class HomeController {
-	@Autowired
-	private HomeService service;
-	@Autowired
-	private HttpSession session;
-	
-	@RequestMapping(value = "/")
-	public String home() {
-		return "home";
-	}
-	
-
+   @Autowired
+   private HomeService service;
+   @Autowired
+   private HttpSession session;
+   
+   @RequestMapping(value = "/")
+   public String home() {
+      return "home";
+   }
+   
 	// Top 관광지 리스트
 	@RequestMapping(value="/getTopDataList.do", produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -130,4 +129,3 @@ public class HomeController {
 	}
 
 }
-

@@ -45,4 +45,5 @@ public class HomeDAO {
 		return session.selectList("homeMapper.getAreaLeports", areaType);
 	}
 
+
 }
