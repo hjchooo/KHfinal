@@ -206,6 +206,7 @@ label {
 	// 썸머노트 이미지 업로드
 	 $('#summernote').summernote({
 		width : 800,
+		height: 500,
 		minHeight: null,
 		maxHeight: null,
 		focus: true,

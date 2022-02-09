@@ -171,4 +171,24 @@ public class BoardDAO {
 		map.put("endRange", endRange);
 		return map;
 	}
+
+	// 마이페이지 게시판 조회
+	public List<BoardDTO> myBoardList(String writer_id, int startRange, int endRange) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("writer_id", writer_id);
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("boardMapper.myBoardList", map);
+	}
+	
+	// 마이페이지 게시글 갯수
+	public int countMyBoardList(String writer_id) throws Exception {
+		return session.selectOne("boardMapper.countMyBoardList", writer_id);
+	}
+	
+	// 마이페이지 게시글 선택 삭제
+	public int deleteFromBoardSeq(String[] seqArr) throws Exception {
+		System.out.println("선택 삭제 dao 도착");
+		return session.delete("boardMapper.deleteFromBoardSeq", seqArr);
+	}
 }

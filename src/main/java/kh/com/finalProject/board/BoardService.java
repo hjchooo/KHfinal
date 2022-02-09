@@ -306,4 +306,26 @@ public class BoardService {
 	public int countReports(String category) throws Exception {
 		return dao.countReports(category);
 	}
+
+	// 마이페이지 게시글
+	public List<BoardDTO> myBoardList(String writer_id, int currentPage) throws Exception {
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+
+		// 전체 게시판 조회
+		List<BoardDTO> list = dao.myBoardList(writer_id, startRange, endRange);
+
+		return list;
+	}
+
+	// 마이페이지 게시글 갯수
+	public int countMyBoardList(String writer_id) throws Exception {
+		return dao.countMyBoardList(writer_id);
+	}
+	
+	// 마이페이지 게시글 선택 삭제
+	public int deleteFromBoardSeq(String[] seqArr) throws Exception {
+		System.out.println("선택 삭제 서비스 도착");
+		return dao.deleteFromBoardSeq(seqArr);
+	}
 }

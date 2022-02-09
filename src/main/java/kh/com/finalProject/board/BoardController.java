@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -313,4 +314,40 @@ public class BoardController {
 
 		return "board/freeBoard";
 	}
+
+	// 마이페이지 나의 게시글 확인
+	@RequestMapping("/toMyBoardList")
+	public String toMyBoardList(Model model, int currentPage) throws Exception {
+		// 회원 아이디 조회
+		String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
+
+		// 마이페이지 게시글 총 갯수
+		int recordTotalCnt = service.countMyBoardList(writer_id);
+
+		// 마이페이지 페이지네이션
+		HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
+		List<BoardDTO> list = service.myBoardList(writer_id, currentPage);
+
+		model.addAttribute("naviMap", naviMap);
+		model.addAttribute("list", list);
+		model.addAttribute("recordTotalCnt", recordTotalCnt);
+
+		return "member/myBoardList";
+	}
+
+	// 마이페이지 체크박스 삭제
+	@RequestMapping("/deleteFromBoardSeq")
+	public String deleteFromBoardSeq(HttpServletRequest request) throws Exception {
+		System.out.println("선택 삭제 도착");
+		String[] seqArr = request.getParameterValues("board_seq");
+		int size = seqArr.length;
+		for(int i=0; i<size; i++) {
+			System.out.println("size: " + seqArr[i].toString());
+			service.deleteFromBoardSeq(seqArr);
+		}
+		
+		
+		return "redirect:/member/myBoardList?currentPage=1";
+	}
+
 }
