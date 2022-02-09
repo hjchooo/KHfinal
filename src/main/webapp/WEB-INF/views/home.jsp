@@ -1188,7 +1188,7 @@ a {
       }   
       
       // 페이지 로딩 시 list 띄워주기
-      $(document).ready(function{
+      $(document).ready(function(){
          $.ajax({
             url : "${pageContext.request.contextPath}/getTopDataList.do"
          }).done(function(rs){

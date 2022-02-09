@@ -2,22 +2,26 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-	<mapper namespace="noteMapper">
-		
-		<select id="count_to_id" resultType="Integer">
-			select count(*) from note where to_id = #{to_id}
-		</select>
-		
-		<insert id="insert" parameterType="NoteDTO">
-			insert into note values(note_seq.nextval, #{from_id}, #{to_id}, #{content}, sysdate)
-		</insert>
-		
-		<select id="select_to_id" resultType="NoteDTO">
-			select * from (select row_number() over(order by note_seq desc) 순위, a.* from note a where to_id = #{to_id}) where 순위 between #{startRange} and #{endRange}
-		</select>
-		
-		<delete id="deleteNote">
-			delete  from note where note_seq=#{note_seq}
-		</delete>
-	</mapper>
+
+<mapper namespace="noteMapper">
+
+	<select id="count_to_id" resultType="Integer">
+		select count(*) from note where to_id = #{to_id}
+	</select>
+
+	<insert id="insert" parameterType="NoteDTO">
+		insert into note values(note_seq.nextval, #{from_id}, #{to_id}, #{content},
+		sysdate)
+	</insert>
+
+	<select id="select_to_id" resultType="NoteDTO">
+		select * from (select row_number() over(order by note_seq desc) 순위, a.* from
+		note a where to_id = #{to_id}) where 순위 between #{startRange} and
+		#{endRange}
+	</select>
+
+	<delete id="deleteNote">
+		delete from note where note_seq=#{note_seq}
+	</delete>
+
+</mapper>
