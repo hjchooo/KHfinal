@@ -338,7 +338,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 	<script>
 	<!-- script area -->
-																			
+																	
 	<!-- 프로필 -->
 	/*__________Profile__________*/
 	/*
@@ -755,7 +755,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
             alert("아이디를 입력해주세요.");
             
             return;
-         } else if (pw.value === "" || !regexPW()) {
+         /* } else if (pw.value === "" || !regexPW()) {
             alert("비밀번호를 입력해주세요.");
             
             return;
@@ -794,7 +794,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
          } else if (!email.readOnly) {
             alert("이메일 중복확인을 해주세요.");
             
-            return;
+            return; */
          } else {
             document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
             //   document.getElementById("input_profileImgUrl").value = imgPath.value;
@@ -828,7 +828,6 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
                 );
             });
         });
-	
 	
 	
 	

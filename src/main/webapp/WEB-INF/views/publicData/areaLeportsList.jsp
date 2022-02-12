@@ -507,7 +507,7 @@ A:hover {
 							<ul class="pagination justify-content-center">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/areaLeportsDataList.do?currentPage=${naviMap.get('startNavi')-1}&addr1=${addr1}">Previous</a></li>
+										href="${pageContext.request.contextPath}/publicdata/areaLeportsDataList.do?currentPage=${naviMap.get('startNavi')-1}&addr1=${addr1}">이전</a></li>
 								</c:if>
 								<!--startNavi ->endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
@@ -517,7 +517,7 @@ A:hover {
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/areaLeportsDataList.do?currentPage=${naviMap.get('endNavi')+1}&addr1=${addr1}">Next</a></li>
+										href="${pageContext.request.contextPath}/publicdata/areaLeportsDataList.do?currentPage=${naviMap.get('endNavi')+1}&addr1=${addr1}">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
