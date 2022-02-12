@@ -20,7 +20,7 @@
 	<insert id="insertMember" parameterType="MemberDTO">
 		insert into member
 		values(#{id}, #{pw}, #{nickname}, #{email}, #{address}, sysdate,
-		#{ori_name}, #{sys_name})
+		#{ori_name}, #{sys_name}, #{userType})
 	</insert>
 
 	<!-- ID 중복 확인 -->

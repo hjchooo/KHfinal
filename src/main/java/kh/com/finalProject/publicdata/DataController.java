@@ -305,17 +305,19 @@ public class DataController {
 	@RequestMapping("/saveData.do")
 	public String saveSeoul(int numOfRows1, int areaCode1) throws Exception {
 		System.out.println("관광지 데이터 저장하기!");
-		System.out.println("numOfRows : " + numOfRows1);
-		System.out.println("areaCode : " + areaCode1);
+		System.out.println("numOfRows1 : " + numOfRows1);
+		System.out.println("areaCode1 : " + areaCode1);
 		service.saveData(numOfRows1, areaCode1);
-		return "/home";
+		return "redirect:/manager/main.do";
 	}
 
 	// 축제 공공데이터 저장
 	@RequestMapping("saveFestival.do")
-	public String saveFestival() throws Exception {
+	public String saveFestival(int numOfRows2, int areaCode2) throws Exception {
 		System.out.println("축제데이터 저장하기!");
-		service.festival();
+		System.out.println("numOfRows2 : " + numOfRows2);
+		System.out.println("areaCode2 : " + areaCode2);
+		service.festival(numOfRows2, areaCode2);
 		return "/home";
 	}
 
@@ -326,7 +328,31 @@ public class DataController {
 		System.out.println("numOfRows : " + numOfRows);
 		System.out.println("areaCode : " + areaCode);
 		service.leports(numOfRows, areaCode);
-		return "/home";
+		return "redirect:/manager/main.do";
+	}
+	
+	// 관광지 공공데이터 삭제
+	@RequestMapping("/deleteTourist.do")
+	public String deleteTourist() throws Exception{
+		System.out.println("관광지 데이터 삭제하기!");
+		service.deleteTourist();
+		return "redirect:/manager/main.do";
+	}
+	
+	// 축제 공공데이터 삭제
+	@RequestMapping("deleteFestival.do")
+	public String deleteFestival() throws Exception{
+		System.out.println("축제 공공데이터 삭제하기!");
+		service.deleteFestival();
+		return "redirect:/manager/main.do";
+	}
+	
+	// 레포츠 공공데이터 삭제
+	@RequestMapping("/deleteLeports.do")
+	public String deleteLeports() throws Exception{
+		System.out.println("레포츠 데이터 삭제하기!");
+		service.deleteLeports();
+		return "redirect:/manager/main.do";
 	}
 
 }

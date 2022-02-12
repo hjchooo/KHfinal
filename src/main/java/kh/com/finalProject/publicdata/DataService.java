@@ -282,7 +282,7 @@ public class DataService {
 
 		
 	// 축제 공공데이터 저장
-	public void festival() throws Exception{
+	public void festival(int numOfRows2, int areaCode2) throws Exception{
 		List<FestivalDTO> dataList = new ArrayList<>();
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
@@ -291,7 +291,7 @@ public class DataService {
 			StringBuffer pharm_url = new StringBuffer();
 			pharm_url.append("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival");
 			pharm_url.append(
-					"?serviceKey=9gMNoeUir%2FGIqZlgXIA6wsUL6dIQCeIfnLJ6dx8QWbPVu%2B%2BwZn8tFDs%2BYG0lw%2B%2B%2Bw7zW2gVOYDpXOwYlO%2FWNoA%3D%3D&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=P&listYN=Y&eventStartDate=20211201&eventEndDate=20220228");
+					"?serviceKey=9gMNoeUir%2FGIqZlgXIA6wsUL6dIQCeIfnLJ6dx8QWbPVu%2B%2BwZn8tFDs%2BYG0lw%2B%2B%2Bw7zW2gVOYDpXOwYlO%2FWNoA%3D%3D&numOfRows="+numOfRows2+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=P&listYN=Y&eventStartDate=20211201&eventEndDate=20220228");
 
 			URL url = new URL(pharm_url.toString());
 
@@ -301,7 +301,7 @@ public class DataService {
 			Element root = document.getDocumentElement();
 			System.out.println(root.getTagName());
 			NodeList list = root.getElementsByTagName("item");
-			System.out.println("겨울 축제");
+			System.out.println("축제");
 				
 			for (int i = 0; i < list.getLength(); i++) {
 				FestivalDTO dto = new FestivalDTO();
@@ -426,5 +426,20 @@ public class DataService {
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// 관광지 공공데이터 삭제
+	public void deleteTourist() throws Exception{
+		dataDao.deleteTourist();
+	}
+	
+	// 축제 공공데이터 삭제
+	public void deleteFestival() throws Exception{
+		dataDao.deleteFestival();
+	}
+	
+	// 레포츠 공공데이터 삭제
+	public void deleteLeports() throws Exception{
+		dataDao.deleteLeports();
 	}
 }

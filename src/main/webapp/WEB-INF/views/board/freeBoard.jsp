@@ -447,6 +447,8 @@ a:hover {
 					</div>
 
 					<!-- 리스트 페이지 네이션 -->
+					<c:set var="option" value="${option}"/>
+					<c:if test="${option eq 'all'}">
 					<div class="row mt-5 mb-5">
 						<nav class="col" aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
@@ -458,7 +460,7 @@ a:hover {
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
 									<li class="page-item"><a class="page-link"
-										onclick="pageNation(${i});">${i}</a></li>
+										href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=${i}">${i}</a></li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
@@ -467,6 +469,30 @@ a:hover {
 							</ul>
 						</nav>
 					</div>
+					</c:if>
+					
+					<c:if test="${option eq 'search'}">
+					<div class="row mt-5 mb-5">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${naviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/searchProc.do?select=${select}&keyword=${keyword}&currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+								</c:if>
+								<!--startNavi, endNavi  -->
+								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+									end="${naviMap.get('endNavi')}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/searchProc.do?select=${select}&keyword=${keyword}&currentPage=${i}">${i}</a></li>
+								</c:forEach>
+								<c:if test="${naviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/searchProc.do?select=${select}&keyword=${keyword}&currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+					</c:if>
 
 				</div>
 				<div class="col-2"></div>
@@ -496,7 +522,7 @@ a:hover {
 			toPageNation = "${pageContext.request.contextPath}/board/toSelectFreeBoard?currentPage=" + pageNo;
 			pageNation();
 			//$("a[href='${pageContext.request.contextPath}/board/toBoard.do?currentPage=${i}']").prop("href", pageNation);
-			//$(location).attr("href", url);
+			$(location).attr("href", url);
 		}
 		
 		console.log("함수밖 toPageNation : ", toPageNation);

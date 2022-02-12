@@ -177,9 +177,8 @@ label {
 					</h3>
 				</div>
 				<c:if test="${ loginSession.id != dto.writer_id }">
-					<div class="col-1 d-flex justify-content-end" id="report">
-						<a href="${pageContext.request.contextPath}/board/toReport.do"
-							id="reportWhite"><img src="/resources/images/reportIcon.svg"></a>
+					<div class="col-1 d-flex justify-content-end">
+						<img id="report" src="/resources/images/reportIcon.svg">
 					</div>
 				</c:if>
 			</div>
@@ -331,6 +330,20 @@ label {
 	<div id="footer" class="mt-5"></div>
 
 	<script>
+	// 게시글 신고
+	$("#report").on("click", function(){
+		let report = confirm("정말 신고하겠습니까?");
+		if(report){
+			let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+			let popupY= (window.screen.height / 2) - (500 / 2);
+			
+			let url = "${pageContext.request.contextPath}/board/toReport.do?report_writer_id=${loginSession.id}&reported_person=${dto.writer_id}"
+			let name = "신고";
+			let option = "width=500, height=500, top=popupY, left=popupX";
+			window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
+		}
+	})
+	
 	// 섬머노트
 	 $(document).ready(function () {
          console.log("summernote option : ", $.summernote.options);

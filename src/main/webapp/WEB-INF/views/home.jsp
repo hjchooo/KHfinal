@@ -1001,24 +1001,7 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
-	<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남 39.제주</span>
-	<input type="text" id="areaCode1" name="areaCode1" placeholder="지역코드">
-	<input type="text" id="numOfRows1" name="numOfRows1"
-		placeholder="데이터 수">
-	<button type="button" id="tourist">관광지</button>
-	</div>
-	<div>
-		<button type="button" id="festival" name="festival">축제</button>
-	</div>
-	<div>
-		<span>1.서울 31.경기 32.강원 33.충북 34.충남 35.경북 36.경남 37.전북 38.전남
-			39.제주</span> <input type="text" id="areaCode" name="areaCode"
-			placeholder="지역코드"> <input type="text" id="numOfRows"
-			name="numOfRows" placeholder="데이터 수">
-		<button type="button" id="leports">레포츠</button>
-	</div>
-	<div id="test"></div>
-
+	
 	<div>
 		<button type="button" id="managerBtn">관리자</button>
 	</div>
@@ -1213,32 +1196,7 @@ a {
       $("#stayBtn").on("click", function(){
          location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1"
       })
-   
-      // 관광지 공공데이터 저장
-      $("#tourist").on("click", function(){
-         let numOfRows1 = $("#numOfRows1").val()
-         let areaCode1 = $("#areaCode1").val()
-         console.log(numOfRows);
-         console.log(areaCode);
-         location.href = "${pageContext.request.contextPath}/publicdata/saveData.do?numOfRows1="+numOfRows1+"&areaCode1="+areaCode1;
-      })
-      
-      // 축제 공공데이터 저장
-      $("#festival").on("click", function(){
-         location.href = "${pageContext.request.contextPath}/publicdata/saveFestival.do";
-      })
-      
-      // 레포츠 공공데이터 저장
-      $("#leports").on("click", function(){
-         let numOfRows = $("#numOfRows").val()
-         let areaCode = $("#areaCode").val()
-         console.log(numOfRows);
-         console.log(areaCode);
-         location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
-      })
-
-
-         
+     
    </script>
 </body>
 </html>
