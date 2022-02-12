@@ -17,13 +17,11 @@ public class ReplyDAO {
 	
 	// 댓글 삭제
 	public int deleteReply(int reply_seq) throws Exception {
-		System.out.println("댓글 삭제 DAO");
 		return session.delete("replyMapper.deleteReply", reply_seq);
 	}
 	
 	// 댓글 수정
 	public int modifyReply(String re_content, int reply_seq) throws Exception {
-		System.out.println("댓글 수정 DAO");
 		Map<String, Object> map = new HashMap<>();
 		map.put("re_content", re_content);
 		map.put("reply_seq", reply_seq);
@@ -32,7 +30,6 @@ public class ReplyDAO {
 	
 	// 댓글 등록
 	public int insertReply(ReplyDTO dto) throws Exception{
-		System.out.println("댓글 등록 DAO");
 		return session.insert("replyMapper.insertReply", dto);
 	}
 	
@@ -52,8 +49,6 @@ public class ReplyDAO {
 	
 	// 댓글 페이지네이션
 	public List<ReplyDTO> getReplyPageList(int startRange, int endRange) throws Exception {
-		System.out.println("ReplyDAO startRange: " + startRange);
-		System.out.println("ReplyDAO endRange: " + endRange);
 		Map<String, Object> map = new HashMap<>();
 		map.put("startRange", startRange);
 		map.put("endRange", endRange);

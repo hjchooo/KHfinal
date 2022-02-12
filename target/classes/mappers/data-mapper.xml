@@ -125,4 +125,19 @@
 		#{firstimage2}, #{mapx}, #{mapy}, to_date(#{modifiedtime}, 'yyyymmddhh24miss'), #{readcount}, 
 		#{title}, #{content})
 	</insert>
+	
+	<!-- 관광지 공공데이터 삭제 -->
+	<delete id="deleteTourist">
+		delete from data where contentid is not null
+	</delete>
+	
+	<!-- 축제 공공데이터 삭제 -->
+	<delete id="deleteFestival">
+		delete from festivaldata where contentid is not null
+	</delete>
+	
+	<!-- 레포츠 공공데이터 삭제 -->
+	<delete id="deleteLeports">
+		delete from leportsdata where contentid is not null
+	</delete>
 </mapper>

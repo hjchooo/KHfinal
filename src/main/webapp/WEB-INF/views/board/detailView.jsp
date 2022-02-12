@@ -32,6 +32,7 @@
 	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>상세보기</title>
@@ -177,9 +178,8 @@ label {
 					</h3>
 				</div>
 				<c:if test="${ loginSession.id != dto.writer_id }">
-					<div class="col-1 d-flex justify-content-end" id="report">
-						<a href="${pageContext.request.contextPath}/board/toReport.do"
-							id="reportWhite"><img src="/resources/images/reportIcon.svg"></a>
+					<div class="col-1 d-flex justify-content-end">
+						<img id="report" src="/resources/images/reportIcon.svg">
 					</div>
 				</c:if>
 			</div>
@@ -238,7 +238,9 @@ label {
 				<div class="col-12 d-flex justify-content-center">
 					<!-- <div class="click2edit" id="showBox">${dto.content}</div> -->
 
-					<div id="summernote" class="content">${dto.content}</div>
+					<div id="summernote">${dto.content}</div>
+					<textarea id="hiddenSummernote" name="content" hidden>${dto.content}</textarea>
+					<input id="sys_name" name="sys_name" hidden>
 				</div>
 			</div>
 
@@ -314,7 +316,7 @@ label {
 			</div>
 			<c:if test="${ loginSession.id == dto.writer_id }">
 				<div class="col-8 d-flex justify-content-end">
-					<button type="button" id="btnModify" class="btn" onclick="edit()">글수정</button>
+					<button type="button" id="btnModify" class="btn" onclick="modifySummernote()">글수정</button>
 					<button type="button" id="btnModifyConfirm" class="btn"
 						onclick="save()" style="display: none;">완료</button>
 				</div>
@@ -329,15 +331,37 @@ label {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer" class="mt-5"></div>
+	
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 
 	<script>
+<<<<<<< HEAD
+	/* 섬머노트
+=======
+	// 게시글 신고
+	$("#report").on("click", function(){
+		let report = confirm("정말 신고하겠습니까?");
+		if(report){
+			let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+			let popupY= (window.screen.height / 2) - (500 / 2);
+			
+			let url = "${pageContext.request.contextPath}/board/toReport.do?report_writer_id=${loginSession.id}&reported_person=${dto.writer_id}"
+			let name = "신고";
+			let option = "width=500, height=500, top=popupY, left=popupX";
+			window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
+		}
+	})
+	
 	// 섬머노트
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	 $(document).ready(function () {
          console.log("summernote option : ", $.summernote.options);
          // 실행시 언어 설정을 한글로 설정 
          $.summernote.options.lang = 'ko-KR';
          $.summernote.options.airMode = false;
 	 });
+	*/
 	
 	var a = $('#summernote');
 	
@@ -354,10 +378,11 @@ label {
          a.summernote('destroy');
      };
      
+     // 수정 취소
      var cancel = function() {
     	 var markup = a.summernote('code');
          a.summernote('destroy');
-    	 
+    	 location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1";
      }
 	
 	//썸머노트 이미지 업로드
@@ -699,14 +724,36 @@ label {
 	
 	// 글수정 확인 버튼 클릭시
 	$("#btnModifyConfirm").on("click", function(){
-		let board_seq = "${dto.board_seq}";
-		let content = '${dto.content}';
+		// content 변수
+		let hiddenSummernote = $("#hiddenSummernote");
+		let content = $("#summernote").html();
+		
+		// content 출력
+		//console.log("+html : ", content);
+		console.log("content 값 : ", hiddenSummernote.html(content));
+		
+		// sys_name 추출 정규식
+		let RexSys_name = /(?<=upload\\)\\*[\"']?([^>\"']+)[\']?[^">]/g;
+		// content 정규식 적용
+		let sysArr = hiddenSummernote.val().match(RexSys_name);
+		let sys_name = $("#sys_name").val(sysArr);
+		console.log("sys_name : ", sys_name);
+		
+		// 정규식 배열 출력
+		/*for(let i=0; i<sysArr.length; i++) {
+			console.log("sys_name 배열 : ", sysArr[i]);
+		}*/
+		for(let i=0; i<sys_name.length; i++) {
+			console.log("sys_name 배열 : ", sys_name[i]);
+		}
+
+		// content값 확인
+		console.log("히든썸머노트 값 : ", hiddenSummernote.val());
 		
 		$("#btnModifyConfirm").hide();
 		$("#btnModify").show();
 		$("#btnDelete").show();
 		$("#btnModifyCancel").hide();
-		alert("수정 완료");
 		
 		$("#modifyForm").submit();
 	})

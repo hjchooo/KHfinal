@@ -15,11 +15,12 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 <script>
-        $(document).ready(function () {
-            $("#header").load("/resources/header/header.jsp");
-            $("#footer").load("/resources/footer/footer.jsp");
-        });
-    </script>
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
+	});
+</script>
 <title>나의 게시물 확인</title>
 <style>
 * {
@@ -455,6 +456,9 @@ ul {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
+	
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 
 	<script>
 		// 비밀글 팝업창

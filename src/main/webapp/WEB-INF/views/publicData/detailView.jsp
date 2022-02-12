@@ -18,9 +18,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>상세보기</title>
@@ -542,55 +543,53 @@ a {
 #addr1 {
 	font-weight: lighter;
 }
-
 </style>
 </head>
 <body>
 	<div id="header"></div>
 
-	<div class="row margin_bottom_50 titleAddr1">
-		<div class="col">
-			<h1>${dto.title}</h1>
-			<span id="addr1">${dto.addr1}</span>
-		</div>
-	</div>
-
-	<!-- 상세정보 제목-->
-	<div class="row">
-		<div class="col">
-			<p class="list_title"># 상세 정보</p>
-		</div>
-	</div>
 <<<<<<< HEAD
-	<!-- 상세정보 제목 끝-->
-=======
+	<div class="container mt-5">
+	
 
+
+				<div class="row margin_bottom_50 titleAddr10">
+					<div class="col-12">
+						<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+						<span> <a href="${pageContext.request.contextPath}/">Home</a>
+							&nbsp;》&nbsp;<a
+							href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">관광지</a>
+							&nbsp;》&nbsp;${dto.title}
+						</span>
+					</div>
+				</div>
+
+=======
 	<!-- 헤더 끝 -->
 
 	<div class="container">
 		<div class="row">
-
-
 			<div class="col-2"></div>
 			<div class="col-8">
-			
-			<div class="row margin_bottom_50 titleAddr10">
-				<div class="col">
-					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
-					<span>
-						<a href="${pageContext.request.contextPath}/">Home</a>
-						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">관광지</a>
-						 &nbsp;》&nbsp;${dto.title}
-					</span>
-				</div>
-			</div>
 
-			<div class="row margin_bottom_50 titleAddr1">
-				<div class="col">
-					<h1>${dto.title}</h1>
-					<span id="addr1">${dto.addr1}</span>
+				<div class="row margin_bottom_50 titleAddr10">
+					<div class="col">
+						<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+						<span> <a href="${pageContext.request.contextPath}/">Home</a>
+							&nbsp;》&nbsp;<a
+							href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">관광지</a>
+							&nbsp;》&nbsp;${dto.title}
+						</span>
+					</div>
 				</div>
-			</div>
+
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
+				<div class="row margin_bottom_50 titleAddr1">
+					<div class="col">
+						<h1>${dto.title}</h1>
+						<span id="addr1">${dto.addr1}</span>
+					</div>
+				</div>
 
 				<!-- 상세정보 제목-->
 				<div class="row">
@@ -599,111 +598,130 @@ a {
 					</div>
 				</div>
 				<!-- 상세정보 제목 끝-->
->>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 
-
-
-	<!--구분선-->
-	<div class="row list_line1"></div>
-
-
-
-	<!-- 상세정보 내용-->
-	<div class="row margin_top_30">
-
-		<div class="col">
-			<span class="detail_info_text_justify">${dto.content}</span>
-		</div>
-
-	</div>
-	<!-- 상세정보 내용 끝-->
-
-
-
-	<!--상세정보 사진-->
-	<div class="row margin_top_20">
-
-		<div class="col">
-			<img class="detail_info_img" src="${dto.firstimage}">
-		</div>
-
-	</div>
-	<!--상세정보 사진 끝-->
-
-
-
-	<!-- 상세정보 주소 시작-->
-	<div class="row margin_top_20">
-
-		<div class="col-6">
-			<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
-			<!--실제 주소 들어가는 부분-->
-			<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
-		</div>
-		<div class="col-6">
-			<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp; <span
-				class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
-		</div>
+				<!--구분선-->
+				<div class="row list_line1"></div>
 
 <<<<<<< HEAD
-	</div>
-	<!-- 상세정보 주소 끝-->
 
-	<div id="footer"></div>
-=======
+				<!--구분선-->
+
+
+
+
+				<!-- 상세정보 내용-->
+				<div class="row margin_top_30">
+
+					<div class="col">
+						<span class="detail_info_text_justify">${dto.content}</span>
+					</div>
+
+				</div>
+				<!-- 상세정보 내용 끝-->
+
+
+
+				<!--상세정보 사진-->
+				<div class="row margin_top_20">
+
+					<div class="col">
+						<img class="detail_info_img" src="${dto.firstimage}">
+					</div>
+
+				</div>
+				<!--상세정보 사진 끝-->
+
+
+
+				<!-- 상세정보 주소 시작-->
+				<div class="row margin_top_20">
+
+					<div class="col-12">
+						<span class="detail_info_text_bold">• 상세주소</span>
+						&nbsp;&nbsp;&nbsp;
+						<!--실제 주소 들어가는 부분-->
+						<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+					</div>
+
+
 				</div>
 				<!-- 상세정보 주소 끝-->
-				
-				<div class="row margin_top_20">
-					<div class="col-6">
-						<div id="map" style="width:850px;height:489.61px;"></div>
-					</div>
-				</div>
 
-
-
-				<!--풋터와의 간격-->
-				<div class="row margin_top_100"></div>
 
 			</div>
-			<div class="col-2"></div>
+			<!-- 상세정보 주소 끝-->
+
+			<div class="row margin_top_20 mb-5">
+				<div class="col-12 d-flex justify-content-center">
+					<div id="map" style="width: 850px; height: 489.61px;"></div>
+				</div>
+			</div>
 
 
 
 
 
+	<div id="footer"></div>
+
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 
 
 
 
-
-
-			<footer>
-				<div class="container-fluid foot_container margin_top_100">
-					<div class="row "></div>
-					<div class="row">
-						<div class="col-2">
-							<p class="p_right">
-								<img class="foot_logo_img"
-									src="/resources/images/go_logo_gray.png">
-							</p>
-						</div>
-
-						<div class="col-10">
-							<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 :
-								권혁진 | 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-							<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127,
-								128호(방이동) | 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-							<p class="foot_text">Copyright @ 2021 (주)가자</p>
-						</div>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+	<script>
+=======
+				<!-- 상세정보 내용-->
+				<div class="row margin_top_30">
+					<div class="col">
+						<span class="detail_info_text_justify">${dto.content}</span>
 					</div>
 				</div>
-			</footer>
-			
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
-	<script>
+				<!-- 상세정보 내용 끝-->
+				<!--상세정보 사진-->
+				<div class="row margin_top_20">
+					<div class="col">
+						<img class="detail_info_img" src="${dto.firstimage}">
+					</div>
+				</div>
+				<!--상세정보 사진 끝-->
+
+				<!-- 상세정보 주소 시작-->
+				<div class="row margin_top_20">
+					<div class="col-6">
+						<span class="detail_info_text_bold">• 상세주소</span>
+						&nbsp;&nbsp;&nbsp;
+						<!--실제 주소 들어가는 부분-->
+						<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+					</div>
+					<div class="col-6">
+						<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp;
+						<span class="detail_info_text">X: ${dto.mapx}, Y:
+							${dto.mapy}</span>
+					</div>
+				</div>
+				<!-- 지도 -->
+				<div class="row margin_top_20">
+					<div class="col-12">
+						<div id="map" style="width: 850px; height: 489.61px;"></div>
+					</div>
+				</div>
+			</div>
+			<!-- 상세정보 주소 끝-->
+
+			<!--풋터와의 간격-->
+			<div class="row margin_top_100"></div>
+		</div>
+		<div class="col-2"></div>
+
+		<div id="footer"></div>
+
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+		<script>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 		var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}),
@@ -739,7 +757,6 @@ a {
 		      infowindow.open(map, marker);  
 		}); 
 		
-	</script>		
->>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
+	</script>
 </body>
 </html>

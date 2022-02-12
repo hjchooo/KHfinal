@@ -175,4 +175,19 @@ public class DataDAO {
 		}
 	}
 	
+	// 관광지 공공데이터 삭제
+	public void deleteTourist() throws Exception {
+		session.delete("dataMapper.deleteTourist");
+	}
+	
+	// 축제 공공데이터 삭제
+	public void deleteFestival() throws Exception{
+		session.delete("dataMapper.deleteFestival");
+	}
+	
+	// 레포츠 공공데이터 삭제
+	public void deleteLeports() throws Exception{
+		session.delete("dataMapper.deleteLeports");
+	}
+	
 }

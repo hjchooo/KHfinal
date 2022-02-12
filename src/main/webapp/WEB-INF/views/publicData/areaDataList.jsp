@@ -19,9 +19,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>Insert title here</title>
@@ -362,33 +363,8 @@ A:hover {
 </style>
 </head>
 <body>
+	<!-- 헤더 -->
 	<div id="header"></div>
-
-	<!-- 메인 메뉴-->
-	<div class="container">
-		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-3">
-				<a
-					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-					<h5 class="navi_category">여행 커뮤니티</h5>
-				</a>
-			</div>
-			<div class="col-2">
-				<a href="${pageContext.request.contextPath}/">
-					<h5 class="navi_category">홈</h5>
-				</a>
-			</div>
-			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/publicdata/toDetailList">
-					<h5 class="navi_category">여행 정보</h5>
-				</a>
-			</div>
-			<div class="col-2"></div>
-		</div>
-	</div>
-
-
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
 	<div class="container-fluid">
@@ -555,5 +531,8 @@ A:hover {
 
 		<!--푸터 css에는 foot으로 표기-->
 		<div id="footer"></div>
+		
+		<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 </body>
 </html>

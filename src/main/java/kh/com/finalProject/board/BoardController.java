@@ -1,5 +1,6 @@
 package kh.com.finalProject.board;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,6 @@ public class BoardController {
    private HttpSession session;
 
    public BoardController() {
-      System.out.println("BoardController 인스턴스 생성");
    }
 
    // 전체 게시판 조회
@@ -66,7 +66,9 @@ public class BoardController {
       // 자유게시판 페이지네이션
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
       List<BoardDTO> list = service.selectAll(currentPage);
-
+      
+      String option = "all";
+      model.addAttribute("option", option);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);
       model.addAttribute("recordTotalCnt", recordTotalCnt);
@@ -101,9 +103,6 @@ public class BoardController {
       // 로그인 아이디
       String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
 
-      System.out.println("dto : " + dto); // 게시판 상세조회
-      System.out.println("currentPage : " + currentPage); // 댓글 페이지네이션
-
       // 댓글 이전, 다음 버튼
       HashMap<String, Object> naviMap = rservice.getPageNavi(re_board_seq, currentPage);
       // 댓글 페이지네이션
@@ -119,7 +118,6 @@ public class BoardController {
       // 좋아요가 되있는지 찾기위해 게시글번호와 회원번호를 보냄.
       LikesDTO likes = lservice.findLikes(board_seq, writer_id);
       FollowDTO follow = followService.findFollow(writer_id, dto.getWriter_id());
-      System.out.println("좋아요 세션 아이디 : " + writer_id);
 
       // 찾은 정보를 heart로 담아서 보냄
       model.addAttribute("naviMap", naviMap);
@@ -134,11 +132,19 @@ public class BoardController {
    // 자유게시판 게시글 검색
    @RequestMapping("/searchProc.do")
    public String searchProc(Model model, String select, String keyword, int currentPage) throws Exception {
-      int recordTotalCnt = service.countAllOption(select, keyword);
-
+	  //String encodeParam = URLEncoder.encode(keyword, "UTF-8");
+	   
+	  int recordTotalCnt = service.countAllOption(select, keyword);
+      System.out.println("recordTotalCnt : " + recordTotalCnt);
+      
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
       List<BoardDTO> list = service.searchBoard(select, keyword, (int) naviMap.get("currentPage"));
-
+      
+      String option = "search";
+      model.addAttribute("select", select);
+      model.addAttribute("keyword", keyword);
+      model.addAttribute("option", option);
+      model.addAttribute("recordTotalCnt", recordTotalCnt);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);
       return "board/freeBoard";
@@ -146,9 +152,11 @@ public class BoardController {
 
    // 게시글 신고 페이지로 이동
    @RequestMapping("/toReport.do")
-   public String toReport(Model model, String writer_id) {
-      System.out.println("writer_id : " + writer_id);
-      model.addAttribute("reported_person", writer_id);
+   public String toReport(Model model,String report_writer_id, String reported_person) {
+	  System.out.println("report_writer_id : " + report_writer_id);
+	  System.out.println("reported_person : " + reported_person);
+      model.addAttribute("report_writer_id", report_writer_id);
+	  model.addAttribute("reported_person", reported_person);
       return "report/report";
    }
 
@@ -180,10 +188,7 @@ public class BoardController {
 
       // 파일 전체 리스트에 이미지 저장
       ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
-      System.out.println("fileList 길이 : " + fileList.size());
-      for (JsonObject obj : fileList) {
-         System.out.println(obj);
-      }
+
       // 비밀글 값 처리
       if (dto.getSecret() == null) {
          dto.setSecret("N");
@@ -210,15 +215,16 @@ public class BoardController {
    // 게시글 수정
    @RequestMapping("/modify.do")
    public String modify(RedirectAttributes redirectAttributes, int board_seq, int re_board_seq, BoardDTO dto,
-         FileDTO fdto) throws Exception {
-      // 게시글 저장 전에 upload 파일을 리스트에 쌓는 작업
-//      ArrayList<JsonObject> list = new ArrayList<>();
-//      session.setAttribute("fileList", list);
+         FileDTO fdto, String[] sys_name) throws Exception {
 
       System.out.println("게시글 수정 BoardDTO : " + dto);
-
-      service.modifyBySeq(board_seq, dto, fdto);
-//      session.removeAttribute("fileList");
+      System.out.println("게시글 수정 content : " + dto.getContent());
+      for(int i=0; i<sys_name.length; i++) {
+    	  System.out.println("sys_name : " + sys_name[i]);
+      }
+      
+      service.modifyBySeq(board_seq, dto, fdto, sys_name);
+      session.removeAttribute("fileList");
 
       redirectAttributes.addAttribute("board_seq", board_seq);
       return "redirect:/board/detailView.do?board_seq=" + board_seq + "&re_board_seq=" + re_board_seq
@@ -228,7 +234,6 @@ public class BoardController {
    // 비밀글 비밀번호 팝업창으로 이동
    @RequestMapping("/toBoardSecret")
    public String toBoardSecret(int board_seq, Model model) throws Exception {
-      System.out.println("board_seq : " + board_seq);
       model.addAttribute("board_seq", board_seq);
       return "board/secretBoard";
    }
@@ -336,12 +341,10 @@ public class BoardController {
          return "member/myBoardList";
       }
       
-      // checkBox 게시글 삭제
       @RequestMapping("/checkDeleteBoard.do")
       @ResponseBody()
       public String checkDeleteBoard(@RequestParam(value="arrCheck[]") List<Integer> arrCheck) throws Exception {
          System.out.println("도착");
-         System.out.println(arrCheck);
          int rs = 0;
          for(int board_seq : arrCheck) {
             rs += service.deleteBySeq(board_seq);    

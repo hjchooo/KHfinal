@@ -209,6 +209,7 @@ label {
 		height: 500,
 		minHeight: null,
 		maxHeight: null,
+		resize: true,
 		focus: true,
 		lang: "ko-KR",
 		callbacks: {

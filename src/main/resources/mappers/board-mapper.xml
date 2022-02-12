@@ -4,11 +4,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boardMapper">
-	<!-- 게시판 리스트 가져오기 -->
-<!-- 	<select id="selectAll" resultType="BoardDTO">
-		select * from board
-	</select>
- -->
 	<!-- 게시판 상세보기 -->
 	<select id="selectOne" resultType="BoardDTO">
 		select * from board where
@@ -201,4 +196,5 @@
 	<select id="dayBoard" resultType="BoardDTO">
 		select * from board where to_char(written_date, 'yyyymmdd')= to_char(sysdate,'yyyymmdd')
 	</select>
+	
 </mapper>

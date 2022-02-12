@@ -338,7 +338,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 	<script>
 	<!-- script area -->
-									
+																	
 	<!-- 프로필 -->
 	/*__________Profile__________*/
 	/*
@@ -750,31 +750,58 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 	<!-- 가입, 취소 -->
 		//	가입 (Registry)를 눌렀을 때 가입
-		document.getElementById("btnSuccess").onclick = function(e) {
-			if (id.value === "" || !regexID()) {
-				alert("아이디를 입력 해주세요.");
-				return;
-			} else if (pw.value === "" || !regexPW()) {
-				alert("비밀번호를 입력 해주세요.");
-				return;
-			} else if (nickname.value === "" || !regexNickname()) {
-				alert("닉네임을 입력 해주세요.");
-				return;
-			} else if (email.value === "" || !regexEmail()) {
-				alert("이메일을 입력 해주세요.");
-				return;
-			} else if ($("#yes:checked").val() !== "Y" && $("#no:checked").val() !== "N") {
+		 document.getElementById("btnSuccess").onclick = function(e) {
+         if (id.value === "" || !regexID()) {
+            alert("아이디를 입력해주세요.");
+            
+            return;
+         /* } else if (pw.value === "" || !regexPW()) {
+            alert("비밀번호를 입력해주세요.");
+            
+            return;
+         } else if (nickname.value === "" || !regexNickname()) {
+            alert("닉네임을 입력해주세요.");
+            
+            return;
+         } else if (email.value === "" || !regexEmail()) {
+            alert("이메일을 입력해주세요.");
+            
+            return;
+         } else if (Postcode.value == "" && RoadAddress.value == "") {
+            alert("주소를 입력해주세요.");
+            
+            return;
+         } else if (codeInput.val() == "") {
+            alert("인증번호를 입력해주세요.");
+            
+            return;
+         }else if ($("#yes:checked").val() !== "Y" && $("#no:checked").val() !== "N") {
                 alert("마케팅 수신 동의를 체크 해주세요.");
+             
                 return;
-            } else if ($("#checkAgreement:checked").val() !== "Y") {
+         } else if ($("#checkAgreement:checked").val() !== "Y") {
                 alert("개인정보 수집에 동의 해주세요.");
+                
                 return;
-            } else {
-				document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
-				//	document.getElementById("input_profileImgUrl").value = imgPath.value;
-				document.getElementById("JoinusForm").submit();
-			}
-		}
+         } else if (!id.readOnly) {
+            alert("아이디 중복확인을 해주세요.");
+            
+            return;
+         } else if (!nickname.readOnly) {
+            alert("닉네임 중복확인을 해주세요.");
+            
+            return;
+         } else if (!email.readOnly) {
+            alert("이메일 중복확인을 해주세요.");
+            
+            return; */
+         } else {
+            document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
+            //   document.getElementById("input_profileImgUrl").value = imgPath.value;
+            document.getElementById("JoinusForm").submit();
+         }
+      }
+
 	
 		//	취소 (Cancel)를 눌렀을때 로그인페이지로 되돌아감
 		document.getElementById("btnCancel").onclick = function(e) {
@@ -801,6 +828,10 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
                 );
             });
         });
+	
+	
+	
+	
 	
 	
 	

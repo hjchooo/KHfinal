@@ -18,9 +18,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>Insert title here</title>
@@ -33,152 +34,616 @@ a {
 	text-decoration: none;
 }
 
-*{
+<<<<<<< HEAD
+* {
 	box-sizing: border-box;
+=======
+.line_check {
+	border: 1px solid black;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 
-/* 전체 컨테이너 */
-.wrapper {
-	width: 800px;
-	margin: auto;
+.font_nanum {
+	font-family: 'Nanum Gothic', sans-serif,;
+}
+
+.nomal_font {
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(109, 109, 109);
+	font-size: 13px;
+}
+
+.p_center {
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.p_right {
+	text-align: right;
+	margin: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	padding-right: 0px;
+}
+
+.p_left {
+	text-align: left;
+	margin: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	margin-left: 0px;
+}
+
+.margin_top_100 {
+	margin-top: 100px;
+}
+
+.margin_top_50 {
+	margin-top: 50px;
+}
+
+.margin_top_30 {
+	margin-top: 30px;
+}
+
+.margin_top_20 {
+	margin-top: 20px;
+}
+
+.margin_top_10 {
+	margin-top: 10px;
+}
+
+.margin_top_5 {
+	margin-top: 5px;
+}
+
+.margin_bottom_100 {
+	margin-bottom: 100px;
+}
+
+.margin_bottom_50 {
+	margin-bottom: 50px;
+}
+
+.margin_bottom_30 {
+	margin-bottom: 30px;
+}
+
+.margin_bottom_20 {
+	margin-bottom: 20px;
+}
+
+.margin_bottom_10 {
+	margin-bottom: 10px;
+}
+
+.margin_bottom_5 {
+	margin-bottom: 5px;
+}
+
+.main_logo_size {
+	width: 120px;
+}
+
+.search_space {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.search_icon_img {
+	width: 30px;
+}
+
+.main_search_bar {
+	background-color: rgb(245, 245, 245);
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(109, 109, 109);
+	font-size: 13px;
+}
+
+.navi_text {
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(109, 109, 109);
+	font-size: 13px;
+}
+
+.navi_category {
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(70, 70, 70);
+	font-size: 25px;
+	font-weight: 700;
+}
+/* 헤더 끝 */
+a {
+	text-decoration: none;
+}
+
+p {
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(22, 22, 22);
+	font-size: 15px;
+}
+
+.center {
+	text-align: center;
+}
+
+.a_center a {
+	text-align: center;
+}
+
+.title_text {
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(22, 22, 22);
+	font-size: 30px;
+	text-align: center;
+	font-weight: 700;
+}
+
+.color_white {
+	color: white;
+}
+
+.line_check {
+	border: 1px solid black;
+}
+
+.font_nanum {
+	font-family: 'Nanum Gothic', sans-serif,;
+}
+
+.nomal_font {
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(109, 109, 109);
+	font-size: 13px;
+}
+
+.p_center {
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.p_right {
+	text-align: right;
+	margin: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	padding-right: 0px;
+}
+
+.p_left {
+	text-align: left;
+	margin: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	margin-left: 0px;
+}
+
+.margin_top_100 {
+	margin-top: 100px;
+}
+
+.margin_top_50 {
+	margin-top: 50px;
+}
+
+.margin_top_30 {
+	margin-top: 30px;
+}
+
+.margin_top_20 {
+	margin-top: 20px;
+}
+
+.margin_top_10 {
+	margin-top: 10px;
+}
+
+.margin_top_5 {
+	margin-top: 5px;
+}
+
+.margin_bottom_100 {
+	margin-bottom: 100px;
+}
+
+.margin_bottom_50 {
+	margin-bottom: 50px;
+}
+
+.margin_bottom_30 {
+	margin-bottom: 30px;
+}
+
+.margin_bottom_20 {
+	margin-bottom: 20px;
+}
+
+.margin_bottom_10 {
+	margin-bottom: 10px;
+}
+
+.margin_bottom_5 {
+	margin-bottom: 5px;
+}
+
+.padding-top_50 {
+	padding-top: 50px;
+}
+
+.list_title {
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 23px;
+}
+
+.list_refrash_icon {
+	width: 15px;
+}
+
+.list_line1 {
+	height: 1px;
+	background-color: black;
+}
+
+.list_count1 {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.list_count2 {
+	color: rgb(125, 154, 218);
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.list_sort_button {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-size: 15px;
+}
+
+.list_line2 {
+	height: 1px;
+	background-color: rgb(194, 194, 194);
+}
+
+.list_left_photo {
+	width: 150px;
+}
+
+.list_sub_title {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 22px;
+}
+
+.list_sub_location {
+	color: rgb(124, 124, 124);
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 500;
+	font-size: 14px;
+}
+
+.list_sub_teag {
+	color: rgb(124, 124, 124);
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 400;
+	font-size: 12px;
+}
+
+.list_teag_button {
+	border: 0px;
+	background-color: rgb(93, 126, 196);
+	border-radius: 10px;
+	font-family: 'Nanum Gothic', sans-serif,;
+	color: white;
+	font-size: 13px;
+	padding-left: 6px;
+	padding-right: 8px;
+}
+
+.list_left_margin {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.list_right_margin {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.other_content {
+	background-color: rgb(241, 241, 241);
+	margin-top: 100px;
+	padding-bottom: 50px;
+}
+
+.info_title {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	text-align: center;
+}
+
+.detail_info_text {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-size: 14px;
+}
+
+.detail_info_text_bold {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.detail_info_text_justify {
+	color: black;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-size: 14px;
+	text-align: justify;
+}
+
+.detail_info_img {
+	width: 100%;
+}
+
+.text-lr {
+	text-align: justify;
+}
+
+.site_info {
+	background-color: rgb(214, 214, 214);
+	padding-top: 20px;
+}
+
+/*푸터 시작*/
+a {
+	text-decoration: none;
+}
+
+.line_check {
+	border: 1px solid black;
+}
+
+.font_nanum {
+	font-family: 'Nanum Gothic', sans-serif,;
+}
+
+.nomal_font {
+	font-family: 'Nanum Gothic', sans-serif,;
+	text-decoration: none;
+	color: rgb(109, 109, 109);
+	font-size: 13px;
+}
+
+.p_center {
+	text-align: center;
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-weight: 700;
+	font-size: 15px;
+}
+
+.p_right {
+	text-align: right;
+	margin: 0px;
+	margin-right: 0px;
+	padding: 0px;
+	padding-right: 0px;
+}
+
+.p_left {
+	text-align: left;
+	margin: 0px;
+	margin-left: 0px;
+	padding: 0px;
+	margin-left: 0px;
+}
+
+.margin_top_100 {
+	margin-top: 100px;
+}
+
+.margin_top_50 {
+	margin-top: 50px;
+}
+
+.margin_top_30 {
+	margin-top: 30px;
+}
+
+.margin_top_20 {
+	margin-top: 20px;
+}
+
+.margin_top_10 {
+	margin-top: 10px;
+}
+
+.margin_top_5 {
+	margin-top: 5px;
+}
+
+.margin_bottom_100 {
+	margin-bottom: 100px;
+}
+
+.margin_bottom_50 {
+	margin-bottom: 50px;
+}
+
+.margin_bottom_30 {
+	margin-bottom: 30px;
+}
+
+.margin_bottom_20 {
+	margin-bottom: 20px;
+}
+
+.margin_bottom_10 {
+	margin-bottom: 10px;
+}
+
+.margin_bottom_5 {
+	margin-bottom: 5px;
+}
+
+.padding-bottom_30 {
+	padding-bottom: 30px;
+}
+
+.main_logo_size {
+	width: 120px;
+}
+
+.search_space {
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.site_info {
+	background-color: rgb(214, 214, 214);
+	padding-top: 20px;
+}
+
+.foot_container {
+	background-color: rgb(100, 100, 100);
+	padding-top: 50px;
+}
+
+.foot_logo_img {
+	width: 50px;
+}
+
+.foot_text {
+	color: rgb(226, 226, 226);
+	font-family: 'Nanum Gothic', sans-serif,;
+	font-size: 12px;
 }
 
 .titleAddr1 {
 	text-align: center;
 }
 
-/* 하단 정보 박스 */
-.detail_info_text_bold {
-	font-weight: bold;
+#addr1 {
+	font-weight: lighter;
 }
-
-/* 전체 버튼 */
-.btn {
-	background-color: #f9f9f9;
-	color: gray
-}
-
-.btn:hover {
-	background-color: gray;
-	color: white;
-}
-
 </style>
 </head>
 <body>
 	<div id="header"></div>
-	
-	<div class="wrapper">
-	
-	<div class="row mt-5">
-		<div class="col-12 d-flex justify-content-center">
-			<h1>${dto.title}</h1>
-		</div>
-		<div class="col-12 d-flex justify-content-center mt-2">
-			<span style="color:gray;">${dto.addr1}</span>
-		</div>
-	</div>
-
-	<!-- 상세정보 제목-->
-	<div class="row">
-		<div class="col-12">
-			<p class="list_title"># 상세 정보</p>
-		</div>
-	</div>
-	<!-- 상세정보 제목 끝-->
-
-
 <<<<<<< HEAD
-	<!-- 상세정보 내용-->
-	<div class="row">
-		<div class="col-12">
-			<span class="detail_info_text_justify">${dto.content}</span>
+
+	<div class="wrapper">
+
+		<div class="row mt-5">
+			<div class="col-12 d-flex justify-content-center">
+				<h1>${dto.title}</h1>
+			</div>
+			<div class="col-12 d-flex justify-content-center mt-2">
+				<span style="color: gray;">${dto.addr1}</span>
+			</div>
 		</div>
-	</div>
-	<!-- 상세정보 내용 끝-->
-=======
-			<div class="col-2"></div>
-			<div class="col-8">
-			
+
+		<!-- 상세정보 제목-->
+		<div class="row">
+			<div class="col-12">
+				<p class="list_title"># 상세 정보</p>
+			</div>
+		</div>
+		<!-- 상세정보 제목 끝-->
+
+
+		<!-- 상세정보 내용-->
+		<div class="row">
+			<div class="col-12">
+				<span class="detail_info_text_justify">${dto.content}</span>
+			</div>
+		</div>
+		<!-- 상세정보 내용 끝-->
+		<div class="col-2"></div>
+		<div class="col-8">
+
 			<div class="row margin_bottom_50 titleAddr10">
 				<div class="col">
 					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
-					<span>
-						<a href="${pageContext.request.contextPath}/">Home</a>
-						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1">레포츠</a>
-						 &nbsp;》&nbsp;${dto.title}
+					<span> <a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a
+						href="${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1">레포츠</a>
+						&nbsp;》&nbsp;${dto.title}
 					</span>
 				</div>
 			</div>
+=======
 
-			<div class="row margin_bottom_50 titleAddr1">
-				<div class="col">
-					<h1>${dto.title}</h1>
-					<span id="addr1">${dto.addr1}</span>
-				</div>
-			</div>
+	<!-- 헤더 끝 -->
 
-				<!-- 상세정보 제목-->
-				<div class="row">
+	<div class="container">
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8">
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
+
+				<div class="row margin_bottom_50 titleAddr10">
 					<div class="col">
-						<p class="list_title"># 상세 정보</p>
+						<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+						<span> <a href="${pageContext.request.contextPath}/">Home</a>
+							&nbsp;》&nbsp;<a
+							href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">관광지</a>
+							&nbsp;》&nbsp;${dto.title}
+						</span>
 					</div>
 				</div>
-				<!-- 상세정보 제목 끝-->
->>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
 
+				<div class="row margin_bottom_50 titleAddr1">
+					<div class="col">
+						<h1>${dto.title}</h1>
+						<span id="addr1">${dto.addr1}</span>
+					</div>
+				</div>
 
-
-	<!--상세정보 사진-->
-	<div class="row">
-		<div class="col-12 d-flex justify-content-center">
-			<img class="detail_info_img" src="${dto.firstimage}">
-		</div>
-	</div>
-	<!--상세정보 사진 끝-->
-
-
-
+			<!-- 상세정보 제목-->
+			<div class="row">
+				<div class="col">
+					<p class="list_title"># 상세 정보</p>
+				</div>
 <<<<<<< HEAD
-	<!-- 상세정보 주소 시작-->
-	<div class="row d-flex justify-content-center mt-3 mb-5">
-		<div class="col-6">
-			<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;${dto.addr1} ${dto.addr2}
-		</div>
-		<div class="col-6">
-			<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp;X: ${dto.mapx}, Y: ${dto.mapy}
-		</div>
-	</div>
-	<!-- 상세정보 주소 끝-->
-	
-	<!-- 버튼 박스 -->
-	<div class="row mb-3">
-		<div class="col-12 d-flex justify-content-startd">
-			<button type="button" class="btn" id="btnBack">목록으로</button>
-		</div>
-	</div>
-	</div>
-	
-	<div id="footer"></div>
-	
-	<script>
-		// 목록으로 버튼 클릭시
-		$("#btnBack").on("click", function(){
-			location.href = "${pageContext.request.contextPath}/publicdata//areaLeportsDataList.do?currentPage=1";
-		})
-	</script>
+			</div>
+			<!-- 상세정보 제목 끝-->
 =======
+				<!-- 상세정보 제목 끝-->
+
+				<!--구분선-->
+				<div class="row list_line1"></div>
+
 				<!-- 상세정보 내용-->
 				<div class="row margin_top_30">
 
 					<div class="col">
 						<span class="detail_info_text_justify">${dto.content}</span>
 					</div>
-
 				</div>
 				<!-- 상세정보 내용 끝-->
-
-
 
 				<!--상세정보 사진-->
 				<div class="row margin_top_20">
@@ -190,74 +655,139 @@ a {
 				</div>
 				<!--상세정보 사진 끝-->
 
-
-
 				<!-- 상세정보 주소 시작-->
 				<div class="row margin_top_20">
 
 					<div class="col-6">
-						<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
+						<span class="detail_info_text_bold">• 상세주소</span>
+						&nbsp;&nbsp;&nbsp;
 						<!--실제 주소 들어가는 부분-->
 						<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
 					</div>
 					<div class="col-6">
 						<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp;
-						<span class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
+						<span class="detail_info_text">X: ${dto.mapx}, Y:
+							${dto.mapy}</span>
 					</div>
-
 				</div>
-				<!-- 상세정보 주소 끝-->
-				
-				
+				<!-- 지도 -->
 				<div class="row margin_top_20">
-					<div class="col-6">
-						<div id="map" style="width:850px;height:489.61px;"></div>
+					<div class="col-12">
+						<div id="map" style="width: 850px; height: 489.61px;"></div>
 					</div>
 				</div>
-
-
-				<!--풋터와의 간격-->
-				<div class="row margin_top_100"></div>
-
 			</div>
-			<div class="col-2"></div>
+			<!-- 상세정보 주소 끝-->
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 
+			<!--풋터와의 간격-->
+			<div class="row margin_top_100"></div>
+		</div>
+		<div class="col-2"></div>
 
+		<div id="footer"></div>
 
-
-
-
-
-
-
-
-
-			<footer>
-				<div class="container-fluid foot_container margin_top_100">
-					<div class="row "></div>
-					<div class="row">
-						<div class="col-2">
-							<p class="p_right">
-								<img class="foot_logo_img"
-									src="/resources/images/go_logo_gray.png">
-							</p>
-						</div>
-
-						<div class="col-10">
-							<P class="foot_text">(주)가자 | 사업자등록번호 : 736-81-01238 | 팀장 :
-								권혁진 | 팀원 : 장대붕 홍진표 송우석 조현재 김덕규</P>
-
-							<p class="foot_text">주소 : 서울시 송파구 마천로 30, 상가에이동 127,
-								128호(방이동) | 대표번호 : 02-3472-4177 | Fax : 02-585-3083</p>
-
-							<p class="foot_text">Copyright @ 2021 (주)가자</p>
-						</div>
-					</div>
+<<<<<<< HEAD
+			<!--상세정보 사진-->
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center">
+					<img class="detail_info_img" src="${dto.firstimage}">
 				</div>
-			</footer>
+			</div>
+			<!--상세정보 사진 끝-->
+
+
+
+			<!-- 상세정보 주소 시작-->
+			<div class="row d-flex justify-content-center mt-3 mb-5">
+				<div class="col-6">
+					<span class="detail_info_text_bold">• 상세주소</span>
+					&nbsp;&nbsp;&nbsp;${dto.addr1} ${dto.addr2}
+				</div>
+				<div class="col-6">
+					<span class="detail_info_text_bold">• 좌표</span>
+					&nbsp;&nbsp;&nbsp;X: ${dto.mapx}, Y: ${dto.mapy}
+				</div>
+			</div>
+			<!-- 상세정보 주소 끝-->
+
+			<!-- 버튼 박스 -->
+			<div class="row mb-3">
+				<div class="col-12 d-flex justify-content-startd">
+					<button type="button" class="btn" id="btnBack">목록으로</button>
+				</div>
+			</div>
+		</div>
+
 	
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
-	<script>
+
+		<!-- 상세정보 내용-->
+		<div class="row margin_top_30">
+
+			<div class="col">
+				<span class="detail_info_text_justify">${dto.content}</span>
+			</div>
+
+		</div>
+		<!-- 상세정보 내용 끝-->
+
+
+
+		<!--상세정보 사진-->
+		<div class="row margin_top_20">
+
+			<div class="col">
+				<img class="detail_info_img" src="${dto.firstimage}">
+			</div>
+
+		</div>
+		<!--상세정보 사진 끝-->
+
+
+
+		<!-- 상세정보 주소 시작-->
+		<div class="row margin_top_20">
+
+			<div class="col-6">
+				<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
+				<!--실제 주소 들어가는 부분-->
+				<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+			</div>
+			<div class="col-6">
+				<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp; <span
+					class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
+			</div>
+
+		</div>
+		<!-- 상세정보 주소 끝-->
+
+
+		<div class="row margin_top_20">
+			<div class="col-6">
+				<div id="map" style="width: 850px; height: 489.61px;"></div>
+			</div>
+		</div>
+
+	<div id="footer"></div>
+	
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
+	</div>
+	
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+		<script>
+	// 목록으로 버튼 클릭시
+	$("#btnBack").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/publicdata//areaLeportsDataList.do?currentPage=1";
+	})
+	
+	
+=======
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+		<script>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 		var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}),
@@ -293,7 +823,6 @@ a {
 		      infowindow.open(map, marker);  
 		}); 
 		
-	</script>		
->>>>>>> ea0403fde31d67f0458d46436b968824e1e3b901
+	</script>
 </body>
 </html>

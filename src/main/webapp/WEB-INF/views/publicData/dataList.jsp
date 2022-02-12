@@ -20,9 +20,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>Go 가자</title>
@@ -485,7 +486,7 @@ A:hover {
 							<ul class="pagination justify-content-center">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
 								</c:if>
 								<!--startNavi ->endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
@@ -495,7 +496,7 @@ A:hover {
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+										href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -508,7 +509,7 @@ A:hover {
 							<ul class="pagination justify-content-center">
 								<c:if test="${naviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
+										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
 								</c:if>
 								<!--startNavi ->endNavi  -->
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
@@ -518,37 +519,19 @@ A:hover {
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
+										href="${pageContext.request.contextPath}/publicdata/readcountList.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
 					</div>
 				</c:if>
-
-				<%-- <div class="row">
-					<nav class="col" aria-label="Page navigation example">
-						<ul class="pagination justify-content-center">
-							<c:if test="${naviMap.get('needPrev') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('startNavi')-1}">Previous</a></li>
-							</c:if>
-							<!--startNavi ->endNavi  -->
-							<c:forEach var="i" begin="${naviMap.get('startNavi')}"
-								end="${naviMap.get('endNavi')}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${i}">${i}</a></li>
-							</c:forEach>
-							<c:if test="${naviMap.get('needNext') eq true}">
-								<li class="page-item"><a class="page-link"
-									href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=${naviMap.get('endNavi')+1}">Next</a></li>
-							</c:if>
-						</ul>
-					</nav>
-				</div> --%>
 			</div>
 		</div>
 
 		<div id="footer"></div>
+		
+		<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 </body>
 
 </html>
