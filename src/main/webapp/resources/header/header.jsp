@@ -186,39 +186,54 @@ a {
 				</p>
 			</div>
 			<c:choose>
-				<c:when test="${!empty loginSession}">
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toLogout.do">
-							<span class="navi_text"> 로그아웃 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
-							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
-					</div>
-				</c:when>
-				<c:when test="${loginSession.userType eq 2}">
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toLogout.do">
-							<span class="navi_text"> 로그아웃 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
-							<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toJoinus.do">
-							<span class="navi_text"> 회원가입 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toLogin.do">
-							<span class="navi_text"> 로그인 </span>
-						</a> &nbsp; &nbsp;
-					</div>
-				</c:otherwise>
-			</c:choose>
+            <c:when test="${!empty loginSession}"> <!-- userType이 1일때 -->
+               <div class="col-3">
+                  <a href="${pageContext.request.contextPath}/member/toLogout.do">
+                     <span class="navi_text"> 로그아웃 </span>
+                  </a> &nbsp; &nbsp; <a
+                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+                     <span class="navi_text"> 마이페이지 </span>
+                  </a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+                     님 </span>
+               </div>
+            </c:when>
+            <c:when test="${loginSession.userType eq 2}"> <!-- 2일때 -->
+               <div class="col-3">
+                  <a href="${pageContext.request.contextPath}/member/toLogout.do">
+                     <span class="navi_text"> 로그아웃 </span>
+                  </a> &nbsp; &nbsp; <a
+                     href="${pageContext.request.contextPath}/member/toMyPage.do">
+                     <span class="navi_text"> 마이페이지 </span>
+                  </a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
+                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+                     <span class="navi_text"> 관리자페이지 </span> </a> &nbsp; &nbsp; <span
+                     class="navi_text"> ${loginSession.id} 님 </span>
+               </div>
+            </c:when>
+            <c:when test="${sessionId != null }"> <!-- 네이버로 로그인할때 -->
+               <div class="col-3">
+                  <a href="${pageContext.request.contextPath}/member/toLogout.do">
+                     <span class="navi_text"> 로그아웃 </span>
+                  </a> &nbsp; &nbsp; <a
+                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+                     <span class="navi_text"> 마이페이지 </span>
+                  </a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+                     님 </span>
+               </div>
+            </c:when>
+            <c:otherwise>
+               <div class="col-3"> <!-- 비회원일때 -->
+                  <a href="${pageContext.request.contextPath}/member/toJoinus.do">
+                     <span class="navi_text"> 회원가입 </span>
+                  </a> &nbsp; &nbsp; <a
+                     href="${pageContext.request.contextPath}/member/toLogin.do">
+                     <span class="navi_text"> 로그인 </span>
+                  </a> &nbsp; &nbsp;
+               </div>
+            </c:otherwise>
+         </c:choose>
+
+
 		</div>
 	</div>
 
