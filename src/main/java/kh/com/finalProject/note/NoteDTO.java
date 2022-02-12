@@ -1,6 +1,7 @@
 package kh.com.finalProject.note;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class NoteDTO {
 	
@@ -8,7 +9,7 @@ public class NoteDTO {
 	private String from_id;
 	private String to_id;
 	private String content;
-	private Date note_date;
+	private String note_date;
 	
 	public NoteDTO() {
 		super();
@@ -21,7 +22,7 @@ public class NoteDTO {
 		this.from_id = from_id;
 		this.to_id = to_id;
 		this.content = content;
-		this.note_date = note_date;
+		this.note_date = toStringFormat(note_date);
 	}
 
 	public int getNote_seq() {
@@ -56,11 +57,11 @@ public class NoteDTO {
 		this.content = content;
 	}
 
-	public Date getNote_date() {
+	public String getNote_date() {
 		return note_date;
 	}
 
-	public void setNote_date(Date note_date) {
+	public void setNote_date(String note_date) {
 		this.note_date = note_date;
 	}
 	
@@ -68,5 +69,9 @@ public class NoteDTO {
 		return note_seq + from_id + to_id + content + note_date;
 	}
 	
+	public String toStringFormat(Date note_date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		return sdf.format(note_date);
+	}
 	
 }

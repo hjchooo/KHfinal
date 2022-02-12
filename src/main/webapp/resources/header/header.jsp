@@ -152,6 +152,9 @@ a {
 	font-weight: bold;
 	align-items: center;
 }
+.margin {
+	margin-top: 20px;
+}
 </style>
 </head>
 
@@ -252,6 +255,7 @@ a {
 			<div class="col-2"></div>
 		</div>
 	</div>
+	<div class="margin"></div>
 
 	<script>
 		ws = new WebSocket("ws://192.168.219.104/reply");

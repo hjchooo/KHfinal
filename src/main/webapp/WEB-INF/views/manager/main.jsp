@@ -48,14 +48,22 @@ a:hover {
 
 /* 전체 컨테이너 */
 .managerContainer {
+<<<<<<< HEAD
 	width: 1200px;
+=======
+	width: 1500px;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	margin: auto;
 }
 
 /* 오른쪽 영역 */
 .managerTbl {
 	border-right: 1px solid lightgray;
+<<<<<<< HEAD
 	height: 700px;
+=======
+	height: 1000px;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 
 /* 관리자 이미지 */
@@ -113,6 +121,19 @@ thead {
 .btn:hover {
 	background-color: gray;
 	color: white;
+<<<<<<< HEAD
+=======
+}
+
+/* 지역 코드 */
+#codeInfo {
+	font-weight: border;
+}
+
+#code {
+	font-size: 13px;
+	font-weight: lighter;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 </style>
 </head>
@@ -182,7 +203,11 @@ thead {
 						</table>
 
 						<!-- 게시판 페이지 네이션 -->
+<<<<<<< HEAD
 							<div class="row mt-5 mb-5">
+=======
+						<div class="row mt-5 mb-5">
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 							<nav class="col" aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<c:if test="${boardNaviMap.get('needPrev') eq true}">
@@ -329,9 +354,15 @@ thead {
 
 					</div>
 
+<<<<<<< HEAD
 					<!-- 여행지 추천 현황 -->
 					<div class="col-6" id="trip">
 						<h3 class="travelTitle d-flex justify-content-center mb-4">여행지
+=======
+					<!-- 관광지 추천 현황 -->
+					<div class="col-6" id="trip">
+						<h3 class="travelTitle d-flex justify-content-center mb-4">관광지
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 							추천 현황</h3>
 						<div class="row mb-3">
 							<div class="col-4">
@@ -367,11 +398,95 @@ thead {
 								</h4>
 							</div>
 						</div>
+<<<<<<< HEAD
 
 						<div>
 							<a href="${pageContext.request.contextPath}#">여행지 관리</a>
 						</div>
 
+=======
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<div id="codeInfo">※ 지역코드</div>
+									<div id="code">1.서울 31.경기 32.강원 33.충북 34충남. 35.경북 36.경남
+										37.전북 38.전남 39.제주</div>
+								</div>
+							</div>
+							<!-- 관광지 -->
+							<div class="row margin_top_10">
+								<div class="col-12 d-flex justify-content-center">
+									<span>관광지 관리</span>
+								</div>
+							</div>
+							<div class="row margin_top_10">
+								<div class="col-6">
+									<input type="text" class="form-control" id="areaCode1"
+										name="areaCode1" placeholder="지역코드">
+								</div>
+								<div class="col-6">
+									<input type="text" class="form-control" id="numOfRows1"
+										name="numOfRows1" placeholder="데이터 수">
+								</div>
+							</div>
+							<div
+								class="row arter-boxBtn justify-content-center margin_top_10">
+								<div class="col-12 d-flex justify-content-evenly">
+									<button type="button" id="touristBtn">관광지 삽입</button>
+									<button type="button" id="touristDeleteBtn">관광지 삭제</button>
+								</div>
+							</div>
+							<!-- 축제 -->
+							<div class="row margin_top_10">
+								<div class="col-12 d-flex justify-content-center">
+									<span>축제 관리</span>
+								</div>
+							</div>
+							<div class="row margin_top_10">
+								<div class="col-6">
+									<input type="text" class="form-control" id="areaCode2"
+										name="areaCode2" placeholder="지역코드">
+								</div>
+								<div class="col-6">
+									<input type="text" class="form-control" id="numOfRows2"
+										name="numOfRows2" placeholder="데이터 수">
+								</div>
+							</div>
+							<div
+								class="row arter-boxBtn justify-content-center margin_top_10">
+								<div class="col-12 d-flex justify-content-evenly">
+									<button type="button" id="festivalBtn">축제 삽입</button>
+									<button type="button" id="festivalDeleteBtn">축제 삭제</button>
+								</div>
+							</div>
+							<!-- 레포츠 -->
+							<div class="row margin_top_10">
+								<div class="col-12 d-flex justify-content-center">
+									<span>레포츠 관리</span>
+								</div>
+							</div>
+							<div class="row margin_top_10">
+								<div class="col-6">
+									<input type="text" class="form-control" id="areaCode"
+										name="areaCode" placeholder="지역코드">
+								</div>
+								<div class="col-6">
+									<input type="text" class="form-control" id="numOfRows"
+										name="numOfRows" placeholder="데이터 수">
+								</div>
+							</div>
+							<div
+								class="row arter-boxBtn justify-content-center margin_top_10">
+								<div class="col-12 d-flex justify-content-evenly">
+									<button type="button" id="leportsBtn">레포츠 삽입</button>
+									<button type="button" id="leportsDeleteBtn">레포츠 삭제</button>
+								</div>
+							</div>
+						</div>
+
+
+
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 					</div>
 				</div>
 			</div>
@@ -392,7 +507,145 @@ thead {
 		$("#btnExit").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/";
 		})
+<<<<<<< HEAD
 	</script>
 </body>
 
 </html>
+=======
+
+		// 관광지 삽입 버튼
+		$("#touristBtn").on(
+				"click",
+				function() {
+					let numOfRows1 = $("#numOfRows1").val()
+					let areaCode1 = $("#areaCode1").val()
+					console.log(numOfRows1);
+					console.log(areaCode1);
+					let regexNumOfRows1 = /[0-9]/g;
+					let regexAreaCode1 = /^1$|^31$|^32$|^33$|^34$|^35$|^36$|^37$|^38$|^39$/;
+					
+					if($("#areaCode1").val() == ""){
+						alert("지역코드를 입력해주세요.");
+						$("#areaCode1").focus();
+						return
+					}else if(!regexAreaCode1.test($("#areaCode1").val())){
+						alert("지역코드 양식을 확인하세요.");
+						$("#areaCode1").val("");
+						$("#areaCode1").focus();
+						return
+					}else if($("#numOfRows1").val() == ""){
+						alert("저장할 데이터 수를 입력하세요.");
+						$("#numOfRows1").focus();
+						return
+					}else if(!regexNumOfRows1.test($("#numOfRows1").val())){
+						alert("숫자만 입력해주세요.");
+						$("#numOfRows1").val("");
+						$("#numOfRows1").focus();
+						return
+					}else if($("#numOfRows1").val() < 0 || $("#numOfRows1").val() > 100){
+						alert("데이터 수 양식을 확인해주세요.");
+						$("#numOfRows1").val("");
+						$("#numOfRows1").focus();
+						return
+					}
+					 location.href = "${pageContext.request.contextPath}/publicdata/saveData.do?numOfRows1="+numOfRows1+"&areaCode1="+areaCode1;
+				})
+		
+		// 관광지 삭제 버튼
+		$("#touristDeleteBtn").on("click", function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+				$(location).attr("href", "${pageContext.request.contextPath}/publicdata/deleteTourist.do")
+			}
+		})
+		
+		// 축제 삽입 버튼
+		$("#festivalBtn").on("click", function(){
+			let numOfRows2 = $("#numOfRows2").val()
+			let areaCode2 = $("#areaCode2").val()
+			console.log(numOfRows2);
+			console.log(areaCode2);
+			let regexNumOfRows2 = /[0-9]/g;
+			let regexAreaCode2 = /^1$|^31$|^32$|^33$|^34$|^35$|^36$|^37$|^38$|^39$/;
+			
+			if($("#areaCode2").val() == ""){
+				alert("지역코드를 입력해주세요.");
+				$("#areaCode2").focus();
+				return
+			}else if(!regexAreaCode.test($("#areaCode2").val())){
+				alert("지역코드 양식을 확인하세요.");
+				$("#areaCode2").val("");
+				$("#areaCode2").focus();
+				return
+			}else if($("#numOfRows2").val() == ""){
+				alert("저장할 데이터 수를 입력하세요.");
+				$("#numOfRows2").focus();
+				return
+			}else if(!regexNumOfRows.test($("#numOfRows2").val())){
+				alert("숫자만 입력해주세요.");
+				$("#numOfRows2").val("");
+				$("#numOfRows2").focus();
+				return
+			}else if($("#numOfRows2").val() < 0 || $("#numOfRows2").val() > 100){
+				alert("데이터 수 양식을 확인해주세요.");
+				$("#numOfRows2").val("");
+				$("#numOfRows2").focus();
+				return
+			}
+			 location.href = "${pageContext.request.contextPath}/publicdata/saveFestival.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
+		})
+		
+		// 축제 삭제 버튼
+		$("#festivalDeleteBtn").on("click", function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+				$(location).attr("href", "${pageContext.request.contextPath}/publicdata/deleteFestival.do")
+			}
+		})
+		
+		// 레포츠 삽입 버튼
+		$("#leportsBtn").on("click", function(){
+			let numOfRows = $("#numOfRows").val()
+			let areaCode = $("#areaCode").val()
+			console.log(numOfRows);
+			console.log(areaCode);
+			let regexNumOfRows = /[0-9]/g;
+			let regexAreaCode = /^1$|^31$|^32$|^33$|^34$|^35$|^36$|^37$|^38$|^39$/;
+			
+			if($("#areaCode").val() == ""){
+				alert("지역코드를 입력해주세요.");
+				$("#areaCode").focus();
+				return
+			}else if(!regexAreaCode.test($("#areaCode").val())){
+				alert("지역코드 양식을 확인하세요.");
+				$("#areaCode").val("");
+				$("#areaCode").focus();
+				return
+			}else if($("#numOfRows").val() == ""){
+				alert("저장할 데이터 수를 입력하세요.");
+				$("#numOfRows").focus();
+				return
+			}else if(!regexNumOfRows.test($("#numOfRows").val())){
+				alert("숫자만 입력해주세요.");
+				$("#numOfRows").val("");
+				$("#numOfRows").focus();
+				return
+			}else if($("#numOfRows").val() < 0 || $("#numOfRows").val() > 100){
+				alert("데이터 수 양식을 확인해주세요.");
+				$("#numOfRows").val("");
+				$("#numOfRows").focus();
+				return
+			}
+			 location.href = "${pageContext.request.contextPath}/publicdata/saveLeports.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
+		})
+		
+		// 레포츠 삭제 버튼
+		$("#leportsDeleteBtn").on("click", function(){
+			if(confirm("정말 삭제하시겠습니까?")){
+				$(location).attr("href", "${pageContext.request.contextPath}/publicdata/deleteLeports.do")
+			}
+		})
+	</script>
+</body>
+
+</html>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c

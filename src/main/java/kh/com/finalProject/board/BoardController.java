@@ -1,5 +1,6 @@
 package kh.com.finalProject.board;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +66,9 @@ public class BoardController {
       // 자유게시판 페이지네이션
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
       List<BoardDTO> list = service.selectAll(currentPage);
-
+      
+      String option = "all";
+      model.addAttribute("option", option);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);
       model.addAttribute("recordTotalCnt", recordTotalCnt);
@@ -129,11 +132,19 @@ public class BoardController {
    // 자유게시판 게시글 검색
    @RequestMapping("/searchProc.do")
    public String searchProc(Model model, String select, String keyword, int currentPage) throws Exception {
-      int recordTotalCnt = service.countAllOption(select, keyword);
-
+	  //String encodeParam = URLEncoder.encode(keyword, "UTF-8");
+	   
+	  int recordTotalCnt = service.countAllOption(select, keyword);
+      System.out.println("recordTotalCnt : " + recordTotalCnt);
+      
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
       List<BoardDTO> list = service.searchBoard(select, keyword, (int) naviMap.get("currentPage"));
-
+      
+      String option = "search";
+      model.addAttribute("select", select);
+      model.addAttribute("keyword", keyword);
+      model.addAttribute("option", option);
+      model.addAttribute("recordTotalCnt", recordTotalCnt);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);
       return "board/freeBoard";
@@ -141,9 +152,11 @@ public class BoardController {
 
    // 게시글 신고 페이지로 이동
    @RequestMapping("/toReport.do")
-   public String toReport(Model model, String writer_id) {
-      System.out.println("writer_id : " + writer_id);
-      model.addAttribute("reported_person", writer_id);
+   public String toReport(Model model,String report_writer_id, String reported_person) {
+	  System.out.println("report_writer_id : " + report_writer_id);
+	  System.out.println("reported_person : " + reported_person);
+      model.addAttribute("report_writer_id", report_writer_id);
+	  model.addAttribute("reported_person", reported_person);
       return "report/report";
    }
 
