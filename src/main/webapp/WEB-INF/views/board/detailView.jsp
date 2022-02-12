@@ -32,6 +32,7 @@
 	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>상세보기</title>
@@ -330,6 +331,9 @@ label {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer" class="mt-5"></div>
+	
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 
 	<script>
 <<<<<<< HEAD

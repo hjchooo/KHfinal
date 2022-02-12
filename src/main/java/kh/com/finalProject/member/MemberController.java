@@ -104,19 +104,11 @@ public class MemberController {
 			System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
 
 			if (pwEncoder.matches(rawPW, encodePW)) {
-<<<<<<< HEAD
 				if(dto.getUserType() == 2) {
 					session.setAttribute("loginSession", dto);
 					return "admin";
 				}
-=======
-				
-				if (dto.getUserType() == 2) {
 
-					return "admin";
-				}
-				
->>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 				// 전체 방문자 수 +1
 				vService.visitInsert();
 
@@ -312,7 +304,6 @@ public class MemberController {
 
 	// 회원가입 요청
 	@RequestMapping("/joinus.do")
-<<<<<<< HEAD
 	public String joinus(MultipartFile file, MemberDTO dto) throws Exception {
 		System.out.println("file : " + file);
 		System.out.println("dto : " + dto);
@@ -341,23 +332,17 @@ public class MemberController {
 		rawPW = dto.getPw(); // 비밀번호 얻어옴
 		encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
 		dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
-
-		service.insertMember(dto); // 회원가입 실행
-=======
-	public String joinus(MemberDTO dto) throws Exception {
-		System.out.println("\nDTO : " + dto);
-
-		dto.setPw(encodingPW(dto)); // dto의 pw에 encodePW() 메서드를 통해 얻은 인코딩 된 값을 넣어줌
-
+		
 		int userType = 1; // 유저타입을 결정지을 변수
 		dto.setUserType(userType); // 여기서 무조건 모든사람에 대해서 유저 타입이 1임
 
 		// System.out.println("\nUserType : " + dto.getUserType()); // 회원가입 전 dto의 유저타입은
 		// 모두 0
-
+		
 		service.insertMember(dto); // 회원가입 실행
+		
 		System.out.println("\nAfter DTO : " + dto); // 회원가입이 실행되면 모든사람 유저타입은 1
->>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
+
 
 		return "home";
 	}

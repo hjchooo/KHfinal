@@ -18,9 +18,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>상세보기</title>
@@ -662,7 +663,8 @@ a {
 
 	<div id="footer"></div>
 
-
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 
 
 
@@ -678,7 +680,6 @@ a {
 					</div>
 				</div>
 				<!-- 상세정보 내용 끝-->
-
 				<!--상세정보 사진-->
 				<div class="row margin_top_20">
 					<div class="col">
