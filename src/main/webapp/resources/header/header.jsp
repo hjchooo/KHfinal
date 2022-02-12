@@ -159,6 +159,7 @@ a {
 </head>
 
 <body>
+
 	<div class="socketBox">
 		<div id="socketAlert" class="alert alert alert-primary" role="alert">
 		</div>
@@ -192,6 +193,17 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+							님 </span>
+					</div>
+				</c:when>
+				<c:when test="${loginSession.userType eq 2}">
+					<div class="col-3">
+						<a href="${pageContext.request.contextPath}/member/toLogout.do">
+							<span class="navi_text"> 로그아웃 </span>
+						</a> &nbsp; &nbsp; <a
+							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+							<span class="navi_text"> 관리자페이지 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
 							님 </span>
 					</div>
@@ -246,7 +258,7 @@ a {
 	<div class="margin"></div>
 
 	<script>
-		ws = new WebSocket("ws://192.168.219.103/reply");
+		ws = new WebSocket("ws://192.168.219.104/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");

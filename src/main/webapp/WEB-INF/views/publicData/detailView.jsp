@@ -547,6 +547,23 @@ a {
 <body>
 	<div id="header"></div>
 
+<<<<<<< HEAD
+	<div class="container mt-5">
+	
+
+
+				<div class="row margin_bottom_50 titleAddr10">
+					<div class="col-12">
+						<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+						<span> <a href="${pageContext.request.contextPath}/">Home</a>
+							&nbsp;》&nbsp;<a
+							href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">관광지</a>
+							&nbsp;》&nbsp;${dto.title}
+						</span>
+					</div>
+				</div>
+
+=======
 	<!-- 헤더 끝 -->
 
 	<div class="container">
@@ -565,6 +582,7 @@ a {
 					</div>
 				</div>
 
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 				<div class="row margin_bottom_50 titleAddr1">
 					<div class="col">
 						<h1>${dto.title}</h1>
@@ -583,6 +601,76 @@ a {
 				<!--구분선-->
 				<div class="row list_line1"></div>
 
+<<<<<<< HEAD
+
+				<!--구분선-->
+
+
+
+
+				<!-- 상세정보 내용-->
+				<div class="row margin_top_30">
+
+					<div class="col">
+						<span class="detail_info_text_justify">${dto.content}</span>
+					</div>
+
+				</div>
+				<!-- 상세정보 내용 끝-->
+
+
+
+				<!--상세정보 사진-->
+				<div class="row margin_top_20">
+
+					<div class="col">
+						<img class="detail_info_img" src="${dto.firstimage}">
+					</div>
+
+				</div>
+				<!--상세정보 사진 끝-->
+
+
+
+				<!-- 상세정보 주소 시작-->
+				<div class="row margin_top_20">
+
+					<div class="col-12">
+						<span class="detail_info_text_bold">• 상세주소</span>
+						&nbsp;&nbsp;&nbsp;
+						<!--실제 주소 들어가는 부분-->
+						<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+					</div>
+
+
+				</div>
+				<!-- 상세정보 주소 끝-->
+
+
+			</div>
+			<!-- 상세정보 주소 끝-->
+
+			<div class="row margin_top_20 mb-5">
+				<div class="col-12 d-flex justify-content-center">
+					<div id="map" style="width: 850px; height: 489.61px;"></div>
+				</div>
+			</div>
+
+
+
+
+
+	<div id="footer"></div>
+
+
+
+
+
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+	<script>
+=======
 				<!-- 상세정보 내용-->
 				<div class="row margin_top_30">
 					<div class="col">
@@ -632,6 +720,7 @@ a {
 		<script type="text/javascript"
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
 		<script>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 		var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}),

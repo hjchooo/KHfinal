@@ -48,14 +48,22 @@ a:hover {
 
 /* 전체 컨테이너 */
 .managerContainer {
+<<<<<<< HEAD
+	width: 1200px;
+=======
 	width: 1500px;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	margin: auto;
 }
 
 /* 오른쪽 영역 */
 .managerTbl {
 	border-right: 1px solid lightgray;
+<<<<<<< HEAD
+	height: 700px;
+=======
 	height: 1000px;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 
 /* 관리자 이미지 */
@@ -113,6 +121,8 @@ thead {
 .btn:hover {
 	background-color: gray;
 	color: white;
+<<<<<<< HEAD
+=======
 }
 
 /* 지역 코드 */
@@ -123,6 +133,7 @@ thead {
 #code {
 	font-size: 13px;
 	font-weight: lighter;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 </style>
 </head>
@@ -192,7 +203,11 @@ thead {
 						</table>
 
 						<!-- 게시판 페이지 네이션 -->
+<<<<<<< HEAD
+							<div class="row mt-5 mb-5">
+=======
 						<div class="row mt-5 mb-5">
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 							<nav class="col" aria-label="Page navigation example">
 								<ul class="pagination justify-content-center">
 									<c:if test="${boardNaviMap.get('needPrev') eq true}">
@@ -339,9 +354,15 @@ thead {
 
 					</div>
 
+<<<<<<< HEAD
+					<!-- 여행지 추천 현황 -->
+					<div class="col-6" id="trip">
+						<h3 class="travelTitle d-flex justify-content-center mb-4">여행지
+=======
 					<!-- 관광지 추천 현황 -->
 					<div class="col-6" id="trip">
 						<h3 class="travelTitle d-flex justify-content-center mb-4">관광지
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 							추천 현황</h3>
 						<div class="row mb-3">
 							<div class="col-4">
@@ -377,6 +398,13 @@ thead {
 								</h4>
 							</div>
 						</div>
+<<<<<<< HEAD
+
+						<div>
+							<a href="${pageContext.request.contextPath}#">여행지 관리</a>
+						</div>
+
+=======
 						<div class="container">
 							<div class="row">
 								<div class="col-12">
@@ -458,6 +486,7 @@ thead {
 
 
 
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 					</div>
 				</div>
 			</div>
@@ -478,6 +507,12 @@ thead {
 		$("#btnExit").on("click", function() {
 			location.href = "${pageContext.request.contextPath}/";
 		})
+<<<<<<< HEAD
+	</script>
+</body>
+
+</html>
+=======
 
 		// 관광지 삽입 버튼
 		$("#touristBtn").on(
@@ -613,3 +648,4 @@ thead {
 </body>
 
 </html>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c

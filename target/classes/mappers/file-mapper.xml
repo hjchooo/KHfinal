@@ -10,6 +10,13 @@
 				values( file_seq.nextval, #{board_seq}, #{ori_name}, #{sys_name} )
 		</insert>
 		
+		<!-- 파일 추가 -->
+		<insert id="addFile" parameterType="FileDTO">
+			insert into files 
+				values(#{sys_name}, #{ori_name})
+			where board_seq = #{board_seq}	
+		</insert>
+		
 		<!-- 파일 전체 가져오기 -->
 		<select id="selectAll" resultType="FileDTO">
 			select * from files where board_seq = #{board_seq}
@@ -38,4 +45,23 @@
 		<select id="selectSys_name" resultType="String">
 			select sys_name from files where board_seq = #{board_seq}
 		</select>
+		
+		<!-- 일치 하지 않는 파일 검색 -->
+		<select id="notMatchSys_name" resultType="String"> 
+			select sys_name from files 
+				where (board_seq = #{board_seq}) 
+			and sys_name not in 
+			<foreach collection="sys_name" item="sys"
+      			open="(" separator="," close=")">
+				#{sys}
+			</foreach>
+		</select>
+		
+		<!-- 파일 삭제 -->
+		<delete id="deleteFromSys_name" parameterType="int">
+			delete from files 
+				where sys_name = #{sys_name}
+		</delete>
+		
+		
 	</mapper>

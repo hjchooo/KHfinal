@@ -1,6 +1,7 @@
 package kh.com.finalProject.member;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class MemberDTO {
 
@@ -9,14 +10,20 @@ public class MemberDTO {
 	private String nickname;
 	private String email;
 	private String address;
-	private Date signup_date;
+	private String signup_date;
 	private String ori_name;
 	private String sys_name;
 	private int userType;
+<<<<<<< HEAD
+
+	public MemberDTO() {
+		// default constructor
+=======
 	
 	public MemberDTO()
 	{
 		//	default constructor
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	}
 
 	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date,
@@ -27,7 +34,7 @@ public class MemberDTO {
 		this.nickname = nickname;
 		this.email = email;
 		this.address = address;
-		this.signup_date = signup_date;
+		this.signup_date = toStringFormat(signup_date);
 		this.ori_name = ori_name;
 		this.sys_name = sys_name;
 		this.userType = userType;
@@ -73,11 +80,11 @@ public class MemberDTO {
 		this.address = address;
 	}
 
-	public Date getSignup_date() {
+	public String getSignup_date() {
 		return signup_date;
 	}
 
-	public void setSignup_date(Date signup_date) {
+	public void setSignup_date(String signup_date) {
 		this.signup_date = signup_date;
 	}
 
@@ -105,6 +112,15 @@ public class MemberDTO {
 		this.userType = userType;
 	}
 
+<<<<<<< HEAD
+	// 회원가입일 포맷
+	public String toStringFormat(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(date);
+	}
+	
+=======
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pw=" + pw + ", nickname=" + nickname + ", email=" + email + ", address="
@@ -113,4 +129,3 @@ public class MemberDTO {
 	}
 
 }
-

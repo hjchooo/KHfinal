@@ -12,7 +12,6 @@ public class ReplyDTO {
 	private String reply_written_date;
 
 	public ReplyDTO() {
-		System.out.println("ReplyDTO 인스턴스 생성");
 	}
 
 	public ReplyDTO(int reply_seq, int re_board_seq, String re_content, String reply_writer_id,

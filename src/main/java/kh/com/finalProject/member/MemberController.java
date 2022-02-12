@@ -104,12 +104,19 @@ public class MemberController {
 			System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
 
 			if (pwEncoder.matches(rawPW, encodePW)) {
+<<<<<<< HEAD
+				if(dto.getUserType() == 2) {
+					session.setAttribute("loginSession", dto);
+					return "admin";
+				}
+=======
 				
 				if (dto.getUserType() == 2) {
 
 					return "admin";
 				}
 				
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 				// 전체 방문자 수 +1
 				vService.visitInsert();
 
@@ -305,6 +312,38 @@ public class MemberController {
 
 	// 회원가입 요청
 	@RequestMapping("/joinus.do")
+<<<<<<< HEAD
+	public String joinus(MultipartFile file, MemberDTO dto) throws Exception {
+		System.out.println("file : " + file);
+		System.out.println("dto : " + dto);
+
+		String realPath = session.getServletContext().getRealPath("upload");
+		System.out.println(realPath);
+		File realPathFile = new File(realPath);
+		if (!realPathFile.exists()) {
+			realPathFile.mkdir();
+		}
+
+		if (!file.isEmpty()) {
+			dto.setOri_name(file.getOriginalFilename());
+
+			dto.setSys_name(UUID.randomUUID() + "_" + dto.getOri_name());
+
+			file.transferTo(new File(realPath + File.separator + dto.getSys_name()));
+		} else {
+			dto.setOri_name("");
+			dto.setSys_name("");
+		}
+
+		String rawPW = ""; // 인코딩 전 PW
+		String encodePW = ""; // 인코딩 후 PW
+
+		rawPW = dto.getPw(); // 비밀번호 얻어옴
+		encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
+		dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
+
+		service.insertMember(dto); // 회원가입 실행
+=======
 	public String joinus(MemberDTO dto) throws Exception {
 		System.out.println("\nDTO : " + dto);
 
@@ -318,6 +357,7 @@ public class MemberController {
 
 		service.insertMember(dto); // 회원가입 실행
 		System.out.println("\nAfter DTO : " + dto); // 회원가입이 실행되면 모든사람 유저타입은 1
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 
 		return "home";
 	}

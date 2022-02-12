@@ -23,7 +23,6 @@
 		$("#footer").load("/resources/footer/footer.jsp");
 	});
 </script>
-<title>Go 가자</title>
 <title>Insert title here</title>
 <style>
 @import
@@ -547,11 +546,66 @@ a {
 </head>
 <body>
 	<div id="header"></div>
+<<<<<<< HEAD
+	
+	<div class="detailviewContainer">
+			<div class="row margin_bottom_50 titleAddr10 mt-5">
+				<div class="col-12">
+					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+					<span>
+						<a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a href="${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1">축제</a>
+						 &nbsp;》&nbsp;${dto.title}
+					</span>
+				</div>
+			</div>
+
+	
+		<div class="row mt-5">
+			<div class="col-12 d-flex justify-content-center">
+				<h1>${dto.title}</h1>
+			</div>
+			<div class="col-12 d-flex justify-content-center mt-3"
+				style="color: gray;">
+				<span id="addr1">${dto.addr1}</span>
+			</div>
+		</div>
+
+		<!-- 상세정보 제목-->
+=======
 
 	<div class="container">
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
+<<<<<<< HEAD
+				<span class="detail_info_text_bold">• 상세주소</span>&nbsp;&nbsp;&nbsp;${dto.addr1} ${dto.addr2}
+			
+
+			<div class="row margin_bottom_50 titleAddr1">
+				<div class="col">
+					<h1>${dto.title}</h1>
+					<span id="addr1">${dto.addr1}</span>
+				</div>
+			</div>
+			<div class="col-4">
+				<span class="detail_info_text_bold">• 전화번호</span>&nbsp;&nbsp;&nbsp;${dto.tel}
+			</div>
+			<div class="col-8">
+				<span class="detail_info_text_bold">• 축제시작</span>&nbsp;&nbsp;&nbsp;${dto.eventstartdate}
+			</div>
+			<div class="col-4">
+				<span class="detail_info_text_bold">• 축제마감</span>&nbsp;&nbsp;&nbsp;${dto.eventenddate}
+			</div>
+		</div>
+		<!-- 상세정보 주소 끝-->
+	</div>
+	</div>
+	
+	
+	<div id="footer"></div>
+=======
 
 				<div class="row margin_bottom_50 titleAddr10">
 					<div class="col">
@@ -622,5 +676,6 @@ a {
 		<div class="col-2"></div>
 
 		<div id="footer"></div>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 </body>
 </html>

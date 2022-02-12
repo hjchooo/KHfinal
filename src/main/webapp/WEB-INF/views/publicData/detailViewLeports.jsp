@@ -33,8 +33,13 @@ a {
 	text-decoration: none;
 }
 
+<<<<<<< HEAD
+* {
+	box-sizing: border-box;
+=======
 .line_check {
 	border: 1px solid black;
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 }
 
 .font_nanum {
@@ -542,11 +547,53 @@ a {
 #addr1 {
 	font-weight: lighter;
 }
-
 </style>
 </head>
 <body>
 	<div id="header"></div>
+<<<<<<< HEAD
+
+	<div class="wrapper">
+
+		<div class="row mt-5">
+			<div class="col-12 d-flex justify-content-center">
+				<h1>${dto.title}</h1>
+			</div>
+			<div class="col-12 d-flex justify-content-center mt-2">
+				<span style="color: gray;">${dto.addr1}</span>
+			</div>
+		</div>
+
+		<!-- 상세정보 제목-->
+		<div class="row">
+			<div class="col-12">
+				<p class="list_title"># 상세 정보</p>
+			</div>
+		</div>
+		<!-- 상세정보 제목 끝-->
+
+
+		<!-- 상세정보 내용-->
+		<div class="row">
+			<div class="col-12">
+				<span class="detail_info_text_justify">${dto.content}</span>
+			</div>
+		</div>
+		<!-- 상세정보 내용 끝-->
+		<div class="col-2"></div>
+		<div class="col-8">
+
+			<div class="row margin_bottom_50 titleAddr10">
+				<div class="col">
+					<span>한국관광공사에서 제공하는 공공데이터를 활용하여 ${dto.title} 정보를 소개합니다.</span><br>
+					<span> <a href="${pageContext.request.contextPath}/">Home</a>
+						&nbsp;》&nbsp;<a
+						href="${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1">레포츠</a>
+						&nbsp;》&nbsp;${dto.title}
+					</span>
+				</div>
+			</div>
+=======
 
 	<!-- 헤더 끝 -->
 
@@ -554,6 +601,7 @@ a {
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-8">
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 
 				<div class="row margin_bottom_50 titleAddr10">
 					<div class="col">
@@ -573,12 +621,15 @@ a {
 					</div>
 				</div>
 
-				<!-- 상세정보 제목-->
-				<div class="row">
-					<div class="col">
-						<p class="list_title"># 상세 정보</p>
-					</div>
+			<!-- 상세정보 제목-->
+			<div class="row">
+				<div class="col">
+					<p class="list_title"># 상세 정보</p>
 				</div>
+<<<<<<< HEAD
+			</div>
+			<!-- 상세정보 제목 끝-->
+=======
 				<!-- 상세정보 제목 끝-->
 
 				<!--구분선-->
@@ -626,6 +677,7 @@ a {
 				</div>
 			</div>
 			<!-- 상세정보 주소 끝-->
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 
 			<!--풋터와의 간격-->
 			<div class="row margin_top_100"></div>
@@ -634,9 +686,104 @@ a {
 
 		<div id="footer"></div>
 
+<<<<<<< HEAD
+			<!--상세정보 사진-->
+			<div class="row">
+				<div class="col-12 d-flex justify-content-center">
+					<img class="detail_info_img" src="${dto.firstimage}">
+				</div>
+			</div>
+			<!--상세정보 사진 끝-->
+
+
+
+			<!-- 상세정보 주소 시작-->
+			<div class="row d-flex justify-content-center mt-3 mb-5">
+				<div class="col-6">
+					<span class="detail_info_text_bold">• 상세주소</span>
+					&nbsp;&nbsp;&nbsp;${dto.addr1} ${dto.addr2}
+				</div>
+				<div class="col-6">
+					<span class="detail_info_text_bold">• 좌표</span>
+					&nbsp;&nbsp;&nbsp;X: ${dto.mapx}, Y: ${dto.mapy}
+				</div>
+			</div>
+			<!-- 상세정보 주소 끝-->
+
+			<!-- 버튼 박스 -->
+			<div class="row mb-3">
+				<div class="col-12 d-flex justify-content-startd">
+					<button type="button" class="btn" id="btnBack">목록으로</button>
+				</div>
+			</div>
+		</div>
+
+	
+
+		<!-- 상세정보 내용-->
+		<div class="row margin_top_30">
+
+			<div class="col">
+				<span class="detail_info_text_justify">${dto.content}</span>
+			</div>
+
+		</div>
+		<!-- 상세정보 내용 끝-->
+
+
+
+		<!--상세정보 사진-->
+		<div class="row margin_top_20">
+
+			<div class="col">
+				<img class="detail_info_img" src="${dto.firstimage}">
+			</div>
+
+		</div>
+		<!--상세정보 사진 끝-->
+
+
+
+		<!-- 상세정보 주소 시작-->
+		<div class="row margin_top_20">
+
+			<div class="col-6">
+				<span class="detail_info_text_bold">• 상세주소</span> &nbsp;&nbsp;&nbsp;
+				<!--실제 주소 들어가는 부분-->
+				<span class="detail_info_text">${dto.addr1} ${dto.addr2}</span>
+			</div>
+			<div class="col-6">
+				<span class="detail_info_text_bold">• 좌표</span> &nbsp;&nbsp;&nbsp; <span
+					class="detail_info_text">X: ${dto.mapx}, Y: ${dto.mapy}</span>
+			</div>
+
+		</div>
+		<!-- 상세정보 주소 끝-->
+
+
+		<div class="row margin_top_20">
+			<div class="col-6">
+				<div id="map" style="width: 850px; height: 489.61px;"></div>
+			</div>
+		</div>
+
+	<div id="footer"></div>
+	</div>
+	
 		<script type="text/javascript"
 			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
 		<script>
+	// 목록으로 버튼 클릭시
+	$("#btnBack").on("click", function(){
+		location.href = "${pageContext.request.contextPath}/publicdata//areaLeportsDataList.do?currentPage=1";
+	})
+	
+	
+=======
+		<script type="text/javascript"
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5bd9b524492db054c1f20a692496b8e"></script>
+		<script>
+>>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 		var container = document.getElementById('map');
 		var options = {
 			center: new kakao.maps.LatLng(${dto.mapy}, ${dto.mapx}),
