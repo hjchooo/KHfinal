@@ -48,6 +48,10 @@
 	
 	<context:component-scan base-package="kh.com.finalProject.*" />
 	
+	<!-- naverLoginBO Class에 대한 Bean 설정 추가 -->
+	<beans:bean id="naverLoginBO" class="kh.com.finalProject.naver.NaverLoginBO"/>
+	
+	
 	
 	
 </beans:beans>
