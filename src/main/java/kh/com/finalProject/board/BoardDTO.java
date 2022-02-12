@@ -16,7 +16,6 @@ public class BoardDTO {
 	private int view_count;
 
 	public BoardDTO() {
-		System.out.println("BoardDTO 인스턴스 생성");
 	}
 
 	public BoardDTO(int board_seq, String title, String content, String writer_id, String writer_nickname,

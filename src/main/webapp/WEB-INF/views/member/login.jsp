@@ -174,6 +174,8 @@ a:hover {
 				console.log(rs);
 				if (rs == "성공") {
 					location.href = "${pageContext.request.contextPath}/";
+				} else if (rs == "admin") {
+					location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";				
 				} else if (rs == "실패") {
 					alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
 				}

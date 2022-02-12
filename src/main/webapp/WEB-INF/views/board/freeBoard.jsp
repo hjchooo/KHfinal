@@ -38,8 +38,7 @@
 	;
 /* 전체 컨테이너 */
 .wrapper {
-	height: auto;
-	min-height: 100%;
+	height: 950px;
 }
 
 a {
@@ -311,18 +310,13 @@ a:hover {
 	background-color: gray;
 	color: white;
 }
-
-/* 푸터 */
-#footer {
-	bottom: 0px;
-}
 </style>
 </head>
 
 <body>
-	<div class="wrapper">
-		<div id="header"></div>
+	<div id="header"></div>
 
+	<div class="wrapper">
 		<!-- 게시판 메인 메뉴 css에 board로 표기-->
 		<div class="container-fluid">
 			<div class="row board_category_color margin_top_30">
@@ -472,11 +466,11 @@ a:hover {
 				<div class="col-2"></div>
 			</div>
 		</div>
-
-		<!--푸터 css에는 foot으로 표기-->
-		<footer id="footer"></footer>
-
 	</div>
+
+	<!--푸터 css에는 foot으로 표기-->
+	<footer id="footer"></footer>
+
 	<!-- 스크립트 영역 -->
 	<script>
 		// 게시글 등록 버튼

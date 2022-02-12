@@ -1,6 +1,7 @@
 package kh.com.finalProject.member;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class MemberDTO {
 
@@ -9,25 +10,27 @@ public class MemberDTO {
 	private String nickname;
 	private String email;
 	private String address;
-	private Date signup_date;
+	private String signup_date;
 	private String ori_name;
 	private String sys_name;
-	
-	public MemberDTO()
-	{
-		//	default constructor
+	private int userType;
+
+	public MemberDTO() {
+		// default constructor
 	}
 
-	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date, String ori_name, String sys_name) {
+	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date,
+			String ori_name, String sys_name, int userType) {
 		super();
 		this.id = id;
 		this.pw = pw;
 		this.nickname = nickname;
 		this.email = email;
 		this.address = address;
-		this.signup_date = signup_date;
+		this.signup_date = toStringFormat(signup_date);
 		this.ori_name = ori_name;
 		this.sys_name = sys_name;
+		this.userType = userType;
 	}
 
 	public String getId() {
@@ -70,11 +73,11 @@ public class MemberDTO {
 		this.address = address;
 	}
 
-	public Date getSignup_date() {
+	public String getSignup_date() {
 		return signup_date;
 	}
 
-	public void setSignup_date(Date signup_date) {
+	public void setSignup_date(String signup_date) {
 		this.signup_date = signup_date;
 	}
 
@@ -94,11 +97,25 @@ public class MemberDTO {
 		this.sys_name = sys_name;
 	}
 
+	public int getUserType() {
+		return userType;
+	}
+
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+
+	// 회원가입일 포맷
+	public String toStringFormat(Date date) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(date);
+	}
+	
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pw=" + pw + ", nickname=" + nickname + ", email=" + email + ", address="
-				+ address + ", signup_date=" + signup_date + "]";
+				+ address + ", signup_date=" + signup_date + ", ori_name=" + ori_name + ", sys_name=" + sys_name
+				+ ", userType=" + userType + "]";
 	}
 
 }
-

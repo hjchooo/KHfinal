@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,15 +22,53 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
+<script>
+	$(document).ready(function() {
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+	});
+</script>
 <title>Insert title here</title>
+<style>
+* {
+	border-box: box-sizing;
+}
+
+/* 전체 컨테이너 */
+.memberContainer {
+	width: 800px;
+	height: 610px;
+	margin: auto;
+}
+
+/* 회원관리 이미지 */
+#personImg {
+	width: 50px;
+	height: 50px;
+}
+
+/* 회원관리 폰트 */
+.titleFont {
+	font-size: 30px;
+}
+</style>
 </head>
 <body>
-	<div class="container">
-		<div>
-			<h2>회원 관리</h2>
+	<div id="header"></div>
+	<div class="memberContainer">
+		<div class="row mt-5 mb-3">
+			<div class="col-1">
+				<img id="personImg" src="/resources/images/person-lines-fill.svg">
+			</div>	
+			<div class="col-11">
+					<span class="titleFont">회원관리</span>
+			</div>
 		</div>
+		
+				
+
 		<div class="row memberTbl">
-			<table>
+			<table class="table">
 				<thead>
 					<tr>
 						<th>아이디</th>
@@ -39,13 +77,13 @@
 					<tr>
 				</thead>
 				<tbody class="tb">
-					
+
 				</tbody>
 			</table>
 		</div>
-	</div>
-	
-	<!-- 페이징 -->
+
+
+		<!-- 페이징 -->
 		<div class="row">
 			<div class="col-12 d-flex justify-content-center">
 				<nav aria-label="Page navigation example">
@@ -68,7 +106,8 @@
 			</div>
 		</div>
 	</div>
-	
+
+	<div id="footer"></div>
 	<script>
 		$(document).ready(function(){
 			member();
@@ -86,7 +125,7 @@
 					let memberBox = "<tr>" + "<td>" + member.id + "</td>"
 					+ "<td>" + member.nickname + "</td>"
 					+ "<td>" + member.signup_date + "</td>"
-					+ "<td><button type='button' class='deleteBtn' value='"+ member.id + "'>삭제</button></td>"
+					+ "<td><button type='button' class='btn btn-danger btn-sm' value='"+ member.id + "'>삭제</button></td>"
 					+ "</tr>"
 				
 				$(".tb").append(memberBox);
@@ -97,7 +136,7 @@
 			});
 		}
 		
-		$(document).on("click", ".deleteBtn", function(e){
+		$(document).on("click", ".btn", function(e){
 			let id = $(e.target).val();
 			let rs = confirm("정말 삭제하시겠습니까?");
 			if(rs){
