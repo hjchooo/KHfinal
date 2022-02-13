@@ -159,7 +159,7 @@ a {
 </head>
 
 <body>
-
+	${loginSession.userType}
 	<div class="socketBox">
 		<div id="socketAlert" class="alert alert alert-primary" role="alert">
 		</div>
@@ -186,7 +186,7 @@ a {
 				</p>
 			</div>
 			<c:choose>
-            <c:when test="${!empty loginSession}"> <!-- userType이 1일때 -->
+            <c:when test="${!empty loginSession && loginSession.userType eq 0}"> <!-- userType이 0일때 -->
                <div class="col-3">
                   <a href="${pageContext.request.contextPath}/member/toLogout.do">
                      <span class="navi_text"> 로그아웃 </span>
@@ -201,11 +201,8 @@ a {
                <div class="col-3">
                   <a href="${pageContext.request.contextPath}/member/toLogout.do">
                      <span class="navi_text"> 로그아웃 </span>
-                  </a> &nbsp; &nbsp; <a
-                     href="${pageContext.request.contextPath}/member/toMyPage.do">
-                     <span class="navi_text"> 마이페이지 </span>
-                  </a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
-                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+                  </a> &nbsp; &nbsp; <span class="navi_text"> <a 
+                     href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
                      <span class="navi_text"> 관리자페이지 </span> </a> &nbsp; &nbsp; <span
                      class="navi_text"> ${loginSession.id} 님 </span>
                </div>
@@ -215,9 +212,9 @@ a {
                   <a href="${pageContext.request.contextPath}/member/toLogout.do">
                      <span class="navi_text"> 로그아웃 </span>
                   </a> &nbsp; &nbsp; <a
-                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
+                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${sessionId}">
                      <span class="navi_text"> 마이페이지 </span>
-                  </a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+                  </a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId} ${sessionEmail}
                      님 </span>
                </div>
             </c:when>

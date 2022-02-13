@@ -329,8 +329,185 @@ ul {
 <body>
 	<!-- 헤더 -->
 	<div id="header"></div>
+	<c:choose>
+	
+		<c:when test=${!empty sessionId}>
+		<!--내정보 및 수정창-->
+	<div class="container">
+		<div class="row margin_top_50">
+
+			<!-- 마이페이지 왼쪽편 -->
+
+			<div class="col-3 mypage_right_line">
+				<div class="row d-flex justify-content-center mb-3">
+					<c:if test="${loginSession.ori_name == null}">
+						<div class="col-12" id="profileImgBox">
+							<img class="mypage_profile_img" id="profileImg"
+								src="/resources/images/profile.svg">
+						</div>
+					</c:if>
+					<c:if test="${loginSession.ori_name != null}">
+						<div class="col-12" id="profileImgBox">
+							<img class="mypage_profile_img" id="profileImg"
+								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
+						</div>
+					</c:if>
 
 
+				</div>
+				<div class="row">
+					<div class="col-12 d-flex justify-content-center">
+						<h5 style="color: gray;">${loginSession.id}</h5>
+					</div>
+				</div>
+
+				<div class="row mt-5">
+					<div class="col-12" style="margin-left: 30px;">
+						<ul>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
+									수정</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
+									게시글 확인</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
+									확인</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+									보내기</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</div>
+
+
+
+			<!-- 마이페이지 오른쪽편 -->
+
+			<div class="col-7 mypage_right_margin">
+				<div class="row">
+					<div class="col-12">
+						<p class="mypage_text">회원 정보 수정</p>
+					</div>
+				</div>
+
+
+				<form action="${pageContext.request.contextPath}/member/toModify.do"
+					method="post" id="modifyForm" enctype="multipart/form-data"
+					onchange="setThumbnail(event);">
+					<!-- 프로필 사진 -->
+					<c:if test="${dto.getOri_name() == null}">
+						<div class="row mb-3" style="margin-left: 200px;">
+							<div class="col-12" id="rightProfileImgBox">
+								<img class="mypage_profile_img" id="profileImg"
+									src="/resources/images/profile.svg">
+							</div>
+						</div>
+					</c:if>
+					<c:if test="${dto.getOri_name() != null}">
+						<div class="row mb-3" style="margin-left: 200px;">
+							<div class="col-12" id="rightProfileImgBox">
+								<img class="mypage_profile_img" id="profileImg"
+									src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
+							</div>
+						</div>
+					</c:if>
+					<div class="row mb-3">
+						<div class="col-8">
+							<input type="file" class="form-control" id="filecheck"
+								name="file">
+						</div>
+						<div class="col-4"></div>
+					</div>
+
+					<!-- 아이디 -->
+					<div class="row mb-3">
+						<label class="mypage_comment mb-1">아이디</label>
+						<div class="col-8 ">
+							<input type="text" id="id" name="id" class="form-control"
+								value="${dto.getId()}" readonly>
+						</div>
+
+					</div>
+
+					<!-- 닉네임 -->
+					<div class="row mb-3">
+						<label class="mypage_comment mb-1">닉네임</label>
+						<div class="col-8">
+							<input type="text" class="form-control" id="nickname"
+								value="${dto.getNickname()}" name="nickname"
+								readonly>
+
+						</div>
+					</div>
+
+
+					<!-- email 영역 -->
+					<div class="row mb-3">
+						<div class="col-8">
+							<input type="text" class="form-control" id="email" name="email"
+								value="${dto.getEmail()}" readonly>
+						</div>
+					</div>
+
+					<!-- 주소 영역 -->
+					<!-- Address 영역 -->
+					<div class="row mb-3">
+						<label class="mypage_comment mb-1">주소</label>
+						<div class="col-8">
+							<input type="text" class="form-control" id="Postcode"
+								name="Postcode" placeholder="(우편번호)">
+						</div>
+
+						<div class="col-3">
+							<button type="button" class="btn w-100"
+								onclick="ExecDaumPostcode()">우편번호 찾기</button>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-8">
+							<input type="text" class="form-control" id="RoadAddress"
+								name="RoadAddress" placeholder="도로명주소">
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-8">
+							<input type="text" class="form-control" id="DetailAddress"
+								name="DetailAddress" placeholder="상세주소">
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col">
+							<input type="text" class="form-control" id="Address"
+								name="Address" style="display: none;"
+								value="${dto.getAddress()}" required="required">
+						</div>
+					</div>
+
+					<div class="row mb-5">
+						<div class="col-6 d-flex justify-content-end">
+							<button type="button" class="btn" id="btnConfirm">완료</button>
+						</div>
+						<div class="col-6 d-flex justify-content-start">
+							<button type="reset" class="btn">취소</button>
+						</div>
+					</div>
+				</form>
+				<div>
+					<button type="button" id="userDeleteBtn">회원탈퇴</button>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	</c:when>
+	</c:choose>
 	<!--내정보 및 수정창-->
 	<div class="container">
 		<div class="row margin_top_50">
@@ -765,18 +942,6 @@ ul {
 <!-- Cancel, Registry -->
 	//	수정 완료
 	document.getElementById("btnConfirm").onclick = function(e) {
-		/* if (pw.value === "" || !regexPW()) {
-			alert("비밀번호를 입력 해주세요.");
-			
-			return;
-		} else if (nickname.value === "" || !regexNickname()) {
-			alert("닉네임을 입력 해주세요.");
-			
-			return;
-		} else {
-			document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
-			document.getElementById("JoinusForm").submit();
-		} */
 		console.log(document.getElementById("pw").value);
 		if(Postcode.value == null || Postcode.value == ""){
 			document.getElementById("Address").value = "${dto.getAddress()}";

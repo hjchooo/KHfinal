@@ -138,7 +138,7 @@ public class MemberController {
 
 	         if (pwEncoder.matches(rawPW, encodePW)) {
 	            session.setAttribute("loginSession", dto);
-
+	            
 	            if (dto.getUserType() == 2) {
 
 	               return "admin";
@@ -178,9 +178,12 @@ public class MemberController {
 	      JSONObject response_obj = (JSONObject) jsonObj.get("response");
 	      // response의 nickname값 파싱
 	      String nickname = (String) response_obj.get("nickname");
+	      String email = (String) response_obj.get("email");
 	      System.out.println(nickname);
+	      System.out.println(email);
 	      // 4.파싱 닉네임 세션으로 저장
-	      session.setAttribute("sessionId", nickname); // 세션 생성
+	      session.setAttribute("sessionId", nickname);
+	      session.setAttribute("sessionEmail", email);// 세션 생성
 	      model.addAttribute("result", apiResult);
 
 	      return "home";
