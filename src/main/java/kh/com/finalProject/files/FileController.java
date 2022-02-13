@@ -16,32 +16,32 @@ import kh.com.finalProject.reply.ReplyDTO;
 @Controller
 @RequestMapping("/files")
 public class FileController {
-	@Autowired
-	private HttpSession session;
+   @Autowired
+   private HttpSession session;
 
-	@Autowired
-	private FileService service;
+   @Autowired
+   private FileService service;
 
-	public FileController() {
-		System.out.println("FileController 인스턴스 생성");
-	}
+   public FileController() {
+      System.out.println("FileController 인스턴스 생성");
+   }
 
-	// 파일 업로드
-	@RequestMapping(value = "/SummerNoteImageFile", produces = "application/json;charset=UTF-8")
-	@ResponseBody
-	public String SummerNoteImageFile(MultipartFile file, HttpServletRequest request) throws Exception {
-		// 저장 경로 설정
-		String realPath = session.getServletContext().getRealPath("/upload");
+   // 파일 업로드
+   @RequestMapping(value = "/SummerNoteImageFile", produces = "application/json;charset=UTF-8")
+   @ResponseBody
+   public String SummerNoteImageFile(MultipartFile file, HttpServletRequest request) throws Exception {
+      // 저장 경로 설정
+      String realPath = session.getServletContext().getRealPath("/upload");
 
-		System.out.println("!!! FileController upload 도착 !!!");
-		System.out.println("!!! realPath : " + realPath + " !!!");
+      System.out.println("!!! FileController upload 도착 !!!");
+      System.out.println("!!! realPath : " + realPath + " !!!");
 
-		// JsonObject형 jsonObject변수를 만들어 FileServiece에 넘는 작업
-		JsonObject jsonObject = service.SummerNoteImageFile(realPath, file);
-		System.out.println("fileController jsonObject : " + jsonObject.toString());
+      // JsonObject형 jsonObject변수를 만들어 FileServiece에 넘는 작업
+      JsonObject jsonObject = service.SummerNoteImageFile(realPath, file);
+      System.out.println("fileController jsonObject : " + jsonObject.toString());
 
-		// jsp 파일로 return 해주는 작업
-		return jsonObject.toString();
-	}
+      // jsp 파일로 return 해주는 작업
+      return jsonObject.toString();
+   }
 
 }

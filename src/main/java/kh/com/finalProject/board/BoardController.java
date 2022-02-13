@@ -132,9 +132,9 @@ public class BoardController {
    // 자유게시판 게시글 검색
    @RequestMapping("/searchProc.do")
    public String searchProc(Model model, String select, String keyword, int currentPage) throws Exception {
-	  //String encodeParam = URLEncoder.encode(keyword, "UTF-8");
-	   
-	  int recordTotalCnt = service.countAllOption(select, keyword);
+     //String encodeParam = URLEncoder.encode(keyword, "UTF-8");
+      
+     int recordTotalCnt = service.countAllOption(select, keyword);
       System.out.println("recordTotalCnt : " + recordTotalCnt);
       
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
@@ -153,10 +153,10 @@ public class BoardController {
    // 게시글 신고 페이지로 이동
    @RequestMapping("/toReport.do")
    public String toReport(Model model,String report_writer_id, String reported_person) {
-	  System.out.println("report_writer_id : " + report_writer_id);
-	  System.out.println("reported_person : " + reported_person);
+     System.out.println("report_writer_id : " + report_writer_id);
+     System.out.println("reported_person : " + reported_person);
       model.addAttribute("report_writer_id", report_writer_id);
-	  model.addAttribute("reported_person", reported_person);
+     model.addAttribute("reported_person", reported_person);
       return "report/report";
    }
 
@@ -220,7 +220,7 @@ public class BoardController {
       System.out.println("게시글 수정 BoardDTO : " + dto);
       System.out.println("게시글 수정 content : " + dto.getContent());
       for(int i=0; i<sys_name.length; i++) {
-    	  System.out.println("sys_name : " + sys_name[i]);
+         System.out.println("sys_name : " + sys_name[i]);
       }
       
       service.modifyBySeq(board_seq, dto, fdto, sys_name);
