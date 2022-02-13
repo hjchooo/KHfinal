@@ -332,9 +332,7 @@ label {
 	<div id="footer" class="mt-5"></div>
 
 	<script>
-<<<<<<< HEAD
 	/* 섬머노트
-=======
 	// 게시글 신고
 	$("#report").on("click", function(){
 		let report = confirm("정말 신고하겠습니까?");
@@ -350,7 +348,6 @@ label {
 	})
 	
 	// 섬머노트
->>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 	 $(document).ready(function () {
          console.log("summernote option : ", $.summernote.options);
          // 실행시 언어 설정을 한글로 설정 
@@ -384,10 +381,10 @@ label {
 	//썸머노트 이미지 업로드
 	function modifySummernote() {
 		 $('#summernote').summernote({
-				width : 800,
-				minHeight: null,
-				maxHeight: null,
-				focus: true,
+			 	width: 800, 
+				minHeight: 500,	// 최소높이
+				maxHeight: null,	// 최대 높이
+				focus: true,	// 에디터 로딩후 포커스
 				lang: "ko-KR",
 				callbacks: {
 					onImageUpload : function(files, editor, welEditable){

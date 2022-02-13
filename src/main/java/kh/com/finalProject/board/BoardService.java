@@ -1,8 +1,10 @@
 package kh.com.finalProject.board;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -172,11 +174,11 @@ public class BoardService {
 //		   System.out.println("sys_name 배열 : " + sys_name[i]);
 //		   
 //	   }
-
+		String realPath = session.getServletContext().getRealPath("/upload");
 		System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
 		// 게시글 수정
 		dao.modifyBySeq(dto);
-		
+
 		// 추가 파일 등록
 		ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
 		if (fileList != null) {
@@ -187,19 +189,39 @@ public class BoardService {
 				fdao.insertFile(fdto);
 			}
 		}
-		
-		
-		// 파일 삭제
-		
+
 		// 현재 파일과 없는 파일 조회
 		for (int i = 0; i < sys_name.length; i++) {
 			System.out.println("보드서비스 sys_name 배열 : " + sys_name[i]);
 		}
+
+		// 파일 삭제
 		dto.setBoard_seq(board_seq);
 		List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
-		for (int i = 0; i < notMatch.size(); i++) {
-			System.out.println("안맞는 sys_name : " + notMatch.get(i).toString());
-			// fdao.deleteFromSys_name((String)notMatch.get(i).toString());
+		Map<String, Object> map = new HashMap<>();
+		map.put("notMatch", notMatch);
+		
+		System.out.println("map : " + map);
+		
+		System.out.println("map 안의 밸류 값 : " + map.get("notMatch").toString());
+		
+		if (sys_name.length != notMatch.size()) {
+			System.out.println("sys_name.length : " + sys_name.length);
+			System.out.println("notMatch.size : " + notMatch.size());
+//			for (int i = 0; i < notMatch.size(); i++) {
+//				System.out.println("안맞는 sys_name : " + notMatch.get(i).toString());
+//			}
+			
+			// DB에서 삭제
+			fdao.deleteFromSys_name(map);
+				
+			// upload 파일에서 삭제
+			System.out.println("upload경로 : " + realPath);
+			File file = new File(realPath, map.get("notMatch").toString());
+			file.delete();
+				
+				
+
 		}
 
 //      System.out.println("BoardService 게시글 등록 도착");

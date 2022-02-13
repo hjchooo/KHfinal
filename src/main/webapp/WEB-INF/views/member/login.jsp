@@ -163,7 +163,6 @@ a:hover {
 
 	<script>
 		// 로그인
-<<<<<<< HEAD
 		function login() {
 			let data = $("#loginForm").serialize();
 			console.log(data);
@@ -184,7 +183,7 @@ a:hover {
 				console.log(e);
 			})
 		}
-=======
+		
 		  function login() {
          let data = $("#loginForm").serialize();
          console.log(data);
@@ -197,7 +196,7 @@ a:hover {
             if (rs == "성공") {
                location.href = "${pageContext.request.contextPath}/";
             } else if (rs == "admin") {
-               location.href = "${pageContext.request.contextPath}/manager/main.do";
+               location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
             } else if (rs == "실패") {
                alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
             }
@@ -206,7 +205,6 @@ a:hover {
          })
       }
 
->>>>>>> 0a3f3d77d242d561de01e758ab68675f999e186c
 
 		$("#btnLogin").on("click", function() {
 			login();

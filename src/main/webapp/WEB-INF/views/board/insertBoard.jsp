@@ -46,6 +46,10 @@
 	box-sizing: border-box;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 /* 전체 컨테이너 */
 .wrapper {
 	height: 100%;
@@ -206,8 +210,7 @@ label {
 	// 썸머노트 이미지 업로드
 	 $('#summernote').summernote({
 		width : 800,
-		height: 500,
-		minHeight: null,
+		minHeight: 500,
 		maxHeight: null,
 		resize: true,
 		focus: true,

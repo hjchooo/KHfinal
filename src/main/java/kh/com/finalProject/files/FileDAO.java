@@ -62,8 +62,10 @@ public class FileDAO {
 	}
 	
 	// 파일 삭제
-	public int deleteFromSys_name(String sys_name) throws Exception {
-		return session.delete("fileMapper.deleteFromSys_name", sys_name);
+	public int deleteFromSys_name(Map<String, Object> map) throws Exception {
+		System.out.println("=====dao map 안의 밸류 값 : " + map.get("notMatch").toString());
+		map.put("sys_name", map.get("notMatch").toString());
+		return session.delete("fileMapper.deleteFromSys_name", map);
 	}
 
 }

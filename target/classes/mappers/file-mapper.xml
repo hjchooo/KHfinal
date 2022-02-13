@@ -58,9 +58,13 @@
 		</select>
 		
 		<!-- 파일 삭제 -->
-		<delete id="deleteFromSys_name" parameterType="int">
+		<delete id="deleteFromSys_name" parameterType="map">
 			delete from files 
-				where sys_name = #{sys_name}
+				where sys_name in (
+				<trim prefixOverrides="[" suffixOverrides="]">
+				#{sys_name}
+				</trim>
+				)
 		</delete>
 		
 		
