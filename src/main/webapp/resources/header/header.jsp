@@ -195,8 +195,8 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+							${loginSession.nickname} 님 </span>
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
@@ -207,20 +207,8 @@ a {
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
 							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-								님 </span>
-					</div>
-				</c:when>
-				<c:when test="${sessionId != null }">
-					<!-- 네이버로 로그인할때 -->
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toLogout.do">
-							<span class="navi_text"> 로그아웃 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${sessionId}">
-							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
-							${sessionEmail} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+								${loginSession.nickname} 님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -235,8 +223,6 @@ a {
 					</div>
 				</c:otherwise>
 			</c:choose>
-
-
 		</div>
 	</div>
 
@@ -278,7 +264,7 @@ a {
 	<div class="margin"></div>
 
 	<script>
-		ws = new WebSocket("ws://192.168.219.104/reply");
+		ws = new WebSocket("ws://172.30.23.7/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
@@ -371,8 +357,8 @@ a {
 =======
 	</script>
 
-<!-- Channel Plugin Scripts -->
-<script>
+	<!-- Channel Plugin Scripts -->
+	<script>
 >>>>>>> 20c33b842dbe2acfb50b3033af07457f2414f5d6
   (function() {
     var w = window;
