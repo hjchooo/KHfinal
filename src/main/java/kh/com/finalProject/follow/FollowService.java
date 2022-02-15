@@ -1,12 +1,11 @@
 package kh.com.finalProject.follow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import kh.com.finalProject.likes.LikesDTO;
 
 @Service
 public class FollowService {
@@ -44,5 +43,30 @@ public class FollowService {
 		// 0 or 1이 담겨져서 @Controller에 보냄.
 		return rs;
 	}
+	
+	// 로그인된 id 팔로워 조회
+		public List<FollowDTO> follower(String follower_id) throws Exception {
+			return dao.follower(follower_id);
+		}
+		
+		// 로그인된 id 팔로잉 조회
+			public List<FollowDTO> follow(String follow_id) throws Exception {
+				return dao.follow(follow_id);
+			}
+
+			public int plusFollow(FollowDTO dto) throws Exception {
+
+				int rs = dao.insertFollow(dto);
+
+				return rs;
+			}
+
+			
+			public int deleteFollow(FollowDTO dto) throws Exception {
+
+			int rs = dao.deleteFollow(dto);
+
+			return rs;
+		}
 
 }

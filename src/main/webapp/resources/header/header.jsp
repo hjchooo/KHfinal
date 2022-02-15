@@ -159,7 +159,6 @@ a {
 </head>
 
 <body>
-	${loginSession.userType}
 	<div class="socketBox">
 		<div id="socketAlert" class="alert alert alert-primary" role="alert">
 		</div>
@@ -337,31 +336,7 @@ a {
 		connect();
 		*/ 
 	</script>
-	
-	<!-- 쪽지 알람 -->
-	<script>
-	document.getElementById("managerBtn").onclick = function(){
-		location.href="${pageContext.request.contextPath}/manager/main.do";
-	}
 
-		let loginId = "${loginSession.id}";
-		if (loginId != "") {setInterval(function() {
-			$.ajax({
-				url : "${pageContext.request.contextPath}/note/noteCount.do?to_id="
-						+ loginId
-					}).done(function(data) {
-						if (data == "plus") {
-							alert("쪽지 알림");
-						} else {
-							console.log("조회됨.");
-						}
-					}).fail(function(e) {
-						console.log(e);
-					});
-				}, 3000);
-		}
-		
-	</script>
 <!-- Channel Plugin Scripts -->
 <script>
   (function() {
