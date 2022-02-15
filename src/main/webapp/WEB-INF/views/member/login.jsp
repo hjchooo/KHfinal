@@ -169,28 +169,47 @@ a:hover {
 
 	<script>
 		// 로그인
+		function login() {
+			let data = $("#loginForm").serialize();
+			console.log(data);
+			$.ajax({
+					url : "${pageContext.request.contextPath}/member/toLogin",
+					type : "post",
+					data : data
+				}).done(function(rs) {
+					console.log(rs);
+					if (rs == "성공") {
+						location.href = "${pageContext.request.contextPath}/";
+					} else if (rs == "admin") {
+						location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
+					} else if (rs == "실패") {
+						alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+					}
+				}).fail(function(e) {
+					console.log(e);
+			})
+		}
 
-		  function login() {
-         let data = $("#loginForm").serialize();
-         console.log(data);
-         $.ajax({
-            url : "${pageContext.request.contextPath}/member/toLogin",
-            type : "post",
-            data : data
-         }).done(function(rs) {
-            console.log(rs);
-            if (rs == "성공") {
-               location.href = "${pageContext.request.contextPath}/";
-            } else if (rs == "admin") {
-               location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
-            } else if (rs == "실패") {
-               alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
-            }
-         }).fail(function(e) {
-            console.log(e);
-         })
-      }
-
+		function login() {
+			let data = $("#loginForm").serialize();
+			console.log(data);
+			$.ajax({
+				url : "${pageContext.request.contextPath}/member/toLogin",
+				type : "post",
+				data : data
+			}).done(function(rs) {
+				console.log(rs);
+				if (rs == "성공") {
+					location.href = "${pageContext.request.contextPath}/";
+				} else if (rs == "admin") {
+					location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
+				} else if (rs == "실패") {
+					alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+				}
+			}).fail(function(e) {
+				console.log(e);
+			})
+		}
 
 		$("#btnLogin").on("click", function() {
 			login();
