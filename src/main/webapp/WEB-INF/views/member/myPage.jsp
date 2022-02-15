@@ -323,6 +323,34 @@ ul {
 	background-color: gray;
 	color: white;
 }
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 600px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
 </style>
 </head>
 
@@ -376,9 +404,68 @@ ul {
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
 									보내기</a></li>
+							<li class="ulList"><a class="btn-open-popup">follow</a></li>
 						</ul>
 					</div>
 
+				</div>
+			</div>
+			
+			<div class="modal">
+				<div class="modal_body">
+					<div>
+						<h2>팔로워</h2>
+					</div>
+					<div>
+						<table>
+							<tbody>
+								<c:if test="${!empty fList}">
+									<c:forEach var="list" items="${fList}">
+										<c:choose>
+											<c:when test="${! empty f2List }">
+												<c:forEach var="list2" items="${f2List}">
+													<c:choose>
+														<c:when
+															test="${list.getFollow_id() eq list2.getFollower_id()}">
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우 취소</button>
+																</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우</button>
+																</td>
+															</tr>
+														</c:otherwise>
+
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${list.follow_id}</td>
+													<td>
+														<button type="button" class="followBtn"
+															value="${list.follow_id}">팔로우</button>
+													</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<button type="button" id="closeBtn">닫기</button>
+					</div>
 				</div>
 			</div>
 
@@ -552,9 +639,68 @@ ul {
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
 									보내기</a></li>
+							<li class="ulList"><a class="btn-open-popup" href="#">follow</a></li>
 						</ul>
 					</div>
 
+				</div>
+			</div>
+			
+			<div class="modal">
+				<div class="modal_body">
+					<div>
+						<h2>팔로워</h2>
+					</div>
+					<div>
+						<table>
+							<tbody>
+								<c:if test="${!empty fList}">
+									<c:forEach var="list" items="${fList}">
+										<c:choose>
+											<c:when test="${! empty f2List }">
+												<c:forEach var="list2" items="${f2List}">
+													<c:choose>
+														<c:when
+															test="${list.getFollow_id() eq list2.getFollower_id()}">
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우 취소</button>
+																</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우</button>
+																</td>
+															</tr>
+														</c:otherwise>
+
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${list.follow_id}</td>
+													<td>
+														<button type="button" class="followBtn"
+															value="${list.follow_id}">팔로우</button>
+													</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<button type="button" id="closeBtn">닫기</button>
+					</div>
 				</div>
 			</div>
 
@@ -723,6 +869,15 @@ ul {
 	<div id="messageNotice"></div>
 
 	<script>
+	
+	const modal = document.querySelector('.modal'); 
+	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
+	btnOpenPopup.addEventListener('click', () => { modal.style.display = 'block'; });
+	
+	$("#closeBtn").click(function(){
+		 modal.style.display = 'none';
+	});
+	
 	// 프로필 사진 미리보기
 	function setThumbnail(event) { 
 		var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
@@ -909,32 +1064,6 @@ ul {
 				document.getElementById("Postcode").value = data.zonecode;
 				document.getElementById("RoadAddress").value = roadAddr;
 
-				/*
-				document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-				
-				// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-				if(roadAddr !== ''){
-				    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-				} else {
-				    document.getElementById("sample4_extraAddress").value = '';
-				}
-
-				var guideTextBox = document.getElementById("guide");
-				// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-				if(data.autoRoadAddress) {
-				    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-				    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-				    guideTextBox.style.display = 'block';
-
-				} else if(data.autoJibunAddress) {
-				    var expJibunAddr = data.autoJibunAddress;
-				    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-				    guideTextBox.style.display = 'block';
-				} else {
-				    guideTextBox.innerHTML = '';
-				    guideTextBox.style.display = 'none';
-				}
-				 */
 			}
 		}).open();
 	}
@@ -952,7 +1081,39 @@ ul {
 		document.getElementById("modifyForm").submit();
 		}
 		
-	
+	$(".followBtn").click(function(e){
+		console.log($(e.target).val());
+		    if(e.target.innerText == "팔로우") {
+		    	$.ajax({
+			    	url :"${pageContext.request.contextPath}/follow/plusFollow",
+			        type :"POST",
+			        data : {"follow_id":"${loginSession.id}", "follower_id":""+ $(e.target).val() +""},
+			    	success : function(data){
+
+			        	if(data == 1) {
+			        		e.target.innerText = "팔로우 취소";
+			        	} else {
+			        		e.target.innerText ="팔로우";
+		           	}
+			    	}
+			    });
+		    } else {
+		    	
+		    	$.ajax({
+			    	url :"${pageContext.request.contextPath}/follow/deleteFollow",
+			        type :"POST",
+			        data : {"follow_id":"${loginSession.id}", "follower_id":""+ $(e.target).val() +""},
+			    	success : function(data){
+			        	if(data != null) {
+			        		e.target.innerText = "팔로우";
+			        	} else {
+			        		e.target.innerText ="팔로우 취소";
+		           	}
+			    	}
+			    });
+		    	}
+		    
+	});
 	
 	</script>
 
