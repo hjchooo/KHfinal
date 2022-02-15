@@ -18,7 +18,7 @@ public class MemberDAO {
 		System.out.println("MemberDAO 인스턴스 생성");
 	}
 
-	// 로그인
+	// 로그인 (일반)
 	public int login(String id, String pw) throws Exception {
 		System.out.println("dao id : " + id);
 		System.out.println("dao pw : " + pw);
@@ -100,9 +100,9 @@ public class MemberDAO {
 		System.out.println(rs);
 		return rs;
 	}
-	
+
 	// 오늘 가입한 회원조회
-	public List<MemberDTO> dayMember() throws Exception{
+	public List<MemberDTO> dayMember() throws Exception {
 		return session.selectList("memberMapper.dayMember");
 	}
 

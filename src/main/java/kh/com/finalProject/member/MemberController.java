@@ -9,9 +9,6 @@ import java.util.UUID;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,13 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 
-import kh.com.finalProject.naver.NaverLoginBO;
+import kh.com.finalProject.follow.FollowDTO;
+import kh.com.finalProject.follow.FollowService;
 import kh.com.finalProject.utils.TemporaryPW;
 import kh.com.finalProject.visit.VisitService;
 
@@ -40,6 +36,9 @@ public class MemberController {
 	private VisitService vService;
 
 	@Autowired
+	private FollowService fService;
+
+	@Autowired
 	private HttpSession session;
 
 	@Autowired
@@ -47,238 +46,198 @@ public class MemberController {
 
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
-
+	
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
 
-	// -------------------- Naver Login 영역 --------------------
-	   /* NaverLoginBO */
-	   private NaverLoginBO naverLoginBO;
-	   private String apiResult = null;
+	// 로그인 페이지로 감
+	@RequestMapping("/toLogin.do")
+	public String toLogin(HttpSession session) {
 
-	   @Autowired
-	   private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-	      this.naverLoginBO = naverLoginBO;
-	   }
+		return "member/login";
+	}
 
-	   // 로그인 페이지로 감
-	   @RequestMapping("/toLogin.do")
-	   public String toLogin(Model model, HttpSession session) {
+	// 회원가입 페이지로 감
+	@RequestMapping("/toJoinus.do")
+	public String toJoinus() {
 
-	      // 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBo클래스의 getAuthorizationUrl()메서드 호출
-	      String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+		return "member/joinus";
+	}
 
-	      System.out.println("네이버 : " + naverAuthUrl + "\n");
-	      // return "member/login";
+	// 로그아웃
+	@RequestMapping("/toLogout.do")
+	public String toLogout(HttpSession session) throws IOException {
+		// session.removeAttribute("loginSession");
+		System.out.println("로그아웃");
+		session.invalidate();
+		return "home";
+	}
 
-	      // 네이버
-	      model.addAttribute("url", naverAuthUrl);
+	// 마이페이지로 이동
+	@RequestMapping("/toMyPage.do")
+	public String tomyPage(Model model, String id) throws Exception {
+		MemberDTO dto = service.getMember(id);
+		List<FollowDTO> list = fService.follower(id);
+		List<FollowDTO> list2 = fService.follow(id);
+		model.addAttribute("dto", dto);
+		model.addAttribute("fList", list);
+		model.addAttribute("f2List", list2);
+		return "member/myPage";
+	}
 
-	      return "member/login";
-	   }
+	// 아이디 찾기 (팝업창 띄움)
+	@RequestMapping("/tofindID.do")
+	public String findID() {
 
-	   // 회원가입 페이지로 감
-	   @RequestMapping("/toJoinus.do")
-	   public String toJoinus() {
+		return "member/findID";
+	}
 
-	      return "member/joinus";
-	   }
-
-	   // 로그아웃
-	   @RequestMapping("/toLogout.do")
-	   public String toLogout(HttpSession session) throws IOException {
-	      //session.removeAttribute("loginSession");
-	      System.out.println("로그아웃");
-	      session.invalidate();
-	      return "home";
-	   }
-
-	   // 마이페이지로 이동
-	   @RequestMapping("/toMyPage.do")
-	   public String tomyPage(Model model, String id) throws Exception {
-	      MemberDTO dto = service.getMember(id);
-	      model.addAttribute("dto", dto);
-	      return "member/myPage";
-	   }
-
-	   // 아이디 찾기 (팝업창 띄움)
-	   @RequestMapping("/tofindID.do")
-	   public String findID() {
-
-	      return "member/findID";
-	   }
-
-	   // 비밀번호 찾기 (팝업창 띄움)
-	   @RequestMapping("/tofindPW.do")
-	   public String findPW() {
-
-	      return "member/findPW";
-	   }
-
+	// 비밀번호 찾기 (팝업창 띄움)
+	@RequestMapping("/tofindPW.do")
+	public String findPW(MemberDTO dto, String rawPW, String encodePW) throws Exception {
+		if (pwEncoder.matches(rawPW, encodePW)) {
+			if (dto.getUserType() == 2) {
+				session.setAttribute("loginSession", dto);
+				return "admin";
+			}
+			if (dto.getUserType() == 2) {
+				return "admin";
+			}
+			// 전체 방문자 수 +1
+			vService.visitInsert();
+		}
+		return "member/findPW";
+	}
 
 	// -------------------- Login페이지 영역 --------------------
-	   // 로그인
-	   @RequestMapping(value = "/toLogin", produces = "text/html;charset=UTF-8")
-	   @ResponseBody
-	   // text/plain;charset=ISO-8859-1 : 한글 인식이 안되서 따로 매핑값에 추가 해줘야함
-	   // -> ajax 로 결과값 보내줄때 한글로 변환후 보내주는 매개변수
-	   public String login(String id, String pw) throws Exception {
-	      System.out.println("ID : " + id + "\n" + "PW : " + pw);
+	// 로그인
+	@RequestMapping(value = "/toLogin", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	// text/plain;charset=ISO-8859-1 : 한글 인식이 안되서 따로 매핑값에 추가 해줘야함
+	// -> ajax 로 결과값 보내줄때 한글로 변환후 보내주는 매개변수
+	public String login(String id, String pw) throws Exception {
+		System.out.println("ID : " + id + "\n" + "PW : " + pw);
 
-	      MemberDTO dto = service.getMember(id);
+		MemberDTO dto = service.getMember(id);
 
-	      System.out.println("\n dto : " + dto);
+		System.out.println("\n dto : " + dto);
 
-	      if (dto.getId() != null) {
-	         String rawPW = pw;
-	         String encodePW = dto.getPw();
+		if (dto.getId() != null) {
+			String rawPW = pw;
+			String encodePW = dto.getPw();
 
-	         System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
+			System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
 
-	         if (pwEncoder.matches(rawPW, encodePW)) {
-	            session.setAttribute("loginSession", dto);
-	            
-	            if (dto.getUserType() == 2) {
+			if (pwEncoder.matches(rawPW, encodePW)) {
+				session.setAttribute("loginSession", dto);
 
-	               return "admin";
-	            }
+				if (dto.getUserType() == 2) {
 
-	            return "성공";
-	         } else {
+					return "admin";
+				}
 
-	            return "실패";
-	         }
+				return "성공";
+			} else {
 
-	      } else {
+				return "실패";
+			}
 
-	         return "fail";
-	      }
+		} else {
 
-	   }
+			return "fail";
+		}
+	}
 
-	   // 네이버로그인 성공시 callback호출 메서드
-	   @RequestMapping("/callback")
-	   public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-	         throws IOException, ParseException {
+	// =======================================
+	// 아이디 찾기 : 이메일 존재유무 확인
+	@RequestMapping("/ExistEmail.do")
+	@ResponseBody()
+	public String ExistEmail(String email) throws Exception {
+		System.out.println("\n" + "email : " + email);
 
-	      System.out.println("여기는 callback");
-	      OAuth2AccessToken ouaAccessToken;
-	      ouaAccessToken = naverLoginBO.getAccessToken(session, code, state);
+		if (service.existEmail(email)) {
 
-	      // 1. 로그인 사용자 정보를 읽어온다.
-	      apiResult = naverLoginBO.getUserProfile(ouaAccessToken); // String 형식의 json데이터
+			return "Exist";
+		} else {
 
-	      // 2. String 형식인 apiResult를 json형태로 바꿈
-	      JSONParser parser = new JSONParser();
-	      Object obj = parser.parse(apiResult);
-	      JSONObject jsonObj = (JSONObject) obj;
-	      // 3. 데이터 파싱
-	      // Top레벨 단계 _response 파싱
-	      JSONObject response_obj = (JSONObject) jsonObj.get("response");
-	      // response의 nickname값 파싱
-	      String nickname = (String) response_obj.get("nickname");
-	      String email = (String) response_obj.get("email");
-	      System.out.println(nickname);
-	      System.out.println(email);
-	      // 4.파싱 닉네임 세션으로 저장
-	      session.setAttribute("sessionId", nickname);
-	      session.setAttribute("sessionEmail", email);// 세션 생성
-	      model.addAttribute("result", apiResult);
+			return "Nope";
+		}
+	}
 
-	      return "home";
-	   }
+	// 아이디 찾기 : 이메일을 통해 존재하는 아이디를 확인
+	@RequestMapping("/findID.do")
+	@ResponseBody()
+	public List<MemberDTO> findID(String email) throws Exception {
+		System.out.println("email : " + email);
 
-	   // =======================================
-	   // 아이디 찾기 : 이메일 존재유무 확인
-	   @RequestMapping("/ExistEmail.do")
-	   @ResponseBody()
-	   public String ExistEmail(String email) throws Exception {
-	      System.out.println("\n" + "email : " + email);
+		return service.findID(email);
+	}
 
-	      if (service.existEmail(email)) {
+	// 비밀번호 찾기 : 아이디가 있는지 확인
+	@RequestMapping("/ExistID.do")
+	@ResponseBody()
+	public String ExistID(String id) throws Exception {
+		if (service.existID(id)) {
 
-	         return "Exist";
-	      } else {
+			return "Exist";
+		} else {
 
-	         return "Nope";
-	      }
-	   }
+			return "Nope";
+		}
+	}
 
-	   // 아이디 찾기 : 이메일을 통해 존재하는 아이디를 확인
-	   @RequestMapping("/findID.do")
-	   @ResponseBody()
-	   public List<MemberDTO> findID(String email) throws Exception {
-	      System.out.println("email : " + email);
+	// 임시비밀번호 발급
+	@RequestMapping("/temporaryPW.do")
+	@ResponseBody()
+	public String randomPW(MemberDTO dto) throws Exception {
+		// System.out.println("\n DTO : " + dto); // 이메일이 잘 넘어왔나 확인
+		// System.out.println("\n dtoPW : " + dto.getPw()); // null
 
-	      return service.findID(email);
-	   }
+		String id = dto.getId();
+		System.out.println("\n 원래 ID : " + id);
 
-	   // 비밀번호 찾기 : 아이디가 있는지 확인
-	   @RequestMapping("/ExistID.do")
-	   @ResponseBody()
-	   public String ExistID(String id) throws Exception {
-	      if (service.existID(id)) {
+		String originPW = service.originPW(id); // 확인 차 실행
+		System.out.println("\n 원래 비밀번호의 암호화된 값 : " + originPW); // 확인 차 실행
 
-	         return "Exist";
-	      } else {
+		String tempPW = TemporaryPW.getRandomPW(10);
 
-	         return "Nope";
-	      }
-	   }
+		dto.setPw(tempPW);
+		System.out.println("\n 임시비밀번호 : " + dto.getPw()); // 임시PW가 주입된 값이 나옴
 
-	   // 임시비밀번호 발급
-	   @RequestMapping("/temporaryPW.do")
-	   @ResponseBody()
-	   public String randomPW(MemberDTO dto) throws Exception {
-	      // System.out.println("\n DTO : " + dto); // 이메일이 잘 넘어왔나 확인
-	      // System.out.println("\n dtoPW : " + dto.getPw()); // null
+		String pw = encodingPW(dto);
+		System.out.println("\n 임시비밀번호를 암호화한 값 : " + pw);
 
-	      String id = dto.getId();
-	      System.out.println("\n 원래 ID : " + id);
+		dto.setPw(pw);
 
-	      String originPW = service.originPW(id); // 확인 차 실행
-	      System.out.println("\n 원래 비밀번호의 암호화된 값 : " + originPW); // 확인 차 실행
+		service.resetPW(dto);
 
-	      String tempPW = TemporaryPW.getRandomPW(10);
+		// 이메일 보내기
+		String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
+		// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
+		String strToMail = service.matchEmail(dto.getId()); // 받아온 아이디에 매치되는 이메일로 임시비밀번호를 뿌려줌
+		String strTitle = "요청하신 임시 비밀번호는 다음과 같습니다."; // 자신이 보낼 이메일 제목
+		String strContent = "임시 비밀번호 : " + tempPW; // 자신이 보낼 이메일 내용
 
-	      dto.setPw(tempPW);
-	      System.out.println("\n 임시비밀번호 : " + dto.getPw()); // 임시PW가 주입된 값이 나옴
+		System.out.println("\n To Email : " + strToMail);
 
-	      String pw = encodingPW(dto);
-	      System.out.println("\n 임시비밀번호를 암호화한 값 : " + pw);
+		// 이메일 전송을 위한 코드
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setFrom(strSetFrom);
+			helper.setTo(strToMail);
+			helper.setSubject(strTitle);
+			helper.setText(strContent, true);
+			mailSender.send(message);
 
-	      dto.setPw(pw);
+		} catch (Exception e) {
 
-	      service.resetPW(dto);
+			e.printStackTrace();
+		}
 
-	      // 이메일 보내기
-	      String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
-	                                          // -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
-	      String strToMail = service.matchEmail(dto.getId()); // 받아온 아이디에 매치되는 이메일로 임시비밀번호를 뿌려줌
-	      String strTitle = "요청하신 임시 비밀번호는 다음과 같습니다."; // 자신이 보낼 이메일 제목
-	      String strContent = "임시 비밀번호 : " + tempPW; // 자신이 보낼 이메일 내용
-
-	      System.out.println("\n To Email : " + strToMail);
-
-	      // 이메일 전송을 위한 코드
-	      try {
-	         MimeMessage message = mailSender.createMimeMessage();
-	         MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-	         helper.setFrom(strSetFrom);
-	         helper.setTo(strToMail);
-	         helper.setSubject(strTitle);
-	         helper.setText(strContent, true);
-	         mailSender.send(message);
-
-	      } catch (Exception e) {
-
-	         e.printStackTrace();
-	      }
-
-	      return tempPW;
-	   }
-
+		return tempPW;
+	}
 
 	// 회원가입 : ajax로 처리된 매핑값을 받아 ID 중복검사
 	@RequestMapping("/VerifyID.do")
@@ -335,7 +294,7 @@ public class MemberController {
 
 		// 이메일 보내기
 		String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
-		// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
+													// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
 		String strToMail = email; // 수신받을 이메일
 		String strTitle = "Email verification for membership registration"; // 자신이 보낼 이메일 제목
 		String strContent = "Code : " + iCheckNum; // 자신이 보낼 이메일 내용
@@ -392,7 +351,22 @@ public class MemberController {
 		dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
 
 		service.insertMember(dto); // 회원가입 실행
+		return "home";
+	}
 
+	public String joinus(MemberDTO dto) throws Exception {
+		System.out.println("\nDTO : " + dto);
+
+		dto.setPw(encodingPW(dto)); // dto의 pw에 encodePW() 메서드를 통해 얻은 인코딩 된 값을 넣어줌
+
+		int userType = 1; // 유저타입을 결정지을 변수
+		dto.setUserType(userType); // 여기서 무조건 모든사람에 대해서 유저 타입이 1임
+
+		// System.out.println("\nUserType : " + dto.getUserType()); // 회원가입 전 dto의 유저타입은
+		// 모두 0
+
+		service.insertMember(dto); // 회원가입 실행
+		System.out.println("\nAfter DTO : " + dto); // 회원가입이 실행되면 모든사람 유저타입은 1
 		return "home";
 	}
 

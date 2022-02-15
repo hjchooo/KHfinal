@@ -323,191 +323,44 @@ ul {
 	background-color: gray;
 	color: white;
 }
+
+.modal {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+	display: block;
+}
+
+.modal_body {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 400px;
+	height: 600px;
+	padding: 40px;
+	text-align: center;
+	background-color: rgb(255, 255, 255);
+	border-radius: 10px;
+	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+	transform: translateX(-50%) translateY(-50%);
+}
 </style>
 </head>
 
 <body>
+
 	<!-- 헤더 -->
 	<div id="header"></div>
-	<c:choose>
-	
-		<c:when test=${!empty sessionId}>
-		<!--내정보 및 수정창-->
-	<div class="container">
-		<div class="row margin_top_50">
 
-			<!-- 마이페이지 왼쪽편 -->
+<!-- <img alt="" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png"> -->
 
-			<div class="col-3 mypage_right_line">
-				<div class="row d-flex justify-content-center mb-3">
-					<c:if test="${loginSession.ori_name == null}">
-						<div class="col-12" id="profileImgBox">
-							<img class="mypage_profile_img" id="profileImg"
-								src="/resources/images/profile.svg">
-						</div>
-					</c:if>
-					<c:if test="${loginSession.ori_name != null}">
-						<div class="col-12" id="profileImgBox">
-							<img class="mypage_profile_img" id="profileImg"
-								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
-						</div>
-					</c:if>
-
-
-				</div>
-				<div class="row">
-					<div class="col-12 d-flex justify-content-center">
-						<h5 style="color: gray;">${loginSession.id}</h5>
-					</div>
-				</div>
-
-				<div class="row mt-5">
-					<div class="col-12" style="margin-left: 30px;">
-						<ul>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
-									수정</a></li>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
-									게시글 확인</a></li>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
-									확인</a></li>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
-									보내기</a></li>
-						</ul>
-					</div>
-
-				</div>
-			</div>
-
-
-
-			<!-- 마이페이지 오른쪽편 -->
-
-			<div class="col-7 mypage_right_margin">
-				<div class="row">
-					<div class="col-12">
-						<p class="mypage_text">회원 정보 수정</p>
-					</div>
-				</div>
-
-
-				<form action="${pageContext.request.contextPath}/member/toModify.do"
-					method="post" id="modifyForm" enctype="multipart/form-data"
-					onchange="setThumbnail(event);">
-					<!-- 프로필 사진 -->
-					<c:if test="${dto.getOri_name() == null}">
-						<div class="row mb-3" style="margin-left: 200px;">
-							<div class="col-12" id="rightProfileImgBox">
-								<img class="mypage_profile_img" id="profileImg"
-									src="/resources/images/profile.svg">
-							</div>
-						</div>
-					</c:if>
-					<c:if test="${dto.getOri_name() != null}">
-						<div class="row mb-3" style="margin-left: 200px;">
-							<div class="col-12" id="rightProfileImgBox">
-								<img class="mypage_profile_img" id="profileImg"
-									src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
-							</div>
-						</div>
-					</c:if>
-					<div class="row mb-3">
-						<div class="col-8">
-							<input type="file" class="form-control" id="filecheck"
-								name="file">
-						</div>
-						<div class="col-4"></div>
-					</div>
-
-					<!-- 아이디 -->
-					<div class="row mb-3">
-						<label class="mypage_comment mb-1">아이디</label>
-						<div class="col-8 ">
-							<input type="text" id="id" name="id" class="form-control"
-								value="${dto.getId()}" readonly>
-						</div>
-
-					</div>
-
-					<!-- 닉네임 -->
-					<div class="row mb-3">
-						<label class="mypage_comment mb-1">닉네임</label>
-						<div class="col-8">
-							<input type="text" class="form-control" id="nickname"
-								value="${dto.getNickname()}" name="nickname"
-								readonly>
-
-						</div>
-					</div>
-
-
-					<!-- email 영역 -->
-					<div class="row mb-3">
-						<div class="col-8">
-							<input type="text" class="form-control" id="email" name="email"
-								value="${dto.getEmail()}" readonly>
-						</div>
-					</div>
-
-					<!-- 주소 영역 -->
-					<!-- Address 영역 -->
-					<div class="row mb-3">
-						<label class="mypage_comment mb-1">주소</label>
-						<div class="col-8">
-							<input type="text" class="form-control" id="Postcode"
-								name="Postcode" placeholder="(우편번호)">
-						</div>
-
-						<div class="col-3">
-							<button type="button" class="btn w-100"
-								onclick="ExecDaumPostcode()">우편번호 찾기</button>
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<div class="col-8">
-							<input type="text" class="form-control" id="RoadAddress"
-								name="RoadAddress" placeholder="도로명주소">
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<div class="col-8">
-							<input type="text" class="form-control" id="DetailAddress"
-								name="DetailAddress" placeholder="상세주소">
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<div class="col">
-							<input type="text" class="form-control" id="Address"
-								name="Address" style="display: none;"
-								value="${dto.getAddress()}" required="required">
-						</div>
-					</div>
-
-					<div class="row mb-5">
-						<div class="col-6 d-flex justify-content-end">
-							<button type="button" class="btn" id="btnConfirm">완료</button>
-						</div>
-						<div class="col-6 d-flex justify-content-start">
-							<button type="reset" class="btn">취소</button>
-						</div>
-					</div>
-				</form>
-				<div>
-					<button type="button" id="userDeleteBtn">회원탈퇴</button>
-				</div>
-			</div>
-
-
-		</div>
-	</div>
-	</c:when>
-	</c:choose>
 	<!--내정보 및 수정창-->
 	<div class="container">
 		<div class="row margin_top_50">
@@ -550,11 +403,71 @@ ul {
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+								href="${pageContext.request.contextPath}/member/note.do"
+								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
 									보내기</a></li>
+							<li class="ulList"><a class="btn-open-popup" href="#">follow</a></li>
 						</ul>
 					</div>
 
+				</div>
+			</div>
+			
+			<div class="modal">
+				<div class="modal_body">
+					<div>
+						<h2>팔로워</h2>
+					</div>
+					<div>
+						<table>
+							<tbody>
+								<c:if test="${!empty fList}">
+									<c:forEach var="list" items="${fList}">
+										<c:choose>
+											<c:when test="${! empty f2List }">
+												<c:forEach var="list2" items="${f2List}">
+													<c:choose>
+														<c:when
+															test="${list.getFollow_id() eq list2.getFollower_id()}">
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우 취소</button>
+																</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우</button>
+																</td>
+															</tr>
+														</c:otherwise>
+
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${list.follow_id}</td>
+													<td>
+														<button type="button" class="followBtn"
+															value="${list.follow_id}">팔로우</button>
+													</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<button type="button" id="closeBtn">닫기</button>
+					</div>
 				</div>
 			</div>
 
@@ -628,10 +541,10 @@ ul {
 
 					<!-- 비밀번호 -->
 					<div class="row mb-3">
-						<label class="mypage_comment mb-1">비밀번호</label>
+						<label class="mypage_comment mb-1">새 비밀번호</label>
 						<div class="col-8">
 							<input type="password" class="form-control" id="pw" name="pw"
-								placeholder="비밀번호 입력"> <span class="mypage_comment">
+								placeholder="새 비밀번호 입력"> <span class="mypage_comment">
 								*비밀번호는 6~20자 이내 (영어 대소문자, 숫자, 특수문자)</span>
 						</div>
 						<div class="col-4"></div>
@@ -642,10 +555,10 @@ ul {
 
 					<!-- 비밀번호 확인 -->
 					<div class="row mb-3">
-						<label class="mypage_comment mb-1">비밀번호 확인</label>
+						<label class="mypage_comment mb-1">새 비밀번호 확인</label>
 						<div class="col-8">
 							<input type="password" class="form-control" id="pwcheck"
-								placeholder="비밀번호 입력"> <span class="mypage_comment"></span>
+								placeholder="새 비밀번호 입력"> <span class="mypage_comment"></span>
 						</div>
 						<div class="col-4"></div>
 						<div class="row mb-1">
@@ -718,11 +631,20 @@ ul {
 
 	<!--메인창 풋터-->
 	<div id="footer"></div>
-	
+
 	<!-- 쪽지 알림 -->
 	<div id="messageNotice"></div>
 
 	<script>
+	
+	const modal = document.querySelector('.modal'); 
+	const btnOpenPopup = document.querySelector('.btn-open-popup'); 
+	btnOpenPopup.addEventListener('click', () => { modal.style.display = 'block'; });
+	
+	$("#closeBtn").click(function(){
+		 modal.style.display = 'none';
+	});
+	
 	// 프로필 사진 미리보기
 	function setThumbnail(event) { 
 		var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
@@ -909,32 +831,6 @@ ul {
 				document.getElementById("Postcode").value = data.zonecode;
 				document.getElementById("RoadAddress").value = roadAddr;
 
-				/*
-				document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-				
-				// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-				if(roadAddr !== ''){
-				    document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-				} else {
-				    document.getElementById("sample4_extraAddress").value = '';
-				}
-
-				var guideTextBox = document.getElementById("guide");
-				// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-				if(data.autoRoadAddress) {
-				    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
-				    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
-				    guideTextBox.style.display = 'block';
-
-				} else if(data.autoJibunAddress) {
-				    var expJibunAddr = data.autoJibunAddress;
-				    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
-				    guideTextBox.style.display = 'block';
-				} else {
-				    guideTextBox.innerHTML = '';
-				    guideTextBox.style.display = 'none';
-				}
-				 */
 			}
 		}).open();
 	}
@@ -952,7 +848,39 @@ ul {
 		document.getElementById("modifyForm").submit();
 		}
 		
-	
+	$(".followBtn").click(function(e){
+		console.log($(e.target).val());
+		    if(e.target.innerText == "팔로우") {
+		    	$.ajax({
+			    	url :"${pageContext.request.contextPath}/follow/plusFollow",
+			        type :"POST",
+			        data : {"follow_id":"${loginSession.id}", "follower_id":""+ $(e.target).val() +""},
+			    	success : function(data){
+
+			        	if(data == 1) {
+			        		e.target.innerText = "팔로우 취소";
+			        	} else {
+			        		e.target.innerText ="팔로우";
+		           	}
+			    	}
+			    });
+		    } else {
+		    	
+		    	$.ajax({
+			    	url :"${pageContext.request.contextPath}/follow/deleteFollow",
+			        type :"POST",
+			        data : {"follow_id":"${loginSession.id}", "follower_id":""+ $(e.target).val() +""},
+			    	success : function(data){
+			        	if(data != null) {
+			        		e.target.innerText = "팔로우";
+			        	} else {
+			        		e.target.innerText ="팔로우 취소";
+		           	}
+			    	}
+			    });
+		    	}
+		    
+	});
 	
 	</script>
 

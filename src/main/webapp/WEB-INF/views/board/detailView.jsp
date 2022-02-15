@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,27 +7,27 @@
 <meta charset="UTF-8">
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"
-   integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-   crossorigin="anonymous"></script>
+	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
 <script
-   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-   integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-   crossorigin="anonymous"></script>
+	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+	integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+	crossorigin="anonymous"></script>
 
 <link rel="stylesheet"
-   href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-   crossorigin="anonymous">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-   integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-   crossorigin="anonymous"></script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+	crossorigin="anonymous"></script>
 
 <link
-   href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
-   rel="stylesheet">
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
 <script
-   src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
    $(document).ready(function(){
       $("#header").load("/resources/header/header.jsp");
@@ -38,328 +38,308 @@
 <title>상세보기</title>
 <style>
 * {
-   box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 a {
-   text-decoration: none;
+	text-decoration: none;
 }
 
 a:hover {
-   text-decoration: none;
+	text-decoration: none;
 }
 
 /* 전체 컨테이너 */
 .detailViewContainer {
-   width: 900px;
-   margin: auto;
+	width: 900px;
+	margin: auto;
 }
 /* 제목 */
 h1 {
-   color: #2d0174;
-   font-weight: bold;
+	color: #2d0174;
+	font-weight: bold;
 }
 
 /* 게시글 헤더 영역 */
 #titleBox {
-   background-color: #f9f9f9;
-   height: 50px;
-   width: 100%;
-   padding-top: 15px;
-   border-radius: 5px;
-   margin: 0%;
+	background-color: #f9f9f9;
+	height: 50px;
+	width: 100%;
+	padding-top: 15px;
+	border-radius: 5px;
+	margin: 0%;
 }
 /* 팔로우 버튼 */
 #follow {
-   width: 25px;
-   height: 25px;
-   margin: 0px;
+	width: 25px;
+	height: 25px;
+	margin: 0px;
 }
 
 /* label 태그 */
 label {
-   font-weight: bold;
+	font-weight: bold;
 }
 
 /* 내용 박스 */
 #contentBox {
-   width: 800px;
-   padding: 0px;
-   margin-left: 40px;
-   margin-top: 30px;
+	width: 800px;
+	padding: 0px;
+	margin-left: 40px;
+	margin-top: 30px;
 }
 
 /* 좋아요 */
 #likes {
-   width: 25px;
-   height: 25px;
+	width: 25px;
+	height: 25px;
 }
 
 #likesBlack {
-   width: 25px;
-   height: 25px;
-   border: none;
-   color: red;
+	width: 25px;
+	height: 25px;
+	border: none;
+	color: red;
 }
 
 /* 댓글 영역 */
 #replyHeader {
-   background-color: #f9f9f9;
-   border-radius: 5px;
-   padding: 5px;
-   margin-bottom: 10px;
-   border-bottom: 1px solid lightgray;
+	background-color: #f9f9f9;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid lightgray;
 }
 /* 댓글 아이콘 */
 #replyIcon {
-   width: 25px;
-   height: 25px;
+	width: 25px;
+	height: 25px;
 }
 /* 댓글 내용 */
 #reply_content {
-   width: 100%;
-   overflow: hidden;
-   resize: none;
-   height: auto;
+	width: 100%;
+	overflow: hidden;
+	resize: none;
+	height: auto;
 }
 
 /* 전체 버튼 */
 .btn {
-   background-color: #f9f9f9;
-   color: gray
+	background-color: #f9f9f9;
+	color: gray
 }
 
 .btn:hover {
-   background-color: gray;
-   color: white;
+	background-color: gray;
+	color: white;
 }
 
 /* 신고 아이콘 */
-#report img {
-   width: 30px;
-   height: 30px;
-   margin-top: 5px;
+#report {
+	width: 25px;
+	height: 25px;
+	margin-top: 5px;
+}
+#report:hover {
+	cursor:pointer;
 }
 
 /* 아이디 드롭다운박스 */
 #dropdownMenu2 {
-   margin-bottm: 20px;
-   margin-left: 5px;
-   padding: 0px;
-   border: none;
+	margin-bottm: 20px;
+	margin-left: 5px;
+	padding: 0px;
+	border: none;
 }
 
 #dropdownMenu2:hover {
-   background-color: lightgray;
+	background-color: lightgray;
 }
 
 /* 좋아요 호버 */
 #likes:hover {
-   cursor: pointer;
+	cursor: pointer;
 }
 
 /**/
 </style>
 </head>
 <body>
-   <div id="header"></div>
+	<div id="header"></div>
 
-   <div class="detailViewContainer mt-5">
-      <!-- ==================== 게시글 내용 ==================== -->
-      <form id="modifyForm"
-         action='${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}'
-         method="post">
-         <div class="row">
+	<div class="detailViewContainer mt-5">
+		<!-- ==================== 게시글 내용 ==================== -->
+		<form id="modifyForm"
+			action='${pageContext.request.contextPath}/board/modify.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}'
+			method="post">
+			<div class="row">
 
-            <div class="col-11 d-flex justify-content-start">
-               <h3>
-                  <input type="text" id="title" name="title" value="${dto.title}"
-                     style="border: none;" readonly>
-               </h3>
-            </div>
-            <c:if test="${ loginSession.id != dto.writer_id }">
-               <div class="col-1 d-flex justify-content-end">
-                  <img id="report" src="/resources/images/reportIcon.svg">
-               </div>
-            </c:if>
-         </div>
+				<div class="col-11 d-flex justify-content-start">
+					<h3>
+						<input type="text" id="title" name="title" value="${dto.title}"
+							style="border: none;" readonly>
+					</h3>
+				</div>
+				<c:if test="${ loginSession.id != dto.writer_id }">
+					<div class="col-1 d-flex justify-content-end">
+						<img id="report" src="/resources/images/reportIcon.svg">
+					</div>
+				</c:if>
+			</div>
 
-         <div class="row" hidden>
-            <input type="text" name="writer_id" value="${dto.writer_id}">
-            <input type="text" name="writer_nickname"
-               value="${dto.writer_nickname}"> <input type="text"
-               name="category" value="${dto.category}"> <input type="text"
-               name="secret" value="N"> <input type="password"
-               name="secretPw" value="">
-         </div>
+			<div class="row" hidden>
+				<input type="text" name="writer_id" value="${dto.writer_id}">
+				<input type="text" name="writer_nickname"
+					value="${dto.writer_nickname}"> <input type="text"
+					name="category" value="${dto.category}"> <input type="text"
+					name="secret" value="N"> <input type="password"
+					name="secretPw" value="">
+			</div>
 
-         <div class="row d-flex justify-content-center" id="titleBox">
-            <div class="col-2">
-               <label>${dto.category}</label>
-            </div>
-            <div class="col-4">
-               <c:choose>
-                  <c:when test="${ loginSession.id != dto.writer_id }">
-                     <label>작성자 : </label>
-                     <span class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button"
-                           id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
-                           ${dto.writer_id}</button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                           <button class="dropdown-item" type="button" id="sendMessage">족지쓰기</button>
-                           <button class="dropdown-item" type="button">게시물 보기</button>
-                        </div>
-                     </span>
-
-
-                  </c:when>
-                  <c:when test="${ loginSession.id == dto.writer_id }">
-                     <label>작성자 : </label>
-                     <a href="${pageContext.request.contextPath}/member/toMyPage.do"
-                        style="color: black;">${dto.writer_id}</a>
-                  </c:when>
-               </c:choose>
-               <c:if test="${ loginSession.id != dto.writer_id }">
-                  <a class="text-dark follow" style="text-decoration-line: none;">
-                     <img src="/resources/images/followPlusWhite.svg" id="follow">
-                  </a>
-               </c:if>
-            </div>
-            <div class="col-4">
-               <label>작성일 : </label> ${dto.written_date}
-            </div>
-            <div class="col-2">
-               <label>조회 : </label> ${dto.view_count}
-            </div>
-         </div>
-
-         <!-- 게시글 내용 -->
-         <div class="row mt-3" id="summernoteBox">
-            <div class="col-12 d-flex justify-content-center">
-               <!-- <div class="click2edit" id="showBox">${dto.content}</div> -->
-
-               <div id="summernote">${dto.content}</div>
-               <textarea id="hiddenSummernote" name="content" hidden>${dto.content}</textarea>
-               <input id="sys_name" name="sys_name" hidden>
-            </div>
-         </div>
-
-      </form>
+			<div class="row d-flex justify-content-center" id="titleBox">
+				<div class="col-2">
+					<label>${dto.category}</label>
+				</div>
+				<div class="col-4">
+					<c:choose>
+						<c:when test="${ loginSession.id != dto.writer_id }">
+							<label>작성자 : </label>
+							<span class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
+									${dto.writer_id}</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+									<button class="dropdown-item" type="button" id="sendMessage">족지쓰기</button>
+									<button class="dropdown-item" type="button">게시물 보기</button>
+								</div>
+							</span>
 
 
-      <!-- 좋아요 영역 -->
-      <div class="row-12 mt-3">
-         <div class="col-12 d-flex justify-content-end">
-            <a class="text-dark likes" style="text-decoration-line: none;">
-               <img src="/resources/images/heartWhite.svg" id="likes">
-            </a>
-         </div>
-      </div>
+						</c:when>
+						<c:when test="${ loginSession.id == dto.writer_id }">
+							<label>작성자 : </label>
+							<a href="${pageContext.request.contextPath}/member/toMyPage.do"
+								style="color: black;">${dto.writer_id}</a>
+						</c:when>
+					</c:choose>
+					<c:if test="${ loginSession.id != dto.writer_id }">
+						<a class="text-dark follow" style="text-decoration-line: none;">
+							<img src="/resources/images/followPlusWhite.svg" id="follow">
+						</a>
+					</c:if>
+				</div>
+				<div class="col-4">
+					<label>작성일 : </label> ${dto.written_date}
+				</div>
+				<div class="col-2">
+					<label>조회 : </label> ${dto.view_count}
+				</div>
+			</div>
 
-      <!-- ==================== 댓글 영역 ==================== -->
-      <!-- 댓글 헤더 -->
-      <div class="row mt-5" id="replyHeader">
-         <div class="col-12">
-            <img src="/resources/images/replyIconWhite(...).svg" id="replyIcon">
-            <label>댓글</label>
-         </div>
-      </div>
+			<!-- 게시글 내용 -->
+			<div class="row mt-3" id="summernoteBox">
+				<div class="col-12 d-flex justify-content-center">
+					<!-- <div class="click2edit" id="showBox">${dto.content}</div> -->
 
-      <!-- 댓글 출력 -->
-      <div id="replyContainer"></div>
+					<div id="summernote">${dto.content}</div>
+					<textarea id="hiddenSummernote" name="content" hidden>${dto.content}</textarea>
+					<input id="sys_name" name="sys_name" hidden>
+				</div>
+			</div>
+
+		</form>
 
 
-      <!-- 댓글 입력 -->
-      <form id="replyForm" method="post">
-         <div class="row">
-            <div class="col-12 mt-2">
-               <textarea id="reply_content" name="re_content" class="form-control"
-                  placeholder="댓글을 입력 해주세요"></textarea>
-               <input type="text" id="reply_writer_id" name="reply_writer_id"
-                  value="${loginSession.id}" hidden> <input type="text"
-                  id="reply_writer_nickname" name="reply_writer_nickname"
-                  value="${loginSession.nickname}" hidden>
-            </div>
-            <div class="col-12 mt-2 d-flex justify-content-end">
-               <button type="button" id="btnReplyConfirm" class="btn">등록</button>
-            </div>
-         </div>
-      </form>
+		<!-- 좋아요 영역 -->
+		<div class="row-12 mt-3">
+			<div class="col-12 d-flex justify-content-end">
+				<a class="text-dark likes" style="text-decoration-line: none;">
+					<img src="/resources/images/heartWhite.svg" id="likes">
+				</a>
+			</div>
+		</div>
 
-      <!-- 댓글 페이징 -->
-      <div class="row">
-         <div class="col-12 d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-               <ul class="pagination">
-                  <c:if test="${naviMap.get('needPrev') eq true}">
-                     <li class="page-item"><a class="page-link"
-                        href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('startNavi')-1}&board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}">이전</a></li>
-                  </c:if>
-                  <c:forEach var="i" begin="${naviMap.get('startNavi')}"
-                     end="${naviMap.get('endNavi')}">
-                     <li class="page-item"><a class="page-link"
-                        href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${i}&re_board_seq=${dto.board_seq}&board_seq=${dto.board_seq}">${i}</a></li>
-                  </c:forEach>
-                  <c:if test="${naviMap.get('needNext') eq true}">
-                     <li class="page-item"><a class="page-link"
-                        href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('endNavi')+1}&board_seq=${dto.board_seq}&&re_board_seq=${dto.board_seq}">다음</a></li>
-                  </c:if>
-               </ul>
-            </nav>
-         </div>
-      </div>
+		<!-- ==================== 댓글 영역 ==================== -->
+		<!-- 댓글 헤더 -->
+		<div class="row mt-5" id="replyHeader">
+			<div class="col-12">
+				<img src="/resources/images/replyIconWhite(...).svg" id="replyIcon">
+				<label>댓글</label>
+			</div>
+		</div>
 
-      <!-- 수정, 삭제, 목록으로 버튼 -->
-      <div class="row mt-5">
-         <div class="col-2 d-flex justify-content-start">
-            <button type="button" id="btnGetList" class="btn">목록으로</button>
-         </div>
-         <c:if test="${ loginSession.id == dto.writer_id }">
-            <div class="col-8 d-flex justify-content-end">
-               <button type="button" id="btnModify" class="btn" onclick="modifySummernote()">글수정</button>
-               <button type="button" id="btnModifyConfirm" class="btn"
-                  onclick="save()" style="display: none;">완료</button>
-            </div>
-            <div class="col-2 d-flex justify-content-end">
-               <button type="button" id="btnDelete" class="btn">글삭제</button>
-               <button type="button" id="btnModifyCancel" class="btn"
-                  onclick="cancel()" style="display: none;">취소</button>
-            </div>
-         </c:if>
-      </div>
-   </div>
+		<!-- 댓글 출력 -->
+		<div id="replyContainer"></div>
 
-   <!--푸터 css에는 foot으로 표기-->
-   <div id="footer" class="mt-5"></div>
-   
-   <!-- 쪽지 알림 -->
+
+		<!-- 댓글 입력 -->
+		<form id="replyForm" method="post">
+			<div class="row">
+				<div class="col-12 mt-2">
+					<textarea id="reply_content" name="re_content" class="form-control"
+						placeholder="댓글을 입력 해주세요"></textarea>
+					<input type="text" id="reply_writer_id" name="reply_writer_id"
+						value="${loginSession.id}" hidden> <input type="text"
+						id="reply_writer_nickname" name="reply_writer_nickname"
+						value="${loginSession.nickname}" hidden>
+				</div>
+				<div class="col-12 mt-2 d-flex justify-content-end">
+					<button type="button" id="btnReplyConfirm" class="btn">등록</button>
+				</div>
+			</div>
+		</form>
+
+		<!-- 댓글 페이징 -->
+		<div class="row">
+			<div class="col-12 d-flex justify-content-center">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<c:if test="${naviMap.get('needPrev') eq true}">
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('startNavi')-1}&board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}">이전</a></li>
+						</c:if>
+						<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+							end="${naviMap.get('endNavi')}">
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${i}&re_board_seq=${dto.board_seq}&board_seq=${dto.board_seq}">${i}</a></li>
+						</c:forEach>
+						<c:if test="${naviMap.get('needNext') eq true}">
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.contextPath}/board/detailView.do?currentPage=${naviMap.get('endNavi')+1}&board_seq=${dto.board_seq}&&re_board_seq=${dto.board_seq}">다음</a></li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- 수정, 삭제, 목록으로 버튼 -->
+		<div class="row mt-5">
+			<div class="col-2 d-flex justify-content-start">
+				<button type="button" id="btnGetList" class="btn">목록으로</button>
+			</div>
+			<c:if test="${ loginSession.id == dto.writer_id }">
+				<div class="col-8 d-flex justify-content-end">
+					<button type="button" id="btnModify" class="btn"
+						onclick="modifySummernote()">글수정</button>
+					<button type="button" id="btnModifyConfirm" class="btn"
+						onclick="save()" style="display: none;">완료</button>
+				</div>
+				<div class="col-2 d-flex justify-content-end">
+					<button type="button" id="btnDelete" class="btn">글삭제</button>
+					<button type="button" id="btnModifyCancel" class="btn"
+						onclick="cancel()" style="display: none;">취소</button>
+				</div>
+			</c:if>
+		</div>
+	</div>
+
+	<!--푸터 css에는 foot으로 표기-->
+	<div id="footer" class="mt-5"></div>
+
+	<!-- 쪽지 알림 -->
 	<div id="messageNotice"></div>
 
-   <script>
-   /* 섬머노트
-   // 게시글 신고
-   $("#report").on("click", function(){
-      let report = confirm("정말 신고하겠습니까?");
-      if(report){
-         let popupX = (document.body.offsetWidth / 2) - (500 / 2);
-         let popupY= (window.screen.height / 2) - (500 / 2);
-         
-         let url = "${pageContext.request.contextPath}/board/toReport.do?report_writer_id=${loginSession.id}&reported_person=${dto.writer_id}"
-         let name = "신고";
-         let option = "width=500, height=500, top=popupY, left=popupX";
-         window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
-      }
-   })
-   
-   // 섬머노트
-    $(document).ready(function () {
-         console.log("summernote option : ", $.summernote.options);
-         // 실행시 언어 설정을 한글로 설정 
-         $.summernote.options.lang = 'ko-KR';
-         $.summernote.options.airMode = false;
-    });
-   */
-   
+	<script>
    var a = $('#summernote');
    
      // 수정버튼
@@ -381,6 +361,45 @@ label {
          a.summernote('destroy');
         location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1";
      }
+	
+	//썸머노트 이미지 업로드
+	function modifySummernote() {
+		 $('#summernote').summernote({
+			 	width: 800, 
+				minHeight: 500,	// 최소높이
+				maxHeight: null,	// 최대 높이
+				focus: true,	// 에디터 로딩후 포커스
+				lang: "ko-KR",
+				callbacks: {
+					onImageUpload : function(files, editor, welEditable){
+						for(let file of files){
+							console.log(file);
+							sendFile(file,this);
+							console.log("sendFile 함수로 이동");
+					}
+				}
+			} 
+		});
+	}
+	
+	
+	  // 썸머노트 이미지 업로드
+		function sendFile(file){
+			var data = new FormData();
+			data.append("file", file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
+				contentType : false,
+				processData : false
+			}).done(function(data){
+				// 경로갑 출력
+				$("#summernote").summernote("insertImage", data.path);
+			}).fail(function(e){
+				console.log(e);
+			});				
+		}
    
    //썸머노트 이미지 업로드
    function modifySummernote() {
@@ -401,7 +420,6 @@ label {
          } 
       });
    }
-   
    
      // 썸머노트 이미지 업로드
       function sendFile(file){
@@ -470,7 +488,7 @@ label {
         }
 
    // 좋아요 버튼을 클릭 시 실행되는 코드
-        $(".likes").on("click", function () {
+       $(".likes").on("click", function () {
             let that = $(".likes");
        $.ajax({
           url :"${pageContext.request.contextPath}/likes/insertLikes",
@@ -484,7 +502,7 @@ label {
                        $("#likes").prop("src","/resources/images/heartWhite.svg");
               }
               }
-       });
+      	 });
         });
     });
    
@@ -769,6 +787,21 @@ label {
          + ", left=" + left + ", top=" + top;
       window.open(url, name, option);
    })
+   
+   // 신고 팝업창
+   // 게시글 신고
+      $("#report").on("click", function(){
+         let report = confirm("정말 신고하겠습니까?");
+         if(report){
+            let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+            let popupY= (window.screen.height / 2) - (500 / 2);
+            
+            let url = "${pageContext.request.contextPath}/board/toReport.do?writer_id=${dto.writer_id}"
+            let name = "신고";
+            let option = "width=500, height=500, top=popupY, left=popupX";
+            window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
+         }
+      })
    </script>
 
 </body>

@@ -50,6 +50,10 @@ a:hover {
    text-decoration: none;
 }
 
+a:hover {
+	text-decoration: none;
+}
+
 /* 전체 컨테이너 */
 .wrapper {
    height: 100%;
@@ -206,6 +210,91 @@ label {
 
    <div id="footer" class="mt-5"></div>
 </div>
+<<<<<<< HEAD
+	<script>
+	// 썸머노트 이미지 업로드
+	 $('#summernote').summernote({
+		width : 800,
+		minHeight: 500,
+		maxHeight: null,
+		resize: true,
+		focus: true,
+		lang: "ko-KR",
+		callbacks: {
+			onImageUpload : function(files, editor, welEditable){
+				for(let file of files){
+					console.log(file);
+					sendFile(file,this);
+					console.log("sendFile 함수로 이동");
+				}
+			}
+		} 
+	});
+	
+	  // 썸머노트 이미지 업로드
+		function sendFile(file){
+			var data = new FormData();
+			data.append("file", file);
+			$.ajax({
+				data : data,
+				type : "POST",
+				url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
+				contentType : false,
+				processData : false
+			}).done(function(data){
+				// 경로갑 출력
+				$("#summernote").summernote("insertImage", data.path);
+			}).fail(function(e){
+				console.log(e);
+			});				
+		}
+	  
+		// 체크박스 선택시 readonly 해제
+		$(function() {
+			$("#secret").change(function() {
+				let rs = this.checked;
+				if (rs) {
+					$("#secretPw").prop("readonly", false);
+					$("#secret").val("Y");
+					$("#secretPw").focus();
+				} else if (!rs){
+					$("#secret").val("N");
+					$("#secretPw").prop("readonly", true);
+					$("#secretPw").val("");
+				}
+			});
+		});
+		
+		// 게시글 등록 버튼 
+		$("#btnInsert").on(	"click",function() {
+			
+			console.log($("#secret").val());
+			if($("#secret").val() == "Y") {
+				console.log($("#secret").val());
+				if($("#secretPw").val() == "") {
+					alert("비밀번호를 입력 해주세요.");
+					$("#secretPw").focus();
+					return;
+				}
+			} else if ($("#title").val() == "") {
+				alert("제목을 입력 해주세요.");
+				$($("#title")).focus();
+				return;
+			} else if ($("#summernote").val() == "") {
+				alert("내용을 입력 해주세요.");
+				$("#summernote").focus();
+				return;
+			}
+			$("#insertForm").submit();
+		});
+		
+		
+		// 뒤로가기 버튼 클릭
+		$("#btnBack").on("click", function() {
+			location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
+		});
+	</script>
+=======
    <script>
    // 썸머노트 이미지 업로드
     $('#summernote').summernote({
@@ -289,6 +378,7 @@ label {
          location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
       });
    </script>
+>>>>>>> 5c1ee653368ae6d624938180c2823d6113dd4cad
 
 
 </body>
