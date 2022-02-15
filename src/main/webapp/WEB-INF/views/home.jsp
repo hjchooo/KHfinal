@@ -1005,17 +1005,9 @@ a {
 	
 	<!-- 쪽지 알림 -->
 	<div id="messageNotice"></div>
-	
-	<div>
-		<button type="button" id="managerBtn">관리자</button>
-	</div>
 
 	<script>
-         
-       document.getElementById("managerBtn").onclick = function(){
-         location.href="${pageContext.request.contextPath}/manager/main.do";
-      }
-       
+      // 뿌려주는 함수
       function makeElements(parentId, item, phone, url){
          let div = $("<div class='col-12'>");
          
@@ -1055,7 +1047,7 @@ a {
     		 divC.append(divC2);
     		 $("#carousel-leports").append(divC);
     		 
-    		 
+			 // 2번째 캐러셀  
     		 divC = $("<div class='carousel-item'>");
     		 divC2 = $("<div class='row best_margin_top_bottom_20'>");
     		 divC2.append("<div class='col-1'></div>");
@@ -1101,7 +1093,7 @@ a {
         	  data : {areaType : $("#areaType").val()}
           }).done(function(rs){
         	 console.log(rs);
-        	 $("#carousel-leports div").empty();
+        	 $("#carousel-leports").empty();
         	 let divC = $("<div class='carousel-item active'>");
      		 let divC2 = $("<div class='row best_margin_top_bottom_20'>");
      		 divC2.append("<div class='col-1'></div>");
@@ -1112,6 +1104,7 @@ a {
      		 divC.append(divC2);
      		 $("#carousel-leports").append(divC);
      		 
+     		 // 2번째 캐러셀
      		 divC = $("<div class='carousel-item'>");
      		 divC2 = $("<div class='row best_margin_top_bottom_20'>");
      		 divC2.append("<div class='col-1'></div>");

@@ -256,67 +256,24 @@ public class BoardController {
       return "etc/homeGuide";
    }
 
-   // 자유게시판 리스트 불러오기
-   @RequestMapping("/toSelectFreeBoard")
-   public String toSelectFreeBoard(String category, int currentPage, Model model) throws Exception {
-      // 국내여행 게시판 게시글 총 갯수
-      int recordTotalCnt = service.countFreeBoard(category);
-      // 국내여행 페이지네이션
-      HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
-      List<BoardDTO> list = service.selectFreeBoard(category, currentPage);
-
-      model.addAttribute("naviMap", naviMap);
-      model.addAttribute("list", list);
-      model.addAttribute("recordTotalCnt", recordTotalCnt);
-
-      return "board/freeBoard";
-   }
-
    // 국내여행으로 리스트 불러오기
-   @RequestMapping("/toSelectDomestic")
+   @RequestMapping("/toSelectCondition.do")
    public String toSelectDomestic(String category, int currentPage, Model model) throws Exception {
+	  System.out.println("catefory : " + category);
+	  System.out.println("currentPage : " + currentPage);
       // 국내여행 게시판 게시글 총 갯수
-      int recordTotalCnt = service.countDomestic(category);
+      int recordTotalCnt = service.countCondition(category);
+      System.out.println("recordTotalCnt : " + recordTotalCnt);
       // 국내여행 페이지네이션
       HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
-      List<BoardDTO> list = service.selectDomestic(category, currentPage);
-
+      List<BoardDTO> list = service.selectCondition(category, currentPage);
+      String option = "condition";
+      model.addAttribute("category", category);
+      model.addAttribute("option", option);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);
       model.addAttribute("recordTotalCnt", recordTotalCnt);
-
-      return "board/freeBoard";
-   }
-
-   // 축제정보로 리스트 불러오기
-   @RequestMapping("/toSelectFestival")
-   public String toSelectFestival(String category, int currentPage, Model model) throws Exception {
-      // 국내여행 게시판 게시글 총 갯수
-      int recordTotalCnt = service.countFestival(category);
-      // 국내여행 페이지네이션
-      HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
-      List<BoardDTO> list = service.selectFestival(category, currentPage);
-
-      model.addAttribute("naviMap", naviMap);
-      model.addAttribute("list", list);
-      model.addAttribute("recordTotalCnt", recordTotalCnt);
-
-      return "board/freeBoard";
-   }
-
-   // 레포츠로 리스트 불러오기
-   @RequestMapping("/toSelectReports")
-   public String toSelectReports(String category, int currentPage, Model model) throws Exception {
-      // 국내여행 게시판 게시글 총 갯수
-      int recordTotalCnt = service.countReports(category);
-      // 국내여행 페이지네이션
-      HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
-      List<BoardDTO> list = service.selectReports(category, currentPage);
-
-      model.addAttribute("naviMap", naviMap);
-      model.addAttribute("list", list);
-      model.addAttribute("recordTotalCnt", recordTotalCnt);
-
+      
       return "board/freeBoard";
    }
    

@@ -270,18 +270,6 @@ a {
 			console.log("커넥션 오픈");
 		};
 
-		// 메세지 수신(알림)
-		/*ws.onmessage = function(e) {
-			console.log("ReceiveMessage", e.data + '\n');
-			let socketAlert = $("#socketAlert");
-			socketAlert.html(e.data);
-			socketAlert.css('display', 'block');
-			
-			setTimeout(function() {
-				socketAlert.css('display', 'none');
-			}, 3000); 
-		}*/
-
 		// 메세지 수신
 		ws.onmessage = function(e) {
 			e.preventDefault();
@@ -292,8 +280,6 @@ a {
 
 			// 변수 선언
 			let socketAlert = $("#socketAlert");
-
-			//socketAlert.append(msgObj.loginId + " : " + msgObj.message + " : " + msgObj.board_writer);
 
 			// ReplyEndpoint 에서 받은 obj.addProperty 값을 seocketAlert에 출력
 			socketAlert.html(e.data);
@@ -316,50 +302,10 @@ a {
 			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
-		
-		/*
-		$("#btnSend").on("click", function(e) {
-			e.preventDefault();
-			if (socket.readyState !== 1)
-				return;
-			let msg = $("input#msg").val();
-			socket.send(msg);
-		});
-		
-		connect();
-		*/ 
-<<<<<<< HEAD
-
-
-	<!-- 쪽지 알람 -->
-	document.getElementById("managerBtn").onclick = function(){
-		location.href="${pageContext.request.contextPath}/manager/main.do";
-	}
-
-		let loginId = "${loginSession.id}";
-		if (loginId != "") {setInterval(function() {
-			$.ajax({
-				url : "${pageContext.request.contextPath}/note/noteCount.do?to_id="
-						+ loginId
-					}).done(function(data) {
-						if (data == "plus") {
-							alert("쪽지 알림");
-						} else {
-							console.log("조회됨.");
-						}
-					}).fail(function(e) {
-						console.log(e);
-					});
-				}, 3000);
-		}
-		
-		
-=======
 	</script>
 
 	<!-- Channel Plugin Scripts -->
 	<script>
->>>>>>> 20c33b842dbe2acfb50b3033af07457f2414f5d6
   (function() {
     var w = window;
     if (w.ChannelIO) {

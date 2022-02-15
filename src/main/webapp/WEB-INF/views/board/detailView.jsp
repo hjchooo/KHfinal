@@ -773,7 +773,7 @@ label {
       $("#modifyForm").submit();
    })
    
-   // 족지 보내기
+   // 쪽지 보내기
    $("#sendMessage").on("click", function(){
       let writer_id = "${dto.writer_id}";
       let width = '500';

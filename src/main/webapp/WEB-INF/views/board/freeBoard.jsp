@@ -326,16 +326,16 @@ a:hover {
 						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">전체게시판</a>
 				</div>
 				<div class="col-2 board_category">
-					<a onclick="toSelectFreeBoard();">자유게시판</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=자유게시판&currentPage=1">자유게시판</a>
 				</div>
 				<div class="col-2 board_category">
-					<a onclick="toSelectDomestic();">국내여행</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=국내여행&currentPage=1">국내여행</a>
 				</div>
 				<div class="col-2 board_category">
-					<a onclick="toSelectFestival();">축제정보</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=축제정보&currentPage=1">축제정보</a>
 				</div>
 				<div class="col-2 board_category">
-					<a onclick="toSelectReports();">레포츠</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=레포츠&currentPage=1">레포츠</a>
 				</div>
 				<div class="col-1 "></div>
 			</div>
@@ -482,6 +482,29 @@ a:hover {
 								<c:if test="${naviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
 										href="${pageContext.request.contextPath}/board/searchProc.do?select=${select}&keyword=${keyword}&currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</div>
+					</c:if>
+					
+					<c:if test="${option eq 'condition'}">
+					<div class="row mt-5 mb-5">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${naviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/toSelectCondition.do?category=${category}&currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+								</c:if>
+								<!--startNavi, endNavi  -->
+								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
+									end="${naviMap.get('endNavi')}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/toSelectCondition.do?category=${category}&currentPage=${i}">${i}</a></li>
+								</c:forEach>
+								<c:if test="${naviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/board/toSelectCondition.do?category=${category}&currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>

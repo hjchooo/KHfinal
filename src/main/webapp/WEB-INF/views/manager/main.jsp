@@ -686,7 +686,7 @@ a {
             alert("지역코드를 입력해주세요.");
             $("#areaCode2").focus();
             return
-         }else if(!regexAreaCode.test($("#areaCode2").val())){
+         }else if(!regexAreaCode2.test($("#areaCode2").val())){
             alert("지역코드 양식을 확인하세요.");
             $("#areaCode2").val("");
             $("#areaCode2").focus();
@@ -695,7 +695,7 @@ a {
             alert("저장할 데이터 수를 입력하세요.");
             $("#numOfRows2").focus();
             return
-         }else if(!regexNumOfRows.test($("#numOfRows2").val())){
+         }else if(!regexNumOfRows2.test($("#numOfRows2").val())){
             alert("숫자만 입력해주세요.");
             $("#numOfRows2").val("");
             $("#numOfRows2").focus();
@@ -706,7 +706,7 @@ a {
             $("#numOfRows2").focus();
             return
          }
-          location.href = "${pageContext.request.contextPath}/publicdata/saveFestival.do?numOfRows="+numOfRows+"&areaCode="+areaCode;
+          location.href = "${pageContext.request.contextPath}/publicdata/saveFestival.do?numOfRows2="+numOfRows2+"&areaCode2="+areaCode2;
       })
       
       // 축제 삭제 버튼
