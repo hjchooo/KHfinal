@@ -31,9 +31,6 @@ public class ReplyService {
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
 		List<ReplyDTO> list = dao.selectAll(re_board_seq, startRange, endRange);
-		for (ReplyDTO dto : list) {
-			System.out.println(dto.toString());
-		}
 		return list;
 	}
 

@@ -47,7 +47,6 @@ public class BoardDAO {
 
    // 게시글 조회수 +1
    public int updateView_count(int board_seq) throws Exception {
-      System.out.println("조회수 +1");
       return session.update("boardMapper.updateView_count", board_seq);
    }
 
@@ -61,7 +60,6 @@ public class BoardDAO {
 
    // 게시판 검색
    public List<BoardDTO> searchBoard(String select, String keywrod, int startRange, int endRange) throws Exception {
-      System.out.println("게시판 검색");
       HashMap<String, Object> map = new HashMap<>();
       map.put("select", select);
       map.put("keyword", keywrod);
@@ -87,7 +85,6 @@ public class BoardDAO {
 
    // 게시글 등록
    public int insertBoard(BoardDTO dto) throws Exception {
-      System.out.println("게시글 등록 DAO");
       return session.insert("boardMapper.insertBoard", dto);
    }
 
@@ -119,48 +116,15 @@ public class BoardDAO {
       return session.selectOne("boardMapper.secretBoard", map);
    }
 
-   // 자유게시판 리스트 불러오기
-   public List<BoardDTO> selectFreeBoard(String category, int startRange, int endRange) throws Exception {
+   // 조건으로 리스트 불러오기
+   public List<BoardDTO> selectCondition(String category, int startRange, int endRange) throws Exception {
       Map<String, Object> map = getCategory(category, startRange, endRange);
-      return session.selectList("boardMapper.selectFreeBoard", map);
+      return session.selectList("boardMapper.selectCondition", map);
    }
 
-   // 자유게시판 게시글 갯수
-   public int countFreeBoard(String category) throws Exception {
-      return session.selectOne("boardMapper.countFreeBoard", category);
-   }
-
-   // 국내여행으로 리스트 불러오기
-   public List<BoardDTO> selectDomestic(String category, int startRange, int endRange) throws Exception {
-      Map<String, Object> map = getCategory(category, startRange, endRange);
-      return session.selectList("boardMapper.selectDomestic", map);
-   }
-
-   // 국내여행 게시글 갯수
-   public int countDomestic(String category) throws Exception {
-      return session.selectOne("boardMapper.countDomestic", category);
-   }
-
-   // 축제정보로 리스트 불러오기
-   public List<BoardDTO> selectFestival(String category, int startRange, int endRange) throws Exception {
-      Map<String, Object> map = getCategory(category, startRange, endRange);
-      return session.selectList("boardMapper.selectFestival", map);
-   }
-
-   // 축제정보 게시글 갯수
-   public int countFestival(String category) throws Exception {
-      return session.selectOne("boardMapper.countFestival", category);
-   }
-
-   // 레포츠로 리스트 불러오기
-   public List<BoardDTO> selectReports(String category, int startRange, int endRange) throws Exception {
-      Map<String, Object> map = getCategory(category, startRange, endRange);
-      return session.selectList("boardMapper.selectReports", map);
-   }
-
-   // 레포츠 게시글 갯수
-   public int countReports(String category) throws Exception {
-      return session.selectOne("boardMapper.countReports", category);
+   // 조건 게시글 갯수
+   public int countCondition(String category) throws Exception {
+      return session.selectOne("boardMapper.countCondition", category);
    }
 
    // 중복 코드 메서드화
@@ -171,23 +135,24 @@ public class BoardDAO {
       map.put("endRange", endRange);
       return map;
    }
-   
+
    // 당일 게시글 조회
-      public List<BoardDTO> dayBoard() throws Exception {
-         return session.selectList("boardMapper.dayBoard");
-      }
-      
-      // 마이페이지 게시판 조회
-         public List<BoardDTO> myBoardList(String writer_id, int startRange, int endRange) throws Exception {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("writer_id", writer_id);
-            map.put("startRange", startRange);
-            map.put("endRange", endRange);
-            return session.selectList("boardMapper.myBoardList", map);
-         }
-         
-         // 마이페이지 게시글 갯수
-         public int countMyBoardList(String writer_id) throws Exception {
-            return session.selectOne("boardMapper.countMyBoardList", writer_id);
-         }
+   public List<BoardDTO> dayBoard() throws Exception {
+      return session.selectList("boardMapper.dayBoard");
+   }
+
+   // 마이페이지 게시판 조회
+   public List<BoardDTO> myBoardList(String writer_id, int startRange, int endRange) throws Exception {
+      HashMap<String, Object> map = new HashMap<>();
+      map.put("writer_id", writer_id);
+      map.put("startRange", startRange);
+      map.put("endRange", endRange);
+      return session.selectList("boardMapper.myBoardList", map);
+   }
+
+   // 마이페이지 게시글 갯수
+   public int countMyBoardList(String writer_id) throws Exception {
+      return session.selectOne("boardMapper.countMyBoardList", writer_id);
+   }
+   
 }

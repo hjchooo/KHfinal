@@ -83,12 +83,25 @@ public class DataDAO {
 			System.out.println(dto);
 		}
 		return list;
-//		return session.selectList("dataMapper.selectAllFestival", map);
 	}
 	
 	// 축제 상세보기
 	public FestivalDTO selectOneFestival(String contentid) throws Exception{
 		return session.selectOne("dataMapper.selectOneFestival", contentid);
+	}
+	
+	// 축제 리스트(지역별로)
+	public List<FestivalDTO> selectAllFestivalArea(String addr1, int startRange, int endRange) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("addr1", addr1);
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("dataMapper.selectAllFestivalArea", map);
+	}
+	
+	// 축제 리스트 (지역별로) 데이터 수 가져오기
+	public int countAllFestivalArea(String addr1) throws Exception{
+		return session.selectOne("dataMapper.countAllFestivalArea", addr1);
 	}
 	
 	// 축제 리스트 인기순
@@ -97,6 +110,15 @@ public class DataDAO {
 		map.put("startRange", startRange);
 		map.put("endRange", endRange);
 		return session.selectList("dataMapper.readcountFestivalList", map);
+	}
+	
+	// 축제 리스트(지역별로) 인기순
+	public List<FestivalDTO> readcountAreaFestivalList(String addr1, int startRange, int endRange) throws Exception{
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("addr1", addr1);
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("dataMapper.readcountAreaFestivalList", map);
 	}
 	
 	// 레포츠 리스트 가져오기

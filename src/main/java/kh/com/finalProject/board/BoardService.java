@@ -1,8 +1,10 @@
 package kh.com.finalProject.board;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +30,6 @@ public class BoardService {
    private HttpSession session;
 
    public BoardService() {
-      System.out.println("BoardService 인스턴스 생성");
    }
 
    private int recordCntPerPage = 10;
@@ -52,7 +53,6 @@ public class BoardService {
 
    // 게시판 조건별로 가져오기
    public List<BoardDTO> selectAllOption(String selectOption, int currentPage) throws Exception {
-      System.out.println("게시판 조건별로 가져오기");
       int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
       int endRange = currentPage * recordCntPerPage;
       List<BoardDTO> list = dao.selectAllOption(selectOption, startRange, endRange);
@@ -95,11 +95,6 @@ public class BoardService {
       if (endNavi == pageTotalCnt)
          needNext = false;
 
-      System.out.println("startNavi : " + startNavi);
-      System.out.println("endNavi : " + endNavi);
-      System.out.println("needPrev : " + needPrev);
-      System.out.println("needNext : " + needNext);
-
       HashMap<String, Object> map = new HashMap<>();
       map.put("startNavi", startNavi);
       map.put("endNavi", endNavi);
@@ -117,7 +112,6 @@ public class BoardService {
 
    // 게시판 검색
    public List<BoardDTO> searchBoard(String select, String keyword, int currentPage) throws Exception {
-      System.out.println("게시판 검색");
       int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
       int endRange = currentPage * recordCntPerPage;
       List<BoardDTO> list = dao.searchBoard(select, keyword, startRange, endRange);
@@ -136,23 +130,15 @@ public class BoardService {
       // 게시글 등록
       dto.setBoard_seq(board_seq); // 게시글에 게시글 번호 셋팅
       int rs = dao.insertBoard(dto);
-      System.out.println("dto.getTitle : " + dto.getTitle());
 
       // 파일 등록
       ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
 
       if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
-         System.out.println("fileList 길이 : " + fileList.size());
          for (JsonObject obj : fileList) {
             fdto.setBoard_seq(board_seq);
-            System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
-
             fdto.setOri_name(obj.get("ori_name").getAsString());
-            System.out.println("fdto.setOri_name : " + fdto.getOri_name());
-
             fdto.setSys_name(obj.get("sys_name").getAsString());
-            System.out.println("fdto.setSys_name : " + fdto.getSys_name());
-
             fdao.insertFile(fdto);
          }
       }
@@ -177,68 +163,112 @@ public class BoardService {
    }
 
    // 게시글 수정
-   public int modifyBySeq(int board_seq, BoardDTO dto, FileDTO fdto) throws Exception {
+   public int modifyBySeq(int board_seq, BoardDTO dto, FileDTO fdto, String[] sys_name) throws Exception {
       // 파일 등록
-      System.out.println("boardService 게시글 수정 도착");
-      System.out.println("==boardService 게시글 수정==board_seq : " + board_seq);
-      System.out.println("==boardService 게시글 수정==boardDTO : " + dto);
-      System.out.println("==boardService 게시글 수정==FileDTO : " + fdto);
+//      System.out.println("boardService 게시글 수정 도착");
+//      System.out.println("==boardService 게시글 수정==board_seq : " + board_seq);
+//      System.out.println("==boardService 게시글 수정==boardDTO : " + dto);
+//      System.out.println("==boardService 게시글 수정==FileDTO : " + fdto);
 
+//      for(int i=0; i<sys_name.length; i++) {
+//         System.out.println("sys_name 배열 : " + sys_name[i]);
+//         
+//      }
+      String realPath = session.getServletContext().getRealPath("/upload");
       System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
-      dto.setBoard_seq(board_seq);
-      int rs = dao.modifyBySeq(dto);
+      // 게시글 수정
+      dao.modifyBySeq(dto);
 
-      System.out.println("BoardService 게시글 등록 도착");
-      System.out.println("게시글 수정(boardService) : " + board_seq);
+      // 추가 파일 등록
+      ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
+      if (fileList != null) {
+         for (JsonObject obj : fileList) {
+            fdto.setBoard_seq(board_seq);
+            fdto.setOri_name(obj.get("ori_name").getAsString());
+            fdto.setSys_name(obj.get("sys_name").getAsString());
+            fdao.insertFile(fdto);
+         }
+      }
+
+      // 현재 파일과 없는 파일 조회
+      for (int i = 0; i < sys_name.length; i++) {
+         System.out.println("보드서비스 sys_name 배열 : " + sys_name[i]);
+      }
+
+      // 파일 삭제
+      dto.setBoard_seq(board_seq);
+      List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
+      Map<String, Object> map = new HashMap<>();
+      map.put("notMatch", notMatch);
+      
+      System.out.println("map : " + map);
+      
+      System.out.println("map 안의 밸류 값 : " + map.get("notMatch").toString());
+      
+      if (sys_name.length != notMatch.size()) {
+         System.out.println("sys_name.length : " + sys_name.length);
+         System.out.println("notMatch.size : " + notMatch.size());
+//         for (int i = 0; i < notMatch.size(); i++) {
+//            System.out.println("안맞는 sys_name : " + notMatch.get(i).toString());
+//         }
+         
+         // DB에서 삭제
+         fdao.deleteFromSys_name(map);
+            
+         // upload 파일에서 삭제
+         System.out.println("upload경로 : " + realPath);
+         File file = new File(realPath, map.get("notMatch").toString());
+         file.delete();
+            
+            
+
+      }
+
+//      System.out.println("BoardService 게시글 등록 도착");
+//      System.out.println("게시글 수정(boardService) : " + board_seq);
 
       fdto.setBoard_seq(board_seq);
 
-      // 파일 등록
-      ArrayList<JsonObject> fileList = ((ArrayList<JsonObject>) session.getAttribute("fileList"));
-
-      // board_seq 로 ori_name 검색
-      List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
-
-      // board_seq 로 sys_name 검색
-      List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
-
-      System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
-      System.out.println("파일 번호 출력 : " + fdto.getFile_seq());
-      System.out.println("board_seq : " + fdto.getBoard_seq());
-      System.out.println("file_seq : " + fdto.getFile_seq());
-
-      // 파일이 null 이라면
-      if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
-         for (String mdOri : modifyOri_name) {
-            fdto.setOri_name(mdOri);
-            System.out.println("mdOri : " + mdOri);
-
-         }
-         for (String mdSys : modifySys_name) {
-            fdto.setOri_name(mdSys);
-            System.out.println("mdSys : " + mdSys);
-         }
-
-         for (int i = 0; i < modifyOri_name.size(); i++) {
-            fdao.modifyFile(fdto);
-
-         }
-
-      } else if (fdto.getOri_name() != null && fdto.getSys_name() != null) {
-         System.out.println("fileList 길이 : " + fileList.size());
-         for (JsonObject obj : fileList) {
-
-            fdto.setOri_name(obj.get("ori_name").getAsString());
-            System.out.println("fdto.setOri_name : " + fdto.getOri_name());
-
-            fdto.setSys_name(obj.get("sys_name").getAsString());
-            System.out.println("fdto.setSys_name : " + fdto.getSys_name());
-            fdao.modifyFile(fdto);
-         }
-      } else if (dto.getContent() == null) {
-         dto.setContent(dao.selectContent(board_seq));
-         System.out.println("dto.getContent : " + dto.getContent());
-      }
+//      // board_seq 로 ori_name 검색
+//      List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
+//
+//      // board_seq 로 sys_name 검색
+//      List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
+//
+//      System.out.println("board_seq : " + fdto.getBoard_seq());
+//
+//      // 파일이 null 이라면
+//      if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
+//         for (String mdOri : modifyOri_name) {
+//            fdto.setOri_name(mdOri);
+//            System.out.println("mdOri : " + mdOri);
+//
+//         }
+//         for (String mdSys : modifySys_name) {
+//            fdto.setOri_name(mdSys);
+//            System.out.println("mdSys : " + mdSys);
+//         }
+//
+//         for (int i = 0; i < modifyOri_name.size(); i++) {
+//            fdao.modifyFile(fdto);
+//
+//         }
+//
+//      } else if (fdto.getOri_name() != null && fdto.getSys_name() != null) {
+//         System.out.println("fileList 길이 : " + fileList.size());
+//         for (JsonObject obj : fileList) {
+//
+//            fdto.setOri_name(obj.get("ori_name").getAsString());
+//            System.out.println("fdto.setOri_name : " + fdto.getOri_name());
+//
+//            fdto.setSys_name(obj.get("sys_name").getAsString());
+//            System.out.println("fdto.setSys_name : " + fdto.getSys_name());
+//            fdao.modifyFile(fdto);
+//         }
+//      } else if (dto.getContent() == null) {
+//         dto.setContent(dao.selectContent(board_seq));
+//         System.out.println("dto.getContent : " + dto.getContent());
+//      }
       return 0;
    }
 
@@ -251,80 +281,37 @@ public class BoardService {
       }
    }
 
-   // 자류게시판 리스트 가져오기
-   public List<BoardDTO> selectFreeBoard(String category, int currentPage) throws Exception {
+   // 조건으로 리스트 가져오기
+   public List<BoardDTO> selectCondition(String category, int currentPage) throws Exception {
       int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
       int endRange = currentPage * recordCntPerPage;
-      // 자유게시판 전체 조회
-      List<BoardDTO> list = dao.selectFreeBoard(category, startRange, endRange);
+      List<BoardDTO> list = dao.selectCondition(category, startRange, endRange);
       return list;
    }
 
-   // 자유게시판 게시글 갯수
-   public int countFreeBoard(String category) throws Exception {
-      return dao.countFreeBoard(category);
+   // 조건 게시글 갯수
+   public int countCondition(String category) throws Exception {
+      return dao.countCondition(category);
    }
 
-   // 국내여행 리스트 가져오기
-   public List<BoardDTO> selectDomestic(String category, int currentPage) throws Exception {
-      int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-      int endRange = currentPage * recordCntPerPage;
-      // 국내여행 전체 조회
-      List<BoardDTO> list = dao.selectDomestic(category, startRange, endRange);
-      return list;
-   }
-
-   // 국내여행 게시글 갯수
-   public int countDomestic(String category) throws Exception {
-      return dao.countDomestic(category);
-   }
-
-   // 축제정보 리스트 가져오기
-   public List<BoardDTO> selectFestival(String category, int currentPage) throws Exception {
-      int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-      int endRange = currentPage * recordCntPerPage;
-      // 축제정보 전체 조회
-      List<BoardDTO> list = dao.selectFestival(category, startRange, endRange);
-      return list;
-   }
-
-   // 축제정보 게시글 갯수
-   public int countFestival(String category) throws Exception {
-      return dao.countFestival(category);
-   }
-
-   // 레포츠로 리스트 가져오기
-   public List<BoardDTO> selectReports(String category, int currentPage) throws Exception {
-      int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-      int endRange = currentPage * recordCntPerPage;
-      // 레포츠 전체 조회
-      List<BoardDTO> list = dao.selectReports(category, startRange, endRange);
-      return list;
-   }
-
-   // 레포츠 게시글 갯수
-   public int countReports(String category) throws Exception {
-      return dao.countReports(category);
-   }
-   
    // 당일 신규 게시글 조회
-      public List<BoardDTO> dayBoard() throws Exception {
-         return dao.dayBoard();
-      }
-      
-      // 마이페이지 게시글
-         public List<BoardDTO> myBoardList(String writer_id, int currentPage) throws Exception {
-            int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-            int endRange = currentPage * recordCntPerPage;
+   public List<BoardDTO> dayBoard() throws Exception {
+      return dao.dayBoard();
+   }
 
-            // 전체 게시판 조회
-            List<BoardDTO> list = dao.myBoardList(writer_id, startRange, endRange);
+   // 마이페이지 게시글
+   public List<BoardDTO> myBoardList(String writer_id, int currentPage) throws Exception {
+      int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+      int endRange = currentPage * recordCntPerPage;
 
-            return list;
-         }
+      // 전체 게시판 조회
+      List<BoardDTO> list = dao.myBoardList(writer_id, startRange, endRange);
 
-         // 마이페이지 게시글 갯수
-         public int countMyBoardList(String writer_id) throws Exception {
-            return dao.countMyBoardList(writer_id);
-         }
+      return list;
+   }
+
+   // 마이페이지 게시글 갯수
+   public int countMyBoardList(String writer_id) throws Exception {
+      return dao.countMyBoardList(writer_id);
+   }
 }

@@ -20,9 +20,10 @@
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
 <script>
-	$(document).ready(function() {
+	$(document).ready(function(){
 		$("#header").load("/resources/header/header.jsp");
 		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
 <title>Go 가자</title>
@@ -528,6 +529,9 @@ A:hover {
 		</div>
 
 		<div id="footer"></div>
+		
+		<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 </body>
 
 </html>

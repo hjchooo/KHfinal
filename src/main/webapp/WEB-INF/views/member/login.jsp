@@ -145,7 +145,7 @@ a:hover {
 						<label style="font-size: 11px; font-weight: bold;"> <img
 							src="/resources/images/question-circle.svg">
 							&nbsp;&nbsp;회원이 아니신가요?
-						</label>
+					</label>
 					</a>
 				</div>
 			</div>
@@ -153,6 +153,12 @@ a:hover {
 			<div class="row mb-5">
 				<div class="col-12 d-flex justify-content-start">
 					<button type="button" class="btn btn-primary w-100" id="btnJoinus">회원가입</button>
+				</div>
+
+				<!-- 네이버 아이디로 로그인 -->
+				<div id="naver_id_login" style="text-align: center">
+					<a href="${url}"> <img width="223"
+						src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
 				</div>
 			</div>
 
@@ -163,6 +169,7 @@ a:hover {
 
 	<script>
 		// 로그인
+
 		  function login() {
          let data = $("#loginForm").serialize();
          console.log(data);
@@ -175,7 +182,7 @@ a:hover {
             if (rs == "성공") {
                location.href = "${pageContext.request.contextPath}/";
             } else if (rs == "admin") {
-               location.href = "${pageContext.request.contextPath}/manager/main.do";
+               location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
             } else if (rs == "실패") {
                alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
             }
