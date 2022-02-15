@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
+import kh.com.finalProject.follow.FollowDTO;
+import kh.com.finalProject.follow.FollowService;
 import kh.com.finalProject.naver.NaverLoginBO;
 import kh.com.finalProject.utils.TemporaryPW;
 import kh.com.finalProject.visit.VisitService;
@@ -38,6 +40,9 @@ public class MemberController {
 
 	@Autowired
 	private VisitService vService;
+	
+	@Autowired
+	private FollowService fService;
 
 	@Autowired
 	private HttpSession session;
@@ -98,7 +103,11 @@ public class MemberController {
 	   @RequestMapping("/toMyPage.do")
 	   public String tomyPage(Model model, String id) throws Exception {
 	      MemberDTO dto = service.getMember(id);
-	      model.addAttribute("dto", dto);
+	      List<FollowDTO> list = fService.follower(id);
+			List<FollowDTO> list2 = fService.follow(id);
+			model.addAttribute("dto", dto);
+			model.addAttribute("fList", list);
+			model.addAttribute("f2List", list2);
 	      return "member/myPage";
 	   }
 

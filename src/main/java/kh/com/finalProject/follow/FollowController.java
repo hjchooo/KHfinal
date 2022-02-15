@@ -31,5 +31,19 @@ public class FollowController {
 		int rs = service.insertFollow(dto);
 		return rs;
 	}
+	
+	@RequestMapping("/plusFollow")
+	@ResponseBody
+	public int plusFollow(FollowDTO dto) throws Exception {
+		int rs = service.plusFollow(dto);
+		return rs;
+	}
+	
+	@RequestMapping("/deleteFollow")
+	@ResponseBody
+	public int deleteFollow(FollowDTO dto) throws Exception {
+		int rs = service.deleteFollow(dto);
+		return rs;
+	}
 
 }

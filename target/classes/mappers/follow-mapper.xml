@@ -36,5 +36,15 @@
 		where follow_id = #{follow_id}
 		and follower_id = #{follower_id}
 	</select>
+	
+	<!-- 나를 follow 한 사람들 -->
+	<select id="follower" resultType="FollowDTO">
+		select * from follow where follower_id = #{follower_id}
+	</select>
+	
+	<!-- 내가 팔로우 한 사람들 -->
+	<select id="follow" resultType="FollowDTO">
+		select * from follow where follow_id = #{follow_id}
+	</select>
 
 </mapper>

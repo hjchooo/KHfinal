@@ -1,5 +1,6 @@
 package kh.com.finalProject.follow;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,5 +35,13 @@ public class FollowDAO {
 	// 언팔로우
 	public int deleteFollow(FollowDTO dto) throws Exception {
 		return session.delete("followMapper.deleteFollow", dto);
+	}
+	
+	public List<FollowDTO> follower(String follower_id) throws Exception {
+		return session.selectList("followMapper.follower", follower_id);
+	}
+	
+	public List<FollowDTO> follow(String follow_id) throws Exception {
+		return session.selectList("followMapper.follow", follow_id);
 	}
 }
