@@ -10,48 +10,58 @@
 <head>
 <meta charset="UTF-8">
 <title>답장 페이지</title>
+<style>
+	/* 전체 컨테이너 */
+	.container {
+		width: 300px;
+		height: 400px;
+		margin: auto;
+	}
+</style>
 </head>
 <body>
-	<form id="noteForm" name="noteForm">
-		<div class="container">
-			<div>
-				<label>보내는 사람</label> <input type="text" id="from_id" name="from_id"
-					value="${map.from_id}" readonly>
+	<div class="container">
+		<form id="noteForm" name="noteForm">
+			<div class="container">
+				<div>
+					<label>보내는 사람</label> <input type="text" id="from_id"
+						name="from_id" value="${map.from_id}" readonly>
+				</div>
+				<div>
+					<label>받는 사람</label> <input type="text" id="to_id" name="to_id"
+						value="${map.to_id}" readonly>
+				</div>
+				<div>
+					<input type="text" id="content" name="content"
+						placeholder="내용을 입력하세요.">
+				</div>
+				<div>
+					<button type="button" id="submitBtn">답장</button>
+				</div>
 			</div>
-			<div>
-				<label>받는 사람</label> <input type="text" id="to_id" name="to_id"
-					value="${map.to_id}" readonly>
-			</div>
-			<div>
-				<input type="text" id="content" name="content"
-					placeholder="내용을 입력하세요.">
-			</div>
-			<div>
-				<button type="button" id="submitBtn">답장</button>
-			</div>
-		</div>
-	</form>
-
+		</form>
+	</div>
 
 	<script>
-	document.getElementById("submitBtn").onclick = function() {
-		let noteSubmit = $("#noteForm").serialize();
-		$.ajax({
-			url : "${pageContext.request.contextPath}/note/note.do"
-			,method : "post"
-			,data : noteSubmit
-		}).done(function(data){
-			if(data == "success"){
-				alert("쪽지가 전송되었습니다.");
-				window.close();	
-			}else{
-				alert("쪽지 전송에 실패하였습니다.");
-				window.close();	
-			}
-		}).fail(function(e){
-			console.log(e);
-		});
-	}
+		// 보내기 버튼 클릭시
+		document.getElementById("submitBtn").onclick = function() {
+			let noteSubmit = $("#noteForm").serialize();
+			$.ajax({
+				url : "${pageContext.request.contextPath}/note/note.do",
+				method : "post",
+				data : noteSubmit
+			}).done(function(data) {
+				if (data == "success") {
+					alert("쪽지가 전송되었습니다.");
+					window.close();
+				} else {
+					alert("쪽지 전송에 실패하였습니다.");
+					window.close();
+				}
+			}).fail(function(e) {
+				console.log(e);
+			});
+		}
 	</script>
 </body>
 </html>

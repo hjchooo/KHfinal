@@ -99,6 +99,7 @@
 	</form>
 	
 	<script>
+	// 신고버튼 클릭시
 	$("#reportBtn").on("click", function(){
 		if($("#report_type").val() == "a" && $("#report_content").val() == ""){
 			alert("신고 항목 선택 후 신고내용을 작성해주세요.");
@@ -114,6 +115,11 @@
 			alert("신고 완료");
 		}
 		/* self.close(); */
+	})
+	
+	// 취소버튼 클릭
+	$("#reportCancel").on("click", function(){
+		window.close();
 	})
 	</script>
 </body>

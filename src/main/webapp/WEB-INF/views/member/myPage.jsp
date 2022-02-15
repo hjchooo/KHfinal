@@ -402,7 +402,7 @@ ul {
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=200, height=300');return false;">쪽지
 									보내기</a></li>
 							<li class="ulList"><a class="btn-open-popup">follow</a></li>
 						</ul>
@@ -1098,7 +1098,6 @@ ul {
 			    	}
 			    });
 		    } else {
-		    	
 		    	$.ajax({
 			    	url :"${pageContext.request.contextPath}/follow/deleteFollow",
 			        type :"POST",
@@ -1112,7 +1111,6 @@ ul {
 			    	}
 			    });
 		    	}
-		    
 	});
 	
 	</script>
