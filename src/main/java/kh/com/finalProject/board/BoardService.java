@@ -165,17 +165,8 @@ public class BoardService {
 	// 게시글 수정
 	public int modifyBySeq(int board_seq, BoardDTO dto, FileDTO fdto, String[] sys_name) throws Exception {
 		// 파일 등록
-//      System.out.println("boardService 게시글 수정 도착");
-//      System.out.println("==boardService 게시글 수정==board_seq : " + board_seq);
-//      System.out.println("==boardService 게시글 수정==boardDTO : " + dto);
-//      System.out.println("==boardService 게시글 수정==FileDTO : " + fdto);
-
-//	   for(int i=0; i<sys_name.length; i++) {
-//		   System.out.println("sys_name 배열 : " + sys_name[i]);
-//		   
-//	   }
 		String realPath = session.getServletContext().getRealPath("/upload");
-		System.out.println("파일 게시글 번호 : " + fdto.getBoard_seq());
+
 		// 게시글 수정
 		dao.modifyBySeq(dto);
 
@@ -190,86 +181,17 @@ public class BoardService {
 			}
 		}
 
-		// 현재 파일과 없는 파일 조회
-		for (int i = 0; i < sys_name.length; i++) {
-			System.out.println("보드서비스 sys_name 배열 : " + sys_name[i]);
-		}
-
 		// 파일 삭제
 		dto.setBoard_seq(board_seq);
 		List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
-		System.out.println("map : " + notMatch.toString());
-
-		System.out.println("sys_name.length : " + sys_name.length);
-		System.out.println("notMatch.size : " + notMatch.size());
-//			for (int i = 0; i < notMatch.size(); i++) {
-//				System.out.println("안맞는 sys_name : " + notMatch.get(i).toString());
-//			}
 
 		// DB에서 삭제
-
 		fdao.deleteFromSys_name(notMatch);
-		for(int i=0; i<notMatch.size(); i++) {
+		for (int i = 0; i < notMatch.size(); i++) {
 			File file = new File(realPath, notMatch.get(i));
 			file.delete();
 		}
-		// upload 파일에서 삭제
-		System.out.println("upload경로 : " + realPath);
-//      for(int i=0; i<sys_name.length; i++) {
-//         System.out.println("sys_name 배열 : " + sys_name[i]);
-//         
-//      }
 
-		/*
-		 * // 현재 파일과 없는 파일 조회 for (int i = 0; i < sys_name.length; i++) {
-		 * System.out.println("보드서비스 sys_name 배열 : " + sys_name[i]); }
-		 */
-
-//      System.out.println("BoardService 게시글 등록 도착");
-//      System.out.println("게시글 수정(boardService) : " + board_seq);
-
-		fdto.setBoard_seq(board_seq);
-
-//      // board_seq 로 ori_name 검색
-//      List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
-//
-//      // board_seq 로 sys_name 검색
-//      List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
-//
-//      System.out.println("board_seq : " + fdto.getBoard_seq());
-//
-//      // 파일이 null 이라면
-//      if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
-//         for (String mdOri : modifyOri_name) {
-//            fdto.setOri_name(mdOri);
-//            System.out.println("mdOri : " + mdOri);
-//
-//         }
-//         for (String mdSys : modifySys_name) {
-//            fdto.setOri_name(mdSys);
-//            System.out.println("mdSys : " + mdSys);
-//         }
-//
-//         for (int i = 0; i < modifyOri_name.size(); i++) {
-//            fdao.modifyFile(fdto);
-//
-//         }
-//
-//      } else if (fdto.getOri_name() != null && fdto.getSys_name() != null) {
-//         System.out.println("fileList 길이 : " + fileList.size());
-//         for (JsonObject obj : fileList) {
-//
-//            fdto.setOri_name(obj.get("ori_name").getAsString());
-//            System.out.println("fdto.setOri_name : " + fdto.getOri_name());
-//
-//            fdto.setSys_name(obj.get("sys_name").getAsString());
-//            System.out.println("fdto.setSys_name : " + fdto.getSys_name());
-//            fdao.modifyFile(fdto);
-//         }
-//      } else if (dto.getContent() == null) {
-//         dto.setContent(dao.selectContent(board_seq));
-//         System.out.println("dto.getContent : " + dto.getContent());
-//      }
 		return 0;
 	}
 

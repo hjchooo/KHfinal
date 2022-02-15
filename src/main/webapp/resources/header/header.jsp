@@ -342,8 +342,6 @@ a {
 		
 		connect();
 		*/ 
-<<<<<<< HEAD
-
 
 	<!-- 쪽지 알람 -->
 	document.getElementById("managerBtn").onclick = function(){
@@ -368,12 +366,10 @@ a {
 		}
 		
 		
-=======
 	</script>
 
 <!-- Channel Plugin Scripts -->
 <script>
->>>>>>> 20c33b842dbe2acfb50b3033af07457f2414f5d6
   (function() {
     var w = window;
     if (w.ChannelIO) {

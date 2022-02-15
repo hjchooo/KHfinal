@@ -237,10 +237,8 @@ public class MemberController {
 	@ResponseBody()
 	public String ExistID(String id) throws Exception {
 		if (service.existID(id)) {
-
 			return "Exist";
 		} else {
-
 			return "Nope";
 		}
 	}
@@ -305,7 +303,6 @@ public class MemberController {
 
 		if (service.verifyID(id)) { // service의 메서드를 사용
 			// 결과값으로 "Available" return
-
 			return "Available";
 		} else {
 			return "Unavailable";

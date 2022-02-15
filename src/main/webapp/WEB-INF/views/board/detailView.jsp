@@ -662,12 +662,7 @@ label {
                // 댓글 작성 성공시
                if (rs == "성공") {
                      
-                  console.log("reply.js::socket", ws);
-                  
                   if (ws) { // socket이 연결이 되었다면
-                     console.log("socket if문 실행");
-                     console.log(ws);
-                     
                      let replyData = [loginId, board_writer, board_seq];
                      
                      //websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
@@ -681,9 +676,6 @@ label {
                      //+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
                      //       + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
                      
-                     console.debug("sssssssmsg>>", socketMsg);
-                     
-                     console.log(socketMsg);
                      
                      //socket에 send를 해준다
                      ws.send(socketMsg);
@@ -793,7 +785,7 @@ label {
       $("#report").on("click", function(){
          let report = confirm("정말 신고하겠습니까?");
          if(report){
-            let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+            let popupX = (document.body.offsetWidth / 2) - (450 / 2);
             let popupY= (window.screen.height / 2) - (500 / 2);
             
             let url = "${pageContext.request.contextPath}/board/toReport.do?writer_id=${dto.writer_id}"

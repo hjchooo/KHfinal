@@ -17,6 +17,13 @@
 	height: 450px;
 	width: 500px;
 	margin: auto;
+	margin-top: 10px;
+}
+
+/* 신고 이미지 */
+#reportImg {
+	width: 40px;
+	height: 40px;
 }
 
 #title {
@@ -34,24 +41,30 @@
 	resize: none;
 }
 
-#reportBtn {
-	text-align: center;
-	border: 1px solid red;
-	background-color: rgba(0, 0, 0, 0);
-	color: red;
-	padding: 5px;
-	width: 100%;
-	border-radius: 5px;
+/* 전체 버튼 */
+#reportCancel {
+	background-color: #f9f9f9;
+	color: gray
+}
+
+#reportCancel:hover {
+	background-color: gray;
+	color: white;
 }
 
 </style>
 </head>
 <body>
 	<form id="reportForm" action="${pageContext.request.contextPath}/board/report.do" method="post">
-		<div class="container report_container">
+		<div class="report_container">
 			<div class="row">
+				<div class="col-5 title d-flex justify-content-end">
+					<img id="reportImg" src="/resources/images/reportIcon.svg">
+				</div>
+				<div class="col-7 title d-flex justify-content-start pt-1">
+					<h3 id="title">신고하기</h3>
+				</div>	
 				<div class="col-12 title p-2">
-					<h2 id="title">신고하기</h2>
 					<input type="text" id="report_value" name="report_value" value="게시글" hidden>
 					<input type="text" id="reported_person" name="reported_person" value="${reported_person}" hidden>
 					<input type="text" id="report_writer_id" name="report_writer_id" value="${loginSession.id}" hidden>
@@ -59,7 +72,7 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<select id="report_type" name="report_type">
+					<select id="report_type" name="report_type" class="form-select">
 						<option value="a" selected>신고 항목을
 							선택해주세요</option>
 						<option value="도용">사진, 글 도용</option>
@@ -71,13 +84,16 @@
 			</div>
 			<div class="row">
 				<div class="col-12 p-2">
-					<textarea id="report_content" name="report_content"></textarea>
+					<textarea id="report_content" class="form-control" name="report_content"></textarea>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-12 d-flex justify-content-center">
-					<button type="button" id="reportBtn" class="btn btn-light">신고하기</button>
+				<div class="col-6 d-flex justify-content-center">
+					<button type="button" id="reportBtn" class="btn btn-danger">신고</button>
 				</div>
+                <div class="col-6 d-flex justify-content-center">
+                    <button type="button" id="reportCancel" class="btn">취소</button>                
+                </div>
 			</div>
 		</div>
 	</form>
