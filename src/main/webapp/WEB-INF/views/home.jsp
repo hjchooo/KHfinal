@@ -24,7 +24,7 @@
 		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
-<title>dsadsaGo 가자</title>
+<title>Go 가자</title>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')

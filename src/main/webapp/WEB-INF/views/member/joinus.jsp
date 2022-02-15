@@ -124,19 +124,6 @@ label {
 				</div>
 			</div>
 
-			<!-- 프로필 영역 -->
-			<!-- <div class="row mb-2" style="display: none;">
-				<div class="col d-flex justify-content-center">
-					<div id="profileImg"></div>
-				</div>
-			</div>
-			<input type="file" class="form-control" id="profileUpload"
-				name="file" accept="image/*">
-
-			프로필 이미지 경로를 담을 곳
-			<input type="text" class="form-control" id="input_profileImgUrl"
-				name="input_profileImgUrl" hidden="" required="required"> -->
-
 			<!-- 프로필 사진 -->
 			<div class="row mb-3">
 				<label>프로필 사진</label>
@@ -148,6 +135,7 @@ label {
 						onchange="setThumbnail(event);">
 				</div>
 			</div>
+			<!-- 프로필 영역 끝 -->
 
 			<!-- ID 영역 -->
 			<div class="row mb-2">
@@ -338,40 +326,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 	<script>
 	<!-- script area -->
-																	
-	<!-- 프로필 -->
-	/*__________Profile__________*/
-	/*
-	let imgPath = "";
-	
-	$("#profileImg").click(function(e) {
-		$("#profileUpload").click();
-	});
-	
-	$("#profileUpload").change(function(e) {
-		readImg(e.target);
-	});
-	
-	function readImg(input) {
-		if (input.files && input.files[0]) {
-			const reader = new FileReader();
-			reader.onload = function(e) {
-				$("#profileImg").css({
-					"background-image" : "url('" + e.target.result + "')"
-				});
-			}
-			
-			reader.readAsDataURL(input.files[0]);
-		}
-		
-		//	console.log(input.value);
-		imgPath = input.value;
-		console.log(imgPath);
-	}
-	*/
-	
-	
-	
+																			
 	<!-- 아이디 -->
 	/*__________ID__________*/
 		let id = document.getElementById("id");
@@ -414,7 +369,10 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 							"font-size" : "10px",
 							"color" : "green"
 						});
-						console.log(id.value);
+						//	console.log(id.value);
+						
+						id.readOnly = "true";	//	잠금
+						
 					} else if (res == "Unavailable") {
 						ResID.html("이미 사용중인 아이디입니다.");
 						ResID.css({
@@ -495,6 +453,9 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 					"color" : "green"
 				});
 				
+				pw.readOnly = "true";
+				PWconfirm.readOnly = "true";
+				
 			} else if (pw.value !== PWconfirm.value) {
 				ResPWconfirm.html("비밀번호가 일치하지 않습니다. <br> 다시 입력하세요.");
 				ResPWconfirm.css({
@@ -547,6 +508,8 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 							"font-size" : "10px",
 							"color" : "green"
 						});
+						
+						nickname.readOnly = "true";
 
 					} else if (res == "Unavailable") {
 						ResNickname.html("이미 사용중인 닉네임입니다.");
@@ -613,6 +576,8 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 						});
 						
 						$("#certification_area").fadeIn(1000);
+						
+						email.readOnly = "true";
 						
 						//btnCertificatecode.css("visibility", "visible");
 
@@ -755,7 +720,7 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
             alert("아이디를 입력해주세요.");
             
             return;
-         /* } else if (pw.value === "" || !regexPW()) {
+         } else if (pw.value === "" || !regexPW()) {
             alert("비밀번호를 입력해주세요.");
             
             return;
@@ -794,10 +759,9 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
          } else if (!email.readOnly) {
             alert("이메일 중복확인을 해주세요.");
             
-            return; */
+            return;
          } else {
             document.getElementById("Address").value = Postcode.value + " " + RoadAddress.value + " " + DetailAddress.value;
-            //   document.getElementById("input_profileImgUrl").value = imgPath.value;
             document.getElementById("JoinusForm").submit();
          }
       }
@@ -828,12 +792,6 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
                 );
             });
         });
-	
-	
-	
-	
-	
-	
 	
 	
 	</script>
