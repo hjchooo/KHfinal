@@ -1,6 +1,7 @@
 package kh.com.finalProject.member;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -8,6 +9,9 @@ import java.util.UUID;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,9 +19,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import kh.com.finalProject.naver.NaverLoginBO;
+import kh.com.finalProject.utils.TemporaryPW;
 import kh.com.finalProject.visit.VisitService;
 
 @Controller
@@ -43,9 +52,28 @@ public class MemberController {
 		System.out.println("MemberController 인스턴스 생성");
 	}
 
+	// -------------------- Naver Login 영역 --------------------
+	/* NaverLoginBO */
+	private NaverLoginBO naverLoginBO;
+	private String apiResult = null;
+
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+
 	// 로그인 페이지로 감
 	@RequestMapping("/toLogin.do")
-	public String toLogin() {
+	public String toLogin(Model model, HttpSession session) {
+
+		// 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBo클래스의 getAuthorizationUrl()메서드 호출
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+
+		System.out.println("네이버 : " + naverAuthUrl + "\n");
+		// return "member/login";
+
+		// 네이버
+		model.addAttribute("url", naverAuthUrl);
 
 		return "member/login";
 	}
@@ -59,9 +87,10 @@ public class MemberController {
 
 	// 로그아웃
 	@RequestMapping("/toLogout.do")
-	public String toLogout() {
-		session.removeAttribute("loginSession");
+	public String toLogout(HttpSession session) throws IOException {
+		// session.removeAttribute("loginSession");
 		System.out.println("로그아웃");
+		session.invalidate();
 		return "home";
 	}
 
@@ -82,11 +111,22 @@ public class MemberController {
 
 	// 비밀번호 찾기 (팝업창 띄움)
 	@RequestMapping("/tofindPW.do")
-	public String findPW() {
-
+	public String findPW(MemberDTO dto, String rawPW, String encodePW) throws Exception {
+		if (pwEncoder.matches(rawPW, encodePW)) {
+			if (dto.getUserType() == 2) {
+				session.setAttribute("loginSession", dto);
+				return "admin";
+			}
+			if (dto.getUserType() == 2) {
+				return "admin";
+			}
+			// 전체 방문자 수 +1
+			vService.visitInsert();
+		}
 		return "member/findPW";
 	}
 
+	// -------------------- Login페이지 영역 --------------------
 	// 로그인
 	@RequestMapping(value = "/toLogin", produces = "text/html;charset=UTF-8")
 	@ResponseBody
@@ -97,6 +137,8 @@ public class MemberController {
 
 		MemberDTO dto = service.getMember(id);
 
+		System.out.println("\n dto : " + dto);
+
 		if (dto.getId() != null) {
 			String rawPW = pw;
 			String encodePW = dto.getPw();
@@ -104,40 +146,59 @@ public class MemberController {
 			System.out.println("rawPW : " + rawPW + "\n" + "encodePW : " + encodePW);
 
 			if (pwEncoder.matches(rawPW, encodePW)) {
-				if(dto.getUserType() == 2) {
-					session.setAttribute("loginSession", dto);
-					return "admin";
-				}
-				
+				session.setAttribute("loginSession", dto);
+
 				if (dto.getUserType() == 2) {
 
 					return "admin";
 				}
-				
-				// 전체 방문자 수 +1
-				vService.visitInsert();
-
-				// 오늘 방문자 수
-				int todayCount = vService.todayCount();
-
-				// 전체 방문자 수
-				int totalCount = vService.totalCount();
-
-				session.setAttribute("loginSession", dto);
-				session.setAttribute("totalCount", totalCount); // 전체 방문자 수
-				session.setAttribute("todayCount", todayCount); // 오늘 방문자 수
 
 				return "성공";
 			} else {
 
 				return "실패";
 			}
+
 		} else {
 
 			return "fail";
 		}
+
 	}
 
+	// 네이버로그인 성공시 callback호출 메서드
+	@RequestMapping("/callback")
+	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
+			throws IOException, ParseException {
+
+		System.out.println("여기는 callback");
+		OAuth2AccessToken ouaAccessToken;
+		ouaAccessToken = naverLoginBO.getAccessToken(session, code, state);
+
+		// 1. 로그인 사용자 정보를 읽어온다.
+		apiResult = naverLoginBO.getUserProfile(ouaAccessToken); // String 형식의 json데이터
+
+		// 2. String 형식인 apiResult를 json형태로 바꿈
+		JSONParser parser = new JSONParser();
+		Object obj = parser.parse(apiResult);
+		JSONObject jsonObj = (JSONObject) obj;
+		// 3. 데이터 파싱
+		// Top레벨 단계 _response 파싱
+		JSONObject response_obj = (JSONObject) jsonObj.get("response");
+		// response의 nickname값 파싱
+		String nickname = (String) response_obj.get("nickname");
+		String email = (String) response_obj.get("email");
+		System.out.println(nickname);
+		System.out.println(email);
+		// 4.파싱 닉네임 세션으로 저장
+		session.setAttribute("sessionId", nickname);
+		session.setAttribute("sessionEmail", email);// 세션 생성
+		model.addAttribute("result", apiResult);
+
+		return "home";
+	}
+
+	// =======================================
 	// 아이디 찾기 : 이메일 존재유무 확인
 	@RequestMapping("/ExistEmail.do")
 	@ResponseBody()
@@ -196,7 +257,7 @@ public class MemberController {
 		String pw = encodingPW(dto);
 		System.out.println("\n 임시비밀번호를 암호화한 값 : " + pw);
 
-		dto.setPw(pw); // 153번 라인 값을 pw에 주입
+		dto.setPw(pw);
 
 		service.resetPW(dto);
 
@@ -341,7 +402,7 @@ public class MemberController {
 		service.insertMember(dto); // 회원가입 실행
 		return "home";
 	}
-	
+
 	public String joinus(MemberDTO dto) throws Exception {
 		System.out.println("\nDTO : " + dto);
 
@@ -355,7 +416,6 @@ public class MemberController {
 
 		service.insertMember(dto); // 회원가입 실행
 		System.out.println("\nAfter DTO : " + dto); // 회원가입이 실행되면 모든사람 유저타입은 1
-
 		return "home";
 	}
 
@@ -374,8 +434,11 @@ public class MemberController {
 	@RequestMapping(value = "/delete.do")
 	public String delete(String id) throws Exception {
 		System.out.println(id);
-		service.delete(id);
-		return "/";
+		int rs = service.delete(id);
+		if (rs != 0) {
+			session.removeAttribute("loginSession");
+		}
+		return "home";
 	}
 
 	// 회원정보 수정 페이지 이동
@@ -390,14 +453,49 @@ public class MemberController {
 
 	// 회원정보 수정
 	@RequestMapping(value = "/toModify.do")
-	public String toModify(MemberDTO dto) throws Exception {
+	public String toModify(MultipartFile file, MemberDTO dto) throws Exception {
 		System.out.println("toModify");
 		// 수정된 회원정보 update
+
+		String realPath = session.getServletContext().getRealPath("upload");
+		System.out.println(realPath);
+		File realPathFile = new File(realPath);
+		if (!realPathFile.exists()) {
+			realPathFile.mkdir();
+		}
+
+		if (!file.isEmpty()) {
+			dto.setOri_name(file.getOriginalFilename());
+
+			dto.setSys_name(UUID.randomUUID() + "_" + dto.getOri_name());
+
+			file.transferTo(new File(realPath + File.separator + dto.getSys_name()));
+		} else {
+			dto.setOri_name("");
+			dto.setSys_name("");
+		}
+		System.out.println("pw 값 : " + dto.getPw());
+		System.out.println("주소 값 : " + dto.getAddress());
+
+		if (dto.getPw().equals("")) {
+			dto.setPw(service.originPW(dto.getId()));
+		} else {
+
+			String rawPW = ""; // 인코딩 전 PW
+			String encodePW = ""; // 인코딩 후 PW
+
+			rawPW = dto.getPw(); // 비밀번호 얻어옴
+			encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
+			dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
+		}
+
 		int rs = service.toModify(dto);
+
 		if (rs != -1) {
 			System.out.println("회원정보가 수정되었습니다.");
 		}
-		return "redirect:myPage.do";
+
+		return "home";
 	}
 
 	// 쪽지 보내기 팝업창 , 회원조회

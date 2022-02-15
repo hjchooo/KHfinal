@@ -14,8 +14,9 @@ public class MemberDTO {
 	private String ori_name;
 	private String sys_name;
 	private int userType;
-	
+
 	public MemberDTO() {
+		// default constructor
 	}
 
 	public MemberDTO(String id, String pw, String nickname, String email, String address, Date signup_date,
@@ -109,7 +110,7 @@ public class MemberDTO {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(date);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "MemberDTO [id=" + id + ", pw=" + pw + ", nickname=" + nickname + ", email=" + email + ", address="

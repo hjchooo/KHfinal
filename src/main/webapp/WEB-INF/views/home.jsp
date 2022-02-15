@@ -18,10 +18,11 @@
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
 <script>
-   $(document).ready(function(){
-      $("#header").load("/resources/header/header.jsp");
-      $("#footer").load("/resources/footer/footer.jsp");      
-   });
+	$(document).ready(function(){
+		$("#header").load("/resources/header/header.jsp");
+		$("#footer").load("/resources/footer/footer.jsp");
+		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
+	});
 </script>
 <title>dsadsaGo 가자</title>
 <style>
@@ -1001,6 +1002,9 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
+	
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
 	
 	<div>
 		<button type="button" id="managerBtn">관리자</button>

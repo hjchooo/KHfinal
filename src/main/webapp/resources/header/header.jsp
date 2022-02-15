@@ -10,6 +10,7 @@
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
+
 a {
 	text-decoration: none;
 }
@@ -152,6 +153,7 @@ a {
 	font-weight: bold;
 	align-items: center;
 }
+
 .margin {
 	margin-top: 20px;
 }
@@ -159,7 +161,6 @@ a {
 </head>
 
 <body>
-
 	<div class="socketBox">
 		<div id="socketAlert" class="alert alert alert-primary" role="alert">
 		</div>
@@ -186,7 +187,8 @@ a {
 				</p>
 			</div>
 			<c:choose>
-				<c:when test="${!empty loginSession}">
+				<c:when test="${!empty loginSession && loginSession.userType eq 0}">
+					<!-- userType이 0일때 -->
 					<div class="col-3">
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
@@ -198,18 +200,32 @@ a {
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
+					<!-- 2일때 -->
+					<div class="col-3">
+						<a href="${pageContext.request.contextPath}/member/toLogout.do">
+							<span class="navi_text"> 로그아웃 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> <a
+							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
+								<span class="navi_text"> 관리자페이지 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+								님 </span>
+					</div>
+				</c:when>
+				<c:when test="${sessionId != null }">
+					<!-- 네이버로 로그인할때 -->
 					<div class="col-3">
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
 						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
-							<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
+							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${sessionId}">
+							<span class="navi_text"> 마이페이지 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
+							${sessionEmail} 님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="col-3">
+						<!-- 비회원일때 -->
 						<a href="${pageContext.request.contextPath}/member/toJoinus.do">
 							<span class="navi_text"> 회원가입 </span>
 						</a> &nbsp; &nbsp; <a
@@ -219,6 +235,8 @@ a {
 					</div>
 				</c:otherwise>
 			</c:choose>
+
+
 		</div>
 	</div>
 
@@ -249,8 +267,10 @@ a {
 				</a>
 			</div>
 			<div class="col-3">
-				<a href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">
-					<h5 class="navi_category" id="bigData">여행 정보</h5></a>
+				<a
+					href="${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1">
+					<h5 class="navi_category" id="bigData">여행 정보</h5>
+				</a>
 			</div>
 			<div class="col-2"></div>
 		</div>
@@ -262,7 +282,6 @@ a {
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
-
 		};
 
 		// 메세지 수신(알림)
@@ -296,9 +315,7 @@ a {
 			socketAlert.css('display', 'block');
 
 			setTimeout(function() {
-			socketAlert.css(
-			'display', 'none'
-			);
+			socketAlert.css('display', 'none');
 			}, 5000);
 		}
 
@@ -310,6 +327,7 @@ a {
 		};
 
 		ws.onerror = function(e) {
+			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
 		
@@ -324,10 +342,9 @@ a {
 		
 		connect();
 		*/ 
-	</script>
-	
+
+
 	<!-- 쪽지 알람 -->
-	<script>
 	document.getElementById("managerBtn").onclick = function(){
 		location.href="${pageContext.request.contextPath}/manager/main.do";
 	}
@@ -349,9 +366,7 @@ a {
 				}, 3000);
 		}
 		
-	</script>
-<!-- Channel Plugin Scripts -->
-<script>
+		
   (function() {
     var w = window;
     if (w.ChannelIO) {
@@ -390,10 +405,9 @@ a {
   ChannelIO('boot', {
     "pluginKey": "4aaaca92-fb66-477f-a5da-7f1a18d3782f"
   });
-</script>
-<!-- End Channel Plugin -->
+	<!-- End Channel Plugin -->
 
-
+	</script>
 </body>
 
 </html>

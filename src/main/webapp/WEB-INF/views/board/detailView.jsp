@@ -29,10 +29,11 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
-	$(document).ready(function(){
-		$("#header").load("/resources/header/header.jsp");
-		$("#footer").load("/resources/footer/footer.jsp");
-	});
+   $(document).ready(function(){
+      $("#header").load("/resources/header/header.jsp");
+      $("#footer").load("/resources/footer/footer.jsp");
+      $("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
+   });
 </script>
 <title>상세보기</title>
 <style>
@@ -134,10 +135,13 @@ label {
 }
 
 /* 신고 아이콘 */
-#report img {
-	width: 30px;
-	height: 30px;
+#report {
+	width: 25px;
+	height: 25px;
 	margin-top: 5px;
+}
+#report:hover {
+	cursor:pointer;
 }
 
 /* 아이디 드롭다운박스 */
@@ -315,7 +319,8 @@ label {
 			</div>
 			<c:if test="${ loginSession.id == dto.writer_id }">
 				<div class="col-8 d-flex justify-content-end">
-					<button type="button" id="btnModify" class="btn" onclick="modifySummernote()">글수정</button>
+					<button type="button" id="btnModify" class="btn"
+						onclick="modifySummernote()">글수정</button>
 					<button type="button" id="btnModifyConfirm" class="btn"
 						onclick="save()" style="display: none;">완료</button>
 				</div>
@@ -331,33 +336,12 @@ label {
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer" class="mt-5"></div>
 
+	<!-- 쪽지 알림 -->
+	<div id="messageNotice"></div>
+
 	<script>
-	/* 섬머노트
-	// 게시글 신고
-	$("#report").on("click", function(){
-		let report = confirm("정말 신고하겠습니까?");
-		if(report){
-			let popupX = (document.body.offsetWidth / 2) - (500 / 2);
-			let popupY= (window.screen.height / 2) - (500 / 2);
-			
-			let url = "${pageContext.request.contextPath}/board/toReport.do?report_writer_id=${loginSession.id}&reported_person=${dto.writer_id}"
-			let name = "신고";
-			let option = "width=500, height=500, top=popupY, left=popupX";
-			window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
-		}
-	})
-	
-	// 섬머노트
-	 $(document).ready(function () {
-         console.log("summernote option : ", $.summernote.options);
-         // 실행시 언어 설정을 한글로 설정 
-         $.summernote.options.lang = 'ko-KR';
-         $.summernote.options.airMode = false;
-	 });
-	*/
-	
-	var a = $('#summernote');
-	
+   var a = $('#summernote');
+   
      // 수정버튼
      var edit = function () {
          a.summernote({ focus: true });
@@ -373,9 +357,9 @@ label {
      
      // 수정 취소
      var cancel = function() {
-    	 var markup = a.summernote('code');
+        var markup = a.summernote('code');
          a.summernote('destroy');
-    	 location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1";
+        location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1";
      }
 	
 	//썸머노트 이미지 업로드
@@ -416,11 +400,49 @@ label {
 				console.log(e);
 			});				
 		}
+   
+   //썸머노트 이미지 업로드
+   function modifySummernote() {
+       $('#summernote').summernote({
+             width: 800, 
+            minHeight: 500,   // 최소높이
+            maxHeight: null,   // 최대 높이
+            focus: true,   // 에디터 로딩후 포커스
+            lang: "ko-KR",
+            callbacks: {
+               onImageUpload : function(files, editor, welEditable){
+                  for(let file of files){
+                     console.log(file);
+                     sendFile(file,this);
+                     console.log("sendFile 함수로 이동");
+               }
+            }
+         } 
+      });
+   }
+   
+     // 썸머노트 이미지 업로드
+      function sendFile(file){
+         var data = new FormData();
+         data.append("file", file);
+         $.ajax({
+            data : data,
+            type : "POST",
+            url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
+            contentType : false,
+            processData : false
+         }).done(function(data){
+            // 경로갑 출력
+            $("#summernote").summernote("insertImage", data.path);
+         }).fail(function(e){
+            console.log(e);
+         });            
+      }
 
-	// 팔로우 기능
-	$(document).ready(function (e) {
-				
-	// 팔로우 있는지 확인한 값을 likesVal에 저장
+   // 팔로우 기능
+   $(document).ready(function (e) {
+            
+   // 팔로우 있는지 확인한 값을 likesVal에 저장
         let followVal = "${follow.follow_count}";
         if(followVal > 0) {
             $("#follow").prop("src", "/resources/images/followPlusBlack.svg");
@@ -431,29 +453,29 @@ label {
             $(".follow").prop('name', followVal)
         }
 
-	// 팔로우을 클릭 시 실행되는 코드
+   // 팔로우을 클릭 시 실행되는 코드
         $(".follow").on("click", function () {
             let that = $(".follow");
-	    $.ajax({
-	    	url :"${pageContext.request.contextPath}/follow/insertFollow",
-	        type :"POST",
-	        data : {"follow_id":"${loginSession.id}", "follower_id":"${dto.writer_id}"},
-	    	success : function(data){
-	    		that.prop("name",data);
-	        	if(data == 1) {
-            	     $("#follow").prop("src","/resources/images/followPlusBlack.svg");
-	        	} else {
-               	     $("#follow").prop("src","/resources/images/followPlusWhite.svg");
-	        	}
-           	}
-	    });
+       $.ajax({
+          url :"${pageContext.request.contextPath}/follow/insertFollow",
+           type :"POST",
+           data : {"follow_id":"${loginSession.id}", "follower_id":"${dto.writer_id}"},
+          success : function(data){
+             that.prop("name",data);
+              if(data == 1) {
+                    $("#follow").prop("src","/resources/images/followPlusBlack.svg");
+              } else {
+                       $("#follow").prop("src","/resources/images/followPlusWhite.svg");
+              }
+              }
+       });
         });
     });
-	
-	// 좋아요 기능 영역
-	$(document).ready(function () {
-				
-	// 좋아요가 있는지 확인한 값을 likesVal에 저장
+   
+   // 좋아요 기능 영역
+   $(document).ready(function () {
+            
+   // 좋아요가 있는지 확인한 값을 likesVal에 저장
         let likesVal = "${likes.likes_count}";
         // likesVal이 1이면 좋아요가 이미 되있는것이므로 heartBlack.svg를 출력하는 코드
         if(likesVal > 0) {
@@ -465,307 +487,322 @@ label {
             $(".likes").prop("name", likesVal)
         }
 
-	// 좋아요 버튼을 클릭 시 실행되는 코드
-        $(".likes").on("click", function () {
+   // 좋아요 버튼을 클릭 시 실행되는 코드
+       $(".likes").on("click", function () {
             let that = $(".likes");
-	    $.ajax({
-	    	url :"${pageContext.request.contextPath}/likes/insertLikes",
-	        type :"POST",
-	        data : {"board_seq":"${dto.board_seq}", "likes_id":'${loginSession.id}'},
-	    	success : function(data){
-	    		that.prop("name",data);
-	        	if(data == 1) {
-            	     $("#likes").prop("src","/resources/images/heartBlack.svg");
-	        	} else {
-               	     $("#likes").prop("src","/resources/images/heartWhite.svg");
-	        	}
-           	}
-	    });
+       $.ajax({
+          url :"${pageContext.request.contextPath}/likes/insertLikes",
+           type :"POST",
+           data : {"board_seq":"${dto.board_seq}", "likes_id":'${loginSession.id}'},
+          success : function(data){
+             that.prop("name",data);
+              if(data == 1) {
+                    $("#likes").prop("src","/resources/images/heartBlack.svg");
+              } else {
+                       $("#likes").prop("src","/resources/images/heartWhite.svg");
+              }
+              }
+      	 });
         });
     });
-	
-	// 댓글 출력
-	$(document).ready(function(){
-		getReplyList();
-	})
-	function getReplyList(){
-		let re_board_seq = "${dto.board_seq}";
-		let board_seq = "${dto.board_seq}";
-		let currentPage = "${currentPage}";
-	
-		$.ajax({
-			url: "${pageContext.request.contextPath}/reply/getReplyList?re_board_seq=" + re_board_seq + "&currentPage=${naviMap.get('currentPage')}"
-			, type : "get"
-		}).done(function(data){
-			// 기존 댓글을 비워주는 작업
-			let replyList = data.replyList;
-			$("#replyContainer").empty();
-			for(let reply of replyList) {
-				let replyBox = "<div class='row-12 mt-3 p-2' style='background-color:#f9f9f9; border-radius:5px;'>"
-				+ "<form class='modifyReplyForm'>" // id => class 로 바꿨음(에러 시 다시 id로)
-				+ "<div class='col-12'>작성자 : "
-				+ reply.reply_writer_id
-				+ "</div>"
-				+ "<div class='col-12'>"
-				+ "<input type='text' class='form-control' value='" + reply.re_content + "' name='" + reply.reply_seq + "' style='background-color:#f9f9f9; border:none;' readonly>"
-				+ "</div>"
-				+ "<div class='col-12 contentDiv-cmt'>작성일 : "
-				+ reply.reply_written_date
-				+ "</div>"
-				+ "</form>"
-				+ "</div></br>"
-				// 댓글 동적 요소 추가
-				$("#replyContainer").append(replyBox);
-				
-				// 댓글 수정 삭제 버튼
-				// 세션에 담겨 있는 id와 댓글리스트 안의 reply_writer 와 같은 경우 버튼 생성
-				if("${loginSession.id}" == reply.reply_writer_id) {
-					let btns = "<div class='col-12 d-flex justify-content-end pd-5'>"
-					+ "<button type='button' class='btn btn-modifyReply' value='"+ reply.reply_seq +"' >수정</button>"
-					+ "<button type='button' class='btn btn-deleteReply' value='"+ reply.reply_seq +"' >삭제</button>"
-					+ "<button type='button' class='btn btn-modifyConfirm' value='"+ reply.reply_seq +"' style='display:none;'>확인</button>"
-					+ "<button type='button' class='btn btn-modifyCancel' value='"+ reply.reply_seq +"' style='display:none;'>취소</button>"
-					+ "</div>";
-					
-					// 가장 최근에 만들어진 댓글 옆에 버튼 추가
-					$(".contentDiv-cmt:last").after(btns);
-				}
-			}
-		}).fail(function(e){
-			console.log(e);
-		})
-	}
-	// 댓글 수정 버튼 클릭시
-	$("#replyContainer").on("click", ".btn-modifyReply" , function(e){
-		console.log($(e.target).val());
-		//$(".btn-modifyConfirm").css("display", true);
-		//$(".btn-modifyCancel").css("display", true);
-		$(".btn-modifyConfirm").show();
-		$(".btn-modifyCancel").show();
-		$(".btn-modifyReply").hide();
-		$(".btn-deleteReply").hide();
-		let reply_seq = $(this).val();
-		console.log(reply_seq);
-		$("input[name='" + reply_seq + "']").attr("readonly",false);
-		$("input[name='" + reply_seq + "']").focus();
-	})
-	
-	// 댓글 수정취소 버튼 클릭시
-	$("#replyContainer").on("click", ".btn-modifyCancel" , function(e){
-		console.log($(e.target).val());
-		$(".btn-modifyConfirm").hide();
-		$(".btn-modifyCancel").hide();
-		$(".btn-modifyReply").show();
-		$(".btn-deleteReply").show();
-		let reply_seq = $(this).val();
-		console.log(reply_seq);
-		$("input[name='" + reply_seq + "']").attr("readonly",true);
-	})
-		
-	// 댓글 수정(동적 댓글 생성후 클릭버튼 위임) 
-	$("#replyContainer").on("click", ".btn-modifyConfirm" , function(e){
-		console.log($(e.target).val());
-		let data = $("#modifyReplyForm").serialize();
-		let reply_seq = $(this).val();
-		console.log(reply_seq);
-		let re_content = $("input[name='" + reply_seq + "']").val();
-		console.log(re_content);
-		
-		$.ajax({
-			url : "${pageContext.request.contextPath}/reply/modifyReply?reply_seq="
-					+ reply_seq + "&re_content=" + re_content
-			, type : "put"
-			, data : re_content
-		}).done(function(rs) {
-			if (rs == "성공") {
-				alert("댓글 수정이 완료 되었습니다.");
-				getReplyList();
-			} else if (rs == "실패") {
-				alert("댓글 등록에 실패 했습니다.");
-			}
-		}).fail(function(e) {
-			console.log(e);
-		})
-		
-	})
-	
-	// 댓글 삭제
-	$("#replyContainer").on("click", ".btn-deleteReply" , function(e){
-		console.log($(e.target).val());
-		let reply_seq = $(e.target).val();
-		$.ajax({
-			url : "${pageContext.request.contextPath}/reply/deleteReply?reply_seq="
-					+ reply_seq
-			, type : "post"
-		}).done(function(rs) {
-			if (rs == "성공") {
-				getReplyList();
-			} else if (rs == "실패") {
-				alert("댓글 삭제 에 실패 했습니다.");
-			}
-		}).fail(function(e) {
-			console.log(e);
-		})
-		
-	})
-	
-	// 댓글 등록 버튼
-	$("#btnReplyConfirm").on("click",function(e) {
-		e.preventDefault();
-		
-		// 게시글 번호
-		let board_seq = "${dto.board_seq}";
-		console.log(board_seq);
-		
-		let re_board_seq = "${dto.board_seq}";
-		
-		// 댓글 작성자(지금 로그인 한 ID)
-		let loginId = "${loginSession.id}";
-		
-		// 게시글 작성자
-		board_writer = "${dto.writer_id}";
-		
-		if($("#reply_content").val() == "") {
-			alert("댓글을 입력 해주세요.");
-			return;
-		} else {
-			// 게시글 등록 직렬화
-			let data = $("#replyForm").serialize();
-				$.ajax({
-					url : "${pageContext.request.contextPath}/reply/insertReply?re_board_seq="
-							+ re_board_seq + "&currentPage=1" + "&board_seq=" + board_seq,
-					type : "post",
-					data : data
-				}).done(function(rs) {
-					// 댓글 작성 성공시
-					if (rs == "성공") {
-							
-						console.log("reply.js::socket", ws);
-						
-						if (ws) { // socket이 연결이 되었다면
-							console.log("socket if문 실행");
-							console.log(ws);
-							
-							let replyData = [loginId, board_writer, board_seq];
-							
-							//websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
-							/*let socketMsg = "[로그인 아이디] : " + loginId
-								+ ", [게시글 작성자] : " + board_writer 
-								+ ", [게시글 번호] " + board_seq;
-							*/
-							let socketMsg = replyData;
-							
-							//let socketMsg = "<a href='#'>" + loginId + "</a>" 
-							//+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
-							//		 + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
-							
-							console.debug("sssssssmsg>>", socketMsg);
-							
-							console.log(socketMsg);
-							
-							//socket에 send를 해준다
-							ws.send(socketMsg);
-					
-						location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
-							+ board_seq + "&currentPage=1&re_board_seq=" + re_board_seq;
-						}
-					// 댓글 작성 실패시
-					} else if (rs == "실패") {
-						alert("댓글 등록에 실패 했습니다.");
-					}
-				}).fail(function(e) {
-					console.log(e);
-				})
-		}
-	})
-	
-	// 목록으로 버튼 클릭
-	$("#btnGetList").on("click", function(){
-		location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
-	})
-	
-	// 글삭제 버튼 클릭
-	$("#btnDelete").on("click", function(){
-		let chk = confirm("정말 삭제하시겠습니까?");
-		let board_seq = "${dto.board_seq}";
-			if (chk) {
-				location.href = "${pageContext.request.contextPath}/board/delete.do?board_seq=" + board_seq;
-			}
-	})
-	
-	// 글수정 버튼 클릭
-	$("#btnModify").on("click", function(){
-		//$("#summernote").summernote.airMode = false;
-		$("#btnModifyConfirm").css("display", false);
-		$("#btnModifyConfirm").show();
-		$("#btnModifyCancel").show();
-		$("#btnModify").hide();
-		$("#btnDelete").hide();
-		$("#title").attr("readonly", false);
-	})
-	
-	// 글수정 취소 버튼 클릭시
-	$("#btnModifyCancel").on("click", function(){
-		$("#btnModifyConfirm").css("display", false);
-		$("#btnModifyConfirm").hide();
-		$("#btnModifyCancel").hide();
-		$("#btnModify").show();
-		$("#btnDelete").show();
-		$("#title").attr("readonly", true);
-		$("#title").val("${dto.title}");
-	})
-	
-	// 글수정 확인 버튼 클릭시
-	$("#btnModifyConfirm").on("click", function(){
-		// content 변수
-		let hiddenSummernote = $("#hiddenSummernote");
-		let content = $("#summernote").html();
-		
-		// content 출력
-		//console.log("+html : ", content);
-		console.log("content 값 : ", hiddenSummernote.html(content));
-		
-		// sys_name 추출 정규식
-		let RexSys_name = /(?<=upload\\)\\*[\"']?([^>\"']+)[\']?[^">]/g;
-		// content 정규식 적용
-		let sysArr = hiddenSummernote.val().match(RexSys_name);
-		let sys_name = $("#sys_name").val(sysArr);
-		console.log("sys_name : ", sys_name);
-		
-		// 정규식 배열 출력
-		/*for(let i=0; i<sysArr.length; i++) {
-			console.log("sys_name 배열 : ", sysArr[i]);
-		}*/
-		for(let i=0; i<sys_name.length; i++) {
-			console.log("sys_name 배열 : ", sys_name[i]);
-		}
+   
+   // 댓글 출력
+   $(document).ready(function(){
+      getReplyList();
+   })
+   function getReplyList(){
+      let re_board_seq = "${dto.board_seq}";
+      let board_seq = "${dto.board_seq}";
+      let currentPage = "${currentPage}";
+   
+      $.ajax({
+         url: "${pageContext.request.contextPath}/reply/getReplyList?re_board_seq=" + re_board_seq + "&currentPage=${naviMap.get('currentPage')}"
+         , type : "get"
+      }).done(function(data){
+         // 기존 댓글을 비워주는 작업
+         let replyList = data.replyList;
+         $("#replyContainer").empty();
+         for(let reply of replyList) {
+            let replyBox = "<div class='row-12 mt-3 p-2' style='background-color:#f9f9f9; border-radius:5px;'>"
+            + "<form class='modifyReplyForm'>" // id => class 로 바꿨음(에러 시 다시 id로)
+            + "<div class='col-12'>작성자 : "
+            + reply.reply_writer_id
+            + "</div>"
+            + "<div class='col-12'>"
+            + "<input type='text' class='form-control' value='" + reply.re_content + "' name='" + reply.reply_seq + "' style='background-color:#f9f9f9; border:none;' readonly>"
+            + "</div>"
+            + "<div class='col-12 contentDiv-cmt'>작성일 : "
+            + reply.reply_written_date
+            + "</div>"
+            + "</form>"
+            + "</div></br>"
+            // 댓글 동적 요소 추가
+            $("#replyContainer").append(replyBox);
+            
+            // 댓글 수정 삭제 버튼
+            // 세션에 담겨 있는 id와 댓글리스트 안의 reply_writer 와 같은 경우 버튼 생성
+            if("${loginSession.id}" == reply.reply_writer_id) {
+               let btns = "<div class='col-12 d-flex justify-content-end pd-5'>"
+               + "<button type='button' class='btn btn-modifyReply' value='"+ reply.reply_seq +"' >수정</button>"
+               + "<button type='button' class='btn btn-deleteReply' value='"+ reply.reply_seq +"' >삭제</button>"
+               + "<button type='button' class='btn btn-modifyConfirm' value='"+ reply.reply_seq +"' style='display:none;'>확인</button>"
+               + "<button type='button' class='btn btn-modifyCancel' value='"+ reply.reply_seq +"' style='display:none;'>취소</button>"
+               + "</div>";
+               
+               // 가장 최근에 만들어진 댓글 옆에 버튼 추가
+               $(".contentDiv-cmt:last").after(btns);
+            }
+         }
+      }).fail(function(e){
+         console.log(e);
+      })
+   }
+   // 댓글 수정 버튼 클릭시
+   $("#replyContainer").on("click", ".btn-modifyReply" , function(e){
+      console.log($(e.target).val());
+      //$(".btn-modifyConfirm").css("display", true);
+      //$(".btn-modifyCancel").css("display", true);
+      $(".btn-modifyConfirm").show();
+      $(".btn-modifyCancel").show();
+      $(".btn-modifyReply").hide();
+      $(".btn-deleteReply").hide();
+      let reply_seq = $(this).val();
+      console.log(reply_seq);
+      $("input[name='" + reply_seq + "']").attr("readonly",false);
+      $("input[name='" + reply_seq + "']").focus();
+   })
+   
+   // 댓글 수정취소 버튼 클릭시
+   $("#replyContainer").on("click", ".btn-modifyCancel" , function(e){
+      console.log($(e.target).val());
+      $(".btn-modifyConfirm").hide();
+      $(".btn-modifyCancel").hide();
+      $(".btn-modifyReply").show();
+      $(".btn-deleteReply").show();
+      let reply_seq = $(this).val();
+      console.log(reply_seq);
+      $("input[name='" + reply_seq + "']").attr("readonly",true);
+   })
+      
+   // 댓글 수정(동적 댓글 생성후 클릭버튼 위임) 
+   $("#replyContainer").on("click", ".btn-modifyConfirm" , function(e){
+      console.log($(e.target).val());
+      let data = $("#modifyReplyForm").serialize();
+      let reply_seq = $(this).val();
+      console.log(reply_seq);
+      let re_content = $("input[name='" + reply_seq + "']").val();
+      console.log(re_content);
+      
+      $.ajax({
+         url : "${pageContext.request.contextPath}/reply/modifyReply?reply_seq="
+               + reply_seq + "&re_content=" + re_content
+         , type : "put"
+         , data : re_content
+      }).done(function(rs) {
+         if (rs == "성공") {
+            alert("댓글 수정이 완료 되었습니다.");
+            getReplyList();
+         } else if (rs == "실패") {
+            alert("댓글 등록에 실패 했습니다.");
+         }
+      }).fail(function(e) {
+         console.log(e);
+      })
+      
+   })
+   
+   // 댓글 삭제
+   $("#replyContainer").on("click", ".btn-deleteReply" , function(e){
+      console.log($(e.target).val());
+      let reply_seq = $(e.target).val();
+      $.ajax({
+         url : "${pageContext.request.contextPath}/reply/deleteReply?reply_seq="
+               + reply_seq
+         , type : "post"
+      }).done(function(rs) {
+         if (rs == "성공") {
+            getReplyList();
+         } else if (rs == "실패") {
+            alert("댓글 삭제 에 실패 했습니다.");
+         }
+      }).fail(function(e) {
+         console.log(e);
+      })
+      
+   })
+   
+   // 댓글 등록 버튼
+   $("#btnReplyConfirm").on("click",function(e) {
+      e.preventDefault();
+      
+      // 게시글 번호
+      let board_seq = "${dto.board_seq}";
+      console.log(board_seq);
+      
+      let re_board_seq = "${dto.board_seq}";
+      
+      // 댓글 작성자(지금 로그인 한 ID)
+      let loginId = "${loginSession.id}";
+      
+      // 게시글 작성자
+      board_writer = "${dto.writer_id}";
+      
+      if($("#reply_content").val() == "") {
+         alert("댓글을 입력 해주세요.");
+         return;
+      } else {
+         // 게시글 등록 직렬화
+         let data = $("#replyForm").serialize();
+            $.ajax({
+               url : "${pageContext.request.contextPath}/reply/insertReply?re_board_seq="
+                     + re_board_seq + "&currentPage=1" + "&board_seq=" + board_seq,
+               type : "post",
+               data : data
+            }).done(function(rs) {
+               // 댓글 작성 성공시
+               if (rs == "성공") {
+                     
+                  console.log("reply.js::socket", ws);
+                  
+                  if (ws) { // socket이 연결이 되었다면
+                     console.log("socket if문 실행");
+                     console.log(ws);
+                     
+                     let replyData = [loginId, board_writer, board_seq];
+                     
+                     //websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
+                     /*let socketMsg = "[로그인 아이디] : " + loginId
+                        + ", [게시글 작성자] : " + board_writer 
+                        + ", [게시글 번호] " + board_seq;
+                     */
+                     let socketMsg = replyData;
+                     
+                     //let socketMsg = "<a href='#'>" + loginId + "</a>" 
+                     //+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
+                     //       + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
+                     
+                     console.debug("sssssssmsg>>", socketMsg);
+                     
+                     console.log(socketMsg);
+                     
+                     //socket에 send를 해준다
+                     ws.send(socketMsg);
+               
+                  location.href = "${pageContext.request.contextPath}/board/detailView.do?board_seq="
+                     + board_seq + "&currentPage=1&re_board_seq=" + re_board_seq;
+                  }
+               // 댓글 작성 실패시
+               } else if (rs == "실패") {
+                  alert("댓글 등록에 실패 했습니다.");
+               }
+            }).fail(function(e) {
+               console.log(e);
+            })
+      }
+   })
+   
+   // 목록으로 버튼 클릭
+   $("#btnGetList").on("click", function(){
+      location.href = "${pageContext.request.contextPath}/board/toBoard.do?currentPage=1";
+   })
+   
+   // 글삭제 버튼 클릭
+   $("#btnDelete").on("click", function(){
+      let chk = confirm("정말 삭제하시겠습니까?");
+      let board_seq = "${dto.board_seq}";
+         if (chk) {
+            location.href = "${pageContext.request.contextPath}/board/delete.do?board_seq=" + board_seq;
+         }
+   })
+   
+   // 글수정 버튼 클릭
+   $("#btnModify").on("click", function(){
+      //$("#summernote").summernote.airMode = false;
+      $("#btnModifyConfirm").css("display", false);
+      $("#btnModifyConfirm").show();
+      $("#btnModifyCancel").show();
+      $("#btnModify").hide();
+      $("#btnDelete").hide();
+      $("#title").attr("readonly", false);
+   })
+   
+   // 글수정 취소 버튼 클릭시
+   $("#btnModifyCancel").on("click", function(){
+      $("#btnModifyConfirm").css("display", false);
+      $("#btnModifyConfirm").hide();
+      $("#btnModifyCancel").hide();
+      $("#btnModify").show();
+      $("#btnDelete").show();
+      $("#title").attr("readonly", true);
+      $("#title").val("${dto.title}");
+   })
+   
+   // 글수정 확인 버튼 클릭시
+   $("#btnModifyConfirm").on("click", function(){
+      // content 변수
+      let hiddenSummernote = $("#hiddenSummernote");
+      let content = $("#summernote").html();
+      
+      // content 출력
+      //console.log("+html : ", content);
+      console.log("content 값 : ", hiddenSummernote.html(content));
+      
+      // sys_name 추출 정규식
+      let RexSys_name = /(?<=upload\\)\\*[\"']?([^>\"']+)[\']?[^">]/g;
+      // content 정규식 적용
+      let sysArr = hiddenSummernote.val().match(RexSys_name);
+      let sys_name = $("#sys_name").val(sysArr);
+      console.log("sys_name : ", sys_name);
+      
+      // 정규식 배열 출력
+      /*for(let i=0; i<sysArr.length; i++) {
+         console.log("sys_name 배열 : ", sysArr[i]);
+      }*/
+      for(let i=0; i<sys_name.length; i++) {
+         console.log("sys_name 배열 : ", sys_name[i]);
+      }
 
-		// content값 확인
-		console.log("히든썸머노트 값 : ", hiddenSummernote.val());
-		
-		$("#btnModifyConfirm").hide();
-		$("#btnModify").show();
-		$("#btnDelete").show();
-		$("#btnModifyCancel").hide();
-		
-		$("#modifyForm").submit();
-	})
-	
-	// 족지 보내기
-	$("#sendMessage").on("click", function(){
-		let writer_id = "${dto.writer_id}";
-		let width = '500';
-		let height = '300';
-		let left = Math.ceil(( window.screen.width - width )/2);
-		let top = Math.ceil(( window.screen.height - height )/2); 
-		
-		let url = "${pageContext.request.contextPath}/member/note.do?writer_id=" + writer_id;
-		let name = "비밀글";
-		let option = "width=" + width + ", height=" + height
-			+ ", left=" + left + ", top=" + top;
-		window.open(url, name, option);
-	})
-	</script>
+      // content값 확인
+      console.log("히든썸머노트 값 : ", hiddenSummernote.val());
+      
+      $("#btnModifyConfirm").hide();
+      $("#btnModify").show();
+      $("#btnDelete").show();
+      $("#btnModifyCancel").hide();
+      
+      $("#modifyForm").submit();
+   })
+   
+   // 족지 보내기
+   $("#sendMessage").on("click", function(){
+      let writer_id = "${dto.writer_id}";
+      let width = '500';
+      let height = '300';
+      let left = Math.ceil(( window.screen.width - width )/2);
+      let top = Math.ceil(( window.screen.height - height )/2); 
+      
+      let url = "${pageContext.request.contextPath}/member/note.do?writer_id=" + writer_id;
+      let name = "비밀글";
+      let option = "width=" + width + ", height=" + height
+         + ", left=" + left + ", top=" + top;
+      window.open(url, name, option);
+   })
+   
+   // 신고 팝업창
+   // 게시글 신고
+      $("#report").on("click", function(){
+         let report = confirm("정말 신고하겠습니까?");
+         if(report){
+            let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+            let popupY= (window.screen.height / 2) - (500 / 2);
+            
+            let url = "${pageContext.request.contextPath}/board/toReport.do?writer_id=${dto.writer_id}"
+            let name = "신고";
+            let option = "width=500, height=500, top=popupY, left=popupX";
+            window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
+         }
+      })
+   </script>
 
 </body>
 </html>

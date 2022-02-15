@@ -198,46 +198,47 @@ public class BoardService {
 		// 파일 삭제
 		dto.setBoard_seq(board_seq);
 		List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
-		Map<String, Object> map = new HashMap<>();
-		map.put("notMatch", notMatch);
-		
-		System.out.println("map : " + map);
-		
-		System.out.println("map 안의 밸류 값 : " + map.get("notMatch").toString());
-		
-		if (sys_name.length != notMatch.size()) {
-			System.out.println("sys_name.length : " + sys_name.length);
-			System.out.println("notMatch.size : " + notMatch.size());
+		System.out.println("map : " + notMatch.toString());
+
+		System.out.println("sys_name.length : " + sys_name.length);
+		System.out.println("notMatch.size : " + notMatch.size());
 //			for (int i = 0; i < notMatch.size(); i++) {
 //				System.out.println("안맞는 sys_name : " + notMatch.get(i).toString());
 //			}
-			
-			// DB에서 삭제
-			fdao.deleteFromSys_name(map);
-				
-			// upload 파일에서 삭제
-			System.out.println("upload경로 : " + realPath);
-			File file = new File(realPath, map.get("notMatch").toString());
-			file.delete();
-				
-				
 
+		// DB에서 삭제
+
+		fdao.deleteFromSys_name(notMatch);
+		for(int i=0; i<notMatch.size(); i++) {
+			File file = new File(realPath, notMatch.get(i));
+			file.delete();
 		}
+		// upload 파일에서 삭제
+		System.out.println("upload경로 : " + realPath);
+//      for(int i=0; i<sys_name.length; i++) {
+//         System.out.println("sys_name 배열 : " + sys_name[i]);
+//         
+//      }
+
+		/*
+		 * // 현재 파일과 없는 파일 조회 for (int i = 0; i < sys_name.length; i++) {
+		 * System.out.println("보드서비스 sys_name 배열 : " + sys_name[i]); }
+		 */
 
 //      System.out.println("BoardService 게시글 등록 도착");
 //      System.out.println("게시글 수정(boardService) : " + board_seq);
 
 		fdto.setBoard_seq(board_seq);
 
-//		// board_seq 로 ori_name 검색
-//		List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
+//      // board_seq 로 ori_name 검색
+//      List<String> modifyOri_name = (ArrayList<String>) fdao.selectOri_name(board_seq);
 //
-//		// board_seq 로 sys_name 검색
-//		List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
+//      // board_seq 로 sys_name 검색
+//      List<String> modifySys_name = (ArrayList<String>) fdao.selectSys_name(board_seq);
 //
-//		System.out.println("board_seq : " + fdto.getBoard_seq());
+//      System.out.println("board_seq : " + fdto.getBoard_seq());
 //
-//		// 파일이 null 이라면
+//      // 파일이 null 이라면
 //      if (fdto.getOri_name() == null && fdto.getSys_name() == null) {
 //         for (String mdOri : modifyOri_name) {
 //            fdto.setOri_name(mdOri);
