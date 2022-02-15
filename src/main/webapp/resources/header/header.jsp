@@ -187,40 +187,6 @@ a {
 				</p>
 			</div>
 			<c:choose>
-<<<<<<< HEAD
-            <c:when test="${!empty loginSession && loginSession.userType eq 0}"> <!-- userType이 0일때 -->
-               <div class="col-3">
-                  <a href="${pageContext.request.contextPath}/member/toLogout.do">
-                     <span class="navi_text"> 로그아웃 </span>
-                  </a> &nbsp; &nbsp; <a
-                     href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
-                     <span class="navi_text"> 마이페이지 </span>
-                  </a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.nickname}
-                     님 </span>
-               </div>
-            </c:when>
-            <c:when test="${loginSession.userType eq 2}"> <!-- 2일때 -->
-               <div class="col-3">
-                  <a href="${pageContext.request.contextPath}/member/toLogout.do">
-                     <span class="navi_text"> 로그아웃 </span>
-                  </a> &nbsp; &nbsp; <span class="navi_text"> <a 
-                     href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
-                     <span class="navi_text"> 관리자페이지 </span> </a> &nbsp; &nbsp; <span
-                     class="navi_text"> ${loginSession.nickname} 님 </span>
-               </div>
-            </c:when>
-            <c:otherwise>
-               <div class="col-3"> <!-- 비회원일때 -->
-                  <a href="${pageContext.request.contextPath}/member/toJoinus.do">
-                     <span class="navi_text"> 회원가입 </span>
-                  </a> &nbsp; &nbsp; <a
-                     href="${pageContext.request.contextPath}/member/toLogin.do">
-                     <span class="navi_text"> 로그인 </span>
-                  </a> &nbsp; &nbsp;
-               </div>
-            </c:otherwise>
-         </c:choose>
-=======
 				<c:when test="${!empty loginSession && loginSession.userType eq 0}">
 					<!-- userType이 0일때 -->
 					<div class="col-3">
@@ -229,8 +195,8 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+							${loginSession.nickname} 님 </span>
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
@@ -241,20 +207,8 @@ a {
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
 							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-								님 </span>
-					</div>
-				</c:when>
-				<c:when test="${sessionId != null }">
-					<!-- 네이버로 로그인할때 -->
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toLogout.do">
-							<span class="navi_text"> 로그아웃 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${sessionId}">
-							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
-							${sessionEmail} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+								${loginSession.nickname} 님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -269,9 +223,6 @@ a {
 					</div>
 				</c:otherwise>
 			</c:choose>
->>>>>>> 8c8057c44a6ed1adf8d64956295e93bb836f970c
-
-
 		</div>
 	</div>
 
@@ -406,8 +357,8 @@ a {
 =======
 	</script>
 
-<!-- Channel Plugin Scripts -->
-<script>
+	<!-- Channel Plugin Scripts -->
+	<script>
 >>>>>>> 20c33b842dbe2acfb50b3033af07457f2414f5d6
   (function() {
     var w = window;
