@@ -331,7 +331,7 @@ ul {
 	<div id="header"></div>
 	<c:choose>
 	
-		<c:when test=${!empty sessionId}>
+		<c:when test="${!empty sessionId}">
 		<!--내정보 및 수정창-->
 	<div class="container">
 		<div class="row margin_top_50">
