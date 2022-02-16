@@ -27,7 +27,6 @@
 	box-sizing: border-box;
 }
 
-
 #contentFont {
 	text-decoration: none;
 	color: black;
@@ -38,7 +37,6 @@
 	color: black;
 	cursor: pointer;
 }
-
 
 /* 전체 컨테이너 */
 .myBoardListContainer {
@@ -307,7 +305,7 @@ ul {
 
 /* 삭제 아이콘 */
 #deleteImg:hover {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 /* 전체 버튼 */
@@ -351,8 +349,8 @@ ul {
 		</div>
 
 		<div class="row myPageContainer mt-5">
-		
-		
+
+
 			<!-- 마이페이지 왼쪽편 -->
 			<div class="col-3 mypage_right_line">
 				<div class="row d-flex justify-content-center mb-3">
@@ -368,7 +366,7 @@ ul {
 								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
 						</div>
 					</c:if>
-					
+
 				</div>
 				<div class="row">
 					<div class="col-12 d-flex justify-content-center">
@@ -379,7 +377,7 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							 <li class="ulList"><a
+							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
@@ -389,21 +387,15 @@ ul {
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=450, height=500');return false;">쪽지
-									보내기</a></li>
-							<li class="ulList"><a class="btn-open-popup">follow</a></li>
-								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
-									확인</a></li>
-							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do"
-								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+								onclick="window.open(this.href,'note팝업창','width=450, height=500');return false;">쪽지
 									보내기</a></li>
 						</ul>
 					</div>
 
 				</div>
 			</div>
-			
+
 			<div class="modal">
 				<div class="modal_body">
 					<div>
@@ -461,8 +453,8 @@ ul {
 					</div>
 				</div>
 			</div>
-	
-		<!-- 마이페이지 오른쪽 영역 -->
+
+			<!-- 마이페이지 오른쪽 영역 -->
 			<div class="col-9 mb-5">
 				<div class="row">
 					<div class="col-12 mypage_left_line">
