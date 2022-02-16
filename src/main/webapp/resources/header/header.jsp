@@ -288,8 +288,6 @@ a {
 			// 변수 선언
 			let socketAlert = $("#socketAlert");
 
-			//socketAlert.append(msgObj.loginId + " : " + msgObj.message + " : " + msgObj.board_writer);
-
 			// ReplyEndpoint 에서 받은 obj.addProperty 값을 seocketAlert에 출력
 			socketAlert.html(e.data);
 			socketAlert.fadeIn(1000);
@@ -311,6 +309,7 @@ a {
 			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
+<<<<<<< HEAD
 
 		// 게시판으로 이동
 		function toBoard() {
@@ -319,12 +318,17 @@ a {
 		}
 		
 		
+=======
+>>>>>>> d5448356d0c97dacb0f02c762d54ce174ef1264c
 	</script>
 
 	<!-- Channel Plugin Scripts -->
 	<script>
+<<<<<<< HEAD
 	
 	
+=======
+>>>>>>> d5448356d0c97dacb0f02c762d54ce174ef1264c
   (function() {
     var w = window;
     if (w.ChannelIO) {

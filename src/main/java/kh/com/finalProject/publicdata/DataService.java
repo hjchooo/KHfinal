@@ -92,13 +92,38 @@ public class DataService {
 		return dataDao.selectOneFestival(contentid);
 	}
 	
-	// 관광지 리스트 인기순
+	// 축제 리스트(지역별로)
+	public List<FestivalDTO> selectAllFestivalArea(String addr1, int currentPage) throws Exception{
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		System.out.println("startRange : " + startRange);
+		System.out.println("endRange : " + endRange);
+		List<FestivalDTO> list = dataDao.selectAllFestivalArea(addr1, startRange, endRange);
+		return list;
+	}
+	
+	// 축제 리스트(지역별로) 데이터 수 가져오기
+	public int countAllFestivalArea(String addr1) throws Exception{
+		return dataDao.countAllFestivalArea(addr1);
+	}
+	
+	// 축제 리스트 인기순
 	public List<FestivalDTO> readcountFestivalList(int currentPage) throws Exception {
 		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
 		int endRange = currentPage * recordCntPerPage;
 		System.out.println("startRange : " + startRange);
 		System.out.println("endRange : " + endRange);
 		List<FestivalDTO> list = dataDao.readcountFestivalList(startRange, endRange);
+		return list;
+	}
+	
+	// 축제 리스트(지역별로) 인기순
+	public List<FestivalDTO> readcountAreaFestivalList(String addr1, int currentPage) throws Exception{
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		System.out.println("startRange : " + startRange);
+		System.out.println("endRange : " + endRange);
+		List<FestivalDTO> list = dataDao.readcountAreaFestivalList(addr1, startRange, endRange);
 		return list;
 	}
 	
@@ -291,7 +316,7 @@ public class DataService {
 			StringBuffer pharm_url = new StringBuffer();
 			pharm_url.append("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchFestival");
 			pharm_url.append(
-					"?serviceKey=9gMNoeUir%2FGIqZlgXIA6wsUL6dIQCeIfnLJ6dx8QWbPVu%2B%2BwZn8tFDs%2BYG0lw%2B%2B%2Bw7zW2gVOYDpXOwYlO%2FWNoA%3D%3D&numOfRows="+numOfRows2+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=P&listYN=Y&eventStartDate=20211201&eventEndDate=20220228");
+					"?serviceKey=9gMNoeUir%2FGIqZlgXIA6wsUL6dIQCeIfnLJ6dx8QWbPVu%2B%2BwZn8tFDs%2BYG0lw%2B%2B%2Bw7zW2gVOYDpXOwYlO%2FWNoA%3D%3D&numOfRows="+numOfRows2+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=P&listYN=Y&areaCode="+areaCode2+"&eventStartDate=20211201&eventEndDate=20220228");
 
 			URL url = new URL(pharm_url.toString());
 

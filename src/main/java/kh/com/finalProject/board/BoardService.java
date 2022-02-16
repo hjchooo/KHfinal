@@ -210,61 +210,18 @@ public class BoardService {
 		}
 	}
 
-	// 자류게시판 리스트 가져오기
-	public List<BoardDTO> selectFreeBoard(String category, int currentPage) throws Exception {
-		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-		int endRange = currentPage * recordCntPerPage;
-		// 자유게시판 전체 조회
-		List<BoardDTO> list = dao.selectFreeBoard(category, startRange, endRange);
-		return list;
-	}
+   // 조건으로 리스트 가져오기
+   public List<BoardDTO> selectCondition(String category, int currentPage) throws Exception {
+      int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+      int endRange = currentPage * recordCntPerPage;
+      List<BoardDTO> list = dao.selectCondition(category, startRange, endRange);
+      return list;
+   }
 
-	// 자유게시판 게시글 갯수
-	public int countFreeBoard(String category) throws Exception {
-		return dao.countFreeBoard(category);
-	}
-
-	// 국내여행 리스트 가져오기
-	public List<BoardDTO> selectDomestic(String category, int currentPage) throws Exception {
-		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-		int endRange = currentPage * recordCntPerPage;
-		// 국내여행 전체 조회
-		List<BoardDTO> list = dao.selectDomestic(category, startRange, endRange);
-		return list;
-	}
-
-	// 국내여행 게시글 갯수
-	public int countDomestic(String category) throws Exception {
-		return dao.countDomestic(category);
-	}
-
-	// 축제정보 리스트 가져오기
-	public List<BoardDTO> selectFestival(String category, int currentPage) throws Exception {
-		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-		int endRange = currentPage * recordCntPerPage;
-		// 축제정보 전체 조회
-		List<BoardDTO> list = dao.selectFestival(category, startRange, endRange);
-		return list;
-	}
-
-	// 축제정보 게시글 갯수
-	public int countFestival(String category) throws Exception {
-		return dao.countFestival(category);
-	}
-
-	// 레포츠로 리스트 가져오기
-	public List<BoardDTO> selectReports(String category, int currentPage) throws Exception {
-		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
-		int endRange = currentPage * recordCntPerPage;
-		// 레포츠 전체 조회
-		List<BoardDTO> list = dao.selectReports(category, startRange, endRange);
-		return list;
-	}
-
-	// 레포츠 게시글 갯수
-	public int countReports(String category) throws Exception {
-		return dao.countReports(category);
-	}
+   // 조건 게시글 갯수
+   public int countCondition(String category) throws Exception {
+      return dao.countCondition(category);
+   }
 
 	// 당일 신규 게시글 조회
 	public List<BoardDTO> dayBoard() throws Exception {

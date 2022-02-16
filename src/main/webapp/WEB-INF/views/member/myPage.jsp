@@ -351,6 +351,14 @@ ul {
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(-50%) translateY(-50%);
 }
+
+.followCls {
+	margin : 1em;
+}
+
+.closeBtnCls {
+	margin : 10px;
+}
 </style>
 </head>
 
@@ -394,20 +402,20 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
+							 <li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
+								href="${pageContext.request.contextPath}/board/toMyBoardList?id=${loginSession.id}&currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
+								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do"
 								onclick="window.open(this.href,'쪽지보내기','width=450, height=500');return false;">쪽지
 									보내기</a></li>
-							<li class="ulList"><a class="btn-open-popup" href="#">follow</a></li>
+							<li class="ulList"><a class="btn-open-popup">follow</a></li>
 						</ul>
 					</div>
 
@@ -430,19 +438,19 @@ ul {
 													<c:choose>
 														<c:when
 															test="${list.getFollow_id() eq list2.getFollower_id()}">
-															<tr>
+															<tr class="followCls">
 																<td>${list.follow_id}</td>
 																<td>
-																	<button type="button" class="followBtn"
+																	<button type="button" class="btn btn-secondary followBtn"
 																		value="${list.follow_id}">팔로우 취소</button>
 																</td>
 															</tr>
 														</c:when>
 														<c:otherwise>
-															<tr>
+															<tr class="followCls">
 																<td>${list.follow_id}</td>
 																<td>
-																	<button type="button" class="followBtn"
+																	<button type="button" class="btn btn-secondary followBtn"
 																		value="${list.follow_id}">팔로우</button>
 																</td>
 															</tr>
@@ -452,10 +460,10 @@ ul {
 												</c:forEach>
 											</c:when>
 											<c:otherwise>
-												<tr>
+												<tr class="followCls">
 													<td>${list.follow_id}</td>
 													<td>
-														<button type="button" class="followBtn"
+														<button type="button" class="btn btn-secondary followBtn"
 															value="${list.follow_id}">팔로우</button>
 													</td>
 												</tr>
@@ -466,8 +474,8 @@ ul {
 							</tbody>
 						</table>
 					</div>
-					<div>
-						<button type="button" id="closeBtn">닫기</button>
+					<div class="closeBtnCls">
+						<button type="button" class="btn btn-secondary" id="closeBtn">닫기</button>
 					</div>
 				</div>
 			</div>

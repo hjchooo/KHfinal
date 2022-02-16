@@ -368,8 +368,7 @@ ul {
 								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
 						</div>
 					</c:if>
-
-
+					
 				</div>
 				<div class="row">
 					<div class="col-12 d-flex justify-content-center">
@@ -380,11 +379,11 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
+							 <li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
+								href="${pageContext.request.contextPath}/board/toMyBoardList?id=${loginSession.id}&currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
@@ -393,6 +392,12 @@ ul {
 								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=450, height=500');return false;">쪽지
 									보내기</a></li>
 							<li class="ulList"><a class="btn-open-popup">follow</a></li>
+								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
+									확인</a></li>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/note.do"
+								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+									보내기</a></li>
 						</ul>
 					</div>
 

@@ -67,7 +67,7 @@ public class DataController {
 		model.addAttribute("addr1", addr1);
 		return "/publicData/areaDataList";
 	}
-
+	
 	// 관광지 리스트 최신순(수정일)
 	@RequestMapping("/modifiedtimeList.do")
 	public String modifiedtimeList() {
@@ -163,6 +163,28 @@ public class DataController {
 		model.addAttribute("dto", dto);
 		return "/publicData/detailViewFestival";
 	}
+	
+	// 축제 리스트(지역별로)
+	@RequestMapping("/areaFestivalList.do")
+	public String areaFestivalList(Model model, String addr1, int currentPage) throws Exception{
+		System.out.println("축제 리스트(지역별로)");
+		System.out.println("addr1 : " + addr1);
+		System.out.println("currentPage : " + currentPage);
+		int recordTotalCnt1 = service.countAllFestivalArea(addr1);
+		System.out.println("recordTotalCnt : " + recordTotalCnt1);
+		HashMap<String, Object> naviMap = service.getPageNavi(currentPage, recordTotalCnt1);
+		List<FestivalDTO> list = service.selectAllFestivalArea(addr1, currentPage);
+		for (FestivalDTO dto : list) {
+			System.out.println("dto : " + dto);
+		}
+		String option = "all";
+		model.addAttribute("option", option);
+		model.addAttribute("recordTotalCnt1", recordTotalCnt1);
+		model.addAttribute("naviMap", naviMap);
+		model.addAttribute("list", list);
+		model.addAttribute("addr1", addr1);
+		return "/publicData/areaFestivalList";
+	}
 
 	// 축제 리스트 최신순(수정일)
 	@RequestMapping("/modifiedtimeFestivalList.do")
@@ -191,6 +213,40 @@ public class DataController {
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("list", list);
 		return "/publicData/festivalList";
+	}
+	
+	// 축제 리스트(지역별로) 최신순(수정일)
+	@RequestMapping("modifiedtimeAreaFestivalList.do")
+	public String modifiedtimeAreaFestivalList(String addr1, int currentPage) throws Exception{
+		System.out.println("관광지 리스트(지역별로) 최신순(수정일)");
+		System.out.println("addr1 : " + addr1);
+		System.out.println("currentPage : " + currentPage);
+		String encodeParam = URLEncoder.encode(addr1, "UTF-8");
+		return "redirect:/publicdata/areaFestivalList.do?addr1=" + encodeParam + "&currentPage=" + currentPage;
+	}
+	
+	// 축제 리스트(지역별로) 인기순
+	@RequestMapping("readcountAreaFestivalList.do")
+	public String readcountAreaFestivalList(Model model, String addr1, int currentPage) throws Exception{
+		System.out.println("관광지 리스트(지역별로) 인기순");
+		System.out.println("addr1 : " + addr1);
+		System.out.println("currentPage : " + currentPage);
+
+		int recordTotalCnt1 = service.countAllFestivalArea(addr1);
+		System.out.println("recordTotalCnt1 : " + recordTotalCnt1);
+
+		HashMap<String, Object> naviMap = service.getPageNavi(currentPage, recordTotalCnt1);
+		List<FestivalDTO> list = service.readcountAreaFestivalList(addr1, currentPage);
+		for(FestivalDTO dto : list) {
+			System.out.println("dto : " + dto);
+		}
+		String option = "readcount";
+		model.addAttribute("option", option);
+		model.addAttribute("recordTotalCnt1", recordTotalCnt1);
+		model.addAttribute("naviMap", naviMap);
+		model.addAttribute("list", list);
+		model.addAttribute("addr1", addr1);
+		return "publicData/areaFestivalList";
 	}
 
 	// 레포츠 리스트 가져오기
@@ -308,7 +364,7 @@ public class DataController {
 		System.out.println("numOfRows1 : " + numOfRows1);
 		System.out.println("areaCode1 : " + areaCode1);
 		service.saveData(numOfRows1, areaCode1);
-		return "redirect:/manager/main.do";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 
 	// 축제 공공데이터 저장
@@ -318,7 +374,7 @@ public class DataController {
 		System.out.println("numOfRows2 : " + numOfRows2);
 		System.out.println("areaCode2 : " + areaCode2);
 		service.festival(numOfRows2, areaCode2);
-		return "/home";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 
 	// 레포츠 공공데이터 저장
@@ -328,7 +384,7 @@ public class DataController {
 		System.out.println("numOfRows : " + numOfRows);
 		System.out.println("areaCode : " + areaCode);
 		service.leports(numOfRows, areaCode);
-		return "redirect:/manager/main.do";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 	
 	// 관광지 공공데이터 삭제
@@ -336,7 +392,7 @@ public class DataController {
 	public String deleteTourist() throws Exception{
 		System.out.println("관광지 데이터 삭제하기!");
 		service.deleteTourist();
-		return "redirect:/manager/main.do";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 	
 	// 축제 공공데이터 삭제
@@ -344,7 +400,7 @@ public class DataController {
 	public String deleteFestival() throws Exception{
 		System.out.println("축제 공공데이터 삭제하기!");
 		service.deleteFestival();
-		return "redirect:/manager/main.do";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 	
 	// 레포츠 공공데이터 삭제
@@ -352,7 +408,7 @@ public class DataController {
 	public String deleteLeports() throws Exception{
 		System.out.println("레포츠 데이터 삭제하기!");
 		service.deleteLeports();
-		return "redirect:/manager/main.do";
+		return "redirect:/manager/main.do?currentPage=1";
 	}
 
 }

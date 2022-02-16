@@ -136,47 +136,14 @@
       select content from board where board_seq = #{board_seq}
    </select>
    
-   <!-- 자유게시판 리스트 불러오기 -->
-   <select id="selectFreeBoard" parameterType="map" resultType="BoardDTO">
+   <!-- 조건으로 리스트 불러오기 -->
+   <select id="selectCondition" parameterType="map" resultType="BoardDTO">
       select * from (select row_number() over (order by board_seq desc) 순위,
       a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
    </select>
    
-   <!-- 자유게시판 게시글 갯수 -->
-   <select id="countFreeBoard" resultType="int">
-      select count(*) from board where category = #{category}
-   </select>
-   
-   <!-- 국내여행으로 리스트 불러오기 -->
-   <select id="selectDomestic" parameterType="map" resultType="BoardDTO">
-      select * from (select row_number() over (order by board_seq desc) 순위,
-      a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
-   </select>
-   
-   <!-- 국내여행 게시글 갯수 -->
-   <select id="countDomestic" resultType="int">
-      select count(*) from board where category = #{category}
-   </select>
-   
-   <!-- 축제정보로 리스트 불러오기 -->
-   <select id="selectFestival" parameterType="map" resultType="BoardDTO">
-      select * from (select row_number() over (order by board_seq desc) 순위,
-      a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
-   </select>
-   
-   <!-- 축제정보 게시글 갯수 -->
-   <select id="countFestival" resultType="int">
-      select count(*) from board where category = #{category}
-   </select>
-   
-   <!-- 레포츠로 리스트 불러오기 -->
-   <select id="selectReports" parameterType="map" resultType="BoardDTO">
-      select * from (select row_number() over (order by board_seq desc) 순위,
-      a. * from board a where category = #{category}) where 순위 between #{startRange}and #{endRange}
-   </select>
-   
-   <!-- 레포츠 게시글 갯수 -->
-   <select id="countReports" resultType="int">
+   <!-- 조건 게시글 갯수 -->
+   <select id="countCondition" resultType="int">
       select count(*) from board where category = #{category}
    </select>
    

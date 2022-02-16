@@ -16,12 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.com.finalProject.follow.FollowDTO;
 import kh.com.finalProject.follow.FollowService;
 import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberService;
 
 @Controller
 @RequestMapping("/note")
 public class NoteController {
 
 	public static int count;
+	
+	@Autowired
+	private MemberService mService;
 
 	@Autowired
 	private NoteService service;
@@ -54,10 +59,14 @@ public class NoteController {
 
 	// 쪽지 조회
 	@RequestMapping(value = "/select_to_id.do")
-	public String select_to_id(int currentPage, String to_id, Model model) throws Exception {
+	public String select_to_id(int currentPage, String id, Model model) throws Exception {
 		System.out.println("noteController noteList 도착");
 
-		HashMap<String, Object> naviMap = service.getNotePageNavi(currentPage, to_id);
+		HashMap<String, Object> naviMap = service.getNotePageNavi(currentPage, id);
+		
+		MemberDTO dto = mService.getMember(id);
+	      
+	    model.addAttribute("dto", dto);
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("currentPage", currentPage);
 		return "note/noteList";

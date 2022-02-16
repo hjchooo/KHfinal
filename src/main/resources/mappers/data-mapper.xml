@@ -60,10 +60,27 @@
 		select * from festivaldata where contentid = #{contentid}
 	</select>
 	
+	<!-- 축제 리스트(지역별로) -->
+	<select	id="selectAllFestivalArea" resultType="FestivalDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위,
+		a. * from festivaldata a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 축제 리스트(지역별로) 데이터 수 가져오기 -->
+	<select id="countAllFestivalArea" resultType="int">
+		select count(*) from festivaldata where addr1 like '%' || #{addr1} || '%'
+	</select>
+	
 	<!-- 축제 리스트 인기순 -->
 	<select id="readcountFestivalList" resultType="FestivalDTO" parameterType="map">
 		select * from (select row_number() over (order by readcount desc) 순위,
 		a. * from festivaldata a) where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 축제 리스트(지역별로) 인기순 -->
+	<select id="readcountAreaFestivalList" resultType="FestivalDTO" parameterType="map">
+		select * from (select row_number() over (order by readcount desc) 순위, 
+		a. * from festivaldata a where addr1 like '%' || #{addr1} || '%') where 순위 between #{startRange} and #{endRange}
 	</select>
 	
 	<!-- 레포츠 리스트 가져오기 -->
