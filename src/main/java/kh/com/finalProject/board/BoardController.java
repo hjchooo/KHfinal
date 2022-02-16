@@ -1,6 +1,5 @@
 package kh.com.finalProject.board;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +23,7 @@ import kh.com.finalProject.follow.FollowService;
 import kh.com.finalProject.likes.LikesDTO;
 import kh.com.finalProject.likes.LikesService;
 import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberService;
 import kh.com.finalProject.reply.ReplyDTO;
 import kh.com.finalProject.reply.ReplyService;
 import kh.com.finalProject.report.ReportDTO;
@@ -35,6 +34,9 @@ public class BoardController {
 
    @Autowired // 보드
    private BoardService service;
+   
+   @Autowired
+   private MemberService mService;
 
    @Autowired // 파일
    private FileService fservice;
@@ -279,7 +281,7 @@ public class BoardController {
    
    // 마이페이지 나의 게시글 확인
       @RequestMapping("/toMyBoardList")
-      public String toMyBoardList(Model model, int currentPage) throws Exception {
+      public String toMyBoardList(String id, Model model, int currentPage) throws Exception {
          // 회원 아이디 조회
          String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
          
@@ -290,7 +292,10 @@ public class BoardController {
          // 마이페이지 페이지네이션
          HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
          List<BoardDTO> list = service.myBoardList(writer_id, currentPage);
-
+         
+         MemberDTO dto = mService.getMember(id);
+	      
+	     model.addAttribute("dto", dto);
          model.addAttribute("naviMap", naviMap);
          model.addAttribute("list", list);
          model.addAttribute("recordTotalCnt", recordTotalCnt);
