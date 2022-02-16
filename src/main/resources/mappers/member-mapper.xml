@@ -83,7 +83,17 @@
 	<!-- 회원정보 수정 -->
 	<update id="toModify" parameterType="MemberDTO">
 		update member set
-		nickname=#{nickname}, email=#{email}, address=#{address}
+		<if test="ori_name != null and ori_name != '' ">
+			ori_name = #{ori_name},
+			sys_name = #{sys_name},
+		</if> 
+		<if test="nickname != null">
+		nickname=#{nickname},
+		</if>
+		<if test="pw != null or pw !='' ">
+			pw = #{pw},
+		</if>
+			address=#{address}
 		where id=#{id}
 	</update>
 

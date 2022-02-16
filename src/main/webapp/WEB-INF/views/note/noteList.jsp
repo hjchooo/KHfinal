@@ -334,10 +334,18 @@ ul {
 			<!-- 마이페이지 왼쪽편 -->
 			<div class="col-3 mypage_right_line">
 				<div class="row d-flex justify-content-center mb-3">
-					<div class="col-12" id="profileImgBox">
-						<img class="mypage_profile_img" id="profileImg"
-							src="/final_01-16/images/profile.svg">
-					</div>
+					<c:if test="${loginSession.ori_name == null}">
+						<div class="col-12" id="profileImgBox">
+							<img class="mypage_profile_img" id="profileImg"
+								src="/resources/images/profile.svg">
+						</div>
+					</c:if>
+					<c:if test="${loginSession.ori_name != null}">
+						<div class="col-12" id="profileImgBox">
+							<img class="mypage_profile_img" id="profileImg"
+								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
+						</div>
+					</c:if>
 				</div>
 				<div class="row">
 					<div class="col-12 d-flex justify-content-center">
@@ -349,15 +357,19 @@ ul {
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/toMyPage.do">회원정보
+								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/board/toMyBoardList?currentPage=1">나의
+								href="${pageContext.request.contextPath}/board/toMyBoardList?id=${loginSession.id}&currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/note/select_to_id.do?currentPage=1">쪽지
+								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
-						</ul>
+							<li class="ulList"><a
+								href="${pageContext.request.contextPath}/member/note.do"
+								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+									보내기</a></li>
+                  </ul>
 					</div>
 
 				</div>
