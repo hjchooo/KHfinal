@@ -157,6 +157,10 @@ a {
 .margin {
 	margin-top: 20px;
 }
+
+#travelCm:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -195,8 +199,8 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-							님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+							${loginSession.id} 님 </span>
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
@@ -207,20 +211,8 @@ a {
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
 							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
-								님 </span>
-					</div>
-				</c:when>
-				<c:when test="${sessionId != null }">
-					<!-- 네이버로 로그인할때 -->
-					<div class="col-3">
-						<a href="${pageContext.request.contextPath}/member/toLogout.do">
-							<span class="navi_text"> 로그아웃 </span>
-						</a> &nbsp; &nbsp; <a
-							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${sessionId}">
-							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text"> ${sessionId}
-							${sessionEmail} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text">
+								${loginSession.id} 님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -235,12 +227,8 @@ a {
 					</div>
 				</c:otherwise>
 			</c:choose>
-
-
 		</div>
 	</div>
-
-
 
 
 	<!-- 검색창 아래 라인 -->
@@ -248,18 +236,23 @@ a {
 		<hr style="border: solid 2px lightgray">
 	</div>
 
-
-
-
 	<!-- 메인 메뉴-->
 	<div class="container">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-3">
-				<a
-					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+				<c:choose>
+				<c:when test="${!empty loginSession}">
+				<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
 					<h5 class="navi_category">여행 커뮤니티</h5>
 				</a>
+				</c:when>
+				<c:otherwise>
+					<a onclick="toBoard();" id="travelCm">
+					<h5 class="navi_category">여행 커뮤니티</h5>
+				</a>
+				</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="col-2">
 				<a href="${pageContext.request.contextPath}/">
@@ -283,18 +276,6 @@ a {
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
 		};
-
-		// 메세지 수신(알림)
-		/*ws.onmessage = function(e) {
-			console.log("ReceiveMessage", e.data + '\n');
-			let socketAlert = $("#socketAlert");
-			socketAlert.html(e.data);
-			socketAlert.css('display', 'block');
-			
-			setTimeout(function() {
-				socketAlert.css('display', 'none');
-			}, 3000); 
-		}*/
 
 		// 메세지 수신
 		ws.onmessage = function(e) {
@@ -330,46 +311,20 @@ a {
 			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
-		
-		/*
-		$("#btnSend").on("click", function(e) {
-			e.preventDefault();
-			if (socket.readyState !== 1)
-				return;
-			let msg = $("input#msg").val();
-			socket.send(msg);
-		});
-		
-		connect();
-		*/ 
 
-	<!-- 쪽지 알람 -->
-	document.getElementById("managerBtn").onclick = function(){
-		location.href="${pageContext.request.contextPath}/manager/main.do";
-	}
-
-		let loginId = "${loginSession.id}";
-		if (loginId != "") {setInterval(function() {
-			$.ajax({
-				url : "${pageContext.request.contextPath}/note/noteCount.do?to_id="
-						+ loginId
-					}).done(function(data) {
-						if (data == "plus") {
-							alert("쪽지 알림");
-						} else {
-							console.log("조회됨.");
-						}
-					}).fail(function(e) {
-						console.log(e);
-					});
-				}, 3000);
+		// 게시판으로 이동
+		function toBoard() {
+			alert("로그인 후에 이용 가능 합니다.");
+			return;
 		}
 		
 		
 	</script>
 
-<!-- Channel Plugin Scripts -->
-<script>
+	<!-- Channel Plugin Scripts -->
+	<script>
+	
+	
   (function() {
     var w = window;
     if (w.ChannelIO) {

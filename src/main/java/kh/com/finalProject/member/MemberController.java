@@ -9,9 +9,6 @@ import java.util.UUID;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -19,15 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.github.scribejava.core.model.OAuth2AccessToken;
 
 import kh.com.finalProject.follow.FollowDTO;
 import kh.com.finalProject.follow.FollowService;
-import kh.com.finalProject.naver.NaverLoginBO;
 import kh.com.finalProject.utils.TemporaryPW;
 import kh.com.finalProject.visit.VisitService;
 
@@ -52,33 +46,14 @@ public class MemberController {
 
 	@Autowired
 	private BCryptPasswordEncoder pwEncoder;
-
+	
 	public MemberController() {
 		System.out.println("MemberController 인스턴스 생성");
 	}
 
-	// -------------------- Naver Login 영역 --------------------
-	/* NaverLoginBO */
-	private NaverLoginBO naverLoginBO;
-	private String apiResult = null;
-
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
-
 	// 로그인 페이지로 감
 	@RequestMapping("/toLogin.do")
-	public String toLogin(Model model, HttpSession session) {
-
-		// 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBo클래스의 getAuthorizationUrl()메서드 호출
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-
-		System.out.println("네이버 : " + naverAuthUrl + "\n");
-		// return "member/login";
-
-		// 네이버
-		model.addAttribute("url", naverAuthUrl);
+	public String toLogin(HttpSession session) {
 
 		return "member/login";
 	}
@@ -172,39 +147,6 @@ public class MemberController {
 
 			return "fail";
 		}
-
-	}
-
-	// 네이버로그인 성공시 callback호출 메서드
-	@RequestMapping("/callback")
-	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session)
-			throws IOException, ParseException {
-
-		System.out.println("여기는 callback");
-		OAuth2AccessToken ouaAccessToken;
-		ouaAccessToken = naverLoginBO.getAccessToken(session, code, state);
-
-		// 1. 로그인 사용자 정보를 읽어온다.
-		apiResult = naverLoginBO.getUserProfile(ouaAccessToken); // String 형식의 json데이터
-
-		// 2. String 형식인 apiResult를 json형태로 바꿈
-		JSONParser parser = new JSONParser();
-		Object obj = parser.parse(apiResult);
-		JSONObject jsonObj = (JSONObject) obj;
-		// 3. 데이터 파싱
-		// Top레벨 단계 _response 파싱
-		JSONObject response_obj = (JSONObject) jsonObj.get("response");
-		// response의 nickname값 파싱
-		String nickname = (String) response_obj.get("nickname");
-		String email = (String) response_obj.get("email");
-		System.out.println(nickname);
-		System.out.println(email);
-		// 4.파싱 닉네임 세션으로 저장
-		session.setAttribute("sessionId", nickname);
-		session.setAttribute("sessionEmail", email);// 세션 생성
-		model.addAttribute("result", apiResult);
-
-		return "home";
 	}
 
 	// =======================================
@@ -349,7 +291,7 @@ public class MemberController {
 
 		// 이메일 보내기
 		String strSetFrom = "jp1005guest@gmail.com"; // root-context.xml에 주입한 자신의 이메일 계정 (보내는 사람의 구글 계정) => 계정관리 -> 보안
-		// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
+													// -> 보안 수준이 낮은 앱의 액세스 '사용'으로 바꿔야함
 		String strToMail = email; // 수신받을 이메일
 		String strTitle = "Email verification for membership registration"; // 자신이 보낼 이메일 제목
 		String strContent = "Code : " + iCheckNum; // 자신이 보낼 이메일 내용

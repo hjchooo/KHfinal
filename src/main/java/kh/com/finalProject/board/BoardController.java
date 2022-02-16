@@ -134,17 +134,23 @@ public class BoardController {
    public String toReport(Model model,String report_writer_id, String reported_person) {
      System.out.println("report_writer_id : " + report_writer_id);
      System.out.println("reported_person : " + reported_person);
-      model.addAttribute("report_writer_id", report_writer_id);
+     model.addAttribute("report_writer_id", report_writer_id);
      model.addAttribute("reported_person", reported_person);
-      return "report/report";
+     return "report/report";
    }
 
    // 게시글 신고
-   @RequestMapping("/report.do")
+   @RequestMapping(value = "/report.do", produces = "text/html;charset=UTF-8")
    @ResponseBody
-   public void report(ReportDTO dto) throws Exception {
-      service.report(dto);
+   public String report(ReportDTO dto) throws Exception {
+	  int rs = service.report(dto);
+      if (rs == 1) {
+         return "success";
+      } else {
+         return "fail";
+      }
    }
+   
 
    // 게시글 등록 페이지로 이동
    @RequestMapping("/toInsertBoard")

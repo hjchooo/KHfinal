@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import kh.com.finalProject.configurator.WSConfig;
 import kh.com.finalProject.member.MemberDTO;
 import kh.com.finalProject.reply.ReplyDTO;
+import kh.com.finalProject.reply.ReplyService;
 
 @ServerEndpoint(value = "/reply", configurator = WSConfig.class)
 public class ReplyEndPoint {
@@ -24,6 +25,7 @@ public class ReplyEndPoint {
 	private HttpSession session;
 	private MemberDTO dto;
 	private ReplyDTO rdto;
+	private ReplyService rService;
 
 	@OnOpen
 	public void onConnect(Session session, EndpointConfig config) {
@@ -57,8 +59,7 @@ public class ReplyEndPoint {
 		try {
 			// 여기서는 replyDTO service 로 넘겨 insert 해주기~
 		} catch (Exception e) {
-			e.printStackTrace();
-			return;
+			
 		}
 		synchronized (clients) {
 

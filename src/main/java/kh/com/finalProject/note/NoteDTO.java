@@ -70,7 +70,7 @@ public class NoteDTO {
 	}
 	
 	public String toStringFormat(Date note_date) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(note_date);
 	}
 	

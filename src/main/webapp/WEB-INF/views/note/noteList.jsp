@@ -293,7 +293,9 @@ ul {
 /* 전체 버튼 */
 .btn {
 	background-color: #f9f9f9;
-	color: gray
+	color: gray;
+	font-size: 13px;
+	margin: 5px;
 }
 
 .btn:hover {
@@ -306,6 +308,11 @@ ul {
 	width: 45px;
 	height: 45px;
 	margin-right: 10px;
+}
+
+/* 삭제 이미지 */
+#deleteImg:hover {
+	cursor: pointer;
 }
 
 /* 푸터 */
@@ -333,6 +340,7 @@ ul {
 		<div class="row mt-5">
 		
 			<!-- 마이페이지 왼쪽편 -->
+
 			<div class="col-3 mypage_right_line">
 				<div class="row d-flex justify-content-center mb-3">
 					<c:if test="${loginSession.ori_name == null}">
@@ -369,9 +377,10 @@ ul {
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=200, height=300');return false;">쪽지
+								href="${pageContext.request.contextPath}/member/note.do"
+								onclick="window.open(this.href,'쪽지보내기','width=450, height=500');return false;">쪽지
 									보내기</a></li>
-							<li class="ulList"><a class="btn-open-popup">follow</a></li>
+							<li class="ulList"><a class="btn-open-popup" href="#">follow</a></li>
 						</ul>
 					</div>
 
@@ -459,7 +468,7 @@ ul {
 				</div>
 				<div class="row">
 					<div class="col-1" style="margin-left: 6px; padding-top: 0px;">
-						<a onclick="deleteNoteSeq();"><img
+						<a id="deleteImg" onclick="deleteNoteSeq();"><img
 							src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>
@@ -525,15 +534,15 @@ ul {
                             + "<td class='col-4'>" + note.content + "</td>"
                             + "<td class='col-2'>" + note.note_date + "</td>"
                             + "<td class='col-3'>"
-                            + "<button type='button' class='deleteBtn' value='" + note.note_seq + "'>삭제</button>"
-                            + "<button type='button' class='replyBtn' value='" + note.from_id + "'>답장</button></td>"
+                            + "<button type='button' class='btn deleteBtn' value='" + note.note_seq + "'>삭제</button>"
+                            + "<button type='button' class='btn replyBtn' value='" + note.from_id + "'>답장</button></td>"
                             + "</tr>"
                         // 댓글 동적 요소 추가
                         $(".notebody").append(noteBox);
 
                     }
                 } else {
-                    let noteBox = "<div class='col-12 d-flex justify-content-center mt-3'>데이터가 없습니다.</div>"
+                    let noteBox = "<td colspan='5' style='text-align:center;'>데이터가 없습니다.</td>"
                     $(".notebody").append(noteBox);
 
                 }
@@ -567,13 +576,14 @@ ul {
             }
         });
 
+     // 쪽지 답장   
         $(document).on("click", ".replyBtn", function (e) {
             console.log("a");
             let from_id = "${loginSession.id}";
             let to_id = $(e.target).val();
             console.log(from_id + " : " + to_id);
             window.open("${pageContext.request.contextPath}/note/reply.do?from_id=" + from_id
-                + "&to_id=" + to_id, "note", "width=500, height=300");
+                + "&to_id=" + to_id, "note", "width=450, height=500");
         });
         
      // checkbox 클릭 시 배열에 담기/빼기

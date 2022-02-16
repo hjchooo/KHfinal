@@ -27,18 +27,18 @@
 	box-sizing: border-box;
 }
 
-/*
-a {
+
+#contentFont {
 	text-decoration: none;
 	color: black;
 	font-weight: bold;
 }
 
-a:hover {
+#contentFont:hover {
 	color: black;
 	cursor: pointer;
 }
-*/
+
 
 /* 전체 컨테이너 */
 .myBoardListContainer {
@@ -305,6 +305,11 @@ ul {
 	color: black;
 }
 
+/* 삭제 아이콘 */
+#deleteImg:hover {
+	cursor:pointer;
+}
+
 /* 전체 버튼 */
 .btn {
 	background-color: #f9f9f9;
@@ -385,7 +390,7 @@ ul {
 								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=200, height=300');return false;">쪽지
+								href="${pageContext.request.contextPath}/member/note.do" onclick="window.open(this.href,'note팝업창','width=450, height=500');return false;">쪽지
 									보내기</a></li>
 							<li class="ulList"><a class="btn-open-popup">follow</a></li>
 						</ul>
@@ -481,7 +486,7 @@ ul {
 													</a>
 												</c:when>
 												<c:otherwise>
-													<a
+													<a id="contentFont"
 														href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
 												</c:otherwise>
 											</c:choose></td>
@@ -496,7 +501,7 @@ ul {
 
 				<div class="row">
 					<div class="col-1" style="margin-left: 6px; padding-top: 0px;">
-						<a onclick="deleteBoardSeq();"><img
+						<a onclick="deleteBoardSeq();" id="deleteImg"><img
 							src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>

@@ -151,10 +151,14 @@ public class BoardService {
 	public int selectSeq() throws Exception {
 		return dao.selectSeq();
 	}
-
+	
 	// 게시글 신고
 	public int report(ReportDTO dto) throws Exception {
-		return dao.report(dto);
+		if (dao.report(dto) == 1) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 
 	// 게시글 삭제
@@ -179,18 +183,20 @@ public class BoardService {
 				fdto.setSys_name(obj.get("sys_name").getAsString());
 				fdao.insertFile(fdto);
 			}
+		} else {
+			// 파일 삭제
+			dto.setBoard_seq(board_seq);
+			List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
+			
+			// DB에서 삭제
+			fdao.deleteFromSys_name(notMatch);
+			for (int i = 0; i < notMatch.size(); i++) {
+				File file = new File(realPath, notMatch.get(i));
+				file.delete();
+			}
+			
 		}
 
-		// 파일 삭제
-		dto.setBoard_seq(board_seq);
-		List<String> notMatch = fdao.notMatchSys_name(board_seq, sys_name);
-
-		// DB에서 삭제
-		fdao.deleteFromSys_name(notMatch);
-		for (int i = 0; i < notMatch.size(); i++) {
-			File file = new File(realPath, notMatch.get(i));
-			file.delete();
-		}
 
 		return 0;
 	}

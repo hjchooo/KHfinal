@@ -24,11 +24,15 @@
 		$("#messageNotice").load("/resources/messageNotice/messageNotice.jsp");
 	});
 </script>
-<title>dsadsaGo 가자</title>
+<title>Go 가자</title>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap')
 	;
+
+* {
+	box-sizing: border-box;
+}
 
 a {
 	text-decoration: none;
@@ -53,7 +57,7 @@ a {
 	text-align: center;
 	font-family: 'Nanum Gothic', sans-serif,;
 	font-weight: 700;
-	font-size: 15px;
+	font-size: 12px;
 }
 
 .p_right {
@@ -401,6 +405,39 @@ a {
 	background-color: rgba(0, 0, 0, 0);
 	color: #white;
 }
+
+/* 인기축제 a태그 */
+#rightTop a {
+	color: gray;
+}
+
+#rightTop a:hover {
+	color: black;
+}
+
+#leftTop a {
+	color: gray;
+}
+
+#leftTop a:hover {
+	color: black;
+}
+
+/* 인기관광지, 인기 축제 container */
+#middle_content {
+	width: 80%
+}
+
+.bestCaroucel {
+	font-size: 12px;
+	text-align: center;
+	width: 100%;
+	padding: 0;
+}
+
+#areaType:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -472,15 +509,30 @@ a {
 		<div class="row margin_top_50">
 			<div class="col-2"></div>
 			<div class="col-2">
-				<a
-					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-					<p class="p_center">
-						<button type="button" class="btn com_go_comunity_box"
-							id="boardBtn">
-							자유게시판 <br> 바로가기
-						</button>
-					</p>
-				</a>
+				<c:choose>
+					<c:when test="${!empty loginSession}">
+					<a
+						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+						<p class="p_center">
+							<button type="button" class="btn com_go_comunity_box"
+								id="boardBtn">
+								자유게시판 <br> 바로가기
+							</button>
+						</p>
+					</a>
+					</c:when>
+					<c:otherwise>
+						<a onclick="toBoard();">
+							<p class="p_center">
+								<button type="button" class="btn com_go_comunity_box"
+									id="boardBtn">
+									자유게시판 <br> 바로가기
+								</button>
+							</p>
+						</a>
+					</c:otherwise>
+				</c:choose>
+
 			</div>
 			<div class="col-2">
 				<a href=""></a>
@@ -606,7 +658,7 @@ a {
 
 
 	<!-- 인기 관광지 css에 list로 표기-->
-	<div class="container-fluid">
+	<div class="container-fluid" id="middle_content">
 		<div class="row margin_top_100">
 			<!-- 왼쪽 리스트 시작-->
 			<div class="col list_left_margin ">
@@ -616,8 +668,9 @@ a {
 						<p class="list_title"># 인기 관광지</p>
 					</div>
 					<div class="col-2">
-						<img class="list_refrash_icon"
+						<a href="#"> <img class="list_refrash_icon"
 							src="/resources/images/refrash_icon.png">
+						</a>
 					</div>
 				</div>
 
@@ -654,8 +707,9 @@ a {
 						<p class="list_title"># 인기 축제</p>
 					</div>
 					<div class="col-2">
-						<img class="list_refrash_icon"
+						<a href="#"> <img class="list_refrash_icon"
 							src="/resources/images/refrash_icon.png">
+						</a>
 					</div>
 				</div>
 
@@ -1002,20 +1056,11 @@ a {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
-	
+
 	<!-- 쪽지 알림 -->
 	<div id="messageNotice"></div>
-	
-	<div>
-		<button type="button" id="managerBtn">관리자</button>
-	</div>
 
 	<script>
-         
-       document.getElementById("managerBtn").onclick = function(){
-         location.href="${pageContext.request.contextPath}/manager/main.do";
-      }
-       
       function makeElements(parentId, item, phone, url){
          let div = $("<div class='col-12'>");
          
@@ -1050,7 +1095,7 @@ a {
     		 divC2.append("<div class='col-1'></div>");
     		 for(let i = 0; i < 5; i++){
     			 console.log(rs[i].contentid);
-    		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='p_center best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
+    		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='bestCaroucel best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
     		 }
     		 divC.append(divC2);
     		 $("#carousel-leports").append(divC);
@@ -1060,7 +1105,7 @@ a {
     		 divC2 = $("<div class='row best_margin_top_bottom_20'>");
     		 divC2.append("<div class='col-1'></div>");
     		 for(let i = 5; i < 10; i++){
-    		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='p_center best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
+    		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='bestCaroucel best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
     		 }
     		 divC.append(divC2);
     		 $("#carousel-leports").append(divC);
@@ -1107,7 +1152,7 @@ a {
      		 divC2.append("<div class='col-1'></div>");
      		 for(let i = 0; i < 5; i++){
      			console.log(rs[i].contentid);
-     		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='p_center best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
+     		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='bestCaroucel best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
      		 }
      		 divC.append(divC2);
      		 $("#carousel-leports").append(divC);
@@ -1116,7 +1161,7 @@ a {
      		 divC2 = $("<div class='row best_margin_top_bottom_20'>");
      		 divC2.append("<div class='col-1'></div>");
      		 for(let i = 5; i < 10; i++){
-     		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='p_center best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
+     		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='bestCaroucel best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
      		 }
      		 divC.append(divC2);
      		 $("#carousel-leports").append(divC);
@@ -1200,6 +1245,12 @@ a {
       $("#stayBtn").on("click", function(){
          location.href = "${pageContext.request.contextPath}/publicdata/toLeportsList.do?currentPage=1"
       })
+      
+      // 게시판으로 이동
+		function toBoard() {
+			alert("로그인 후에 이용 가능 합니다.");
+			return;
+		}
      
    </script>
 </body>
