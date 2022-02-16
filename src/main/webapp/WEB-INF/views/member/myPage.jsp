@@ -369,6 +369,7 @@ ul {
 
 <!-- <img alt="" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png"> -->
 
+
 	<!--내정보 및 수정창-->
 	<div class="container">
 		<div class="row margin_top_50">
@@ -412,7 +413,7 @@ ul {
 									확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do"
-								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+								onclick="window.open(this.href,'쪽지보내기','width=450, height=500');return false;">쪽지
 									보내기</a></li>
 							<li class="ulList"><a class="btn-open-popup">follow</a></li>
 						</ul>
@@ -628,8 +629,10 @@ ul {
 						</div>
 					</div>
 				</form>
-				<div>
-					<button type="button" id="userDeleteBtn">회원탈퇴</button>
+				<div class="row mt-5">
+				<div class="col-10 d-flex justify-content-end">
+					<button class="btn" type="button" id="userDeleteBtn">회원탈퇴</button>
+				</div>
 				</div>
 			</div>
 
@@ -873,7 +876,6 @@ ul {
 			    	}
 			    });
 		    } else {
-		    	
 		    	$.ajax({
 			    	url :"${pageContext.request.contextPath}/follow/deleteFollow",
 			        type :"POST",
@@ -887,7 +889,6 @@ ul {
 			    	}
 			    });
 		    	}
-		    
 	});
 	
 	</script>

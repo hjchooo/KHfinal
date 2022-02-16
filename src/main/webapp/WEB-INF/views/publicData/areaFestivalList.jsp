@@ -528,6 +528,7 @@ A:hover {
 				</c:if>
 			</div>
 		</div>
+		</div>
 
 
 		<!--푸터 css에는 foot으로 표기-->

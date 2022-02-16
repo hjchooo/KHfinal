@@ -27,13 +27,13 @@
 	box-sizing: border-box;
 }
 
-a {
+#contentFont {
 	text-decoration: none;
 	color: black;
 	font-weight: bold;
 }
 
-a:hover {
+#contentFont:hover {
 	color: black;
 	cursor: pointer;
 }
@@ -303,6 +303,11 @@ ul {
 	color: black;
 }
 
+/* 삭제 아이콘 */
+#deleteImg:hover {
+	cursor: pointer;
+}
+
 /* 전체 버튼 */
 .btn {
 	background-color: #f9f9f9;
@@ -344,6 +349,8 @@ ul {
 		</div>
 
 		<div class="row myPageContainer mt-5">
+
+
 			<!-- 마이페이지 왼쪽편 -->
 			<div class="col-3 mypage_right_line">
 				<div class="row d-flex justify-content-center mb-3">
@@ -359,6 +366,7 @@ ul {
 								src="${pageContext.request.contextPath}/upload/${dto.getSys_name()}">
 						</div>
 					</c:if>
+
 				</div>
 				<div class="row">
 					<div class="col-12 d-flex justify-content-center">
@@ -369,18 +377,18 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							 <li class="ulList"><a
+							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/board/toMyBoardList?id=${loginSession.id}&currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
-								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
+								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do"
-								onclick="window.open(this.href,'note팝업창','width=500, hreight=500');return false;">쪽지
+								onclick="window.open(this.href,'note팝업창','width=450, height=500');return false;">쪽지
 									보내기</a></li>
 						</ul>
 					</div>
@@ -388,6 +396,65 @@ ul {
 				</div>
 			</div>
 
+			<div class="modal">
+				<div class="modal_body">
+					<div>
+						<h2>팔로워</h2>
+					</div>
+					<div>
+						<table>
+							<tbody>
+								<c:if test="${!empty fList}">
+									<c:forEach var="list" items="${fList}">
+										<c:choose>
+											<c:when test="${! empty f2List }">
+												<c:forEach var="list2" items="${f2List}">
+													<c:choose>
+														<c:when
+															test="${list.getFollow_id() eq list2.getFollower_id()}">
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우 취소</button>
+																</td>
+															</tr>
+														</c:when>
+														<c:otherwise>
+															<tr>
+																<td>${list.follow_id}</td>
+																<td>
+																	<button type="button" class="followBtn"
+																		value="${list.follow_id}">팔로우</button>
+																</td>
+															</tr>
+														</c:otherwise>
+
+													</c:choose>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<tr>
+													<td>${list.follow_id}</td>
+													<td>
+														<button type="button" class="followBtn"
+															value="${list.follow_id}">팔로우</button>
+													</td>
+												</tr>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:if>
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<button type="button" id="closeBtn">닫기</button>
+					</div>
+				</div>
+			</div>
+
+			<!-- 마이페이지 오른쪽 영역 -->
 			<div class="col-9 mb-5">
 				<div class="row">
 					<div class="col-12 mypage_left_line">
@@ -416,7 +483,7 @@ ul {
 													</a>
 												</c:when>
 												<c:otherwise>
-													<a
+													<a id="contentFont"
 														href="${pageContext.request.contextPath}/board/detailView.do?board_seq=${dto.board_seq}&re_board_seq=${dto.board_seq}&currentPage=1">${dto.title}</a>
 												</c:otherwise>
 											</c:choose></td>
@@ -428,13 +495,14 @@ ul {
 						</table>
 					</div>
 				</div>
-				
+
 				<div class="row">
-					<div class="col-1" style="margin-left:6px;padding-top:0px;">
-						<a onclick="deleteBoardSeq();"><img src="/resources/images/trash3.svg"></a>
+					<div class="col-1" style="margin-left: 6px; padding-top: 0px;">
+						<a onclick="deleteBoardSeq();" id="deleteImg"><img
+							src="/resources/images/trash3.svg"></a>
 					</div>
 				</div>
-				
+
 				<div class="row mt-3">
 					<div class="col-12 d-flex justify-content-center">
 						<nav aria-label="Page navigation example">
@@ -468,7 +536,7 @@ ul {
 
 	<!--푸터 css에는 foot으로 표기-->
 	<div id="footer"></div>
-	
+
 	<!-- 쪽지 알림 -->
 	<div id="messageNotice"></div>
 
@@ -495,6 +563,7 @@ ul {
     	}
    	});
    	
+   	// 게시글 선택 삭제
    	function deleteBoardSeq(){
    		let rs = confirm("정말 삭제하시겠습니까?");
         if (rs) {
