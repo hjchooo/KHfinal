@@ -104,8 +104,6 @@ public class MemberController {
 			if (dto.getUserType() == 2) {
 				return "admin";
 			}
-			// 전체 방문자 수 +1
-			vService.visitInsert();
 		}
 		return "member/findPW";
 	}
@@ -136,8 +134,11 @@ public class MemberController {
 
 					return "admin";
 				}
-
+				
+				// 전체 방문자 수 +1
+				vService.visitInsert();
 				return "성공";
+				
 			} else {
 
 				return "실패";
