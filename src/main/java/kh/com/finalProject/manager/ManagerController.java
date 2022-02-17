@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.com.finalProject.board.BoardDTO;
@@ -16,8 +15,9 @@ import kh.com.finalProject.board.BoardService;
 import kh.com.finalProject.member.MemberDTO;
 import kh.com.finalProject.member.MemberService;
 import kh.com.finalProject.publicdata.DataService;
-import kh.com.finalProject.reply.ReplyDTO;
 import kh.com.finalProject.reply.ReplyService;
+import kh.com.finalProject.report.ReportDTO;
+import kh.com.finalProject.report.ReportService;
 import kh.com.finalProject.visit.VisitService;
 
 @Controller
@@ -43,6 +43,9 @@ public class ManagerController {
 	private VisitService vService;
 
 	@Autowired
+	private ReportService rService;
+	
+	@Autowired
 	private ManagerService service;
 
 	// 관리자 main 페이지 이동
@@ -50,9 +53,11 @@ public class ManagerController {
 	public String main(int currentPage, Model model) throws Exception {
 
 		// 신규 가입자 조회
-		List<MemberDTO> mlist = mService.dayMember();
+		List<MemberDTO> mlist = mService.dayMember(currentPage);
 		// 당일 추가 게시글 조회
-		List<BoardDTO> blist = bService.dayBoard();
+		List<BoardDTO> blist = bService.dayBoard(currentPage);
+		// 당일 신고 조회
+		List<ReportDTO> rlist = rService.dayReport(currentPage);
 		// 공공데이터 갯수 조회
 		List<Integer> publicdatalist = new ArrayList<>();
 
@@ -66,27 +71,41 @@ public class ManagerController {
 		publicdatalist.add(dService.countAllFestival());
 		publicdatalist.add(dService.countAllLeports());
 
-		int recordTotalCnt = service.selectAllBoardCount();
+		int recordTotalCnt = service.dayBoardCount();
+		System.out.println("recordTotalCnt : " + recordTotalCnt);
+		
+		int recordTotalCntM = service.countDayMember();
+		System.out.println("recordTotalCntM : " + recordTotalCntM);
+		
+		int recordTotalCntR = service.countReport();
+		System.out.println("recordTotalCntR : " + recordTotalCntR);
+
 		// 게시판 이전, 다음 버튼
 		HashMap<String, Object> boardNaviMap = service.getPageNavi(recordTotalCnt, currentPage);
+		HashMap<String, Object> memberNaviMap = service.getPageNaviM(recordTotalCntM, currentPage);
+		HashMap<String, Object> reportNaviMap = service.getPageNaviR(recordTotalCntR, currentPage);
 		// 게시판 페이지네이션
-		List<BoardDTO> list = service.selectAll(currentPage);
 
 		System.out.println("mlist : " + mlist);
 		System.out.println("blist : " + blist);
 		HashMap<String, Object> map = new HashMap<>();
-
+		
 		// 멤버 영역
 		map.put("mlist", mlist);
 
 		// 게시판 영역
 		map.put("blist", blist);
+		map.put("rlist", rlist);
 		map.put("boardNaviMap", boardNaviMap);
-		map.put("list", list);
+		map.put("memberNaviMap", memberNaviMap);
+		map.put("reportNaviMap", reportNaviMap);
 		map.put("recordTotalCnt", recordTotalCnt);
+		model.addAttribute("mlist", mlist);
 		model.addAttribute("blist", blist);
+		model.addAttribute("rlist", rlist);
 		model.addAttribute("boardNaviMap", boardNaviMap);
-		model.addAttribute("list", list);
+		model.addAttribute("memberNaviMap", memberNaviMap);
+		model.addAttribute("reportNaviMap", reportNaviMap);
 		model.addAttribute("recordTotalCnt", recordTotalCnt);
 
 		// 공공데이터 영역
@@ -112,21 +131,21 @@ public class ManagerController {
 	}
 
 	// 전체 게시판 조회
-	@RequestMapping("/toManagerBoard.do")
-	public String toBoard(Model model, int currentPage) throws Exception {
-		// 자유게시판 게시글 총 갯수
-		int recordTotalCnt = service.selectAllBoardCount();
-
-		// 자유게시판 페이지네이션
-		HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
-		List<BoardDTO> list = service.selectAll(currentPage);
-
-		model.addAttribute("naviMap", naviMap);
-		model.addAttribute("list", list);
-		model.addAttribute("recordTotalCnt", recordTotalCnt);
-
-		return "manager/main";
-	}
+//	@RequestMapping("/toManagerBoard.do")
+//	public String toBoard(Model model, int currentPage) throws Exception {
+//		// 자유게시판 게시글 총 갯수
+//		int recordTotalCnt = service.selectAllBoardCount();
+//
+//		// 자유게시판 페이지네이션
+//		HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
+//		List<BoardDTO> list = service.selectAll(currentPage);
+//
+//		model.addAttribute("naviMap", naviMap);
+//		model.addAttribute("list", list);
+//		model.addAttribute("recordTotalCnt", recordTotalCnt);
+//
+//		return "manager/main";
+//	}
 
 	// 개시판 관리 페이지 이동
 	@RequestMapping("/board.do")

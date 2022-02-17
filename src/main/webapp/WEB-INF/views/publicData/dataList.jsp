@@ -425,7 +425,7 @@ A:hover {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># ${addr1} 여행코스</p>
+						<p class="list_title"># 관광지</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"

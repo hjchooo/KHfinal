@@ -409,9 +409,6 @@ A:hover {
 
 
 	<!--게시판 시작-->
-	${addr1}
-	<br> ${option}
-	<br>
 
 	<!-- 인기 여행코스 css에 list로 표기-->
 	<div class="container-fluid">
@@ -424,7 +421,7 @@ A:hover {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># ${addr1} 여행코스</p>
+						<p class="list_title"># ${addr1} 축제</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"

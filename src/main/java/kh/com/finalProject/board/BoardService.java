@@ -296,8 +296,13 @@ public class BoardService {
    }
 
 	// 당일 신규 게시글 조회
-	public List<BoardDTO> dayBoard() throws Exception {
-		return dao.dayBoard();
+	public List<BoardDTO> dayBoard(int currentPage) throws Exception {
+		int recordCntPerPage = 5;
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		System.out.println("startRange : " + startRange);
+		System.out.println("endRange : " + endRange);
+		return dao.dayBoard(startRange, endRange);
 	}
 
 	// 마이페이지 게시글
