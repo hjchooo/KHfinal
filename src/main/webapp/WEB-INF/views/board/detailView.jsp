@@ -210,8 +210,7 @@ label {
 									id="dropdownMenu2" data-toggle="dropdown" aria-expanded="false">
 									${dto.writer_id}</button>
 								<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-									<button class="dropdown-item" type="button" id="sendMessage">족지쓰기</button>
-									<button class="dropdown-item" type="button">게시물 보기</button>
+									<button class="dropdown-item" type="button" id="sendMessage">쪽지쓰기</button>
 								</div>
 							</span>
 

@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="kh.com.finalProject.board.BoardService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/board/BoardService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="311" width="263" x="37" y="597"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="kh.com.finalProject.board.BoardController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/board/BoardController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="275" width="308" x="38" y="177"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="kh.com.finalProject.board.BoardDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/board/BoardDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="473" width="317" x="29" y="1497"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="kh.com.finalProject.board.BoardDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/board/BoardDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="293" width="263" x="36" y="1061"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="kh.com.finalProject.configurator.WSConfig" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/configurator/WSConfig.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="398" x="926" y="177"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="kh.com.finalProject.configurator.SpringContext" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/configurator/SpringContext.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="53" width="199" x="950" y="291"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="kh.com.finalProject.endpoint.ReplyEndPoint" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/endpoint/ReplyEndPoint.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="77" width="170" x="962" y="454"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="kh.com.finalProject.files.FileService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/files/FileService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="230" x="368" y="314"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="kh.com.finalProject.files.FileDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/files/FileDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="203" width="112" x="372" y="766"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="kh.com.finalProject.files.FileController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/files/FileController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="269" x="360" y="178"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="kh.com.finalProject.files.FileDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/files/FileDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="131" width="184" x="368" y="491"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="kh.com.finalProject.follow.FollowService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/follow/FollowService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="59" width="146" x="698" y="351"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="kh.com.finalProject.follow.FollowController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/follow/FollowController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="138" x="701" y="178"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="kh.com.finalProject.follow.FollowDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/follow/FollowDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="77" width="178" x="703" y="555"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="kh.com.finalProject.follow.FollowDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/follow/FollowDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="257" width="146" x="704" y="784"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="kh.com.finalProject.home.HomeController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/home/HomeController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="95" width="199" x="1391" y="174"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="kh.com.finalProject.home.HomeDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/home/HomeDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="77" width="199" x="1392" y="614"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="kh.com.finalProject.home.HomeService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/home/HomeService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="59" width="199" x="1389" y="411"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="kh.com.finalProject.likes.LikesDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/likes/LikesDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="167" x="375" y="1389"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="kh.com.finalProject.likes.LikesDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/likes/LikesDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="203" width="113" x="379" y="1579"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="kh.com.finalProject.likes.LikesController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/likes/LikesController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="113" x="377" y="1133"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="kh.com.finalProject.likes.LikesService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/likes/LikesService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="115" x="377" y="1252"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="kh.com.finalProject.manager.ManagerService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/manager/ManagerService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="188" x="707" y="1516"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="kh.com.finalProject.manager.ManagerController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/manager/ManagerController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="149" width="130" x="709" y="1208"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="kh.com.finalProject.manager.ManagerDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/manager/ManagerDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="130" x="705" y="1699"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="kh.com.finalProject.member.MemberDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/member/MemberDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="491" width="293" x="1309" y="845"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="kh.com.finalProject.member.MemberService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/member/MemberService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="311" width="212" x="981" y="1258"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="kh.com.finalProject.member.MemberController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/member/MemberController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="419" width="171" x="961" y="681"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="kh.com.finalProject.member.TemporaryPW" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/member/TemporaryPW.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="53" width="128" x="1513" y="1481"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="kh.com.finalProject.member.MemberDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/member/MemberDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="293" width="147" x="1301" y="1473"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="kh.com.finalProject.note.NoteDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/note/NoteDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="64" width="124" x="1080" y="1782"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="32" language="java" name="kh.com.finalProject.note.NoteService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/note/NoteService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="100" width="181" x="1072" y="1658"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="33" language="java" name="kh.com.finalProject.note.NoteController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/note/NoteController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="128" x="913" y="1659"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="34" language="java" name="kh.com.finalProject.note.NoteDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/note/NoteDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="298" width="112" x="907" y="1827"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="kh.com.finalProject.publicdata.DataService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/DataService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="481" width="228" x="336" y="1999"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="kh.com.finalProject.publicdata.DataDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/DataDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="445" width="242" x="589" y="1998"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="kh.com.finalProject.publicdata.LeportsDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/LeportsDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="421" width="358" x="129" y="2505"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="38" language="java" name="kh.com.finalProject.publicdata.DataController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/DataController.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="427" width="200" x="108" y="2008"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="39" language="java" name="kh.com.finalProject.publicdata.DataDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/DataDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="403" width="343" x="518" y="2504"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="kh.com.finalProject.publicdata.FestivalDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/publicdata/FestivalDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="529" width="389" x="897" y="2506"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="41" language="java" name="kh.com.finalProject.reply.ReplyDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/reply/ReplyDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="179" width="177" x="1490" y="2139"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="42" language="java" name="kh.com.finalProject.reply.ReplyService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/reply/ReplyService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="197" width="196" x="1474" y="1912"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="43" language="java" name="kh.com.finalProject.reply.ReplyController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/reply/ReplyController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="165" width="179" x="1491" y="1721"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="44" language="java" name="kh.com.finalProject.reply.ReplyDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/reply/ReplyDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="413" width="180" x="1691" y="1718"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="45" language="java" name="kh.com.finalProject.report.ReportDAO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/report/ReportDAO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1777" y="2351"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="46" language="java" name="kh.com.finalProject.report.ReportDTO" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/report/ReportDTO.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1989" y="2517"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="47" language="java" name="kh.com.finalProject.report.ReportController" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/report/ReportController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1809" y="2233"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="48" language="java" name="kh.com.finalProject.report.ReportService" project="KHfinal" 
+    file="/KHfinal/src/main/java/kh/com/finalProject/report/ReportService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1945" y="2229"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="49">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="50" name="fservice"/>      
+      <multiplicity id="51" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="52">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="53" name="dService"/>      
+      <multiplicity id="54" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="55">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="56" name="lservice"/>      
+      <multiplicity id="57" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="58">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="59" name="mService"/>      
+      <multiplicity id="60" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="61">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="62" name="dao"/>      
+      <multiplicity id="63" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="64">    
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="65" name="dao"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="67">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="68" name="replyService"/>      
+      <multiplicity id="69" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="70">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="71" name="mService"/>      
+      <multiplicity id="72" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="73">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="74" name="dao"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="76">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="77" name="dao"/>      
+      <multiplicity id="78" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="79">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="80" name="festivalDto"/>      
+      <multiplicity id="81" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="40" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="82">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="83" name="bService"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="85">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="86" name="fService"/>      
+      <multiplicity id="87" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="88">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="89" name="rdto"/>      
+      <multiplicity id="90" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="44" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="91">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="92" name="leportsDto"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="37" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="95" name="service"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="97">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="98" name="dao"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="100">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="101" name="service"/>      
+      <multiplicity id="102" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="103">    
+    <end type="SOURCE" refId="33" navigable="false">      
+      <attribute id="104" name="service"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="107" name="service"/>      
+      <multiplicity id="108" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="22" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="110" name="dao"/>      
+      <multiplicity id="111" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="113" name="mService"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="115">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="116" name="dao"/>      
+      <multiplicity id="117" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="118">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="119" name="followService"/>      
+      <multiplicity id="120" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="121">    
+    <end type="SOURCE" refId="32" navigable="false">      
+      <attribute id="122" name="dao"/>      
+      <multiplicity id="123" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="31" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="124">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="125" name="service"/>      
+      <multiplicity id="126" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="127">    
+    <end type="SOURCE" refId="43" navigable="false">      
+      <attribute id="128" name="service"/>      
+      <multiplicity id="129" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="130">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="131" name="service"/>      
+      <multiplicity id="132" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="133">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="134" name="boardDAO"/>      
+      <multiplicity id="135" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="136">    
+    <end type="SOURCE" refId="42" navigable="false">      
+      <attribute id="137" name="dao"/>      
+      <multiplicity id="138" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="41" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="139">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="140" name="rservice"/>      
+      <multiplicity id="141" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="142">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="143" name="service"/>      
+      <multiplicity id="144" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="146" name="fdao"/>      
+      <multiplicity id="147" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="149" name="dto"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <end type="SOURCE" refId="36" navigable="false">      
+      <attribute id="152" name="dto"/>      
+      <multiplicity id="153" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="39" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="154">    
+    <end type="SOURCE" refId="28" navigable="false">      
+      <attribute id="155" name="fService"/>      
+      <multiplicity id="156" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="157">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="158" name="service"/>      
+      <multiplicity id="159" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="160">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="161" name="rService"/>      
+      <multiplicity id="162" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="42" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="163">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="164" name="dataDao"/>      
+      <multiplicity id="165" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="36" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="166">    
+    <end type="SOURCE" refId="38" navigable="false">      
+      <attribute id="167" name="service"/>      
+      <multiplicity id="168" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="35" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

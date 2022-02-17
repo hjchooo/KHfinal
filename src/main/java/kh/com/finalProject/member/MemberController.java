@@ -92,21 +92,23 @@ public class MemberController {
 
 		return "member/findID";
 	}
-
+	
 	// 비밀번호 찾기 (팝업창 띄움)
-	@RequestMapping("/tofindPW.do")
-	public String findPW(MemberDTO dto, String rawPW, String encodePW) throws Exception {
-		if (pwEncoder.matches(rawPW, encodePW)) {
-			if (dto.getUserType() == 2) {
-				session.setAttribute("loginSession", dto);
-				return "admin";
-			}
-			if (dto.getUserType() == 2) {
-				return "admin";
-			}
-		}
-		return "member/findPW";
-	}
+	   /*
+	    * => 이부분 혹시 몰라서 주석처리했습니다
+	    * 
+	    * @RequestMapping("/tofindPW.do") public String findPW(MemberDTO dto, String
+	    * rawPW, String encodePW) throws Exception { if (pwEncoder.matches(rawPW,
+	    * encodePW)) { if (dto.getUserType() == 2) {
+	    * session.setAttribute("loginSession", dto); return "admin"; } if
+	    * (dto.getUserType() == 2) { return "admin"; } } return "member/findPW"; }
+	    */
+
+	   @RequestMapping("/tofindPW.do")
+	   public String findPW() {
+
+	      return "member/findPW";
+	   }
 
 	// -------------------- Login페이지 영역 --------------------
 	// 로그인
@@ -401,51 +403,53 @@ public class MemberController {
 	}
 
 	// 회원정보 수정
-	@RequestMapping(value = "/toModify.do")
-	public String toModify(MultipartFile file, MemberDTO dto) throws Exception {
-		System.out.println("toModify");
-		// 수정된 회원정보 update
+	   @RequestMapping(value = "/toModify.do")
+	   public String toModify(MultipartFile file, MemberDTO dto) throws Exception {
+	      System.out.println("toModify");
+	      // 수정된 회원정보 update
 
-		String realPath = session.getServletContext().getRealPath("upload");
-		System.out.println(realPath);
-		File realPathFile = new File(realPath);
-		if (!realPathFile.exists()) {
-			realPathFile.mkdir();
-		}
+	      String realPath = session.getServletContext().getRealPath("upload");
+	      System.out.println(realPath);
+	      File realPathFile = new File(realPath);
+	      if (!realPathFile.exists()) {
+	         realPathFile.mkdir();
+	      }
 
-		if (!file.isEmpty()) {
-			dto.setOri_name(file.getOriginalFilename());
+	      if (!file.isEmpty()) {
+	         dto.setOri_name(file.getOriginalFilename());
 
-			dto.setSys_name(UUID.randomUUID() + "_" + dto.getOri_name());
+	         dto.setSys_name(UUID.randomUUID() + "_" + dto.getOri_name());
 
-			file.transferTo(new File(realPath + File.separator + dto.getSys_name()));
-		} else {
-			dto.setOri_name("");
-			dto.setSys_name("");
-		}
-		System.out.println("pw 값 : " + dto.getPw());
-		System.out.println("주소 값 : " + dto.getAddress());
+	         file.transferTo(new File(realPath + File.separator + dto.getSys_name()));
+	      } else {
+	         dto.setOri_name("");
+	         dto.setSys_name("");
+	      }
+	      System.out.println("pw 값 : " + dto.getPw());
+	      System.out.println("주소 값 : " + dto.getAddress());
 
-		if (dto.getPw().equals("")) {
-			dto.setPw(service.originPW(dto.getId()));
-		} else {
+	      if (dto.getPw().equals("")) {
+	         dto.setPw(service.originPW(dto.getId()));
+	      } else {
 
-			String rawPW = ""; // 인코딩 전 PW
-			String encodePW = ""; // 인코딩 후 PW
+	         String rawPW = ""; // 인코딩 전 PW
+	         String encodePW = ""; // 인코딩 후 PW
 
-			rawPW = dto.getPw(); // 비밀번호 얻어옴
-			encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
-			dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
-		}
+	         rawPW = dto.getPw(); // 비밀번호 얻어옴
+	         encodePW = pwEncoder.encode(rawPW); // 비밀번호 인코딩
+	         dto.setPw(encodePW); // 인코딩된 비밀버호를 dto객체에 다시 저장
+	      }
 
-		int rs = service.toModify(dto);
+	      int rs = service.toModify(dto);
 
-		if (rs != -1) {
-			System.out.println("회원정보가 수정되었습니다.");
-		}
+	      if (rs != -1) {
+	         System.out.println("회원정보가 수정되었습니다.");
 
-		return "home";
-	}
+	         session.invalidate();
+	      }
+
+	      return "home";
+	   }
 
 	// 쪽지 보내기 팝업창 , 회원조회
 	@RequestMapping(value = "/note.do")

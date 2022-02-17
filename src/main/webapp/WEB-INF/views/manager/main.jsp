@@ -437,7 +437,7 @@ a {
 							<tr>
 								<th>신고한 id</th>
 								<th>신고된 id</th>
-								<th>신고 카테고리</th>
+								<th>신고 날짜</th>
 							</tr>
 						</thead>
 						<c:choose>
