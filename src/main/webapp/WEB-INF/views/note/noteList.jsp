@@ -373,14 +373,12 @@ ul {
 								href="${pageContext.request.contextPath}/board/toMyBoardList?id=${loginSession.id}&currentPage=1">나의
 									게시글 확인</a></li>
 							<li class="ulList"><a
-
-								href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${dto.getId()}&currentPage=1">쪽지
+								href="${pageContext.request.contextPath}/note/select_to_id.do?id=${dto.getId()}&currentPage=1">쪽지
 									확인</a></li>
 							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/note.do"
 								onclick="window.open(this.href,'쪽지보내기','width=450, height=500');return false;">쪽지
 									보내기</a></li>
-							<li class="ulList"><a class="btn-open-popup" href="#">follow</a></li>
 						</ul>
 
 					</div>
@@ -486,7 +484,7 @@ ul {
 								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 									end="${naviMap.get('endNavi')}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/note/select_to_id.do?to_id=${loginSession.id}&currentPage=${i}">${i}</a>
+										href="${pageContext.request.contextPath}/note/select_to_id.do?id=${loginSession.id}&currentPage=${i}">${i}</a>
 									</li>
 								</c:forEach>
 								<c:if test="${naviMap.get('needNext') eq true}">

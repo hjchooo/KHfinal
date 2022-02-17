@@ -381,7 +381,7 @@ a:hover {
 					<div class="row list_line2"></div>
 					<!-- 게시글 전체 리스트 -->
 
-					<!-- 기존 List -->
+					<!-- 기존 List varStatus=vs 를 써주면 1+씩 증가 -->
 					<c:forEach items="${list}" var="dto">
 
 						<div class="row listBox">
