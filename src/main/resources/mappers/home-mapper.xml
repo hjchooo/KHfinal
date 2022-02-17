@@ -4,6 +4,25 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="homeMapper">
+	<!--메인 페이지 검색 -->
+	<select id="mainSearch" resultType="SearchDTO" parameterType="map">
+		select * from (select row_number() over (order by modifiedtime desc) 순위,
+		contentid, firstimage2, title, addr1, readcount, modifiedtime from 
+		(select contentid, firstimage2, title, addr1, readcount, modifiedtime from data 
+		full outer join festivaldata using(contentid, firstimage2, title, addr1, readcount, modifiedtime) 
+		full outer join leportsdata using(contentid, firstimage2, title, addr1, readcount, modifiedtime) 
+		where title like '%' || #{main_search} || '%' or addr1 like '%' || #{main_search} || '%'))
+		where 순위 between #{startRange} and #{endRange}
+	</select>
+	
+	<!-- 검색 결과 데이터 수 -->
+	<select id="countAll" resultType="int">
+		select count(*) from data full outer join festivaldata using (contentid, firstimage2, title, addr1, readcount, modifiedtime) 
+		full outer join leportsdata using (contentid, firstimage2, title, addr1, readcount, modifiedtime) 
+		where title like '%' || #{main_search} || '%' or 
+		addr1 like '%' || #{main_search} || '%'
+	</select>
+
 	<!-- Top 관광지 리스트 -->
 	<select id="getDataList" resultType="DataDTO">
 		select * from (select row_number() over (order by readcount desc) 순위,

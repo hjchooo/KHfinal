@@ -102,8 +102,16 @@ public class MemberDAO {
 	}
 
 	// 오늘 가입한 회원조회
-	public List<MemberDTO> dayMember() throws Exception {
-		return session.selectList("memberMapper.dayMember");
+	public List<MemberDTO> dayMember(int startRange, int endRange) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("memberMapper.dayMember", map);
+	}
+	
+	// 오늘 가입한 회원 수
+	public int countDayMember() throws Exception{
+		return session.selectOne("memberMapper.countDayMember");
 	}
 
 	/* =================================== 수정 ================================= */

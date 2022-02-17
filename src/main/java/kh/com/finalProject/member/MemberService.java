@@ -189,13 +189,17 @@ public class MemberService {
 
 	// 무시해도 됨 (확인 차에 해봄)
 	public String originPW(String id) throws Exception {
-
 		return dao.originPW(id);
 	}
 	
 	// 오늘 가입한 회원 조회
-	public List<MemberDTO> dayMember() throws Exception{
-		return dao.dayMember();
+	public List<MemberDTO> dayMember(int currentPage) throws Exception{
+		int recordCntPerPage = 5;
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		System.out.println("startRange : " + startRange);
+		System.out.println("endRange : " + endRange);
+		return dao.dayMember(startRange, endRange);
 	}
 
 }

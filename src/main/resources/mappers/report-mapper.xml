@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="reportMapper">
+	<!-- 전체 신고 내용 조회 -->
+	<select id="dayReport" resultType="ReportDTO" parameterType="map">
+		select * from (select row_number() over (order by report_seq desc) 순위,
+		a. * from report a) where 순위 between
+		#{startRange} and #{endRange}
+	</select>
+	
+	<!-- 전체 신고된 건수 -->
+	<select id="countReport" resultType="int">
+		select count(*) from report
+	</select>
+</mapper>

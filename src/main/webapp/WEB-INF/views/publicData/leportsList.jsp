@@ -421,7 +421,7 @@ A:hover {
 				<!-- 상단 타이틀 시작-->
 				<div class="row">
 					<div class="col-10">
-						<p class="list_title"># ${addr1} 레포츠</p>
+						<p class="list_title"># 레포츠</p>
 					</div>
 					<div class="col-2">
 						<img class="list_refrash_icon"
