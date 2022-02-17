@@ -158,11 +158,17 @@ a {
 	margin-top: 20px;
 }
 
-/* 추가 */
+<<<<<<<
+HEAD /* 추가 */ 
 #searchBtn {
 	border: 0px solid white;
 	background-color: rgba(0, 0, 0, 0);
-	color: #white;
+	color: #white; ======= #
+	travelCm: hover{ 
+	cursor: pointer;
+	>>>>>>>
+	4
+	a255adfd2c5e9837b5c982a27f6072104aaa940
 }
 </style>
 </head>
@@ -192,8 +198,10 @@ a {
 					<img class="search_icon_img"
 						src="/resources/images/search_icon.png" id="search_icon_img">
 				</p> -->
-				<button type="button" id="searchBtn"><img class="search_icon_img"
-						src="/resources/images/search_icon.png" id="search_icon_img"></button>
+				<button type="button" id="searchBtn">
+					<img class="search_icon_img"
+						src="/resources/images/search_icon.png" id="search_icon_img">
+				</button>
 			</div>
 			<c:choose>
 				<c:when test="${!empty loginSession && loginSession.userType eq 0}">
@@ -204,8 +212,8 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text">
-							${loginSession.nickname} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+							님 </span>
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
@@ -216,8 +224,8 @@ a {
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
 							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text">
-								${loginSession.nickname} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+								님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -236,25 +244,29 @@ a {
 	</div>
 
 
-
-
 	<!-- 검색창 아래 라인 -->
 	<div class="container-fluid">
 		<hr style="border: solid 2px lightgray">
 	</div>
-
-
-
 
 	<!-- 메인 메뉴-->
 	<div class="container">
 		<div class="row">
 			<div class="col-2"></div>
 			<div class="col-3">
-				<a
-					href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-					<h5 class="navi_category">여행 커뮤니티</h5>
-				</a>
+				<c:choose>
+					<c:when test="${!empty loginSession}">
+						<a
+							href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+							<h5 class="navi_category">여행 커뮤니티</h5>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a onclick="toBoard();" id="travelCm">
+							<h5 class="navi_category">여행 커뮤니티</h5>
+						</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="col-2">
 				<a href="${pageContext.request.contextPath}/">
@@ -273,7 +285,7 @@ a {
 	<div class="margin"></div>
 
 	<script>
-		ws = new WebSocket("ws://172.30.23.7/reply");
+		ws = new WebSocket("ws://192.168.219.104/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
@@ -311,52 +323,58 @@ a {
 			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
+
+		// 게시판으로 이동
+		function toBoard() {
+			alert("로그인 후에 이용 가능 합니다.");
+			return;
+		}
 	</script>
 
 	<!-- Channel Plugin Scripts -->
 	<script>
-  (function() {
-    var w = window;
-    if (w.ChannelIO) {
-      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
-    }
-    var ch = function() {
-      ch.c(arguments);
-    };
-    ch.q = [];
-    ch.c = function(args) {
-      ch.q.push(args);
-    };
-    w.ChannelIO = ch;
-    function l() {
-      if (w.ChannelIOInitialized) {
-        return;
-      }
-      w.ChannelIOInitialized = true;
-      var s = document.createElement('script');
-      s.type = 'text/javascript';
-      s.async = true;
-      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-      s.charset = 'UTF-8';
-      var x = document.getElementsByTagName('script')[0];
-      x.parentNode.insertBefore(s, x);
-    }
-    if (document.readyState === 'complete') {
-      l();
-    } else if (window.attachEvent) {
-      window.attachEvent('onload', l);
-    } else {
-      window.addEventListener('DOMContentLoaded', l, false);
-      window.addEventListener('load', l, false);
-    }
-  })();
-  ChannelIO('boot', {
-    "pluginKey": "4aaaca92-fb66-477f-a5da-7f1a18d3782f"
-  });
+	  (function() {
+	    var w = window;
+	    if (w.ChannelIO) {
+	      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+	    }
+	    var ch = function() {
+	      ch.c(arguments);
+	    };
+	    ch.q = [];
+	    ch.c = function(args) {
+	      ch.q.push(args);
+	    };
+	    w.ChannelIO = ch;
+	    function l() {
+	      if (w.ChannelIOInitialized) {
+	        return;
+	      }
+	      w.ChannelIOInitialized = true;
+	      var s = document.createElement('script');
+	      s.type = 'text/javascript';
+	      s.async = true;
+	      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+	      s.charset = 'UTF-8';
+	      var x = document.getElementsByTagName('script')[0];
+	      x.parentNode.insertBefore(s, x);
+	    }
+	    if (document.readyState === 'complete') {
+	      l();
+	    } else if (window.attachEvent) {
+	      window.attachEvent('onload', l);
+	    } else {
+	      window.addEventListener('DOMContentLoaded', l, false);
+	      window.addEventListener('load', l, false);
+	    }
+	  })();
+	  ChannelIO('boot', {
+	    "pluginKey": "4aaaca92-fb66-477f-a5da-7f1a18d3782f"
+	  });
 	<!-- End Channel Plugin -->
 
 	</script>
-	
+
 	<script>
 		$("#search_icon_img").on("click", function(){
 			let main_search = $("#main_search").val()

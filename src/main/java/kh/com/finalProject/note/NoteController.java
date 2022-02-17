@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,21 +13,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.com.finalProject.follow.FollowDTO;
+import kh.com.finalProject.follow.FollowService;
+import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberService;
+
 @Controller
 @RequestMapping("/note")
 public class NoteController {
 
 	public static int count;
+	
+	@Autowired
+	private MemberService mService;
 
 	@Autowired
 	private NoteService service;
+	
+	@Autowired 
+	private FollowService fService;
 
+	@Autowired
+	private HttpSession session;
+	
 	// 쪽지 보내기
 	@RequestMapping(value = "/note.do")
 	@ResponseBody()
-	public String note(NoteDTO dto) throws Exception {
+	public String note(NoteDTO dto, Model model, String id) throws Exception {
 		System.out.println("noteController 도착");
-
+		id = ((MemberDTO) session.getAttribute("loginSession")).getId();
+		
+		List<FollowDTO> list = fService.follower(id);
+		List<FollowDTO> list2 = fService.follow(id);
+		model.addAttribute("dto", dto);
+		model.addAttribute("fList", list);
+		model.addAttribute("f2List", list2);
 		int rs = service.insert(dto);
 		if (rs != 0) {
 			return "success";
@@ -36,10 +59,14 @@ public class NoteController {
 
 	// 쪽지 조회
 	@RequestMapping(value = "/select_to_id.do")
-	public String select_to_id(int currentPage, String to_id, Model model) throws Exception {
+	public String select_to_id(int currentPage, String id, Model model) throws Exception {
 		System.out.println("noteController noteList 도착");
 
-		HashMap<String, Object> naviMap = service.getNotePageNavi(currentPage, to_id);
+		HashMap<String, Object> naviMap = service.getNotePageNavi(currentPage, id);
+		
+		MemberDTO dto = mService.getMember(id);
+	      
+	    model.addAttribute("dto", dto);
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("currentPage", currentPage);
 		return "note/noteList";

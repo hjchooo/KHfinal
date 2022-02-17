@@ -104,8 +104,6 @@ public class MemberController {
 			if (dto.getUserType() == 2) {
 				return "admin";
 			}
-			// 전체 방문자 수 +1
-			vService.visitInsert();
 		}
 		return "member/findPW";
 	}
@@ -136,8 +134,11 @@ public class MemberController {
 
 					return "admin";
 				}
-
+				
+				// 전체 방문자 수 +1
+				vService.visitInsert();
 				return "성공";
+				
 			} else {
 
 				return "실패";
@@ -179,10 +180,8 @@ public class MemberController {
 	@ResponseBody()
 	public String ExistID(String id) throws Exception {
 		if (service.existID(id)) {
-
 			return "Exist";
 		} else {
-
 			return "Nope";
 		}
 	}
@@ -247,7 +246,6 @@ public class MemberController {
 
 		if (service.verifyID(id)) { // service의 메서드를 사용
 			// 결과값으로 "Available" return
-
 			return "Available";
 		} else {
 			return "Unavailable";

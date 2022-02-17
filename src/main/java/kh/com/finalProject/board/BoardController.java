@@ -1,6 +1,5 @@
 package kh.com.finalProject.board;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +23,7 @@ import kh.com.finalProject.follow.FollowService;
 import kh.com.finalProject.likes.LikesDTO;
 import kh.com.finalProject.likes.LikesService;
 import kh.com.finalProject.member.MemberDTO;
+import kh.com.finalProject.member.MemberService;
 import kh.com.finalProject.reply.ReplyDTO;
 import kh.com.finalProject.reply.ReplyService;
 import kh.com.finalProject.report.ReportDTO;
@@ -35,6 +34,9 @@ public class BoardController {
 
    @Autowired // 보드
    private BoardService service;
+   
+   @Autowired
+   private MemberService mService;
 
    @Autowired // 파일
    private FileService fservice;
@@ -76,19 +78,6 @@ public class BoardController {
       return "board/freeBoard";
    }
 
-   /*
-    * 게시판 리스트 조건 별로 가져오기
-    * 
-    * @RequestMapping("/toBoardOption.do") public String toBoardOption(Model model,
-    * String selectOption, int currentPage) throws Exception { int recordTotalCnt =
-    * 
-    * HashMap<String, Object> naviMap = service.getPageNavi(currentPage);
-    * List<BoardDTO> list = service.selectAllOption(selectOption, (int)
-    * naviMap.get("currentPage")); for (BoardDTO dto : list) {
-    * System.out.println(dto); } model.addAttribute("naviMap", naviMap);
-    * model.addAttribute("list", list); return "board/boardList"; }
-    */
-
    // 게시글 상세조회
    @RequestMapping("/detailView.do")
    public String detailView(int re_board_seq, int board_seq, Model model, String likes_id, String follow_id,
@@ -108,13 +97,6 @@ public class BoardController {
       // 댓글 페이지네이션
       List<ReplyDTO> replyPageList = rservice.getReplyPageList((int) naviMap.get("currentPage"));
 
-      // 파일
-//      List<FileDTO> list = fservice.selectAll(board_seq); // 파일 리스트
-//
-//      for (FileDTO f : list) {
-//         System.out.println(f);
-//      }
-
       // 좋아요가 되있는지 찾기위해 게시글번호와 회원번호를 보냄.
       LikesDTO likes = lservice.findLikes(board_seq, writer_id);
       FollowDTO follow = followService.findFollow(writer_id, dto.getWriter_id());
@@ -124,7 +106,6 @@ public class BoardController {
       model.addAttribute("replyPageList", replyPageList);
       model.addAttribute("likes", likes);
       model.addAttribute("follow", follow);
-//      model.addAttribute("list", list);
       model.addAttribute("dto", dto);
       return "board/detailView";
    }
@@ -155,23 +136,23 @@ public class BoardController {
    public String toReport(Model model,String report_writer_id, String reported_person) {
      System.out.println("report_writer_id : " + report_writer_id);
      System.out.println("reported_person : " + reported_person);
-      model.addAttribute("report_writer_id", report_writer_id);
+     model.addAttribute("report_writer_id", report_writer_id);
      model.addAttribute("reported_person", reported_person);
-      return "report/report";
+     return "report/report";
    }
 
    // 게시글 신고
-   @RequestMapping("/report.do")
+   @RequestMapping(value = "/report.do", produces = "text/html;charset=UTF-8")
    @ResponseBody
-   public void report(ReportDTO dto) throws Exception {
-      System.out.println(dto);
-      System.out.println("report_value : " + dto.getReport_value());
-      System.out.println("report_type : " + dto.getReport_type());
-      System.out.println("report_writer_id : " + dto.getReport_writer_id());
-      System.out.println("reported_person : " + dto.getReported_person());
-      System.out.println("report_content : " + dto.getReport_content());
-      service.report(dto);
+   public String report(ReportDTO dto) throws Exception {
+	  int rs = service.report(dto);
+      if (rs == 1) {
+         return "success";
+      } else {
+         return "fail";
+      }
    }
+   
 
    // 게시글 등록 페이지로 이동
    @RequestMapping("/toInsertBoard")
@@ -217,12 +198,6 @@ public class BoardController {
    public String modify(RedirectAttributes redirectAttributes, int board_seq, int re_board_seq, BoardDTO dto,
          FileDTO fdto, String[] sys_name) throws Exception {
 
-      System.out.println("게시글 수정 BoardDTO : " + dto);
-      System.out.println("게시글 수정 content : " + dto.getContent());
-      for(int i=0; i<sys_name.length; i++) {
-         System.out.println("sys_name : " + sys_name[i]);
-      }
-      
       service.modifyBySeq(board_seq, dto, fdto, sys_name);
       session.removeAttribute("fileList");
 
@@ -279,18 +254,20 @@ public class BoardController {
    
    // 마이페이지 나의 게시글 확인
       @RequestMapping("/toMyBoardList")
-      public String toMyBoardList(Model model, int currentPage) throws Exception {
+      public String toMyBoardList(String id, Model model, int currentPage) throws Exception {
          // 회원 아이디 조회
          String writer_id = ((MemberDTO) session.getAttribute("loginSession")).getId();
          
          // 마이페이지 게시글 총 갯수
          int recordTotalCnt = service.countMyBoardList(writer_id);
 
-
          // 마이페이지 페이지네이션
          HashMap<String, Object> naviMap = service.getPageNavi(recordTotalCnt, currentPage);
          List<BoardDTO> list = service.myBoardList(writer_id, currentPage);
-
+         
+         MemberDTO dto = mService.getMember(id);
+	      
+	     model.addAttribute("dto", dto);
          model.addAttribute("naviMap", naviMap);
          model.addAttribute("list", list);
          model.addAttribute("recordTotalCnt", recordTotalCnt);
@@ -306,14 +283,10 @@ public class BoardController {
          for(int board_seq : arrCheck) {
             rs += service.deleteBySeq(board_seq);    
          }
-         System.out.println(rs);
          if (rs != 0) {
-            System.out.println("c");
             return "success";
          } else {
-            System.out.println("a");
             return "fail";
          }
-         
       }
 }

@@ -361,6 +361,7 @@ A:hover {
 .table {
 	vertical-align: middle;
 }
+
 </style>
 </head>
 <body>
@@ -368,7 +369,6 @@ A:hover {
 
 	<!-- 게시판 메인 메뉴 css에 board로 표기-->
 	<div class="container-fluid">
-		${naviMap.get('currentPage')}
 		<div class="row board_category_color margin_top_30">
 			<div class="col-2 board_category"></div>
 			<div class="col-1 board_category" id="seoul">
@@ -466,7 +466,7 @@ A:hover {
 						<c:forEach items="${list}" var="dataDTO">
 							<tr>
 								<td><img class="thumbnail" src="${dataDTO.firstimage2}"></td>
-								<td><a
+								<td><a class="leportsTitle"
 									href="${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid=${dataDTO.contentid}">${dataDTO.title}</a></td>
 								<td>${dataDTO.addr1}</td>
 								<td>${dataDTO.readcount}</td>

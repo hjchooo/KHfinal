@@ -563,8 +563,8 @@ a {
 						</div>
 						<div class="row arter-boxBtn justify-content-center margin_top_10">
 							<div class="col-12 d-flex justify-content-evenly">
-								<button type="button" id="touristBtn">관광지 삽입</button>
-								<button type="button" id="touristDeleteBtn">관광지 삭제</button>
+								<button class="btn" type="button" id="touristBtn">관광지 삽입</button>
+								<button class="btn" type="button" id="touristDeleteBtn">관광지 삭제</button>
 							</div>
 						</div>
 						<!-- 축제 -->
@@ -585,8 +585,8 @@ a {
 						</div>
 						<div class="row arter-boxBtn justify-content-center margin_top_10">
 							<div class="col-12 d-flex justify-content-evenly">
-								<button type="button" id="festivalBtn">축제 삽입</button>
-								<button type="button" id="festivalDeleteBtn">축제 삭제</button>
+								<button class="btn" type="button" id="festivalBtn">축제 삽입</button>
+								<button class="btn" type="button" id="festivalDeleteBtn">축제 삭제</button>
 							</div>
 						</div>
 						<!-- 레포츠 -->
@@ -607,8 +607,8 @@ a {
 						</div>
 						<div class="row arter-boxBtn justify-content-center margin_top_10">
 							<div class="col-12 d-flex justify-content-evenly">
-								<button type="button" id="leportsBtn">레포츠 삽입</button>
-								<button type="button" id="leportsDeleteBtn">레포츠 삭제</button>
+								<button class="btn" type="button" id="leportsBtn">레포츠 삽입</button>
+								<button class="btn" type="button" id="leportsDeleteBtn">레포츠 삭제</button>
 							</div>
 						</div>
 					</div>

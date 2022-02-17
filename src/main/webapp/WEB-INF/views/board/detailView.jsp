@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <script src="https://code.jquery.com/jquery-3.6.0.js"
 	integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
 	crossorigin="anonymous"></script>
@@ -29,6 +28,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <script>
+
    $(document).ready(function(){
       $("#header").load("/resources/header/header.jsp");
       $("#footer").load("/resources/footer/footer.jsp");
@@ -140,8 +140,9 @@ label {
 	height: 25px;
 	margin-top: 5px;
 }
+
 #report:hover {
-	cursor:pointer;
+	cursor: pointer;
 }
 
 /* 아이디 드롭다운박스 */
@@ -401,44 +402,6 @@ label {
 			});				
 		}
    
-   //썸머노트 이미지 업로드
-   function modifySummernote() {
-       $('#summernote').summernote({
-             width: 800, 
-            minHeight: 500,   // 최소높이
-            maxHeight: null,   // 최대 높이
-            focus: true,   // 에디터 로딩후 포커스
-            lang: "ko-KR",
-            callbacks: {
-               onImageUpload : function(files, editor, welEditable){
-                  for(let file of files){
-                     console.log(file);
-                     sendFile(file,this);
-                     console.log("sendFile 함수로 이동");
-               }
-            }
-         } 
-      });
-   }
-   
-     // 썸머노트 이미지 업로드
-      function sendFile(file){
-         var data = new FormData();
-         data.append("file", file);
-         $.ajax({
-            data : data,
-            type : "POST",
-            url : "${pageContext.request.contextPath}/files/SummerNoteImageFile",
-            contentType : false,
-            processData : false
-         }).done(function(data){
-            // 경로갑 출력
-            $("#summernote").summernote("insertImage", data.path);
-         }).fail(function(e){
-            console.log(e);
-         });            
-      }
-
    // 팔로우 기능
    $(document).ready(function (e) {
             
@@ -560,8 +523,6 @@ label {
    // 댓글 수정 버튼 클릭시
    $("#replyContainer").on("click", ".btn-modifyReply" , function(e){
       console.log($(e.target).val());
-      //$(".btn-modifyConfirm").css("display", true);
-      //$(".btn-modifyCancel").css("display", true);
       $(".btn-modifyConfirm").show();
       $(".btn-modifyCancel").show();
       $(".btn-modifyReply").hide();
@@ -662,12 +623,7 @@ label {
                // 댓글 작성 성공시
                if (rs == "성공") {
                      
-                  console.log("reply.js::socket", ws);
-                  
                   if (ws) { // socket이 연결이 되었다면
-                     console.log("socket if문 실행");
-                     console.log(ws);
-                     
                      let replyData = [loginId, board_writer, board_seq];
                      
                      //websocket에 보내기! (reply, 댓글작성자,게시글작성자, 글번호)
@@ -681,9 +637,6 @@ label {
                      //+ " 님이 " + "<a href='${pageContext.request.contextPath}/board/detailView.do?board_seq='" + board_seq + "'&curretPage=1>" 
                      //       + "</a>" + " 번 게시글에 댓글을 달았습니다."; 
                      
-                     console.debug("sssssssmsg>>", socketMsg);
-                     
-                     console.log(socketMsg);
                      
                      //socket에 send를 해준다
                      ws.send(socketMsg);
@@ -776,8 +729,8 @@ label {
    // 쪽지 보내기
    $("#sendMessage").on("click", function(){
       let writer_id = "${dto.writer_id}";
-      let width = '500';
-      let height = '300';
+      let width = '450';
+      let height = '500';
       let left = Math.ceil(( window.screen.width - width )/2);
       let top = Math.ceil(( window.screen.height - height )/2); 
       
@@ -791,16 +744,14 @@ label {
    // 신고 팝업창
    // 게시글 신고
       $("#report").on("click", function(){
-         let report = confirm("정말 신고하겠습니까?");
-         if(report){
-            let popupX = (document.body.offsetWidth / 2) - (500 / 2);
+            let popupX = (document.body.offsetWidth / 2) - (400 / 2);
             let popupY= (window.screen.height / 2) - (500 / 2);
+            let reported_person = "${dto.writer_id}";
             
-            let url = "${pageContext.request.contextPath}/board/toReport.do?writer_id=${dto.writer_id}"
+            let url = "${pageContext.request.contextPath}/board/toReport.do?reported_person=" + reported_person;
             let name = "신고";
-            let option = "width=500, height=500, top=popupY, left=popupX";
-            window.open(url, name, 'status=no, height=500, width=600, left='+ popupX + ', top='+ popupY);
-         }
+            let option = "width=400, height=480, top=popupY, left=popupX";
+            window.open(url, name, 'status=no, height=480, width=400, left='+ popupX + ', top='+ popupY);
       })
    </script>
 
