@@ -1066,7 +1066,7 @@ a {
          let div = $("<div class='col-12'>");
          
          let div2 = $("<div class='row margin_top_20'>");
-         div2.append("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>");
+         div2.append("<div class='col-3 topDataImage'><img class='list_left_photo' style='height:113px;width:150px;' src='"+item.firstimage2+"'></div>");
          div.append(div2);
          let div3 = $("<div class='col-8'>");
          div3.append("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/"+url+".do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>")
@@ -1090,12 +1090,10 @@ a {
     	 $.ajax({
     		 url : "${pageContext.request.contextPath}/getCarouselLeports.do"
     	 }).done(function(rs){
-    		 console.log(rs);
     		 let divC = $("<div class='carousel-item active'>");
     		 let divC2 = $("<div class='row best_margin_top_bottom_20'>");
     		 divC2.append("<div class='col-1'></div>");
     		 for(let i = 0; i < 5; i++){
-    			 console.log(rs[i].contentid);
     		 	divC2.append("<div class='col-2'><a href='${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid="+rs[i].contentid+"'><div class='card best_card_border' style='width: 12rem;'><img class='best_image_border' src='"+rs[i].firstimage2+"'><div class='best_title_back'><p class='bestCaroucel best_p_card_linehight card_font'>"+rs[i].title+"</p></div></div></a></div>");
     		 }
     		 divC.append(divC2);
@@ -1119,7 +1117,6 @@ a {
     	 $.ajax({
             url : "${pageContext.request.contextPath}/getTopDataList.do"
          }).done(function(rs){
-            console.log(rs);
             for(let item of rs){
                makeElements("#leftTop", item, 'none', "detailView");
             }
@@ -1131,7 +1128,6 @@ a {
          $.ajax({
             url : "${pageContext.request.contextPath}/getTopFestivalList.do"
          }).done(function(sr){
-            console.log(sr);
             for(let item of sr){
                makeElements("#rightTop", item, "number", "toDetailViewFestival");
             }   
@@ -1146,7 +1142,6 @@ a {
         	  url : "${pageContext.request.contextPath}/getAreaLeports.do",
         	  data : {areaType : $("#areaType").val()}
           }).done(function(rs){
-        	 console.log(rs);
         	 $("#carousel-leports").empty();
         	 let divC = $("<div class='carousel-item active'>");
      		 let divC2 = $("<div class='row best_margin_top_bottom_20'>");
@@ -1178,7 +1173,6 @@ a {
          $.ajax({
             url : "${pageContext.request.contextPath}/getTopDataList.do"
          }).done(function(rs){
-            console.log(rs);
             $("#leftTop div").empty();
             for(let item of rs){
                makeElements("#leftTop", item, 'none', "detailView")
@@ -1193,7 +1187,6 @@ a {
          $.ajax({
             url : "${pageContext.request.contextPath}/getModifiedtimeDataList.do"
          }).done(function(rs){
-            console.log(rs);
             $("#leftTop div").empty();
             for(let item of rs){
                makeElements("#leftTop", item, 'none', "detailView")
@@ -1208,7 +1201,6 @@ a {
          $.ajax({
             url : "${pageContext.request.contextPath}/getTopFestivalList.do"
          }).done(function(rs){
-            console.log(rs);
             $("#rightTop div").empty();
             for(let item of rs){
                makeElements("#rightTop", item, 'number', "toDetailViewFestivalList")
@@ -1223,7 +1215,6 @@ a {
          $.ajax({
             url : "${pageContext.request.contextPath}/getModifiedtimeFestivalList.do"
          }).done(function(rs){
-            console.log(rs);
             $("#rightTop div").empty();
             for(let item of rs){
                makeElements("#rightTop", item, 'number', "toDetailViewFestivalList")

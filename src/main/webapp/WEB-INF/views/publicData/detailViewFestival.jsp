@@ -629,7 +629,7 @@ a {
 
 				<div class="row mt-3">
 					<div class="col-12 d-flex justify-content-start">
-						<button class="btn" id="btnBack">뒤로가기</button>
+						<button type="button" class="btn" id="btnBack">뒤로가기</button>
 					</div>
 				</div>
 			</div>
@@ -650,6 +650,7 @@ a {
 	<script>
 	// 뒤로가기
     $("#btnBack").on("click", function(){
+    	console.log(aaaaaaaa);
   	  location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1";
     })
 	</script>

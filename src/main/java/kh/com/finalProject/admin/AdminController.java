@@ -1,4 +1,4 @@
-package kh.com.finalProject.manager;
+package kh.com.finalProject.admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,8 +21,8 @@ import kh.com.finalProject.report.ReportService;
 import kh.com.finalProject.visit.VisitService;
 
 @Controller
-@RequestMapping("/manager")
-public class ManagerController {
+@RequestMapping("/admin")
+public class AdminController {
 
 	@Autowired
 	private MemberService mService;
@@ -46,18 +46,18 @@ public class ManagerController {
 	private ReportService rService;
 	
 	@Autowired
-	private ManagerService service;
+	private AdminService service;
 
 	// 관리자 main 페이지 이동
 	@RequestMapping("/main.do")
-	public String main(int currentPage, Model model) throws Exception {
+	public String main(int mcurrentPage, int bcurrentPage, int rcurrentPage, Model model) throws Exception {
 
 		// 신규 가입자 조회
-		List<MemberDTO> mlist = mService.dayMember(currentPage);
+		List<MemberDTO> mlist = mService.dayMember(mcurrentPage);
 		// 당일 추가 게시글 조회
-		List<BoardDTO> blist = bService.dayBoard(currentPage);
+		List<BoardDTO> blist = bService.dayBoard(bcurrentPage);
 		// 당일 신고 조회
-		List<ReportDTO> rlist = rService.dayReport(currentPage);
+		List<ReportDTO> rlist = rService.dayReport(rcurrentPage);
 		// 공공데이터 갯수 조회
 		List<Integer> publicdatalist = new ArrayList<>();
 
@@ -81,9 +81,9 @@ public class ManagerController {
 		System.out.println("recordTotalCntR : " + recordTotalCntR);
 
 		// 게시판 이전, 다음 버튼
-		HashMap<String, Object> boardNaviMap = service.getPageNavi(recordTotalCnt, currentPage);
-		HashMap<String, Object> memberNaviMap = service.getPageNaviM(recordTotalCntM, currentPage);
-		HashMap<String, Object> reportNaviMap = service.getPageNaviR(recordTotalCntR, currentPage);
+		HashMap<String, Object> boardNaviMap = service.getPageNavi(recordTotalCnt, bcurrentPage);
+		HashMap<String, Object> memberNaviMap = service.getPageNaviM(recordTotalCntM, mcurrentPage);
+		HashMap<String, Object> reportNaviMap = service.getPageNaviR(recordTotalCntR, rcurrentPage);
 		// 게시판 페이지네이션
 
 		System.out.println("mlist : " + mlist);
@@ -117,7 +117,7 @@ public class ManagerController {
 		// 전체 방문자수
 		map.put("totalCount", totalCount);
 		model.addAttribute("map", map);
-		return "manager/main";
+		return "/admin/main";
 	}
 
 	// 회원 관리 페이지 이동
@@ -127,7 +127,7 @@ public class ManagerController {
 		HashMap<String, Object> naviMap = mService.getMemberPageNavi(currentPage);
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("currentPage", currentPage);
-		return "/manager/member";
+		return "/admin/member";
 	}
 
 	// 전체 게시판 조회
@@ -150,19 +150,19 @@ public class ManagerController {
 	// 개시판 관리 페이지 이동
 	@RequestMapping("/board.do")
 	public String board() {
-		return "/manager/board";
+		return "/admin/board";
 	}
 
 	// 신고 관리 페이지 이동
 	@RequestMapping("/report.do")
 	public String report() {
-		return "/manager/report";
+		return "/admin/report";
 	}
 
 	// 댓글관리 페이지 이동
 	@RequestMapping("/reply.do")
 	public String reply() {
-		return "/manager/reply";
+		return "/admin/reply";
 	}
 
 	// 회원 전체 조회

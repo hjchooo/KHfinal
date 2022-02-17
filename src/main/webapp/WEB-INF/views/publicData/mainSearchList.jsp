@@ -417,8 +417,7 @@ A:hover {
 						<c:forEach items="${searchList}" var="list">
 							<tr>
 								<td><img class="thumbnail" src="${list.firstimage2}"></td>
-								<td><a
-									href="${pageContext.request.contextPath}/publicdata/toDetailViewLeports.do?contentid=${list.contentid}">${list.title}</a></td>
+								<td>${list.title}</td>
 								<td>${list.addr1}</td>
 								<td>${list.readcount}</td>
 								<td>${list.modifiedtime}</td>

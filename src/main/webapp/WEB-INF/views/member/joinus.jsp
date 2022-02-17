@@ -361,8 +361,6 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 					type : "post",
 					data : {id : id.value}
 				}).done(function(res) { //	res : result
-					console.log(res);
-
 					if (res == "Available") {
 						ResID.html("멋진 아이디네요!");
 						ResID.css({
@@ -404,8 +402,6 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 
 		//	PW입력창을 떠났을 때 Regex 검사
 		pw.onchange = function(e) {
-			console.log(pw.value);
-
 			if (!regexPW()) { //	RegexPW에 위배시 아래 출력
 				ResPW.html("8~20자의 영문 대.소문자, 숫자, 특수문자를 사용하세요.");
 				ResPW.css({
@@ -500,8 +496,6 @@ o 회사는 이용자들의 신고사항에 대해 신속하게 충분한 답변
 					type : "post",
 					data : {nickname : nickname.value}
 				}).done(function(res) { //	res : result
-					console.log(res);
-
 					if (res == "Available") {
 						ResNickname.html("사용 가능한 닉네임입니다.");
 						ResNickname.css({

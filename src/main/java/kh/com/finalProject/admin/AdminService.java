@@ -1,4 +1,4 @@
-package kh.com.finalProject.manager;
+package kh.com.finalProject.admin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import kh.com.finalProject.member.MemberDAO;
 import kh.com.finalProject.report.ReportDAO;
 
 @Service
-public class ManagerService {
+public class AdminService {
 
 	@Autowired
 	private BoardDAO bdao;
@@ -20,7 +20,7 @@ public class ManagerService {
 	private MemberDAO mdao;
 	@Autowired
 	private ReportDAO rdao;
-	
+
 	private int recordCntPerPage = 5;
 	private int naviCntPerPage = 5;
 
@@ -39,25 +39,25 @@ public class ManagerService {
 	public int selectAllBoardCount() throws Exception {
 		return bdao.selectAllBoardCount();
 	}
-	
+
 	// 당일 게시글 수
-	public int dayBoardCount() throws Exception{
+	public int dayBoardCount() throws Exception {
 		return bdao.dayBoardCount();
 	}
-	
+
 	// 오늘 가입한 회원 수
-	public int countDayMember() throws Exception{
+	public int countDayMember() throws Exception {
 		return mdao.countDayMember();
 	}
-	
+
 	// 신고 건수
-	public int countReport() throws Exception{
+	public int countReport() throws Exception {
 		return rdao.countReport();
 	}
 
 	// 게시판 페이징
 	public HashMap<String, Object> getPageNavi(int recordTotalCnt, int currentPage) throws Exception {
-		
+
 		int pageTotalCnt = 0;
 		if (recordTotalCnt % recordCntPerPage > 0) {
 			pageTotalCnt = (recordTotalCnt / recordCntPerPage) + 1;
@@ -93,9 +93,9 @@ public class ManagerService {
 
 		return map;
 	}
-	
+
 	public HashMap<String, Object> getPageNaviM(int recordTotalCntM, int currentPage) throws Exception {
-		
+
 		int pageTotalCnt = 0;
 		if (recordTotalCntM % recordCntPerPage > 0) {
 			pageTotalCnt = (recordTotalCntM / recordCntPerPage) + 1;
@@ -121,7 +121,7 @@ public class ManagerService {
 			needPrev = false;
 		if (endNavi == pageTotalCnt)
 			needNext = false;
-		
+
 		System.out.println("startNavi : " + startNavi);
 		System.out.println("endNavi : " + endNavi);
 		System.out.println("needPrev : " + needPrev);
@@ -136,9 +136,9 @@ public class ManagerService {
 
 		return map;
 	}
-	
-public HashMap<String, Object> getPageNaviR(int recordTotalCntR, int currentPage) throws Exception {
-		
+
+	public HashMap<String, Object> getPageNaviR(int recordTotalCntR, int currentPage) throws Exception {
+
 		int pageTotalCnt = 0;
 		if (recordTotalCntR % recordCntPerPage > 0) {
 			pageTotalCnt = (recordTotalCntR / recordCntPerPage) + 1;
@@ -164,7 +164,7 @@ public HashMap<String, Object> getPageNaviR(int recordTotalCntR, int currentPage
 			needPrev = false;
 		if (endNavi == pageTotalCnt)
 			needNext = false;
-		
+
 		System.out.println("startNavi : " + startNavi);
 		System.out.println("endNavi : " + endNavi);
 		System.out.println("needPrev : " + needPrev);

@@ -349,18 +349,18 @@ a {
 							<ul class="pagination justify-content-center">
 								<c:if test="${boardNaviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${boardNaviMap.get('startNavi')-1}">이전</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${boardNaviMap.get('startNavi')-1}&mcurrentPage=1&rcurrentPage=1">이전</a></li>
 								</c:if>
 								<!--startNavi, endNavi  -->
 								<c:forEach var="i" begin="${boardNaviMap.get('startNavi')}"
 									end="${boardNaviMap.get('endNavi')}">
 									<li class="page-item"><a
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${i}"
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${i}&mcurrentPage=1&rcurrentPage=1"
 										class="page-link">${i}</a></li>
 								</c:forEach>
 								<c:if test="${boardNaviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${boardNaviMap.get('endNavi')+1}">다음</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${boardNaviMap.get('endNavi')+1}&mcurrentPage=1&rcurrentPage=1">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -405,7 +405,7 @@ a {
 
 					<div>
 						<a
-							href="${pageContext.request.contextPath}/manager/member.do?currentPage=1">회원관리</a>
+							href="${pageContext.request.contextPath}/admin/member.do?currentPage=1">회원관리</a>
 					</div>
 
 						<!-- 가입자 페이지 네이션 -->
@@ -414,18 +414,18 @@ a {
 							<ul class="pagination justify-content-center">
 								<c:if test="${memberNaviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${memberNaviMap.get('startNavi')-1}">이전</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${memberNaviMap.get('startNavi')-1}&bcurrentPage=1&rcurrentPage=1">이전</a></li>
 								</c:if>
 								<!--startNavi, endNavi  -->
 								<c:forEach var="i" begin="${memberNaviMap.get('startNavi')}"
 									end="${memberNaviMap.get('endNavi')}">
 									<li class="page-item"><a
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${i}"
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${i}&bcurrentPage=1&rcurrentPage=1"
 										class="page-link">${i}</a></li>
 								</c:forEach>
 								<c:if test="${memberNaviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manager/main.do?currentPage=${memberNaviMap.get('endNavi')+1}">다음</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${memberNaviMap.get('endNavi')+1}&bcurrentPage=1&rcurrentPage=1">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -445,7 +445,7 @@ a {
 							<tr>
 								<th>신고한 id</th>
 								<th>신고된 id</th>
-								<th>신고 카테고리</th>
+								<th>신고 날짜</th>
 							</tr>
 						</thead>
 						<c:choose>
@@ -471,7 +471,7 @@ a {
 
 					<div>
 						<a
-							href="${pageContext.request.contextPath}/manager/report.do?currentPage=1">신고관리</a>
+							href="${pageContext.request.contextPath}/admin/report.do?currentPage=1">신고관리</a>
 					</div>
 
 					<!-- 게시판 페이지 네이션 -->
@@ -480,18 +480,18 @@ a {
 							<ul class="pagination justify-content-center">
 								<c:if test="${reportNaviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${reportNaviMap.get('startNavi')-1}">이전</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${reportNaviMap.get('startNavi')-1}&bcurrentPage=1&mcurrentPage=1">이전</a></li>
 								</c:if>
 								<!--startNavi, endNavi  -->
 								<c:forEach var="i" begin="${reportNaviMap.get('startNavi')}"
 									end="${reportNaviMap.get('endNavi')}">
 									<li class="page-item"><a
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${i}"
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${i}&bcurrentPage=1&mcurrentPage=1"
 										class="page-link">${i}</a></li>
 								</c:forEach>
 								<c:if test="${reportNaviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${reportNaviMap.get('endNavi')+1}">다음</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${reportNaviMap.get('endNavi')+1}&bcurrentPage=1&mcurrentPage=1">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>

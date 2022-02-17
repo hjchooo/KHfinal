@@ -364,7 +364,7 @@ public class DataController {
 		System.out.println("numOfRows1 : " + numOfRows1);
 		System.out.println("areaCode1 : " + areaCode1);
 		service.saveData(numOfRows1, areaCode1);
-		return "redirect:/manager/main.do?currentPage=1";
+		return "redirect:/admin/main.do?currentPage=1";
 	}
 
 	// 축제 공공데이터 저장
@@ -374,7 +374,7 @@ public class DataController {
 		System.out.println("numOfRows2 : " + numOfRows2);
 		System.out.println("areaCode2 : " + areaCode2);
 		service.festival(numOfRows2, areaCode2);
-		return "redirect:/manager/main.do?currentPage=1";
+		return "redirect:/admin/main.do?currentPage=1";
 	}
 
 	// 레포츠 공공데이터 저장
@@ -384,7 +384,7 @@ public class DataController {
 		System.out.println("numOfRows : " + numOfRows);
 		System.out.println("areaCode : " + areaCode);
 		service.leports(numOfRows, areaCode);
-		return "redirect:/manager/main.do?currentPage=1";
+		return "redirect:/admin/main.do?currentPage=1";
 	}
 	
 	// 관광지 공공데이터 삭제
@@ -408,7 +408,7 @@ public class DataController {
 	public String deleteLeports() throws Exception{
 		System.out.println("레포츠 데이터 삭제하기!");
 		service.deleteLeports();
-		return "redirect:/manager/main.do?currentPage=1";
+		return "redirect:/admin/main.do?currentPage=1";
 	}
 
 }

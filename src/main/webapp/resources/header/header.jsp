@@ -219,7 +219,7 @@ a {
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
-							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
+							href="${pageContext.request.contextPath}/admin/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
 								님 </span>
@@ -282,7 +282,7 @@ a {
 	<div class="margin"></div>
 
 	<script>
-		ws = new WebSocket("ws://192.168.219.104/reply");
+		ws = new WebSocket("ws://52.79.227.141:8080/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
