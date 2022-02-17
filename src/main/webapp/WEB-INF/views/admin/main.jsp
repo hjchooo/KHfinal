@@ -324,13 +324,13 @@ a {
 							</tr>
 						</thead>
 						<c:choose>
-							<c:when test="${not empty list}">
+							<c:when test="${not empty blist}">
 								<tbody>
-									<c:forEach var="boarList" items="${list}">
+									<c:forEach var="boardList" items="${blist}">
 										<tr>
-											<td>${boarList.writer_id}</td>
-											<td>${boarList.title}</td>
-											<td>${boarList.category}</td>
+											<td>${boardList.writer_id}</td>
+											<td>${boardList.title}</td>
+											<td>${boardList.category}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -349,18 +349,18 @@ a {
 							<ul class="pagination justify-content-center">
 								<c:if test="${boardNaviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${boardNaviMap.get('startNavi')-1}">이전</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${boardNaviMap.get('startNavi')-1}&mcurrentPage=1&rcurrentPage=1">이전</a></li>
 								</c:if>
 								<!--startNavi, endNavi  -->
 								<c:forEach var="i" begin="${boardNaviMap.get('startNavi')}"
 									end="${boardNaviMap.get('endNavi')}">
 									<li class="page-item"><a
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${i}"
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${i}&mcurrentPage=1&rcurrentPage=1"
 										class="page-link">${i}</a></li>
 								</c:forEach>
 								<c:if test="${boardNaviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${boardNaviMap.get('endNavi')+1}">다음</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?bcurrentPage=${boardNaviMap.get('endNavi')+1}&mcurrentPage=1&rcurrentPage=1">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>
@@ -385,11 +385,11 @@ a {
 						<c:choose>
 							<c:when test="${not empty map.mlist}">
 								<tbody>
-									<c:forEach var="list" items="${map.mlist}" begin="0" end="5">
+									<c:forEach var="memberlist" items="${mlist}" begin="0" end="5">
 										<tr>
-											<td>${list.id}</td>
-											<td>${list.nickname}</td>
-											<td>${list.signup_date}</td>
+											<td>${memberlist.id}</td>
+											<td>${memberlist.nickname}</td>
+											<td>${memberlist.signup_date}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -405,22 +405,30 @@ a {
 
 					<div>
 						<a
-							href="${pageContext.request.contextPath}/manager/member.do?currentPage=1">회원관리</a>
+							href="${pageContext.request.contextPath}/admin/member.do?currentPage=1">회원관리</a>
 					</div>
 
-					<!-- 게시판 페이지 네이션 -->
-					<div class="row">
-						<div class="col-12">
-							<nav aria-label="Page navigation example">
-								<ul class="pagination justify-content-center">
-									<li class="page-item disabled"><a class="page-link">이전</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">${i}</a></li>
-									<li class="page-item"><a class="page-link" href="#">다음</a>
-									</li>
-								</ul>
-							</nav>
-						</div>
+						<!-- 가입자 페이지 네이션 -->
+					<div class="row mt-5 mb-5">
+						<nav class="col" aria-label="Page navigation example">
+							<ul class="pagination justify-content-center">
+								<c:if test="${memberNaviMap.get('needPrev') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${memberNaviMap.get('startNavi')-1}&bcurrentPage=1&rcurrentPage=1">이전</a></li>
+								</c:if>
+								<!--startNavi, endNavi  -->
+								<c:forEach var="i" begin="${memberNaviMap.get('startNavi')}"
+									end="${memberNaviMap.get('endNavi')}">
+									<li class="page-item"><a
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${i}&bcurrentPage=1&rcurrentPage=1"
+										class="page-link">${i}</a></li>
+								</c:forEach>
+								<c:if test="${memberNaviMap.get('needNext') eq true}">
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=${memberNaviMap.get('endNavi')+1}&bcurrentPage=1&rcurrentPage=1">다음</a></li>
+								</c:if>
+							</ul>
+						</nav>
 					</div>
 
 				</div>
@@ -441,13 +449,13 @@ a {
 							</tr>
 						</thead>
 						<c:choose>
-							<c:when test="${not empty map.mlist}">
+							<c:when test="${not empty rlist}">
 								<tbody>
-									<c:forEach var="list" items="${map.mlist}" begin="0" end="5">
+									<c:forEach var="reportlist" items="${rlist}" begin="0" end="5">
 										<tr>
-											<td>${list.id}</td>
-											<td>${list.nickname}</td>
-											<td>${list.signup_date}</td>
+											<td>${reportlist.report_writer_id}</td>
+											<td>${reportlist.reported_person}</td>
+											<td>${reportlist.report_type}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -463,27 +471,27 @@ a {
 
 					<div>
 						<a
-							href="${pageContext.request.contextPath}/manager/report.do?currentPage=1">신고관리</a>
+							href="${pageContext.request.contextPath}/admin/report.do?currentPage=1">신고관리</a>
 					</div>
 
 					<!-- 게시판 페이지 네이션 -->
 					<div class="row mt-5 mb-5">
 						<nav class="col" aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
-								<c:if test="${naviMap.get('needPrev') eq true}">
+								<c:if test="${reportNaviMap.get('needPrev') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${reportNaviMap.get('startNavi')-1}&bcurrentPage=1&mcurrentPage=1">이전</a></li>
 								</c:if>
 								<!--startNavi, endNavi  -->
-								<c:forEach var="i" begin="${naviMap.get('startNavi')}"
-									end="${naviMap.get('endNavi')}">
+								<c:forEach var="i" begin="${reportNaviMap.get('startNavi')}"
+									end="${reportNaviMap.get('endNavi')}">
 									<li class="page-item"><a
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${i}"
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${i}&bcurrentPage=1&mcurrentPage=1"
 										class="page-link">${i}</a></li>
 								</c:forEach>
-								<c:if test="${naviMap.get('needNext') eq true}">
+								<c:if test="${reportNaviMap.get('needNext') eq true}">
 									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.contextPath}/manger/main.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+										href="${pageContext.request.contextPath}/admin/main.do?rcurrentPage=${reportNaviMap.get('endNavi')+1}&bcurrentPage=1&mcurrentPage=1">다음</a></li>
 								</c:if>
 							</ul>
 						</nav>

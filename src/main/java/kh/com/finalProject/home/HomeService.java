@@ -1,5 +1,6 @@
 package kh.com.finalProject.home;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +9,30 @@ import org.springframework.stereotype.Service;
 import kh.com.finalProject.publicdata.DataDTO;
 import kh.com.finalProject.publicdata.FestivalDTO;
 import kh.com.finalProject.publicdata.LeportsDTO;
+import kh.com.finalProject.publicdata.SearchDTO;
 
 @Service
 public class HomeService {
 	@Autowired
 	private HomeDAO dao;
+	
+	private int recordCntPerPage = 10;
+	private int naviCntPerPage = 10;
+	
+	// 메인페이지 검색
+	public List<SearchDTO> mainSearch(String main_search, int currentPage) throws Exception{
+		System.out.println("메인페이지 검색(서비스)");
+		System.out.println("서비스 : " + main_search);
+		int startRange = currentPage * recordCntPerPage - (recordCntPerPage - 1);
+		int endRange = currentPage * recordCntPerPage;
+		List<SearchDTO> list = dao.mainSearch(main_search, startRange, endRange);
+		return list;
+	}
+	
+	// 검색 결과 데이터 수
+	public int countAll(String main_search) throws Exception{
+		return dao.countAll(main_search);
+	}
 	
 	// Top 관광지 리스트
 	public List<DataDTO> getDataList() throws Exception{
@@ -42,5 +62,51 @@ public class HomeService {
 	// select 지역별 레포츠
 	public List<LeportsDTO> getAreaLeports(String areaType) throws Exception{
 		return dao.getAreaLeports(areaType);
+	}
+	
+	// 페이징
+	public HashMap<String, Object> getPageNavi(int currentPage, int recordTotalCnt1) throws Exception {
+		int recordTotalCnt = recordTotalCnt1;
+
+		int pageTotalCnt = 0;
+		if (recordTotalCnt % recordCntPerPage > 0) {
+			pageTotalCnt = (recordTotalCnt / recordCntPerPage) + 1;
+		} else {
+			pageTotalCnt = recordTotalCnt / recordCntPerPage;
+		}
+
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCnt) {
+			currentPage = pageTotalCnt;
+		}
+
+		int startNavi = ((currentPage - 1) / naviCntPerPage) * naviCntPerPage + 1;
+		int endNavi = startNavi + naviCntPerPage - 1;
+
+		if (endNavi > pageTotalCnt) {
+			endNavi = pageTotalCnt;
+		}
+
+		boolean needPrev = true;
+		boolean needNext = true;
+		if (startNavi == 1)
+			needPrev = false;
+		if (endNavi == pageTotalCnt)
+			needNext = false;
+
+		System.out.println("startNavi : " + startNavi);
+		System.out.println("endNavi : " + endNavi);
+		System.out.println("needPrev : " + needPrev);
+		System.out.println("needNext : " + needNext);
+
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("startNavi", startNavi);
+		map.put("endNavi", endNavi);
+		map.put("needPrev", needPrev);
+		map.put("needNext", needNext);
+		map.put("currentPage", currentPage);
+
+		return map;
 	}
 }

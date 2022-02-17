@@ -629,7 +629,7 @@ a {
 
 				<div class="row mt-3">
 					<div class="col-12 d-flex justify-content-start">
-						<button class="btn" id="btnBack">뒤로가기</button>
+						<button type="button" class="btn" id="btnBack">뒤로가기</button>
 					</div>
 				</div>
 
@@ -689,7 +689,8 @@ a {
       
       // 뒤로가기
       $("#btnBack").on("click", function(){
-    	  location.href = "${pageContext.request.contextPath}/publicdata//toDetailList.do?currentPage=1";
+    	  console.log(aaaaaaaaaaaaaaa);
+    	  location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1";
       })
       
    </script>

@@ -1066,7 +1066,7 @@ a {
          let div = $("<div class='col-12'>");
          
          let div2 = $("<div class='row margin_top_20'>");
-         div2.append("<div class='col-3 topDataImage'><img class='list_left_photo' src='"+item.firstimage2+"'></div>");
+         div2.append("<div class='col-3 topDataImage'><img class='list_left_photo' style='height:113px;width:150px;' src='"+item.firstimage2+"'></div>");
          div.append(div2);
          let div3 = $("<div class='col-8'>");
          div3.append("<div class='row topDataTitle'><div class='col-12'><h4 class='list_sub_title'><a href='${pageContext.request.contextPath}/publicdata/"+url+".do?contentid="+item.contentid+"'>"+item.title+"</a></h4></div></div>")

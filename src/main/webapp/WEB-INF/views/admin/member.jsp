@@ -90,16 +90,16 @@
 					<ul class="pagination">
 						<c:if test="${naviMap.get('needPrev') eq true}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/manager/member.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
+								href="${pageContext.request.contextPath}/admin/member.do?currentPage=${naviMap.get('startNavi')-1}">이전</a></li>
 						</c:if>
 						<c:forEach var="i" begin="${naviMap.get('startNavi')}"
 							end="${naviMap.get('endNavi')}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/manager/member.do?currentPage=${i}">${i}</a></li>
+								href="${pageContext.request.contextPath}/admin/member.do?currentPage=${i}">${i}</a></li>
 						</c:forEach>
 						<c:if test="${naviMap.get('needNext') eq true}">
 							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.contextPath}/manager/member.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
+								href="${pageContext.request.contextPath}/admin/member.do?currentPage=${naviMap.get('endNavi')+1}">다음</a></li>
 						</c:if>
 					</ul>
 				</nav>
@@ -116,7 +116,7 @@
 		function member(){
 			let currentPage = ${currentPage};
 			$.ajax({
-				url : "${pageContext.request.contextPath}/manager/toMember.do?currentPage=" + currentPage
+				url : "${pageContext.request.contextPath}/admin/toMember.do?currentPage=" + currentPage
 				,type : "get"
 			}).done(function(data){
 				console.log(data);
@@ -141,15 +141,15 @@
 			let rs = confirm("정말 삭제하시겠습니까?");
 			if(rs){
 				$.ajax({
-					url : "${pageContext.request.contextPath}/manager/memberDelete.do?id=" + id 
+					url : "${pageContext.request.contextPath}/admin/memberDelete.do?id=" + id 
 					,method : "get"
 				}).done(function(data){
 					if(data == "success"){
 						alert("삭제가 완료되었습니다.");
-						location.href="${pageContext.request.contextPath}/manager/member.do?currentPage=1";
+						location.href="${pageContext.request.contextPath}/admin/member.do?currentPage=1";
 					}else{
 						alert("삭제에 실패하였습니다.");
-						location.href="${pageContext.request.contextPath}/manager/member.do?currentPage=1";	
+						location.href="${pageContext.request.contextPath}/admin/member.do?currentPage=1";	
 					}
 				}).fail(function(e){
 					console.log(e);

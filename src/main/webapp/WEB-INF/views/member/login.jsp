@@ -174,7 +174,7 @@ a:hover {
                    if (rs == "성공") {
                       location.href = "${pageContext.request.contextPath}/";
                    } else if (rs == "admin") {
-                      location.href = "${pageContext.request.contextPath}/manager/main.do?currentPage=1";
+                      location.href = "${pageContext.request.contextPath}/admin/main.do?mcurrentPage=1&bcurrentPage=1&rcurrentPage=1";
                    } else if (rs == "실패") {
                       alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
                       document.getElementById("pw").value = "";
@@ -194,6 +194,9 @@ a:hover {
             login();
          }
       }
+		$("#btnLogin").on("click", function() {
+			login();
+		})
 
       // 아이디 기억하기
       $(document).ready(function() {

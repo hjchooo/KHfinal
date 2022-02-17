@@ -158,8 +158,14 @@ a {
 	margin-top: 20px;
 }
 
-#travelCm:hover {
+
+#searchBtn {
+	border: 0px solid white;
+	background-color: rgba(0, 0, 0, 0);
+	color: #white; ======= #
+	travelCm: hover{ 
 	cursor: pointer;
+	
 }
 </style>
 </head>
@@ -185,10 +191,14 @@ a {
 					id="main_search" placeholder="가고싶은곳을 검색하세요. GO!">
 			</div>
 			<div class="col-1">
-				<p class="p_left">
+				<!-- <p class="p_left">
 					<img class="search_icon_img"
-						src="/resources/images/search_icon.png">
-				</p>
+						src="/resources/images/search_icon.png" id="search_icon_img">
+				</p> -->
+				<button type="button" id="searchBtn">
+					<img class="search_icon_img"
+						src="/resources/images/search_icon.png" id="search_icon_img">
+				</button>
 			</div>
 			<c:choose>
 				<c:when test="${!empty loginSession && loginSession.userType eq 0}">
@@ -209,7 +219,7 @@ a {
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
-							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
+							href="${pageContext.request.contextPath}/admin/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
 								님 </span>
@@ -272,7 +282,7 @@ a {
 	<div class="margin"></div>
 
 	<script>
-		ws = new WebSocket("ws://192.168.219.104/reply");
+		ws = new WebSocket("ws://52.79.227.141:8080/reply");
 
 		ws.onopen = function() {
 			console.log("커넥션 오픈");
@@ -316,12 +326,12 @@ a {
 			alert("로그인 후에 이용 가능 합니다.");
 			return;
 		}
-		
-		
+
 	</script>
 
 	<!-- Channel Plugin Scripts -->
 	<script>
+
   (function() {
     var w = window;
     if (w.ChannelIO) {
@@ -362,6 +372,14 @@ a {
   });
 	<!-- End Channel Plugin -->
 
+	</script>
+
+	<script>
+		$("#search_icon_img").on("click", function(){
+			let main_search = $("#main_search").val()
+			console.log(main_search);
+			location.href = "${pageContext.request.contextPath}/mainSearch.do?main_search="+main_search+"&currentPage=1"
+		})
 	</script>
 </body>
 

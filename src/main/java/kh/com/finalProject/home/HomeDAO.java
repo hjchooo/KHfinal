@@ -1,5 +1,6 @@
 package kh.com.finalProject.home;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,11 +10,30 @@ import org.springframework.stereotype.Repository;
 import kh.com.finalProject.publicdata.DataDTO;
 import kh.com.finalProject.publicdata.FestivalDTO;
 import kh.com.finalProject.publicdata.LeportsDTO;
+import kh.com.finalProject.publicdata.SearchDTO;
 
 @Repository
 public class HomeDAO {
 	@Autowired
 	private SqlSession session;
+	
+	// 메인페이지 검색
+	public List<SearchDTO> mainSearch(String main_search, int startRange, int endRange) throws Exception{
+		System.out.println("메인페이지 검색(dao)");
+		System.out.println("dao : " + main_search);
+		HashMap<String, Object> map = new HashMap<>();
+		System.out.println("dao : " + startRange);
+		System.out.println("dao : " + endRange);
+		map.put("main_search", main_search);
+		map.put("startRange", startRange);
+		map.put("endRange", endRange);
+		return session.selectList("homeMapper.mainSearch", map);
+	}
+	
+	// 검색 결과 데이터 수
+	public int countAll(String main_search) throws Exception{
+		return session.selectOne("homeMapper.countAll", main_search);
+	}
 	
 	// Top 관광지 리스트
 	public List<DataDTO> getDataList() throws Exception{

@@ -65,7 +65,9 @@ public class NoteController {
 		HashMap<String, Object> naviMap = service.getNotePageNavi(currentPage, id);
 		
 		MemberDTO dto = mService.getMember(id);
-	      
+	    System.out.println("dto : " + dto);  
+		
+		
 	    model.addAttribute("dto", dto);
 		model.addAttribute("naviMap", naviMap);
 		model.addAttribute("currentPage", currentPage);
