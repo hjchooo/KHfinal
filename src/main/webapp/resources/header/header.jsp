@@ -199,8 +199,8 @@ a {
 						</a> &nbsp; &nbsp; <a
 							href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">
 							<span class="navi_text"> 마이페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text">
-							${loginSession.id} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+							님 </span>
 					</div>
 				</c:when>
 				<c:when test="${loginSession.userType eq 2}">
@@ -211,8 +211,8 @@ a {
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
 							href="${pageContext.request.contextPath}/manager/main.do?currentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
-						</a> &nbsp; &nbsp; <span class="navi_text">
-								${loginSession.id} 님 </span>
+						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
+								님 </span>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -242,16 +242,17 @@ a {
 			<div class="col-2"></div>
 			<div class="col-3">
 				<c:choose>
-				<c:when test="${!empty loginSession}">
-				<a href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
-					<h5 class="navi_category">여행 커뮤니티</h5>
-				</a>
-				</c:when>
-				<c:otherwise>
-					<a onclick="toBoard();" id="travelCm">
-					<h5 class="navi_category">여행 커뮤니티</h5>
-				</a>
-				</c:otherwise>
+					<c:when test="${!empty loginSession}">
+						<a
+							href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+							<h5 class="navi_category">여행 커뮤니티</h5>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a onclick="toBoard();" id="travelCm">
+							<h5 class="navi_category">여행 커뮤니티</h5>
+						</a>
+					</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="col-2">
@@ -309,7 +310,6 @@ a {
 			console.log("에러 : ", e);
 			console.log("커넥션 닫힘");
 		};
-<<<<<<< HEAD
 
 		// 게시판으로 이동
 		function toBoard() {
@@ -318,17 +318,10 @@ a {
 		}
 		
 		
-=======
->>>>>>> d5448356d0c97dacb0f02c762d54ce174ef1264c
 	</script>
 
 	<!-- Channel Plugin Scripts -->
 	<script>
-<<<<<<< HEAD
-	
-	
-=======
->>>>>>> d5448356d0c97dacb0f02c762d54ce174ef1264c
   (function() {
     var w = window;
     if (w.ChannelIO) {

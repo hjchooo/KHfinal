@@ -270,7 +270,7 @@ public class MemberController {
 	public String VerifyEmail(String email) throws Exception {
 		System.out.println("Email : " + email);
 
-		if (service.verifyEmail(email)) {
+		if (!service.verifyEmail(email)) {
 
 			return "Available";
 		} else {

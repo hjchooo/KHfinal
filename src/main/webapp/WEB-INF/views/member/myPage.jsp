@@ -352,13 +352,35 @@ ul {
 	transform: translateX(-50%) translateY(-50%);
 }
 
+/* 팔로우 제목 */
+#followTitle {
+	font-size: 25px;
+	margin-top: 15px;
+} 
+
+/* 팔로우 제목 이미지 */
+#followTitleImg {
+	width: 30px;
+	height: 30px;
+	margin-bottom: 10px;
+}
 .followCls {
-	margin : 1em;
+	margin: 1em;
 }
 
 .closeBtnCls {
-	margin : 10px;
+	margin: 10px;
 }
+
+#followBtn {
+	cursor: pointer;
+}
+
+/* 팔로 버튼 */
+.followBtn {
+	font-size: 13px;
+}
+
 </style>
 </head>
 
@@ -367,7 +389,7 @@ ul {
 	<!-- 헤더 -->
 	<div id="header"></div>
 
-<!-- <img alt="" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png"> -->
+	<!-- <img alt="" src="https://ssl.pstatic.net/static/pwe/address/img_profile.png"> -->
 
 
 	<!--내정보 및 수정창-->
@@ -402,7 +424,7 @@ ul {
 				<div class="row mt-5">
 					<div class="col-12" style="margin-left: 30px;">
 						<ul>
-							 <li class="ulList"><a
+							<li class="ulList"><a
 								href="${pageContext.request.contextPath}/member/toMyPage.do?id=${loginSession.id}">회원정보
 									수정</a></li>
 							<li class="ulList"><a
@@ -415,20 +437,21 @@ ul {
 								href="${pageContext.request.contextPath}/member/note.do"
 								onclick="window.open(this.href,'쪽지보내기','width=450, height=500');return false;">쪽지
 									보내기</a></li>
-							<li class="ulList"><a class="btn-open-popup">follow</a></li>
+							<li class="ulList"><a id="followBtn" class="btn-open-popup">follow</a></li>
 						</ul>
 					</div>
 
 				</div>
 			</div>
-			
+
 			<div class="modal">
 				<div class="modal_body">
 					<div>
-						<h2>팔로워</h2>
+						<img id="followTitleImg" src="/resources/images/followPlusWhite.svg">
+						<span id="followTitle">팔로워</span>
 					</div>
 					<div>
-						<table>
+						<table class="table">
 							<tbody>
 								<c:if test="${!empty fList}">
 									<c:forEach var="list" items="${fList}">
@@ -439,18 +462,24 @@ ul {
 														<c:when
 															test="${list.getFollow_id() eq list2.getFollower_id()}">
 															<tr class="followCls">
-																<td>${list.follow_id}</td>
+																<td><img class="followImg"
+																	src="/final_01-16/images/profile.svg">
+																	${list.follow_id}</td>
+																<td></td>
 																<td>
-																	<button type="button" class="btn btn-secondary followBtn"
+																	<button type="button" class="btn followBtn"
 																		value="${list.follow_id}">팔로우 취소</button>
 																</td>
 															</tr>
 														</c:when>
 														<c:otherwise>
 															<tr class="followCls">
-																<td>${list.follow_id}</td>
+																<td><img class="followImg"
+																	src="/final_01-16/images/profile.svg">
+																	${list.follow_id}</td>
+																<td></td>
 																<td>
-																	<button type="button" class="btn btn-secondary followBtn"
+																	<button type="button" class="btn followBtn"
 																		value="${list.follow_id}">팔로우</button>
 																</td>
 															</tr>
@@ -461,9 +490,12 @@ ul {
 											</c:when>
 											<c:otherwise>
 												<tr class="followCls">
-													<td>${list.follow_id}</td>
+													<td><img class="followImg"
+														src="/final_01-16/images/profile.svg">
+														${list.follow_id}</td>
+													<td></td>
 													<td>
-														<button type="button" class="btn btn-secondary followBtn"
+														<button type="button" class="btn followBtn"
 															value="${list.follow_id}">팔로우</button>
 													</td>
 												</tr>
@@ -475,7 +507,7 @@ ul {
 						</table>
 					</div>
 					<div class="closeBtnCls">
-						<button type="button" class="btn btn-secondary" id="closeBtn">닫기</button>
+						<button type="button" class="btn" id="closeBtn">닫기</button>
 					</div>
 				</div>
 			</div>
@@ -630,9 +662,9 @@ ul {
 					</div>
 				</form>
 				<div class="row mt-5">
-				<div class="col-10 d-flex justify-content-end">
-					<button class="btn" type="button" id="userDeleteBtn">회원탈퇴</button>
-				</div>
+					<div class="col-10 d-flex justify-content-end">
+						<button class="btn" type="button" id="userDeleteBtn">회원탈퇴</button>
+					</div>
 				</div>
 			</div>
 
