@@ -689,7 +689,6 @@ a {
       
       // 뒤로가기
       $("#btnBack").on("click", function(){
-    	  console.log(aaaaaaaaaaaaaaa);
     	  location.href = "${pageContext.request.contextPath}/publicdata/toDetailList.do?currentPage=1";
       })
       

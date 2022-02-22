@@ -162,7 +162,7 @@ a {
 #searchBtn {
 	border: 0px solid white;
 	background-color: rgba(0, 0, 0, 0);
-	color: #white; ======= #
+	color: #white;
 	travelCm: hover{ 
 	cursor: pointer;
 	
@@ -219,7 +219,7 @@ a {
 						<a href="${pageContext.request.contextPath}/member/toLogout.do">
 							<span class="navi_text"> 로그아웃 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> <a
-							href="${pageContext.request.contextPath}/admin/main.do?currentPage=1">
+							href="${pageContext.request.contextPath}/admin/main.do?mcurrentPage=1&bcurrentPage=1&rcurrentPage=1">
 								<span class="navi_text"> 관리자페이지 </span>
 						</a> &nbsp; &nbsp; <span class="navi_text"> ${loginSession.id}
 								님 </span>

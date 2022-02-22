@@ -451,7 +451,7 @@ public class MemberController {
 	      return "home";
 	   }
 
-	// 쪽지 보내기 팝업창 , 회원조회
+	// 마이페이지 쪽지 보내기 팝업창 , 회원조회
 	@RequestMapping(value = "/note.do")
 	public String note(Model model) throws Exception {
 		System.out.println("note 팝업 controller 도착");
@@ -459,5 +459,15 @@ public class MemberController {
 		model.addAttribute("list", list);
 		return "member/note";
 	}
+	
+	// 게시글 쪽지 보내기 팝업창 , 회원조회
+		@RequestMapping(value = "/bnote.do")
+		public String bnote(String writer_id, Model model) throws Exception {
+			System.out.println("note 팝업 controller 도착");
+			List<MemberDTO> list = service.selectAll();
+			model.addAttribute("list", list);
+			model.addAttribute("writer_id",writer_id);
+			return "member/bnote";
+		}
 
 }
