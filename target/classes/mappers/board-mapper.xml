@@ -38,7 +38,8 @@
 
 	<!-- 전체 게시판 게시글 갯수 -->
 	<select id="selectAllBoardCount" resultType="int">
-		select count(*) from board
+		select count(*) from
+		board
 	</select>
 
 	<!-- 게시판 리스트 조건별로 가져오기 -->
@@ -78,7 +79,8 @@
 			</if>
 			<if test="select == 'all'">
 				(content like'%'||#{keyword}||'%'
-				or title like'%'||#{keyword}||'%'
+				or title
+				like'%'||#{keyword}||'%'
 				or writer_id like'%'||#{keyword}||'%')
 			</if>
 		</trim>
@@ -121,58 +123,69 @@
 	<!-- 게시글 수정 -->
 	<update id="modifyBySeq" parameterType="BoardDTO">
 		update board
-		set title = #{title}, content = #{content}
+		set title =
+		#{title}, content = #{content}
 		where board_seq = #{board_seq}
 	</update>
 
 	<!-- 비밀글 비밀번호 찾기 -->
 	<select id="secretBoard" parameterType="map" resultType="int">
-		select count(*) from board where board_seq = #{board_seq} and secretPw =
+		select
+		count(*) from board where board_seq = #{board_seq} and secretPw =
 		#{secretPw}
 	</select>
 
 	<!-- content 가져오기 -->
 	<select id="selectContent" resultType="String">
-		select content from board where board_seq = #{board_seq}
+		select content from board
+		where board_seq = #{board_seq}
 	</select>
 
 	<!-- 조건으로 리스트 불러오기 -->
 	<select id="selectCondition" parameterType="map"
 		resultType="BoardDTO">
-		select * from (select row_number() over (order by board_seq desc) 순위,
-		a. * from board a where category = #{category}) where 순위 between
+		select * from (select row_number() over (order by board_seq
+		desc) 순위,
+		a. * from board a where category like '%' || #{category} || '%') where
+		순위 between
 		#{startRange}and #{endRange}
 	</select>
 
 	<!-- 조건 게시글 갯수 -->
 	<select id="countCondition" resultType="int">
-		select count(*) from board where category = #{category}
+		select count(*) from
+		board where category = #{category}
 	</select>
 
 	<!-- 회원별 게시글 조회 -->
 	<select id="myBoardList" resultType="BoardDTO"
 		parameterType="map">
-		select * from (select row_number() over (order by board_seq desc) 순위,
-		a. * from board a where writer_id = #{writer_id}) where 순위 between
+		select * from (select row_number() over (order by
+		board_seq desc) 순위,
+		a. * from board a where writer_id = #{writer_id})
+		where 순위 between
 		#{startRange}and #{endRange}
 	</select>
 
 	<!-- 마이페이지 게시글 갯수 -->
 	<select id="countMyBoardList" resultType="int">
-		select count(*) from board where writer_id = #{writer_id}
+		select count(*) from
+		board where writer_id = #{writer_id}
 	</select>
 
 	<!-- 당일 게시글 조회 -->
-	<select id="dayBoard" resultType="BoardDTO" parameterType="map">		
+	<select id="dayBoard" resultType="BoardDTO" parameterType="map">
 		select * from (select row_number() over (order by board_seq desc) 순위,
 		a. * from board a where to_char(written_date, 'yyyymmdd')=
 		to_char(sysdate,'yyyymmdd')) where 순위 between
-		#{startRange} and #{endRange}
+		#{startRange} and
+		#{endRange}
 	</select>
 
 	<!-- 당일 게시글 수 -->
 	<select id="dayBoardCount" resultType="int">
-		select count(*) from board where to_char(written_date, 'yyyymmdd')=
+		select count(*) from board
+		where to_char(written_date, 'yyyymmdd')=
 		to_char(sysdate,'yyyymmdd')
 	</select>
 

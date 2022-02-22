@@ -650,7 +650,6 @@ a {
 	<script>
 	// 뒤로가기
     $("#btnBack").on("click", function(){
-    	console.log(aaaaaaaa);
   	  location.href = "${pageContext.request.contextPath}/publicdata/toFestivalList.do?currentPage=1";
     })
 	</script>

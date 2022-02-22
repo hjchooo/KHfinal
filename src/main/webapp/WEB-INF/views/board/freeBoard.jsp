@@ -323,19 +323,19 @@ a:hover {
 				<div class="col-1 board_category"></div>
 				<div class="col-2 board_category">
 					<a
-						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">전체게시판</a>
+						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1&category=전체">전체게시판</a>
 				</div>
 				<div class="col-2 board_category">
-					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=자유게시판&currentPage=1">자유게시판</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?currentPage=1&category=자유">자유게시판</a>
 				</div>
 				<div class="col-2 board_category">
-					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=국내여행&currentPage=1">국내여행</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?currentPage=1&category=국내여행">국내여행</a>
 				</div>
 				<div class="col-2 board_category">
-					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=축제정보&currentPage=1">축제정보</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?currentPage=1&category=축제정보">축제정보</a>
 				</div>
 				<div class="col-2 board_category">
-					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?category=레포츠&currentPage=1">레포츠</a>
+					<a href = "${pageContext.request.contextPath}/board/toSelectCondition.do?currentPage=1&category=레포츠">레포츠</a>
 				</div>
 				<div class="col-1 "></div>
 			</div>
@@ -353,7 +353,7 @@ a:hover {
 					<!-- 상단 타이틀 시작-->
 					<div class="row">
 						<div class="col-10">
-							<p class="list_title"># 전체 게시판</p>
+							<p class="list_title"># ${category} 게시판</p>
 						</div>
 						<div class="col-2">
 							<a

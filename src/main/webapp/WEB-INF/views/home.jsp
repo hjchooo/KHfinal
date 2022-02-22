@@ -512,7 +512,7 @@ a {
 				<c:choose>
 					<c:when test="${!empty loginSession}">
 					<a
-						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1">
+						href="${pageContext.request.contextPath}/board/toBoard.do?currentPage=1&category=전체">
 						<p class="p_center">
 							<button type="button" class="btn com_go_comunity_box"
 								id="boardBtn">

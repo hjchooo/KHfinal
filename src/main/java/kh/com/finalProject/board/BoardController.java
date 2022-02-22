@@ -58,7 +58,7 @@ public class BoardController {
 
    // 전체 게시판 조회
    @RequestMapping("/toBoard.do")
-   public String toBoard(@RequestParam("currentPage") int current, Model model, int currentPage) throws Exception {
+   public String toBoard(@RequestParam("currentPage") int current, Model model, int currentPage, String category) throws Exception {
       // 자유게시판 게시글 총 갯수
       int recordTotalCnt = service.selectAllBoardCount();
 
@@ -70,6 +70,7 @@ public class BoardController {
       List<BoardDTO> list = service.selectAll(currentPage);
       
       String option = "all";
+      model.addAttribute("category", category);
       model.addAttribute("option", option);
       model.addAttribute("naviMap", naviMap);
       model.addAttribute("list", list);

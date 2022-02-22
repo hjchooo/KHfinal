@@ -7,12 +7,12 @@
 	<!-- 전체 신고 내용 조회 -->
 	<select id="dayReport" resultType="ReportDTO" parameterType="map">
 		select * from (select row_number() over (order by report_seq desc) 순위,
-		a. * from report a) where 순위 between
+		a. * from report_tbl a) where 순위 between
 		#{startRange} and #{endRange}
 	</select>
 	
 	<!-- 전체 신고된 건수 -->
 	<select id="countReport" resultType="int">
-		select count(*) from report
+		select count(*) from report_tbl
 	</select>
 </mapper>
